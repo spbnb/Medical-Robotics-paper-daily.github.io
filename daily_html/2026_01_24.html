@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv Robotics Papers (RL/VLM/World Models/LLMs/VLA/VLN) - January 24, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>Robotics Daily Papers</h1>
+        <p>Daily papers related to Robotics, Reinforcement Learning, Vision-Language Models, World Models, LLMs, VLA, and VLN</p>
+        <p>January 24, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Point Bridge: 3D Representations for Cross Domain Policy Learning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robot foundation models are beginning to deliver on the promise of generalist robotic agents, yet progress remains constrained by the scarcity of large-scale real-world manipulation datasets. Simulation and synthetic data generation offer a scalable alternative, but their usefulness is limited by the visual domain gap between simulation and reality. In this work, we present Point Bridge, a framework that leverages unified, domain-agnostic point-based representations to unlock synthetic datasets for zero-shot sim-to-real policy transfer, without explicit visual or object-level alignment. Point Bridge combines automated point-based representation extraction via Vision-Language Models (VLMs), transformer-based policy learning, and efficient inference-time pipelines to train capable real-world manipulation agents using only synthetic data. With additional co-training on small sets of real demonstrations, Point Bridge further improves performance, substantially outperforming prior vision-based sim-and-real co-training methods. It achieves up to 44% gains in zero-shot sim-to-real transfer and up to 66% with limited real data across both single-task and multitask settings. Videos of the robot are best viewed at: https://pointbridge3d.github.io/</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 机器人基础模型正开始实现通用机器人智能体的承诺，但进展仍然受到大规模真实世界操作数据集稀缺的限制。仿真和合成数据生成提供了一种可扩展的替代方案，但其效用受到仿真和现实之间的视觉领域差距限制。 在这项工作中，我们提出了Point Bridge，一个利用统一的、领域无关的基于点的表示框架，以解锁合成数据集，用于零样本的仿真到真实策略迁移，而无需显式的视觉或对象级别的对齐。 Point Bridge结合了通过视觉-语言模型（VLM）实现的自动基于点的表示提取、基于Transformer的策略学习以及高效的推理时管线，仅使用合成数据即可训练有能力的真实世界操作智能体。 通过在少量真实演示上进行额外的联合训练，Point Bridge进一步提升了性能，显著优于先前的基于视觉的仿真-真实联合训练方法。 它在单任务和多任务设置中，实现了高达44%的零样本仿真到真实迁移增益，以及在有限的真实数据下高达66%的增益。 机器人的视频最好在 https://pointbridge3d.github.io/ 上观看。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Point Bridge uses domain-agnostic point-based representations extracted by VLMs for zero-shot sim-to-real policy transfer in robotics, achieving significant performance improvements over prior methods, even with limited real data.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: Point Bridge利用通过VLMs提取的领域无关的基于点的表示，实现了机器人零样本模拟到真实的策略迁移，与之前的方法相比，即使在有限的真实数据下，也能显著提高性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16212v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Siddhant Haldar, Lars Johannsmeier, Lerrel Pinto, Abhishek Gupta, Dieter Fox, Yashraj Narang, Ajay Mandlekar</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">IVRA: Improving Visual-Token Relations for Robot Action Policy with Training-Free Hint-Based Guidance</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Many Vision-Language-Action (VLA) models flatten image patches into a 1D token sequence, weakening the 2D spatial cues needed for precise manipulation. We introduce IVRA, a lightweight, training-free method that improves spatial understanding by exploiting affinity hints already available in the model's built-in vision encoder, without requiring any external encoder or retraining. IVRA selectively injects these affinity signals into a language-model layer in which instance-level features reside. This inference-time intervention realigns visual-token interactions and better preserves geometric structure while keeping all model parameters fixed. We demonstrate the generality of IVRA by applying it to diverse VLA architectures (LLaRA, OpenVLA, and FLOWER) across simulated benchmarks spanning both 2D and 3D manipulation (VIMA and LIBERO) and on various real-robot tasks. On 2D VIMA, IVRA improves average success by +4.2% over the baseline LLaRA in a low-data regime. On 3D LIBERO, it yields consistent gains over the OpenVLA and FLOWER baselines, including improvements when baseline accuracy is near saturation (96.3% to 97.1%). All code and models will be released publicly. Visualizations are available at: jongwoopark7978.github.io/IVRA</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 许多视觉-语言-动作（VLA）模型将图像块展平为一维token序列，从而削弱了精确定位所需的二维空间线索。我们引入了IVRA，这是一种轻量级的、无需训练的方法，它通过利用模型内置视觉编码器中已有的亲和性提示，来改善空间理解，而无需任何外部编码器或重新训练。IVRA将这些亲和性信号选择性地注入到语言模型层中，该层包含实例级特征。这种推理时干预重新调整了视觉token的交互，并更好地保留了几何结构，同时保持所有模型参数固定。我们通过将IVRA应用于不同的VLA架构（LLaRA、OpenVLA和FLOWER），在涵盖二维和三维操作的模拟基准测试（VIMA和LIBERO）以及各种真实机器人任务中，证明了其通用性。在二维VIMA上，在低数据情况下，IVRA比基线LLaRA的平均成功率提高了+4.2%。在三维LIBERO上，它在OpenVLA和FLOWER基线上产生了持续的提升，包括在基线精度接近饱和时（96.3%到97.1%）的改进。所有代码和模型都将公开发布。可视化效果可在：jongwoopark7978.github.io/IVRA 找到。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces IVRA, a training-free method to improve spatial understanding in Vision-Language-Action models by injecting built-in affinity hints into language model layers, leading to performance gains on various robotic manipulation tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文介绍了IVRA，一种无需训练的方法，通过将内置的亲和性提示注入到语言模型层中，从而提高视觉-语言-动作模型中的空间理解能力，从而在各种机器人操作任务中获得性能提升。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16207v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jongwoo Park, Kanchana Ranasinghe, Jinhyeok Jang, Cristina Mata, Yoo Sung Jang, Michael S Ryoo</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Recent video generation models demonstrate remarkable ability to capture complex physical interactions and scene evolution over time. To leverage their spatiotemporal priors, robotics works have adapted video models for policy learning but introduce complexity by requiring multiple stages of post-training and new architectural components for action generation. In this work, we introduce Cosmos Policy, a simple approach for adapting a large pretrained video model (Cosmos-Predict2) into an effective robot policy through a single stage of post-training on the robot demonstration data collected on the target platform, with no architectural modifications. Cosmos Policy learns to directly generate robot actions encoded as latent frames within the video model's latent diffusion process, harnessing the model's pretrained priors and core learning algorithm to capture complex action distributions. Additionally, Cosmos Policy generates future state images and values (expected cumulative rewards), which are similarly encoded as latent frames, enabling test-time planning of action trajectories with higher likelihood of success. In our evaluations, Cosmos Policy achieves state-of-the-art performance on the LIBERO and RoboCasa simulation benchmarks (98.5% and 67.1% average success rates, respectively) and the highest average score in challenging real-world bimanual manipulation tasks, outperforming strong diffusion policies trained from scratch, video model-based policies, and state-of-the-art vision-language-action models fine-tuned on the same robot demonstrations. Furthermore, given policy rollout data, Cosmos Policy can learn from experience to refine its world model and value function and leverage model-based planning to achieve even higher success rates in challenging tasks. We release code, models, and training data at https://research.nvidia.com/labs/dir/cosmos-policy/</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 近年来，视频生成模型展现了捕捉复杂物理交互和场景随时间演化的卓越能力。为了利用其时空先验，机器人领域的研究已将视频模型应用于策略学习，但通过需要多阶段的后训练和用于动作生成的新架构组件引入了复杂性。本文介绍了一种名为Cosmos Policy的简单方法，通过在目标平台上收集的机器人演示数据上进行单阶段后训练，将大型预训练视频模型（Cosmos-Predict2）改编为有效的机器人策略，无需任何架构修改。Cosmos Policy学习直接生成编码为视频模型潜在扩散过程中的潜在帧的机器人动作，从而利用该模型的预训练先验和核心学习算法来捕捉复杂的动作分布。此外，Cosmos Policy还生成未来的状态图像和值（预期累积奖励），它们同样被编码为潜在帧，从而能够在测试时规划成功可能性更高的动作轨迹。在我们的评估中，Cosmos Policy在LIBERO和RoboCasa模拟基准测试中取得了最先进的性能（平均成功率分别为98.5％和67.1％），并在具有挑战性的真实世界双臂操纵任务中获得了最高的平均分数，优于从头开始训练的强大扩散策略、基于视频模型的策略以及在相同的机器人演示上微调的最先进的视觉-语言-动作模型。此外，在给定策略执行数据的情况下，Cosmos Policy可以从经验中学习，以完善其世界模型和值函数，并利用基于模型的规划在具有挑战性的任务中实现更高的成功率。我们将在https://research.nvidia.com/labs/dir/cosmos-policy/发布代码、模型和训练数据。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Cosmos Policy adapts a pretrained video model for robot policy learning through a single stage of post-training, achieving SOTA performance on various benchmarks and demonstrating strong real-world manipulation capabilities with planning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: Cosmos Policy通过单阶段后训练，将预训练的视频模型适配于机器人策略学习，在多个benchmark上实现了SOTA性能，并展示了强大的真实世界操作能力和规划能力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16163v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Moo Jin Kim, Yihuai Gao, Tsung-Yi Lin, Yen-Chen Lin, Yunhao Ge, Grace Lam, Percy Liang, Shuran Song, Ming-Yu Liu, Chelsea Finn, Jinwei Gu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">LLM-in-Sandbox Elicits General Agentic Intelligence</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We introduce LLM-in-Sandbox, enabling LLMs to explore within a code sandbox (i.e., a virtual computer), to elicit general intelligence in non-code domains. We first demonstrate that strong LLMs, without additional training, exhibit generalization capabilities to leverage the code sandbox for non-code tasks. For example, LLMs spontaneously access external resources to acquire new knowledge, leverage the file system to handle long contexts, and execute scripts to satisfy formatting requirements. We further show that these agentic capabilities can be enhanced through LLM-in-Sandbox Reinforcement Learning (LLM-in-Sandbox-RL), which uses only non-agentic data to train models for sandbox exploration. Experiments demonstrate that LLM-in-Sandbox, in both training-free and post-trained settings, achieves robust generalization spanning mathematics, physics, chemistry, biomedicine, long-context understanding, and instruction following. Finally, we analyze LLM-in-Sandbox's efficiency from computational and system perspectives, and open-source it as a Python package to facilitate real-world deployment.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们引入了 LLM-in-Sandbox，使大型语言模型（LLM）能够在代码沙盒（即虚拟计算机）中进行探索，从而激发其在非代码领域中的通用智能。我们首先证明，强大的 LLM 无需额外训练，即表现出泛化能力，能够利用代码沙盒来完成非代码任务。例如，LLM 会自发地访问外部资源来获取新知识，利用文件系统来处理长上下文，并执行脚本来满足格式化要求。我们进一步表明，这些能动性可以通过 LLM-in-Sandbox 强化学习（LLM-in-Sandbox-RL）得到增强，该方法仅使用非能动性数据来训练模型进行沙盒探索。实验表明，LLM-in-Sandbox 在无需训练和经过后训练的设置下均实现了稳健的泛化能力，涵盖数学、物理、化学、生物医学、长上下文理解和指令遵循等领域。最后，我们从计算和系统角度分析了 LLM-in-Sandbox 的效率，并将其开源为一个 Python 包，以方便实际部署。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces LLM-in-Sandbox, which allows LLMs to explore a code sandbox and exhibit general intelligence in non-code domains through zero-shot generalization and reinforcement learning, achieving strong performance across diverse tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文介绍了LLM-in-Sandbox，它使LLM能够探索代码沙箱并在非代码领域展示通用智能，通过零样本泛化和强化学习，在各种任务中取得优异表现。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16206v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Daixuan Cheng, Shaohan Huang, Yuxian Gu, Huatong Song, Guoxin Chen, Li Dong, Wayne Xin Zhao, Ji-Rong Wen, Furu Wei</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">CamPilot: Improving Camera Control in Video Diffusion Model with Efficient Camera Reward Feedback</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Recent advances in camera-controlled video diffusion models have significantly improved video-camera alignment. However, the camera controllability still remains limited. In this work, we build upon Reward Feedback Learning and aim to further improve camera controllability. However, directly borrowing existing ReFL approaches faces several challenges. First, current reward models lack the capacity to assess video-camera alignment. Second, decoding latent into RGB videos for reward computation introduces substantial computational overhead. Third, 3D geometric information is typically neglected during video decoding. To address these limitations, we introduce an efficient camera-aware 3D decoder that decodes video latent into 3D representations for reward quantization. Specifically, video latent along with the camera pose are decoded into 3D Gaussians. In this process, the camera pose not only acts as input, but also serves as a projection parameter. Misalignment between the video latent and camera pose will cause geometric distortions in the 3D structure, resulting in blurry renderings. Based on this property, we explicitly optimize pixel-level consistency between the rendered novel views and ground-truth ones as reward. To accommodate the stochastic nature, we further introduce a visibility term that selectively supervises only deterministic regions derived via geometric warping. Extensive experiments conducted on RealEstate10K and WorldScore benchmarks demonstrate the effectiveness of our proposed method. Project page: \href{https://a-bigbao.github.io/CamPilot/}{CamPilot Page}.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 基于相机控制的视频扩散模型方面的最新进展已经显著提高了视频-相机对齐的程度。然而，相机可控性仍然受限。在这项工作中，我们以奖励反馈学习为基础，旨在进一步提高相机可控性。然而，直接借鉴现有的ReFL方法面临着若干挑战。首先，当前的奖励模型缺乏评估视频-相机对齐的能力。其次，将潜在空间解码为RGB视频以进行奖励计算会引入大量的计算开销。第三，在视频解码过程中通常忽略了3D几何信息。为了解决这些局限性，我们引入了一种高效的相机感知3D解码器，该解码器将视频潜在空间解码为3D表示，以进行奖励量化。具体而言，视频潜在空间以及相机姿态被解码为3D高斯分布。在此过程中，相机姿态不仅作为输入，还作为投影参数。视频潜在空间和相机姿态之间的错位会导致3D结构中的几何畸变，从而导致模糊的渲染结果。基于此特性，我们显式地优化渲染的新视角和真实视角之间的像素级一致性作为奖励。为了适应随机性，我们进一步引入了一个可见性项，该项仅选择性地监督通过几何扭曲导出的确定性区域。在RealEstate10K和WorldScore基准上进行的大量实验证明了我们提出的方法的有效性。项目主页：\href{https://a-bigbao.github.io/CamPilot/}{CamPilot Page}。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces CamPilot, a novel method for improving camera controllability in video diffusion models by using an efficient camera-aware 3D decoder and optimizing pixel-level consistency between rendered novel views and ground truth via reward feedback learning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 这篇论文介绍了CamPilot，一种通过使用高效的相机感知3D解码器，并通过奖励反馈学习优化渲染的新视角和真实图像之间的像素级一致性，从而提高视频扩散模型中相机可控性的新方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16214v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Wenhang Ge, Guibao Shen, Jiawei Feng, Luozhou Wang, Hao Lu, Xingye Tian, Xin Tao, Ying-Cong Chen</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">A Rolling-Space Branch-and-Price Algorithm for the Multi-Compartment Vehicle Routing Problem with Multiple Time Windows</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> This paper investigates the multi-compartment vehicle routing problem with multiple time windows (MCVRPMTW), an extension of the classical vehicle routing problem with time windows that considers vehicles equipped with multiple compartments and customers requiring service across several delivery time windows. The problem incorporates three key compartment-related features: (i) compartment flexibility in the number of compartments, (ii) item-to-compartment compatibility, and (iii) item-to-item compatibility. The problem also accommodates practical operational requirements such as driver breaks. To solve the MCVRPMTW, we develop an exact branch-and-price (B&P) algorithm in which the pricing problem is solved using a labeling algorithm. Several acceleration strategies are introduced to limit symmetry during label extensions, improve the stability of dual solutions in column generation, and enhance the branching process. To handle large-scale instances, we propose a rolling-space B&P algorithm that integrates clustering techniques into the solution framework. Extensive computational experiments on instances inspired by a real-world industrial application demonstrate the effectiveness of the proposed approach and provide useful managerial insights for practical implementation.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 本文研究了具有多个时间窗的多舱室车辆路径问题（MCVRPMTW），它是经典带时间窗车辆路径问题的扩展，考虑了配备多个舱室的车辆，以及需要在多个配送时间窗内进行服务的客户。该问题结合了三个关键的舱室相关特征：(i) 舱室数量的灵活性，(ii) 物品与舱室的兼容性，和 (iii) 物品与物品的兼容性。 该问题还适应了如司机休息等实际运营要求。为了解决 MCVRPMTW，我们开发了一种精确的分支定价（B&P）算法，其中定价问题使用标签算法求解。引入了几种加速策略，以限制标签扩展期间的对称性，提高列生成中对偶解的稳定性，并增强分支过程。 为了处理大规模实例，我们提出了一种滚动空间 B&P 算法，该算法将聚类技术集成到解决方案框架中。在受真实工业应用启发而来的实例上进行的大量计算实验证明了所提出方法的有效性，并为实际应用提供了有用的管理见解。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces a rolling-space branch-and-price algorithm for solving the multi-compartment vehicle routing problem with multiple time windows, motivated by real-world industrial applications and incorporating several practical operational requirements.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种滚动空间分支定价算法，用于解决具有多个时间窗口的多舱室车辆路径问题，该问题受现实工业应用的驱动，并结合了多个实际操作要求。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2601.16194v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: El Mehdi Er Raqabi, Kevin Dalmeijer, Pascal Van Hentenryck</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-01-26 02:00:01 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
