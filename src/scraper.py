@@ -1,5 +1,6 @@
 import arxiv
 import logging
+import time
 from datetime import date, timedelta, datetime, timezone
 from typing import List, Dict, Optional, Any
 
@@ -42,7 +43,12 @@ def fetch_cv_papers(category: str = 'cs.CV', max_results: int = 2000, specified_
     query = f'cat:{category} AND submittedDate:[{start_time_str} TO {end_time_str}]'
     logging.info(f"Using arXiv query: {query}")
 
-    client = arxiv.Client()
+    # 增大 delay 和重试次数以应对 arXiv 429 限流
+    client = arxiv.Client(
+        page_size=100,
+        delay_seconds=5.0,
+        num_retries=5,
+    )
     search = arxiv.Search(
         query=query,
         max_results=max_results,
@@ -50,31 +56,40 @@ def fetch_cv_papers(category: str = 'cs.CV', max_results: int = 2000, specified_
     )
 
     papers: List[Dict[str, Any]] = []
-    try:
-        results = client.results(search)
-        # Iterate through the generator
-        count = 0
-        for result in results:
-            papers.append({
-                'title': result.title,
-                'summary': result.summary.strip(),
-                'url': result.entry_id,
-                'published_date': result.published,
-                'updated_date': result.updated,
-                'categories': result.categories,
-                'authors': [author.name for author in result.authors],
-            })
-            count += 1
-        logging.info(f"Successfully fetched {count} papers submitted on {specified_date.strftime('%Y-%m-%d')} from {category}.")
+    max_attempts = 3
+    for attempt in range(1, max_attempts + 1):
+        try:
+            results = client.results(search)
+            count = 0
+            for result in results:
+                papers.append({
+                    'title': result.title,
+                    'summary': result.summary.strip(),
+                    'url': result.entry_id,
+                    'published_date': result.published,
+                    'updated_date': result.updated,
+                    'categories': result.categories,
+                    'authors': [author.name for author in result.authors],
+                })
+                count += 1
+            logging.info(f"Successfully fetched {count} papers submitted on {specified_date.strftime('%Y-%m-%d')} from {category}.")
+            break  # 成功则跳出重试循环
 
-    except arxiv.arxiv.UnexpectedEmptyPageError as e:
-        logging.warning(f"arXiv query returned an empty page (potentially no results for the date/query): {e}")
-        # This might not be a critical error, could just mean no papers found
-    except arxiv.arxiv.HTTPError as e:
-        logging.error(f"HTTP error during arXiv search: {e}")
-    except Exception as e:
-        logging.error(f"An unexpected error occurred during arXiv search: {e}", exc_info=True)
-        # Log the full traceback for unexpected errors
+        except arxiv.UnexpectedEmptyPageError as e:
+            logging.warning(f"arXiv query returned an empty page (potentially no results for the date/query): {e}")
+            break  # 空页面不需要重试
+        except arxiv.HTTPError as e:
+            wait = 30 * attempt  # 30s, 60s, 90s 递增等待
+            logging.warning(f"HTTP error (attempt {attempt}/{max_attempts}): {e}")
+            if attempt < max_attempts:
+                logging.info(f"Waiting {wait}s before retrying...")
+                time.sleep(wait)
+                papers = []  # 清空部分结果，重新抓取
+            else:
+                logging.error(f"All {max_attempts} attempts failed for {category}. Skipping.")
+        except Exception as e:
+            logging.error(f"An unexpected error occurred during arXiv search: {e}", exc_info=True)
+            break
 
     return papers
 
