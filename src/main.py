@@ -28,6 +28,26 @@ DEFAULT_TEMPLATE_NAME = 'paper_template.html' # 确保此模板存在
 # 格式：YYYY-MM-DD，例如：date(2024, 1, 1) 表示不抓取 2024年1月1日之前的文章
 EARLIEST_DATE = date(2025, 11, 1)  # 可以根据需要修改这个日期
 
+
+def find_missing_dates(json_dir: str, earliest: date, latest: date) -> list:
+    """扫描 json_dir，返回 earliest 到 latest 之间缺失 JSON 文件的日期列表。"""
+    existing = set()
+    if os.path.isdir(json_dir):
+        for f in os.listdir(json_dir):
+            if f.endswith('.json'):
+                try:
+                    existing.add(datetime.strptime(f.replace('.json', ''), '%Y-%m-%d').date())
+                except ValueError:
+                    continue
+    missing = []
+    current = earliest
+    while current <= latest:
+        if current not in existing:
+            missing.append(current)
+        current += timedelta(days=1)
+    return missing
+
+
 def main(target_date: date):
     """主执行流程：抓取、过滤、保存、生成HTML。"""
     logging.info(f"开始处理日期: {target_date.isoformat()}")
@@ -160,8 +180,23 @@ if __name__ == '__main__':
         type=str,
         help='指定基准日期 (YYYY-MM-DD)，将抓取该日期两天前的文章。如果未指定，使用今天的日期作为基准。'
     )
+    parser.add_argument(
+        '--backfill',
+        action='store_true',
+        help='自动检测并补全缺失日期的论文数据。'
+    )
+    parser.add_argument(
+        '--backfill-limit',
+        type=int,
+        default=5,
+        help='单次 backfill 最多补全的天数（默认 5），避免运行时间过长或触发限流。'
+    )
 
     args = parser.parse_args()
+
+    # 确保模板目录和文件存在，否则 HTML 生成会失败
+    if not os.path.exists(DEFAULT_TEMPLATE_DIR) or not os.path.exists(os.path.join(DEFAULT_TEMPLATE_DIR, DEFAULT_TEMPLATE_NAME)):
+        logging.warning(f"模板目录 '{DEFAULT_TEMPLATE_DIR}' 或模板文件 '{DEFAULT_TEMPLATE_NAME}' 不存在。HTML 生成可能会失败。")
 
     # 确定基准日期
     if args.date:
@@ -172,7 +207,6 @@ if __name__ == '__main__':
             logging.error("日期格式无效，请使用 YYYY-MM-DD 格式。退出程序。")
             exit(1)
     else:
-        # 如果未指定日期，使用今天的日期作为基准
         base_date = date.today()
         logging.info(f"未指定日期，使用今天的日期作为基准: {base_date.isoformat()}")
 
@@ -184,12 +218,32 @@ if __name__ == '__main__':
     if target_date < EARLIEST_DATE:
         logging.warning(f"目标日期 {target_date.isoformat()} 早于设定的最早日期 {EARLIEST_DATE.isoformat()}，跳过抓取。")
         logging.info("如需抓取更早的日期，请修改 main.py 中的 EARLIEST_DATE 配置，或使用 --date 参数手动指定日期。")
-        exit(0)
+        if not args.backfill:
+            exit(0)
+    else:
+        # 先处理当天的目标日期
+        main(target_date=target_date)
 
-    # 确保模板目录和文件存在，否则 HTML 生成会失败
-    if not os.path.exists(DEFAULT_TEMPLATE_DIR) or not os.path.exists(os.path.join(DEFAULT_TEMPLATE_DIR, DEFAULT_TEMPLATE_NAME)):
-        logging.warning(f"模板目录 '{DEFAULT_TEMPLATE_DIR}' 或模板文件 '{DEFAULT_TEMPLATE_NAME}' 不存在。HTML 生成可能会失败。")
-        # 可以考虑在这里创建默认模板或退出
-
-    # 只处理两天前的文章
-    main(target_date=target_date)
+    # --- Backfill 模式：补全缺失日期 ---
+    if args.backfill:
+        latest_date = target_date if target_date >= EARLIEST_DATE else date.today() - timedelta(days=2)
+        missing = find_missing_dates(DEFAULT_JSON_DIR, EARLIEST_DATE, latest_date)
+        if not missing:
+            logging.info("没有缺失的日期，无需补全。")
+        else:
+            limit = args.backfill_limit
+            to_process = missing[:limit]
+            logging.info(f"发现 {len(missing)} 个缺失日期，本次将补全 {len(to_process)} 个: {[d.isoformat() for d in to_process]}")
+            for i, d in enumerate(to_process):
+                logging.info(f"--- Backfill [{i+1}/{len(to_process)}]: {d.isoformat()} ---")
+                try:
+                    main(target_date=d)
+                except Exception as e:
+                    logging.error(f"Backfill {d.isoformat()} 失败: {e}", exc_info=True)
+                # 日期之间等待，避免限流
+                if i < len(to_process) - 1:
+                    logging.info("等待 30 秒后继续下一个日期...")
+                    time.sleep(30)
+            remaining = len(missing) - limit
+            if remaining > 0:
+                logging.info(f"还有 {remaining} 个缺失日期未处理，下次运行 --backfill 将继续补全。")
