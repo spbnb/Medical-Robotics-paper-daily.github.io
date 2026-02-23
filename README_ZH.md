@@ -4,11 +4,13 @@
 
 ## 功能
 
-1.  **数据抓取**: 每日自动从 arXiv 获取机器人学相关领域（cs.RO, cs.AI, cs.CV, cs.LG）的最新论文。
+1.  **数据抓取**: 每日自动从 arXiv 获取机器人学相关领域（cs.RO, cs.AI, cs.CV, cs.LG）的最新论文，内置重试机制与指数退避策略，有效应对 arXiv API 限流（HTTP 429）。
 2.  **AI 筛选**: 利用 LLM 智能筛选与机器人学、强化学习、视觉-语言模型、世界模型、大语言模型、视觉-语言-动作、视觉-语言导航主题相关的论文，并分维度对论文价值进行打分。
 3.  **数据存储**: 将筛选后的论文信息（标题、摘要、链接等）保存为日期命名的 JSON 文件（存放于 `daily_json/` 目录）。
 4.  **网页生成**: 根据 JSON 数据，使用预设模板生成每日的 HTML 报告（存放于 `daily_html/` 目录），并更新主入口页面 `index.html`。
 5.  **自动化部署**: 通过 GitHub Actions 实现每日定时执行抓取、筛选、生成和部署到 GitHub Pages 的完整流程。
+6.  **自动补全**: 自动检测 `daily_json/` 目录中缺失的日期并进行补全，确保即使之前的工作流运行失败，论文归档也不会出现空缺。
+7.  **全文论文检索**: 提供基于 [MiniSearch](https://lucaong.github.io/minisearch/) 的客户端搜索页面（`search.html`），支持按标题、摘要或作者名称搜索所有论文，采用 AND 匹配策略确保检索结果精准。
 
 ## 技术栈
 
@@ -54,12 +56,19 @@ python src/main.py
 
 # (可选) 指定日期运行
 # python src/main.py --date YYYY-MM-DD
+
+# (可选) 启用自动补全缺失日期
+python src/main.py --backfill
+
+# (可选) 限制每次补全的日期数量（默认: 5）
+python src/main.py --backfill --backfill-limit 3
 ```
 
 运行成功后：
 *   当天的 JSON 数据会保存在 `daily_json/YYYY-MM-DD.json`。
 *   当天的 HTML 报告会保存在 `daily_html/YYYY_MM_DD.html`。
 *   主入口页面 `index.html` 会被更新以包含最新的报告链接。
+*   搜索索引 `search_index.json` 会自动生成，覆盖所有日期的论文数据。
 
 可以直接在浏览器中打开 `index.html` 查看结果。
 
@@ -91,10 +100,13 @@ python src/main.py
 ├── daily_json/              # 存放每日 JSON 结果
 ├── daily_html/              # 存放每日 HTML 结果
 ├── index.html               # GitHub Pages 入口页面
+├── list.html                # 历史报告列表页面
+├── search.html              # 全文论文检索页面（MiniSearch）
+├── search_index.json        # 预构建的搜索索引（自动生成）
 ├── requirements.txt         # Python 依赖列表
 ├── README.md                # 项目说明文件
-└── TODO.md                  # 项目待办事项
+└── README_ZH.md             # 项目说明文件（中文）
 ```
 
 ## 感谢
-- 该项目基于开源项目 [Arxiv_Daily_AIGC](https://github.com/onion-liu/arxiv_daily_aigc),感谢原作者
+- 该项目基于开源项目 [Arxiv_Daily_AIGC](https://github.com/onion-liu/arxiv_daily_aigc), 感谢原作者

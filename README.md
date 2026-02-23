@@ -4,11 +4,13 @@ This is an automated project designed to fetch the latest papers from robotics-r
 
 ## Features
 
-1.  **Data Fetching**: Automatically fetches the latest papers from robotics-related fields (cs.RO, cs.AI, cs.CV, cs.LG) on arXiv daily.
+1.  **Data Fetching**: Automatically fetches the latest papers from robotics-related fields (cs.RO, cs.AI, cs.CV, cs.LG) on arXiv daily, with built-in retry logic and exponential backoff to handle arXiv API rate limiting (HTTP 429).
 2.  **AI Filtering**: Uses LLM to intelligently filter papers related to robotics, reinforcement learning, vision-language models, world models, large language models, vision-language-action, and vision-language-navigation themes and scores the value of the papers across different dimensions.
 3.  **Data Storage**: Saves the filtered paper information (title, abstract, link, etc.) as date-named JSON files (stored in the `daily_json/` directory).
 4.  **Web Page Generation**: Generates daily HTML reports based on the JSON data using a preset template (stored in the `daily_html/` directory) and updates the main entry page `index.html`.
 5.  **Automated Deployment**: Implements the complete process of daily scheduled fetching, filtering, generation, and deployment to GitHub Pages via GitHub Actions.
+6.  **Automatic Backfill**: Detects missing dates in the `daily_json/` directory and automatically backfills them, ensuring no gaps in the paper archive even if previous workflow runs failed.
+7.  **Full-Text Paper Search**: Provides a client-side search page (`search.html`) powered by [MiniSearch](https://lucaong.github.io/minisearch/), allowing users to search across all papers by title, abstract, or author name with AND-matching for precise results.
 
 ## Tech Stack
 
@@ -54,12 +56,19 @@ python src/main.py
 
 # (Optional) Run for a specific date
 # python src/main.py --date YYYY-MM-DD
+
+# (Optional) Enable automatic backfill of missing dates
+python src/main.py --backfill
+
+# (Optional) Limit the number of dates to backfill per run (default: 5)
+python src/main.py --backfill --backfill-limit 3
 ```
 
 After successful execution:
 *   The JSON data for the day will be saved in `daily_json/YYYY-MM-DD.json`.
 *   The HTML report for the day will be saved in `daily_html/YYYY_MM_DD.html`.
 *   The main entry page `index.html` will be updated to include the link to the latest report.
+*   A search index `search_index.json` will be generated covering all papers across all dates.
 
 You can open `index.html` directly in your browser to view the results.
 
@@ -91,6 +100,9 @@ The project is configured to display results via GitHub Pages. Please visit your
 ├── daily_json/              # Stores daily JSON results
 ├── daily_html/              # Stores daily HTML results
 ├── index.html               # GitHub Pages entry page
+├── list.html                # Historical report list page
+├── search.html              # Full-text paper search page (MiniSearch)
+├── search_index.json        # Pre-built search index (auto-generated)
 ├── requirements.txt         # Python dependency list
 ├── README.md                # Project description file (This file)
 ├── README_ZH.md             # Project description file (Chinese)
