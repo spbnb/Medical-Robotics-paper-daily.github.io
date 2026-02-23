@@ -25,8 +25,7 @@ DEFAULT_TEMPLATE_DIR = os.path.join(PROJECT_ROOT, 'templates')
 DEFAULT_TEMPLATE_NAME = 'paper_template.html' # 确保此模板存在
 
 # 设定最早抓取日期（上限日期），早于此日期的文章将不会自动抓取
-# 格式：YYYY-MM-DD，例如：date(2024, 1, 1) 表示不抓取 2024年1月1日之前的文章
-EARLIEST_DATE = date(2025, 11, 1)  # 可以根据需要修改这个日期
+EARLIEST_DATE = date(2026, 1, 1)  # 可以根据需要修改这个日期
 
 
 def find_missing_dates(json_dir: str, earliest: date, latest: date) -> list:
@@ -210,8 +209,8 @@ if __name__ == '__main__':
         base_date = date.today()
         logging.info(f"未指定日期，使用今天的日期作为基准: {base_date.isoformat()}")
 
-    # 计算目标日期：基准日期的两天前
-    target_date = base_date - timedelta(days=2)
+    # 计算目标日期：基准日期的一天前
+    target_date = base_date - timedelta(days=1)
     logging.info(f"将抓取两天前的文章，目标日期: {target_date.isoformat()}")
 
     # 检查目标日期是否早于最早日期限制
