@@ -1,36 +1,48 @@
-import os
-import requests
-import time
-import json
+﻿import json
 import logging
+import os
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional
+
+import requests
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# 从环境变量中获取 OpenRouter API Key
-# 在 GitHub Actions 中，这应该设置为 Secret
+
+def _safe_int_env(name: str, default: int) -> int:
+    raw = os.getenv(name, str(default)).strip()
+    try:
+        value = int(raw)
+        return max(1, value)
+    except ValueError:
+        logging.warning("Invalid %s=%s, fallback to %s", name, raw, default)
+        return default
+
+
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-OPENROUTER_API_URL = "https://www.packyapi.com/v1/chat/completions"
+OPENROUTER_API_URL = os.getenv("OPENROUTER_API_URL")
+MODEL_NAME = os.getenv("MODEL_NAME")
 
-# 可以选择一个合适的模型，例如免费或低成本的模型进行分类任务
-# 查阅 OpenRouter 文档获取可用模型列表: https://openrouter.ai/docs#models
-# 例如使用 'mistralai/mistral-7b-instruct:free'
-MODEL_NAME = "gpt-5.4-mini"
-# MODEL_NAME = "openai/gpt-5.1"
+MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
+MAX_CONCURRENCY = _safe_int_env("OPENROUTER_MAX_CONCURRENCY", 8)
+REQUEST_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_TIMEOUT_SECONDS", 30)
 
-def call_openrouter_api(prompt: str, max_tokens: int = 5) -> Optional[str]:
-    """调用 OpenRouter API 并返回模型的响应。
 
-    Args:
-        prompt (str): 发送给模型的提示。
-        max_tokens (int): 限制模型响应的最大 token 数。
+def _strip_json_fence(text: str) -> str:
+    content = text.strip()
+    if "```json" in content:
+        content = content.split("```json", 1)[1].split("```", 1)[0]
+    elif content.startswith("```") and "```" in content[3:]:
+        content = content.split("```", 2)[1]
+    return content.strip()
 
-    Returns:
-        Optional[str]: 模型的响应文本，如果发生错误则返回 None。
-    """
+
+def call_openrouter_api(prompt: str, max_tokens: int = 5, retries: int = MAX_API_RETRIES) -> Optional[str]:
+    """Call the model API with retry support."""
     if not OPENROUTER_API_KEY:
-        logging.error("未设置 OPENROUTER_API_KEY 环境变量。无法调用 API。")
+        logging.error("OPENROUTER_API_KEY is not set. Cannot call model API.")
         return None
 
     headers = {
@@ -40,29 +52,44 @@ def call_openrouter_api(prompt: str, max_tokens: int = 5) -> Optional[str]:
 
     data = {
         "model": MODEL_NAME,
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "max_tokens": max_tokens
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": max_tokens,
     }
 
-    try:
-        response = requests.post(OPENROUTER_API_URL, headers=headers, json=data, timeout=30) # 设置超时
-        response.raise_for_status()  # 如果请求失败 (状态码 >= 400)，则抛出 HTTPError
+    for attempt in range(1, retries + 1):
+        try:
+            response = requests.post(
+                OPENROUTER_API_URL,
+                headers=headers,
+                json=data,
+                timeout=REQUEST_TIMEOUT_SECONDS,
+            )
+            response.raise_for_status()
+            result = response.json()
+            content = result["choices"][0]["message"]["content"].strip()
+            if not content:
+                raise ValueError("Empty model response")
+            return content
+        except (requests.exceptions.RequestException, KeyError, IndexError, ValueError) as e:
+            logging.warning(
+                "Model API failed (attempt %s/%s): %s",
+                attempt,
+                retries,
+                e,
+            )
+            if attempt < retries:
+                # Exponential backoff: 1s, 2s, 4s
+                time.sleep(2 ** (attempt - 1))
+            else:
+                logging.error("Model API failed after %s retries.", retries)
+                return None
+        except Exception as e:
+            logging.error("Unexpected model API error: %s", e, exc_info=True)
+            if attempt < retries:
+                time.sleep(2 ** (attempt - 1))
+            else:
+                return None
 
-        result = response.json()
-        ai_response = result['choices'][0]['message']['content'].strip()
-        return ai_response
-
-    except requests.exceptions.RequestException as e:
-        logging.error(f"调用 OpenRouter API 时出错: {e}")
-        return None
-    except (KeyError, IndexError) as e:
-        logging.error(f"解析 OpenRouter API 响应时出错: {e}")
-        return None
-    except Exception as e:
-        logging.error(f"调用 OpenRouter API 时发生意外错误: {e}", exc_info=True)
-        return None
 
 def filter_papers_by_topic(
     papers: list,
@@ -71,31 +98,22 @@ def filter_papers_by_topic(
         "surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, "
         "soft robotics, and vision-language-action methods for sensing, estimation, "
         "planning, and control in these domains"
-    )
+    ),
 ) -> list:
-    """使用 OpenRouter API 过滤论文列表，只保留与指定主题相关的论文。
-
-    Args:
-        papers (list): 包含论文信息的字典列表，每个字典应包含 'title' 和 'summary'。
-        topic (str): 需要过滤的主题，默认为 FBG/手术机器人/导航相关主题。
-
-    Returns:
-        list: 只包含与主题相关论文的字典列表。
-    """
+    """Filter papers by topic relevance using concurrent model calls."""
     if not OPENROUTER_API_KEY:
-        logging.error("未设置 OPENROUTER_API_KEY 环境变量。无法进行过滤。")
-        # 在没有 API Key 的情况下，可以选择返回原始列表或空列表
-        # 这里返回原始列表，以便流程继续，但会跳过过滤
+        logging.error("OPENROUTER_API_KEY is not set. Skip filtering and return original papers.")
         return papers
 
-    filtered_papers = []
-    logging.info(f"开始使用 OpenRouter API 过滤 {len(papers)} 篇论文，主题: '{topic}'...")
+    total = len(papers)
+    if total == 0:
+        return papers
 
-    for i, paper in enumerate(papers):
-        title = paper.get('title', 'N/A')
-        summary = paper.get('summary', 'N/A')
+    logging.info("Start filtering %s papers with concurrency=%s", total, MAX_CONCURRENCY)
 
-        # 构建 Prompt：强化 FBG/手术机器人/导航相关性判断，明确包含/排除标准
+    def _filter_one(i: int, paper: dict):
+        title = paper.get("title", "N/A")
+        summary = paper.get("summary", "N/A")
         prompt = (
             "You are selecting papers for FBG-driven surgical robotics and navigation research. "
             "Answer with ONLY 'yes' or 'no'. "
@@ -110,21 +128,29 @@ def filter_papers_by_topic(
             f"\nTitle: {title}\nAbstract: {summary}"
         )
 
-        # 调用封装好的 API 函数
-        ai_response = call_openrouter_api(prompt, max_tokens=5)
+        response = call_openrouter_api(prompt, max_tokens=5, retries=MAX_API_RETRIES)
+        keep = response is not None and "yes" in response.lower()
 
-        if ai_response is not None:
-            logging.info(f"论文 {i+1}/{len(papers)}: '{title[:50]}...' - AI 回复: {ai_response}")
-            if 'yes' in ai_response.lower():
-                filtered_papers.append(paper)
-            # OpenRouter 对免费模型的速率有限制，可以考虑在 call_openrouter_api 内部或外部添加延时
-            # time.sleep(1) # 暂停 1 秒
+        if response is None:
+            logging.warning("Paper %s/%s filter failed after retries: %s", i + 1, total, title[:60])
         else:
-            logging.warning(f"无法获取论文 '{title[:50]}...' 的 AI 回复，跳过此论文。")
-            continue # 跳过出错的论文
+            logging.info("Paper %s/%s filter response: %s", i + 1, total, response[:100])
 
-    logging.info(f"过滤完成，找到 {len(filtered_papers)} 篇与 '{topic}' 相关的论文。")
-    return filtered_papers
+        return i, paper, keep
+
+    workers = min(MAX_CONCURRENCY, max(1, total))
+    kept = []
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_filter_one, i, paper) for i, paper in enumerate(papers)]
+        for future in as_completed(futures):
+            i, paper, keep = future.result()
+            if keep:
+                kept.append((i, paper))
+
+    kept.sort(key=lambda x: x[0])
+    filtered = [paper for _, paper in kept]
+    logging.info("Filtering finished: %s/%s papers kept.", len(filtered), total)
+    return filtered
 
 
 rating_prompt_template = """
@@ -164,133 +190,118 @@ Please output the evaluation and explanations in the following JSON format:
 
 
 def rate_papers(papers: list) -> list:
-    """使用 OpenRouter API 对论文进行评分，返回一个包含评分的字典列表。
-    Args:
-        papers (list): 包含论文信息的字典列表，每个字典应包含 'title' 和'summary'。
-    Returns:
-        list: 包含论文评分的字典列表，每个字典包含 'title', 'summary', 和 'rating'。
-    """
+    """Rate papers concurrently, with up to 3 retries on failures."""
     if not OPENROUTER_API_KEY:
-        logging.error("未设置 OPENROUTER_API_KEY 环境变量。无法进行评分。")
-        # 在没有 API Key 的情况下，可以选择返回原始列表或空列表
-        # 这里返回原始列表，以便流程继续，但会跳过评分
+        logging.error("OPENROUTER_API_KEY is not set. Skip rating and return original papers.")
         return papers
 
-    logging.info(f"开始使用 OpenRouter API 对 {len(papers)} 篇论文进行评分...")
-    for i, paper in enumerate(papers):
-        title = paper.get('title', 'N/A')
-        summary = paper.get('summary', 'N/A')
-        # 构建 Prompt
+    total = len(papers)
+    if total == 0:
+        return papers
+
+    logging.info("Start rating %s papers with concurrency=%s", total, MAX_CONCURRENCY)
+
+    def _rate_one(i: int, paper: dict):
+        title = paper.get("title", "N/A")
+        summary = paper.get("summary", "N/A")
         prompt = rating_prompt_template % (title, summary)
+        out = dict(paper)
 
-        # 添加重试逻辑 (最多尝试 2 次)
-        success = False
-        for attempt in range(2):
-            # 调用封装好的 API 函数
-            ai_response = call_openrouter_api(prompt, max_tokens=1000)
+        for attempt in range(1, MAX_API_RETRIES + 1):
+            response = call_openrouter_api(prompt, max_tokens=1000, retries=MAX_API_RETRIES)
+            if not response:
+                continue
+            try:
+                rating = json.loads(_strip_json_fence(response))
+                out.update(rating)
+                logging.info("Paper %s/%s rating success (attempt %s)", i + 1, total, attempt)
+                return i, out
+            except Exception as e:
+                logging.warning(
+                    "Paper %s/%s rating parse failed (attempt %s/%s): %s",
+                    i + 1,
+                    total,
+                    attempt,
+                    MAX_API_RETRIES,
+                    e,
+                )
 
-            if ai_response is not None:
-                # 检查是否是有效的 JSON 响应
-                try:
-                    # 尝试解析 JSON 响应
-                    # 1. 去掉字符串中的非 JSON 内容 (如果存在)
-                    if '```json' in ai_response:
-                        ai_response = ai_response.split('```json')[1].split('```')[0]
-                    # 2. json加载
-                    rating_data = json.loads(ai_response)
-                    logging.info(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): '{title[:50]}...' - AI Rating: {rating_data}")
-                    papers[i].update(rating_data)
-                    success = True
-                    break # 成功获取并解析，跳出重试循环
-                except json.JSONDecodeError:
-                    logging.warning(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): '{title[:50]}...' - AI 回复不是有效的 JSON: {ai_response[:100]}...")
-                    # JSON 解析失败，继续重试 (如果还有尝试次数)
-                except Exception as e:
-                    logging.error(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): '{title[:50]}...' - 解析响应时发生意外错误: {e}", exc_info=True)
-                    # 其他解析错误，继续重试 (如果还有尝试次数)
-            else:
-                logging.warning(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): 无法获取论文 '{title[:50]}...' 的 AI Rating (API 返回 None)。")
-                # API 调用失败，继续重试 (如果还有尝试次数)
+        logging.error("Paper %s/%s rating failed after %s attempts.", i + 1, total, MAX_API_RETRIES)
+        return i, out
 
-            # 如果不是最后一次尝试，则等待后重试
-            if attempt < 1:
-                logging.info(f"论文 {i+1}/{len(papers)}: 重试...")
+    workers = min(MAX_CONCURRENCY, max(1, total))
+    results = [None] * total
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_rate_one, i, paper) for i, paper in enumerate(papers)]
+        for future in as_completed(futures):
+            i, rated_paper = future.result()
+            results[i] = rated_paper
 
-        # 如果两次尝试都失败了
-        if not success:
-            logging.error(f"论文 {i+1}/{len(papers)}: 两次尝试均未能成功获取和解析 '{title[:50]}...' 的评分，跳过此论文。")
-            continue # 跳过出错的论文
-
-    logging.info(f"评分完成。")
-    return papers
+    return [paper for paper in results if paper is not None]
 
 
 def translate_summaries(papers: list, target_language: str = "中文") -> list:
-    """使用 OpenRouter API 翻译论文摘要，返回包含翻译摘要的字典列表。
-    
-    Args:
-        papers (list): 包含论文信息的字典列表，每个字典应包含 'summary'。
-        target_language (str): 目标语言，默认为"中文"。
-    
-    Returns:
-        list: 包含翻译摘要的字典列表，每个字典包含 'summary_zh' 字段。
-    """
+    """Translate summaries concurrently, with up to 3 retries on failures."""
     if not OPENROUTER_API_KEY:
-        logging.error("未设置 OPENROUTER_API_KEY 环境变量。无法进行翻译。")
+        logging.error("OPENROUTER_API_KEY is not set. Skip translation and return original papers.")
         return papers
-    
-    logging.info(f"开始使用 OpenRouter API 翻译 {len(papers)} 篇论文的摘要为 {target_language}...")
-    
-    for i, paper in enumerate(papers):
-        summary = paper.get('summary', '')
-        if not summary or summary == 'N/A':
-            logging.warning(f"论文 {i+1}/{len(papers)}: 摘要为空，跳过翻译。")
-            continue
-        
-        # 构建翻译 Prompt
-        translate_prompt = (
+
+    total = len(papers)
+    if total == 0:
+        return papers
+
+    logging.info("Start translating %s papers with concurrency=%s", total, MAX_CONCURRENCY)
+
+    def _translate_one(i: int, paper: dict):
+        out = dict(paper)
+        summary = out.get("summary", "")
+        if not summary or summary == "N/A":
+            return i, out
+
+        prompt = (
             f"请将以下英文论文摘要翻译成{target_language}。"
-            "要求：保持专业术语的准确性，翻译流畅自然，保留原文的技术含义。"
-            "只输出翻译结果，不要添加任何解释或说明。"
+            "要求：保持专业术语准确，翻译流畅自然，保留原文技术含义。"
+            "只输出翻译结果，不要添加解释。"
             f"\n\n摘要：\n{summary}"
         )
-        
-        # 添加重试逻辑 (最多尝试 2 次)
-        success = False
-        for attempt in range(2):
-            # 调用 API，翻译摘要通常需要更多 tokens
-            translated_summary = call_openrouter_api(translate_prompt, max_tokens=2000)
-            
-            if translated_summary is not None and translated_summary.strip():
-                # 清理可能的格式标记
-                translated_summary = translated_summary.strip()
-                # 移除可能的引号或代码块标记
-                if translated_summary.startswith('```'):
-                    translated_summary = translated_summary.split('```')[1]
-                    if translated_summary.startswith('text') or translated_summary.startswith('markdown'):
-                        translated_summary = translated_summary.split('\n', 1)[1] if '\n' in translated_summary else translated_summary
-                translated_summary = translated_summary.strip('"').strip("'").strip()
-                
-                paper['summary_zh'] = translated_summary
-                logging.info(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): 摘要翻译完成")
-                success = True
-                break
-            else:
-                logging.warning(f"论文 {i+1}/{len(papers)} (尝试 {attempt+1}): 无法获取翻译结果 (API 返回 None 或空字符串)。")
-                if attempt < 1:
-                    logging.info(f"论文 {i+1}/{len(papers)}: 重试翻译...")
-        
-        if not success:
-            logging.error(f"论文 {i+1}/{len(papers)}: 两次尝试均未能成功翻译摘要，保留原文。")
-            # 如果翻译失败，不添加 summary_zh 字段，模板中会显示原文
-    
-    logging.info(f"摘要翻译完成。")
-    return papers
+
+        for attempt in range(1, MAX_API_RETRIES + 1):
+            response = call_openrouter_api(prompt, max_tokens=2000, retries=MAX_API_RETRIES)
+            if response and response.strip():
+                content = response.strip()
+                if content.startswith("```") and "```" in content[3:]:
+                    content = content.split("```", 2)[1].strip()
+                    if "\n" in content and (
+                        content.lower().startswith("text") or content.lower().startswith("markdown")
+                    ):
+                        content = content.split("\n", 1)[1]
+                out["summary_zh"] = content.strip().strip('"').strip("'").strip()
+                logging.info("Paper %s/%s translation success (attempt %s)", i + 1, total, attempt)
+                return i, out
+
+            logging.warning(
+                "Paper %s/%s translation failed (attempt %s/%s)",
+                i + 1,
+                total,
+                attempt,
+                MAX_API_RETRIES,
+            )
+
+        logging.error("Paper %s/%s translation failed after %s attempts.", i + 1, total, MAX_API_RETRIES)
+        return i, out
+
+    workers = min(MAX_CONCURRENCY, max(1, total))
+    results = [None] * total
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_translate_one, i, paper) for i, paper in enumerate(papers)]
+        for future in as_completed(futures):
+            i, translated_paper = future.result()
+            results[i] = translated_paper
+
+    return [paper for paper in results if paper is not None]
 
 
-# 可以在这里添加一些测试代码
 if __name__ == '__main__':
-    # 确保设置了 OPENROUTER_API_KEY 环境变量才能运行测试
     if OPENROUTER_API_KEY:
         test_papers = [
             {
@@ -306,9 +317,30 @@ if __name__ == '__main__':
                 'summary': 'A novel approach to learning world models that enable effective sim-to-real transfer for robotic control policies.'
             }
         ]
-        logging.info("\n--- 开始测试 filter_papers_by_topic --- ")
+        logging.info("Run local filter/rate test...")
         filtered = filter_papers_by_topic(test_papers)
         rated = rate_papers(filtered)
+        translated = translate_summaries(rated)
+        logging.info("Done. papers=%s", len(translated))
+    else:
+        logging.warning("Set OPENROUTER_API_KEY first to run local test.")
+      rated = rate_papers(filtered)
+
+        logging.info("\n--- 过滤后的论文 --- ")
+        for paper in filtered:
+            logging.info(f"- {paper['title']}\t{paper.get('overall_priority_score', None)}")
+        logging.info("--- 测试结束 ---")
+    else:
+        logging.warning("请设置 OPENROUTER_API_KEY 环境变量以运行测试。")
+      rated = rate_papers(filtered)
+
+        logging.info("\n--- 过滤后的论文 --- ")
+        for paper in filtered:
+            logging.info(f"- {paper['title']}\t{paper.get('overall_priority_score', None)}")
+        logging.info("--- 测试结束 ---")
+    else:
+        logging.warning("请设置 OPENROUTER_API_KEY 环境变量以运行测试。")
+      rated = rate_papers(filtered)
 
         logging.info("\n--- 过滤后的论文 --- ")
         for paper in filtered:

@@ -31,6 +31,16 @@ jobs:
     - name: Run script to fetch, filter, and generate report
       env:
         OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+        EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+        EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
+        EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
+        EMAIL_SENDER_PASSWORD: ${{ secrets.EMAIL_SENDER_PASSWORD }}
+        EMAIL_SENDER_NAME: ${{ vars.EMAIL_SENDER_NAME }}
+        EMAIL_SUBJECT_PREFIX: ${{ vars.EMAIL_SUBJECT_PREFIX }}
+        EMAIL_SEND_EMPTY: ${{ vars.EMAIL_SEND_EMPTY }}
+        EMAIL_MAX_ITEMS: ${{ vars.EMAIL_MAX_ITEMS }}
+        PAGES_BASE_URL: https://spbnb.github.io/Medical-Robotics-paper-daily.github.io/
       run: python src/main.py --backfill
 
     - name: Commit and push changes

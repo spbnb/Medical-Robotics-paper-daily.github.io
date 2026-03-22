@@ -11,6 +11,7 @@ from datetime import date, datetime, timedelta
 from scraper import fetch_cv_papers
 from filter import filter_papers_by_topic, rate_papers, translate_summaries
 from html_generator import generate_html_from_json
+from email_notifier import send_daily_digest_if_configured
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,7 +26,7 @@ DEFAULT_TEMPLATE_DIR = os.path.join(PROJECT_ROOT, 'templates')
 DEFAULT_TEMPLATE_NAME = 'paper_template.html' # 确保此模板存在
 
 # 设定最早抓取日期（上限日期），早于此日期的文章将不会自动抓取
-EARLIEST_DATE = date(2026, 3, 20)  # 可以根据需要修改这个日期
+EARLIEST_DATE = date(2026, 3, 9)  # 可以根据需要修改这个日期
 
 
 def find_missing_dates(json_dir: str, earliest: date, latest: date) -> list:
@@ -229,7 +230,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--date',
         type=str,
-        help='指定基准日期 (YYYY-MM-DD)，将抓取该日期两天前的文章。如果未指定，使用今天的日期作为基准。'
+        help='指定基准日期 (YYYY-MM-DD)，将抓取该日期一天前的文章。如果未指定，使用今天的日期作为基准。'
     )
     parser.add_argument(
         '--backfill',
@@ -263,7 +264,7 @@ if __name__ == '__main__':
 
     # 计算目标日期：基准日期的一天前
     target_date = base_date - timedelta(days=1)
-    logging.info(f"将抓取两天前的文章，目标日期: {target_date.isoformat()}")
+    logging.info(f"将抓取一天前的文章，目标日期: {target_date.isoformat()}")
 
     # 检查目标日期是否早于最早日期限制
     if target_date < EARLIEST_DATE:
@@ -302,4 +303,9 @@ if __name__ == '__main__':
     # --- 生成搜索索引 ---
     logging.info("生成搜索索引 search_index.json ...")
     generate_search_index(DEFAULT_JSON_DIR, os.path.join(PROJECT_ROOT, 'search_index.json'))
+
+    # --- 可选邮件通知 ---
+    logging.info("尝试发送邮件通知（若已配置邮箱环境变量）...")
+    daily_json_path = os.path.join(DEFAULT_JSON_DIR, f"{target_date.isoformat()}.json")
+    send_daily_digest_if_configured(target_date=target_date, json_file_path=daily_json_path)
 

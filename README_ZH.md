@@ -41,6 +41,18 @@
 
 4.  **配置 API Key**: 此项目需要 OpenRouter API Key 来进行 AI 筛选，当然你也可以通过修改 `src/filter.py` 调用其他LLM API。为了安全起见，请勿将 Key 硬编码在代码中。在本地运行时，可以通过环境变量设置；在 GitHub Actions 中，请将其设置为名为 `OPENROUTER_API_KEY` 的 Secret。
 
+5.  **（可选）配置邮件通知**: 如果配置了 SMTP 相关环境变量，脚本会在提取完成后自动发送摘要邮件。必填变量：
+    - `EMAIL_SENDER`
+    - `EMAIL_RECEIVER`
+    - `EMAIL_SMTP_SERVER`
+    - `EMAIL_SENDER_PASSWORD`
+    - `EMAIL_SMTP_PORT`（可选，默认 `465`）
+    - `EMAIL_SENDER_NAME`（可选，默认 `GitHub Action`）
+    - `EMAIL_SUBJECT_PREFIX`（可选，默认 `ArXiv Daily`）
+    - `EMAIL_SEND_EMPTY`（可选，默认 `false`）
+    - `EMAIL_MAX_ITEMS`（可选，默认 `20`）
+    - `PAGES_BASE_URL`（可选，用于在邮件中附上网页报告链接）
+
 ## 使用
 
 ### 本地运行
@@ -50,6 +62,14 @@
 ```bash
 # 确保设置了 OPENROUTER_API_KEY 环境变量
 export OPENROUTER_API_KEY='your_openrouter_api_key'
+
+# （可选）配置 SMTP 邮件通知
+export EMAIL_SENDER='sender@example.com'
+export EMAIL_RECEIVER='receiver@example.com'
+export EMAIL_SMTP_SERVER='smtp.example.com'
+export EMAIL_SMTP_PORT='465'
+export EMAIL_SENDER_PASSWORD='smtp_auth_code'
+export PAGES_BASE_URL='https://<your-username>.github.io/<repository-name>'
 
 # 运行主脚本 (默认处理当天的论文)
 python src/main.py
@@ -69,6 +89,7 @@ python src/main.py --backfill --backfill-limit 3
 *   当天的 HTML 报告会保存在 `daily_html/YYYY_MM_DD.html`。
 *   主入口页面 `index.html` 会被更新以包含最新的报告链接。
 *   搜索索引 `search_index.json` 会自动生成，覆盖所有日期的论文数据。
+*   若已配置 SMTP 变量，将自动发送摘要邮件。
 
 可以直接在浏览器中打开 `index.html` 查看结果。
 

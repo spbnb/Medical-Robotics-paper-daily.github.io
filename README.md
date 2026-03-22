@@ -4,7 +4,7 @@ This is an automated project designed to fetch the latest papers from arXiv dail
 
 ## Features
 
-1.  **Data Fetching**: Automatically fetches candidate papers from configured arXiv categories daily (default currently: cs.RO, cs.AI, cs.CV, cs.LG), with built-in retry logic and exponential backoff to handle arXiv API rate limiting (HTTP 429).
+1.  **Data Fetching**: Automatically fetches candidate papers from configured arXiv categories daily (current defaults: `cs.RO`, `cs.AI`, `cs.LG`, `cs.CV`, `cs.CL`, `eess.SP`, `eess.IV`, `eess.SY`, `physics.optics`, `physics.med-ph`, `physics.ins-det`, `cond-mat.soft`, `q-bio.QM`), with built-in retry logic and exponential backoff to handle arXiv API rate limiting (HTTP 429).
 2.  **AI Filtering**: Uses LLM to intelligently filter papers related to FBG sensing, FBG force/shape sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based algorithmic methods, then scores paper value across different dimensions.
 3.  **Data Storage**: Saves the filtered paper information (title, abstract, link, etc.) as date-named JSON files (stored in the `daily_json/` directory).
 4.  **Web Page Generation**: Generates daily HTML reports based on the JSON data using a preset template (stored in the `daily_html/` directory) and updates the main entry page `index.html`.
@@ -41,6 +41,18 @@ This is an automated project designed to fetch the latest papers from arXiv dail
 
 4.  **Configure API Key**: This project requires an OpenRouter API Key for AI filtering. Of course, you can also modify `src/filter.py` to call other LLM APIs. For security, do not hardcode the key in the code. Set it as an environment variable when running locally. In GitHub Actions, set it as a Secret named `OPENROUTER_API_KEY`.
 
+5.  **(Optional) Configure Email Notification**: If SMTP-related environment variables are configured, the script will send a digest email after extraction. Required variables:
+    - `EMAIL_SENDER`
+    - `EMAIL_RECEIVER`
+    - `EMAIL_SMTP_SERVER`
+    - `EMAIL_SENDER_PASSWORD`
+    - `EMAIL_SMTP_PORT` (optional, default: `465`)
+    - `EMAIL_SENDER_NAME` (optional, default: `GitHub Action`)
+    - `EMAIL_SUBJECT_PREFIX` (optional, default: `ArXiv Daily`)
+    - `EMAIL_SEND_EMPTY` (optional, default: `false`)
+    - `EMAIL_MAX_ITEMS` (optional, default: `20`)
+    - `PAGES_BASE_URL` (optional, used to include the report URL in email)
+
 ## Usage
 
 ### Local Run
@@ -50,6 +62,14 @@ You can directly run the main script `main.py` to manually trigger a complete pr
 ```bash
 # Ensure the OPENROUTER_API_KEY environment variable is set
 export OPENROUTER_API_KEY='your_openrouter_api_key'
+
+# (Optional) Configure SMTP email notification
+export EMAIL_SENDER='sender@example.com'
+export EMAIL_RECEIVER='receiver@example.com'
+export EMAIL_SMTP_SERVER='smtp.example.com'
+export EMAIL_SMTP_PORT='465'
+export EMAIL_SENDER_PASSWORD='smtp_auth_code'
+export PAGES_BASE_URL='https://<your-username>.github.io/<repository-name>'
 
 # Run the main script (processes today's papers by default)
 python src/main.py
@@ -69,6 +89,7 @@ After successful execution:
 *   The HTML report for the day will be saved in `daily_html/YYYY_MM_DD.html`.
 *   The main entry page `index.html` will be updated to include the link to the latest report.
 *   A search index `search_index.json` will be generated covering all papers across all dates.
+*   If SMTP vars are configured, a digest email will be sent automatically.
 
 You can open `index.html` directly in your browser to view the results.
 
