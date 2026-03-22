@@ -1,11 +1,11 @@
-# Robotics Arxiv Daily
+# FBG Surgical Robotics Arxiv Daily
 
-This is an automated project designed to fetch the latest papers from robotics-related fields on arXiv daily, use AI (currently via OpenRouter API) to filter papers related to robotics, reinforcement learning, vision-language models, world models, large language models, vision-language-action, and vision-language-navigation, generate structured JSON data and aesthetically pleasing HTML pages, and finally automatically deploy the results to GitHub Pages via GitHub Actions.
+This is an automated project designed to fetch the latest papers from arXiv daily, use AI (currently via OpenRouter API) to filter papers related to FBG sensing, FBG force/shape sensing algorithms, surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, soft robotics, and VLA methods for these domains, generate structured JSON data and aesthetically pleasing HTML pages, and finally automatically deploy the results to GitHub Pages via GitHub Actions.
 
 ## Features
 
-1.  **Data Fetching**: Automatically fetches the latest papers from robotics-related fields (cs.RO, cs.AI, cs.CV, cs.LG) on arXiv daily, with built-in retry logic and exponential backoff to handle arXiv API rate limiting (HTTP 429).
-2.  **AI Filtering**: Uses LLM to intelligently filter papers related to robotics, reinforcement learning, vision-language models, world models, large language models, vision-language-action, and vision-language-navigation themes and scores the value of the papers across different dimensions.
+1.  **Data Fetching**: Automatically fetches candidate papers from configured arXiv categories daily (default currently: cs.RO, cs.AI, cs.CV, cs.LG), with built-in retry logic and exponential backoff to handle arXiv API rate limiting (HTTP 429).
+2.  **AI Filtering**: Uses LLM to intelligently filter papers related to FBG sensing, FBG force/shape sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based algorithmic methods, then scores paper value across different dimensions.
 3.  **Data Storage**: Saves the filtered paper information (title, abstract, link, etc.) as date-named JSON files (stored in the `daily_json/` directory).
 4.  **Web Page Generation**: Generates daily HTML reports based on the JSON data using a preset template (stored in the `daily_html/` directory) and updates the main entry page `index.html`.
 5.  **Automated Deployment**: Implements the complete process of daily scheduled fetching, filtering, generation, and deployment to GitHub Pages via GitHub Actions.
@@ -93,7 +93,7 @@ The project is configured to display results via GitHub Pages. Please visit your
 ├── src/                     # Python script directory
 │   ├── main.py              # Main execution script
 │   ├── scraper.py           # ArXiv scraper module
-│   ├── filter.py            # OpenRouter filter module (robotics topics)
+│   ├── filter.py            # OpenRouter filter module (FBG/surgical-robotics/navigation topics)
 │   └── html_generator.py    # HTML generator module
 ├── templates/               # HTML template directory
 │   └── paper_template.html

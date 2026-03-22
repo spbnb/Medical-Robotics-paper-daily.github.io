@@ -64,12 +64,20 @@ def call_openrouter_api(prompt: str, max_tokens: int = 5) -> Optional[str]:
         logging.error(f"调用 OpenRouter API 时发生意外错误: {e}", exc_info=True)
         return None
 
-def filter_papers_by_topic(papers: list, topic: str = "robotics, reinforcement learning, vision-language models, world models, large language models, vision-language-action, or vision-language-navigation") -> list:
+def filter_papers_by_topic(
+    papers: list,
+    topic: str = (
+        "FBG sensing, FBG force sensing algorithms, FBG shape sensing algorithms, "
+        "surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, "
+        "soft robotics, and vision-language-action methods for sensing, estimation, "
+        "planning, and control in these domains"
+    )
+) -> list:
     """使用 OpenRouter API 过滤论文列表，只保留与指定主题相关的论文。
 
     Args:
         papers (list): 包含论文信息的字典列表，每个字典应包含 'title' 和 'summary'。
-        topic (str): 需要过滤的主题，默认为机器人学相关主题。
+        topic (str): 需要过滤的主题，默认为 FBG/手术机器人/导航相关主题。
 
     Returns:
         list: 只包含与主题相关论文的字典列表。
@@ -87,14 +95,18 @@ def filter_papers_by_topic(papers: list, topic: str = "robotics, reinforcement l
         title = paper.get('title', 'N/A')
         summary = paper.get('summary', 'N/A')
 
-        # 构建 Prompt：强化机器人学相关性判断，明确包含/排除标准
+        # 构建 Prompt：强化 FBG/手术机器人/导航相关性判断，明确包含/排除标准
         prompt = (
-            "You are selecting robotics-related papers. "
+            "You are selecting papers for FBG-driven surgical robotics and navigation research. "
             "Answer with ONLY 'yes' or 'no'. "
-            "Say 'yes' if the main contribution is about robotics, embodied AI, reinforcement learning for control, "
-            "vision-language(-action/-navigation) for robots/embodied agents, world models for control or sim-to-real, "
-            "robot planning, manipulation, navigation, locomotion, or safety in robotics. "
-            "Say 'no' if it is purely perception/vision without a robot/control angle, purely NLP, or unrelated theory. "
+            "Say 'yes' if the main contribution is an algorithm/model for at least one of: "
+            "FBG sensing, FBG force sensing, FBG shape sensing, surgical robotics, surgical robot navigation, "
+            "bronchoscopy navigation, or soft robotics; include VLA/VLM/LLM methods only when they are clearly "
+            "applied to sensing, estimation, planning, control, localization, registration, SLAM, tracking, or guidance "
+            "in these domains. "
+            "Say 'no' for purely hardware/material/fabrication papers without algorithmic contribution, "
+            "pure optics/physics theory without sensing or robotics/medical algorithm use, "
+            "general NLP/CV/LLM papers without clear domain linkage, or purely clinical workflow reports without methods. "
             f"\nTitle: {title}\nAbstract: {summary}"
         )
 
@@ -127,7 +139,7 @@ Paper Title: %s
 Paper Abstract: %s
 
 # My Research Interests
-Reinforcement Learning, Robotics, Vision-Language Models, World Models, Large Language Models, Vision-Language-Action, Vision-Language-Navigation
+FBG Sensing + FBG Force/Shape Sensing Algorithms + Surgical Robotics + Surgical Robot Navigation + Bronchoscopy Navigation Algorithms + Soft Robotics + Vision-Language-Action (VLA) for Sensing, Estimation, Planning, and Control
 
 # Output Requirements
 Output should always be in JSON format, strictly compliant with RFC8259.

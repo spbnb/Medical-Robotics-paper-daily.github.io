@@ -1,11 +1,11 @@
-# Robotics Arxiv Daily
+# FBG Surgical Robotics Arxiv Daily
 
-这是一个自动化项目，旨在每日从 arXiv 获取机器人学相关领域的最新论文，使用 AI (目前通过 OpenRouter API) 筛选出与机器人学、强化学习、视觉-语言模型、世界模型、大语言模型、视觉-语言-动作、视觉-语言导航相关的论文，并将结果生成为结构化的 JSON 数据和美观的 HTML 页面，最终通过 GitHub Actions 自动部署到 GitHub Pages。
+这是一个自动化项目，旨在每日从 arXiv 获取最新论文，使用 AI (目前通过 OpenRouter API) 筛选出与 FBG 传感、FBG 力/形状传感算法、手术机器人、手术机器人导航、支气管镜导航算法、软体机器人，以及面向这些方向的 VLA 算法应用相关的论文，并将结果生成为结构化的 JSON 数据和美观的 HTML 页面，最终通过 GitHub Actions 自动部署到 GitHub Pages。
 
 ## 功能
 
-1.  **数据抓取**: 每日自动从 arXiv 获取机器人学相关领域（cs.RO, cs.AI, cs.CV, cs.LG）的最新论文，内置重试机制与指数退避策略，有效应对 arXiv API 限流（HTTP 429）。
-2.  **AI 筛选**: 利用 LLM 智能筛选与机器人学、强化学习、视觉-语言模型、世界模型、大语言模型、视觉-语言-动作、视觉-语言导航主题相关的论文，并分维度对论文价值进行打分。
+1.  **数据抓取**: 每日自动从配置的 arXiv 分类抓取候选论文（当前默认：`cs.RO`, `cs.AI`, `cs.LG`, `cs.CV`, `cs.CL`, `eess.SP`, `eess.IV`, `eess.SY`, `physics.optics`, `physics.med-ph`, `physics.ins-det`, `cond-mat.soft`, `q-bio.QM`），内置重试机制与指数退避策略，有效应对 arXiv API 限流（HTTP 429）。
+2.  **AI 筛选**: 利用 LLM 智能筛选与 FBG 传感、FBG 力/形状传感算法、手术机器人/导航、支气管镜导航、软体机器人及其 VLA 算法应用相关的论文，并分维度对论文价值进行打分。
 3.  **数据存储**: 将筛选后的论文信息（标题、摘要、链接等）保存为日期命名的 JSON 文件（存放于 `daily_json/` 目录）。
 4.  **网页生成**: 根据 JSON 数据，使用预设模板生成每日的 HTML 报告（存放于 `daily_html/` 目录），并更新主入口页面 `index.html`。
 5.  **自动化部署**: 通过 GitHub Actions 实现每日定时执行抓取、筛选、生成和部署到 GitHub Pages 的完整流程。
@@ -93,7 +93,7 @@ python src/main.py --backfill --backfill-limit 3
 ├── src/                     # Python 脚本目录
 │   ├── main.py              # 主执行脚本
 │   ├── scraper.py           # ArXiv 爬虫模块
-│   ├── filter.py            # OpenRouter 过滤模块（机器人学主题）
+│   ├── filter.py            # OpenRouter 过滤模块（FBG/手术机器人/导航主题）
 │   └── html_generator.py    # HTML 生成模块
 ├── templates/               # HTML 模板目录
 │   └── paper_template.html

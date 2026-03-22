@@ -1,4 +1,4 @@
-import os
+﻿import os
 import json
 import time
 import logging
@@ -102,10 +102,15 @@ def main(target_date: date):
     else:
         logging.info(f"未找到 JSON 文件: {json_filepath}。执行抓取和过滤。")
         # --- 1. 抓取论文 --- #
-        logging.info("步骤 1: 抓取 ArXiv 机器人学相关论文 (cs.RO, cs.AI, cs.CV, cs.LG)...")
+        logging.info("步骤 1: 抓取 ArXiv FBG/手术机器人/导航相关多类别论文...")
         # 注意：fetch_cv_papers 内部默认使用 UTC 日期
-        # 机器人学相关论文可能分布在多个类别，我们从多个类别抓取并合并结果
-        categories = ['cs.RO', 'cs.AI', 'cs.CV', 'cs.LG']  # Robotics, AI, Computer Vision, Machine Learning
+        # 目标方向论文可能分布在多个类别，我们从多个类别抓取并合并结果
+        categories = [
+            'cs.RO', 'cs.AI', 'cs.LG', 'cs.CV', 'cs.CL',
+            'eess.SP', 'eess.IV', 'eess.SY',
+            'physics.optics', 'physics.med-ph', 'physics.ins-det',
+            'cond-mat.soft', 'q-bio.QM'
+        ]
         raw_papers = []
         seen_urls = set()  # 用于去重，避免同一篇论文被多次添加
         
@@ -128,9 +133,17 @@ def main(target_date: date):
         logging.info(f"总共抓取到 {len(raw_papers)} 篇原始论文（已去重）。")
 
         # --- 2. 过滤论文、论文打分、翻译摘要 --- #
-        logging.info("步骤 2: 使用 AI 过滤论文并打分 (主题: Robotics, RL, Vision-Language Models, World Models, LLMs, VLA, VLN)...")
+        logging.info("步骤 2: 使用 AI 过滤论文并打分 (主题: FBG + Surgical Robotics Navigation + Bronchoscopy + Soft Robotics + VLA Algorithms)...")
         # 注意：filter_papers_by_topic 依赖 OPENROUTER_API_KEY 环境变量
-        filtered_papers = filter_papers_by_topic(raw_papers, topic="robotics, reinforcement learning, vision-language models, world models, large language models, vision-language-action, or vision-language-navigation")
+        filtered_papers = filter_papers_by_topic(
+            raw_papers,
+            topic=(
+                "FBG sensing, FBG force sensing algorithms, FBG shape sensing algorithms, "
+                "surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, "
+                "soft robotics, and vision-language-action methods for sensing, estimation, "
+                "planning, and control in these domains"
+            )
+        )
         filtered_papers = rate_papers(filtered_papers)
         # 翻译摘要
         logging.info("步骤 2.1: 翻译论文摘要为中文...")
@@ -212,7 +225,7 @@ def main(target_date: date):
     logging.info(f"日期 {target_date.isoformat()} 的处理流程完成。")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='抓取、过滤并生成 arXiv 机器人学相关论文的每日报告。')
+    parser = argparse.ArgumentParser(description='抓取、过滤并生成 arXiv FBG/手术机器人/导航方向论文的每日报告。')
     parser.add_argument(
         '--date',
         type=str,
@@ -289,3 +302,4 @@ if __name__ == '__main__':
     # --- 生成搜索索引 ---
     logging.info("生成搜索索引 search_index.json ...")
     generate_search_index(DEFAULT_JSON_DIR, os.path.join(PROJECT_ROOT, 'search_index.json'))
+
