@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - March 17, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>March 17, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ForceVLA2: Unleashing Hybrid Force-Position Control with Force Awareness for Contact-Rich Manipulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Embodied intelligence for contact-rich manipulation has predominantly relied on position control, while explicit awareness and regulation of interaction forces remain under-explored, limiting stability, precision, and robustness in real-world tasks. We propose ForceVLA2, an end-to-end vision-language-action framework that equips robots with hybrid force-position control and explicit force awareness. ForceVLA2 introduces force-based prompts into the VLM expert to construct force-aware task concepts across stages, and employs a Cross-Scale Mixture-of-Experts (MoE) in the action expert to adaptively fuse these concepts with real-time interaction forces for closed-loop hybrid force-position regulation. To support learning and evaluation, we construct ForceVLA2-Dataset, containing 1,000 trajectories over 5 contact-rich tasks, including wiping, pressing, and assembling, with multi-view images, task prompts, proprioceptive state, and force signals. Extensive experiments show that ForceVLA2 substantially improves success rates and reliability in contact-rich manipulation, outperforming pi0 and pi0.5 by 48.0% and 35.0%, respectively, across the 5 tasks, and mitigating common failure modes such as arm overload and unstable contact, thereby actively advancing force-aware interactive physical intelligence in VLAs. The project page is available at https://sites.google.com/view/force-vla2/home.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 接触式操作中的具身智能主要依赖于位置控制，而对交互力的显式感知与调节机制研究不足，这限制了实际任务中的稳定性、精确性和鲁棒性。我们提出ForceVLA2——一个端到端的视觉-语言-动作框架，通过混合力位控制与显式力感知赋能机器人。该框架在视觉语言模型专家中引入基于力的提示词，构建跨阶段的力感知任务概念；在动作专家中采用跨尺度混合专家系统（MoE），自适应地将这些概念与实时交互力融合，实现闭环混合力位调节。为支持学习与评估，我们构建了ForceVLA2数据集，涵盖擦拭、按压、装配等5类接触式任务的1000条轨迹数据，包含多视角图像、任务指令、本体感知状态及力信号。大量实验表明，ForceVLA2显著提升了接触式操作的成功率与可靠性：在5项任务中分别以48.0%和35.0%的优势超越pi0与pi0.5基准，有效缓解机械臂过载、接触失稳等常见故障模式，实质性推进了VLA框架中力感知交互式物理智能的发展。项目主页详见https://sites.google.com/view/force-vla2/home。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ForceVLA2 introduces a vision-language-action framework with hybrid force-position control and explicit force awareness, significantly improving performance in contact-rich manipulation tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ForceVLA2提出了一种结合视觉-语言-动作的框架，具有混合力-位置控制和显式力感知，显著提升了接触丰富操作任务的性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.15169v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yang Li, Zhaxizhuoma, Hongru Jiang, Junjie Xia, Hongquan Zhang, Jinda Du, Yunsong Zhou, Jia Zeng, Ce Hao, Jieji Ren, Qiaojun Yu, Cewu Lu, Yu Qiao, Jiangmiao Pang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Tactile Modality Fusion for Vision-Language-Action Models</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We propose TacFiLM, a lightweight modality-fusion approach that integrates visual-tactile signals into vision-language-action (VLA) models. While recent advances in VLA models have introduced robot policies that are both generalizable and semantically grounded, these models mainly rely on vision-based perception. Vision alone, however, cannot capture the complex interaction dynamics that occur during contact-rich manipulation, including contact forces, surface friction, compliance, and shear. While recent attempts to integrate tactile signals into VLA models often increase complexity through token concatenation or large-scale pretraining, the heavy computational demands of behavioural models necessitate more lightweight fusion strategies. To address these challenges, TacFiLM outlines a post-training finetuning approach that conditions intermediate visual features on pretrained tactile representations using feature-wise linear modulation (FiLM). Experimental results on insertion tasks demonstrate consistent improvements in success rate, direct insertion performance, completion time, and force stability across both in-distribution and out-of-distribution tasks. Together, these results support our method as an effective approach to integrating tactile signals into VLA models, improving contact-rich manipulation behaviours.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出TacFiLM——一种轻量级多模态融合方法，可将视觉-触觉信号整合到视觉-语言-动作（VLA）模型中。尽管VLA模型的最新进展已开发出兼具泛化能力与语义基础的机器人策略，但这些模型主要依赖基于视觉的感知。然而仅凭视觉无法捕捉接触密集型操作中复杂的交互动态，包括接触力、表面摩擦、柔顺性和剪切力等。虽然近期尝试通过标记拼接或大规模预训练将触觉信号整合到VLA模型中，但行为模型的高计算需求亟需更轻量的融合策略。针对这些挑战，TacFiLM提出一种训练后微调方法，利用特征线性调制（FiLM）技术将预训练的触觉表征作为中间视觉特征的调节条件。在插入任务中的实验结果表明，无论是分布内还是分布外任务，该方法在成功率、直接插入性能、完成时间和力稳定性方面均取得持续提升。这些结果共同证明，我们的方法能有效将触觉信号整合到VLA模型中，从而改善接触密集型操作行为。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces TacFiLM, a lightweight method for integrating tactile signals into vision-language-action (VLA) models using feature-wise linear modulation (FiLM), improving performance in contact-rich manipulation tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了TacFiLM，一种轻量级方法，通过特征线性调制（FiLM）将触觉信号整合到视觉-语言-动作（VLA）模型中，提高了接触丰富操作任务的性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.14604v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Charlotte Morissette, Amin Abyaneh, Wei-Di Chang, Anas Houssaini, David Meger, Hsiu-Chin Lin, Jonathan Tremblay, Gregory Dudek</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Master Micro Residual Correction with Adaptive Tactile Fusion and Force-Mixed Control for Contact-Rich Manipulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robotic contact-rich and fine-grained manipulation remains a significant challenge due to complex interaction dynamics and the competing requirements of multi-timescale control. While current visual imitation learning methods excel at long-horizon planning, they often fail to perceive critical interaction cues like friction variations or incipient slip, and struggle to balance global task coherence with local reactive feedback. To address these challenges, we propose M2-ResiPolicy, a novel Master-Micro residual control architecture that synergizes high-level action guidance with low-level correction. The framework consists of a Master-Guidance Policy (MGP) operating at 10 Hz, which generates temporally consistent action chunks via a diffusion-based backbone and employs a tactile-intensity-driven adaptive fusion mechanism to dynamically modulate perceptual weights between vision and touch. Simultaneously, a high-frequency (60 Hz) Micro-Residual Corrector (MRC) utilizes a lightweight GRU to provide real-time action compensation based on TCP wrench feedback. This policy is further integrated with a force-mixed PBIC execution layer, effectively regulating contact forces to ensure interaction safety. Experiments across several demanding tasks including fragile object grasping and precision insertion, demonstrate that M2-ResiPolicy significantly outperforms standard Diffusion Policy (DP) and state-of-the-art Reactive Diffusion Policy (RDP), achieving a 93\% damage-free success rate in chip grasping and superior force regulation stability.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 由于复杂的交互动力学和多时间尺度控制的竞争性需求，机器人接触密集型精细操作仍面临重大挑战。当前视觉模仿学习方法虽擅长长时程规划，却常难以感知摩擦变化或初始滑动等关键交互信号，且在全局任务连贯性与局部反应反馈间难以平衡。为此，我们提出M2-ResiPolicy——一种融合高层动作引导与底层修正的主-微残差控制架构。该框架包含10Hz运行的宏观引导策略（MGP），其通过扩散模型主干生成时序一致的动作块，并采用触觉强度驱动的自适应融合机制动态调节视觉与触觉的感知权重；同时配备60Hz高频微观残差校正器（MRC），利用轻量级GRU网络基于TCP力矩反馈实现实时动作补偿。该策略进一步与力混合PBIC执行层集成，有效调控接触力以确保交互安全。在易碎物体抓取、精密插入等多项高要求任务中的实验表明，M2-ResiPolicy显著优于标准扩散策略（DP）和最先进的反应式扩散策略（RDP），芯片抓取任务中实现93%的无损成功率，并展现出更优的力调控稳定性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces M2-ResiPolicy, a Master-Micro residual control architecture combining high-level action guidance with low-level correction for contact-rich robotic manipulation, outperforming existing methods in tasks like fragile object grasping and precision insertion.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了M2-ResiPolicy，一种主-微残差控制架构，结合了高层动作引导与低层校正，用于接触丰富的机器人操作，在脆弱物体抓取和精密插入等任务中优于现有方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.15152v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xingting Li, Yifan Xie, Han Liu, Wei Hou, Guangyu Chen, Shoujie Li, Wenbo Ding</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Surgical Robot, Path Planning, Joint Space, Riemannian Manifolds</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robotic surgery for minimally invasive surgery can reduce the surgeon's workload by autonomously guiding robotic forceps. Movement of the robot is restricted around a fixed insertion port. The robot often encounters angle limitations during operation. Also, the surface of the abdominal cavity is non-concave, making it computationally expensive to find the desired path.In this work, to solve these problems, we propose a method for path planning in joint space by transforming the position into a Riemannian manifold. An edge cost function is defined to search for a desired path in the joint space and reduce the range of motion of the joints. We found that the organ is mostly non-concave, making it easy to find the optimal path using gradient descent method. Experimental results demonstrated that the proposed method reduces the range of joint angle movement compared to calculations in position space.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 微创手术中的机器人手术可通过自主引导机器人钳减轻外科医生的工作负担。机器人运动受限于固定插入端口周围，操作过程中常遇到角度限制。此外，腹腔表面非凹陷特性导致计算理想路径的运算成本较高。本研究提出一种解决方案：通过将位置映射至黎曼流形，实现关节空间路径规划。通过定义边缘成本函数在关节空间搜索理想路径，同时减少关节运动幅度。研究发现器官表面大多呈非凹陷特征，使得梯度下降法能高效寻得最优路径。实验结果表明，与位置空间计算相比，该方法显著降低了关节角度运动范围。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes a path planning method for surgical robots in joint space using Riemannian manifolds to address angle limitations and computational challenges in non-concave abdominal cavities, demonstrating reduced joint angle movement.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种在关节空间中使用黎曼流形进行手术机器人路径规划的方法，以解决非凹腹腔中的角度限制和计算挑战，实验证明减少了关节角度运动范围。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.14852v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yoshiki Yamamoto, Maina Sogabe, Shunichi Hirahara, Toshiki Kaisaki, Tetsuro Miyazaki, Kenji Kawashima</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">TopoVST: Toward Topology-fidelitous Vessel Skeleton Tracking</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Automatic extraction of vessel skeletons is crucial for many clinical applications. However, achieving topologically faithful delineation of thin vessel skeletons remains highly challenging, primarily due to frequent discontinuities and the presence of spurious skeleton segments. To address these difficulties, we propose TopoVST, a topology-fidelitious vessel skeleton tracker. TopoVST constructs multi-scale sphere graphs to sample the input image and employs graph neural networks to jointly estimate tracking directions and vessel radii. The utilization of multi-scale representations is enhanced through a gating-based feature fusion mechanism, while the issue of class imbalance during training is mitigated by embedding a geometry-aware weighting scheme into the directional loss. In addition, we design a wave-propagation-based skeleton tracking algorithm that explicitly mitigates the generation of spurious skeletons through space-occupancy filtering. We evaluate TopoVST on two vessel datasets with different geometries. Extensive comparisons with state-of-the-art baselines demonstrate that TopoVST achieves competitive performance in both overlapping and topological metrics. Our source code is available at: https://github.com/EndoluminalSurgicalVision-IMR/TopoVST.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 血管骨架的自动提取对众多临床应用至关重要。然而，由于频繁出现的断裂和伪骨架片段干扰，实现拓扑结构精确的细小血管骨架描绘仍极具挑战性。为此，我们提出TopoVST——一种拓扑保真血管骨架追踪器。该方法通过构建多尺度球面图对输入图像进行采样，并采用图神经网络联合估计追踪方向与血管半径。基于门控机制的特征融合策略增强了多尺度表征能力，同时通过将几何感知加权方案嵌入方向损失函数，有效缓解了训练过程中的类别不平衡问题。此外，我们设计了一种基于波传播的骨架追踪算法，通过空间占用过滤显式抑制伪骨架生成。在两个不同几何形态的血管数据集上的评估表明，TopoVST在重叠度与拓扑指标方面均达到领先水平。源代码已开源：https://github.com/EndoluminalSurgicalVision-IMR/TopoVST。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: TopoVST is a novel vessel skeleton tracker that uses multi-scale sphere graphs and graph neural networks to achieve topologically faithful delineation of thin vessel skeletons, addressing discontinuities and spurious segments through advanced feature fusion and space-occupancy filtering.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: TopoVST是一种新型血管骨架追踪器，利用多尺度球体图和图神经网络实现拓扑保真的细血管骨架描绘，通过高级特征融合和空间占用过滤解决不连续和虚假片段问题。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.14909v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yaoyu Liu, Minghui Zhang, Junjun He, Yun Gu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">A Unified Calibration Framework for Coordinate and Kinematic Parameters in Dual-Arm Robots</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Precise collaboration in vision-based dual-arm robot systems requires accurate system calibration. Recent dual-robot calibration methods have achieved strong performance by simultaneously solving multiple coordinate transformations. However, these methods either treat kinematic errors as implicit noise or handle them through separated error modeling, resulting in non-negligible accumulated errors. In this paper, we present a novel framework for unified calibration of the coordinate transformations and kinematic parameters in both robot arms. Our key idea is to unify all the tightly coupled parameters within a single Lie-algebraic formulation. To this end, we construct a consolidated error model grounded in the product-of-exponentials formula, which naturally integrates the coordinate and kinematic parameters in twist forms. Our model introduces no artificial error separation and thus greatly mitigates the error propagation. In addition, we derive a closed-form analytical Jacobian from this model using Lie derivatives. By exploring the Jacobian rank property, we analyze the identifiability of all calibration parameters and show that our joint optimization is well-posed under mild conditions. This enables off-the-shelf iterative solvers to stably optimize these parameters on the manifold space. Besides, to ensure robust convergence of our joint optimization, we develop a certifiably correct algorithm for initializing the unknown coordinates. Relying on semidefinite relaxation, our algorithm can yield a reliable estimate whose near-global optimality can be verified a posteriori. Extensive experiments validate the superior accuracy of our approach over previous baselines under identical visual measurements. Meanwhile, our certifiable initialization consistently outperforms several coordinate-only baselines, proving its reliability as a starting point for joint optimization.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 基于视觉的双机械臂系统要实现精确协作，必须完成准确的系统标定。现有双机器人标定方法通过同步求解多坐标系变换取得了良好效果，但这些方法要么将运动学误差视为隐式噪声，要么采用分离的误差建模方式处理，导致累积误差不可忽视。本文提出一种新型框架，可统一标定双机械臂的坐标系变换与运动学参数。我们的核心思想是将所有紧密耦合的参数统一在单一李代数表达式中。为此，我们基于指数积公式构建了整合式误差模型，该模型以旋量形式自然融合了坐标系参数与运动学参数。该模型不引入人为的误差分离，从而显著降低了误差传递。此外，我们利用李导数从该模型推导出闭式解析雅可比矩阵。通过分析雅可比矩阵的秩特性，我们验证了所有标定参数的可辨识性，并证明在温和条件下联合优化问题是适定的。这使得现成的迭代求解器能在流形空间稳定优化这些参数。为确保联合优化的鲁棒收敛性，我们还开发了可验证正确的未知坐标系初始化算法。基于半定松弛技术，该算法能生成可靠估计值，其近全局最优性可进行后验验证。大量实验表明，在相同视觉测量条件下，本方法精度显著优于现有基线方法。同时，我们的可验证初始化算法持续超越多个仅针对坐标系的基线方法，证实了其作为联合优化起点的可靠性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces a unified calibration framework for dual-arm robots, combining coordinate transformations and kinematic parameters into a single Lie-algebraic model to reduce accumulated errors and improve accuracy.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种双机械臂的统一校准框架，将坐标变换和运动学参数结合到一个基于李代数的模型中，以减少累积误差并提高精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.14809v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Tianyu Huang, Bohan Yang, Bin Li, Wenpan Li, Haoang Li, Wenlong Li, Yun-Hui Liu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Coordinate-Independent Robot Model Identification</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robot model identification is commonly performed by least-squares regression on inverse dynamics, but existing formulations measure residuals directly in coordinate force space and therefore depend on the chosen coordinate chart, units, and scaling. This paper proposes a coordinate-independent identification method that weights inverse-dynamics residuals by the dual metric induced by the system Riemannian metric. Using the force--velocity vector--covector duality, the dual metric provides a physically meaningful normalization of generalized forces, pulling coordinate residuals back into the ambient mechanical space and eliminating coordinate-induced bias. The resulting objective remains convex through an affine-metric and Schur-complement reformulation, and is compatible with physical-consistency constraints and geometric regularization. Experiments on an inertia-dominated Crazyflie--pendulum system and a drag-dominated LandSalp robot show improved identification accuracy, especially on shape coordinates, in both low-data and high-data settings.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 机器人模型辨识通常通过对逆动力学进行最小二乘回归来实现，但现有方法直接在坐标力空间中测量残差，因而依赖于所选坐标图、单位及缩放比例。本文提出一种与坐标无关的辨识方法，该方法通过系统黎曼度量诱导的对偶度量对逆动力学残差进行加权。利用力-速度向量-余向量的对偶关系，对偶度量为广义力提供了物理意义明确的归一化处理，将坐标残差映射回环境力学空间，从而消除坐标引起的偏差。通过仿射度量和舒尔补重构，所得目标函数仍保持凸性，并与物理一致性约束及几何正则化兼容。在惯性主导的Crazyflie-摆系统和阻力主导的LandSalp机器人上的实验表明，该方法在低数据量和高数据量场景下均能提高辨识精度，尤其改善了形状坐标的识别效果。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces a coordinate-independent method for robot model identification, using a dual metric to normalize forces and eliminate coordinate bias, improving accuracy in both low and high-data settings.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种坐标无关的机器人模型识别方法，使用对偶度量来标准化力并消除坐标偏差，在低数据和高数据设置下均提高了识别精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.14656v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yanhao Yang, Ross L. Hatton</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Fast Volume Alignment by Frequency-Marched Newton</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We develop a fast and accurate method for 3D alignment, recovering the rotation and translation that best align a reference volume with a noisy observation. Classical matched filtering evaluates cross-correlation over a large discretized transformation space; we show that high-precision alignment can be achieved far more efficiently by treating pose estimation as a continuous optimization problem. Our starting point is a band-limited Wigner-$D$ expansion of the rotational correlation, which enables rapid evaluation and efficient closed-form gradients and Hessians. Combined with analytical control of the complexity of trigonometric-polynomial landscapes, this makes second-order optimization practical in a setting where it is often avoided due to nonconvexity and noise sensitivity. We show that Newton-type refinement is stable and effective when initialized at low angular bandwidth: a coarse low-resolution $\mathrm{SO}(3)$ search provides robust candidates, which are then refined by iterative frequency marching and Newton steps, with translations updated via FFT in an alternating scheme. We provide a deterministic convergence guarantee showing that, under verifiable spectral-decay and gap conditions, the frequency-marching scheme returns a near-optimal solution whose suboptimality is controlled by the Newton tolerance. On synthetic rotation-estimation benchmarks, the method attains sub-degree accuracy while substantially reducing runtime relative to exhaustive $\mathrm{SO}(3)$ search. Integrated into the subtomogram-averaging pipeline of RELION5, it matches the baseline reconstruction quality, reaching local resolution at the Nyquist limit, while reducing pose-refinement time by more than an order of magnitude.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出了一种快速精确的三维配准方法，用于恢复能将参考体积与含噪观测数据最优对齐的旋转和平移参数。传统匹配滤波通过在离散化的大规模变换空间中计算互相关来实现配准；我们证明将位姿估计视为连续优化问题可更高效地实现高精度配准。该方法基于旋转相关的带限Wigner-$D$展开，支持快速计算闭式梯度与海森矩阵。结合对三角多项式景观复杂度的解析控制，该方案使得二阶优化在通常因非凸性和噪声敏感性而被回避的场景中具有实用性。研究表明，当以低角带宽初始化时，牛顿型优化能稳定高效地工作：通过粗粒度低分辨率$\mathrm{SO}(3)$搜索获得鲁棒候选解后，采用交替策略进行迭代频率递进与牛顿优化（其中平移参数通过快速傅里叶变换更新）。我们给出了确定性收敛保证：在可验证的频谱衰减与间隙条件下，频率递进方案返回的近似最优解其次优性受牛顿容忍度控制。在合成旋转估计基准测试中，该方法在显著降低计算时间的同时实现了亚度级精度。集成至RELION5的子断层图平均流程后，在保持基线重建质量（达到奈奎斯特极限局部分辨率）的同时，将位姿优化时间缩短了一个数量级以上。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper presents a fast and accurate method for 3D volume alignment using a frequency-marched Newton approach, combining low-resolution coarse search with iterative refinement for efficient pose estimation.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种快速准确的3D体积对齐方法，采用频率匹配牛顿法，结合低分辨率粗搜索和迭代细化，实现高效的姿态估计。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.15285v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Fabian Kruse, Valentin Debarnot, Vinith Kishore, Ivan Dokmanić</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-03-22 11:18:53 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
