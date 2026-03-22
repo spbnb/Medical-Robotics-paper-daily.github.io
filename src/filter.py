@@ -22,8 +22,9 @@ def _safe_int_env(name: str, default: int) -> int:
 
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-OPENROUTER_API_URL = os.getenv("OPENROUTER_API_URL")
-MODEL_NAME = os.getenv("MODEL_NAME")
+OPENROUTER_API_URL = os.getenv("OPENROUTER_API_URL", "https://openrouter.ai/api/v1/chat/completions")
+MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-v3")
+
 
 MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
 MAX_CONCURRENCY = _safe_int_env("OPENROUTER_MAX_CONCURRENCY", 8)
