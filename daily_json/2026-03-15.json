@@ -1,0 +1,187 @@
+[
+    {
+        "title": "SmoothVLA: Aligning Vision-Language-Action Models with Physical Constraints via Intrinsic Smoothness Optimization",
+        "summary": "Vision-Language-Action (VLA) models have emerged as a powerful paradigm for robotic manipulation. However, existing post-training methods face a dilemma between stability and exploration: Supervised Fine-Tuning (SFT) is constrained by demonstration quality and lacks generalization, whereas Reinforcement Learning (RL) improves exploration but often induces erratic, jittery trajectories that violate physical constraints. To bridge this gap, we propose SmoothVLA, a novel reinforcement learning fine-tuning framework that synergistically optimizes task performance and motion smoothness. The technical core is a physics-informed hybrid reward function that integrates binary sparse task rewards with a continuous dense term derived from trajectory jerk. Crucially, this reward is intrinsic, that computing directly from policy rollouts, without requiring extrinsic environment feedback or laborious reward engineering. Leveraging the Group Relative Policy Optimization (GRPO), SmoothVLA establishes trajectory smoothness as an explicit optimization prior, guiding the model toward physically feasible and stable control. Extensive experiments on the LIBERO benchmark demonstrate that SmoothVLA outperforms standard RL by 13.8\\% in smoothness and significantly surpasses SFT in generalization across diverse tasks. Our work offers a scalable approach to aligning VLA models with physical-world constraints through intrinsic reward optimization.",
+        "url": "http://arxiv.org/abs/2603.13925v1",
+        "published_date": "2026-03-14T12:47:04+00:00",
+        "updated_date": "2026-03-14T12:47:04+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.AI"
+        ],
+        "authors": [
+            "Jiashun Li",
+            "Xiaoyu Shi",
+            "Hong Xie",
+            "Mingsheng Shang",
+            "Yun Lu"
+        ],
+        "tldr": "SmoothVLA introduces a reinforcement learning fine-tuning framework for Vision-Language-Action (VLA) models that optimizes both task performance and motion smoothness, addressing the stability-exploration trade-off in robotic manipulation.",
+        "tldr_zh": "SmoothVLA提出了一种用于视觉-语言-动作（VLA）模型的强化学习微调框架，通过优化任务性能和运动平滑性，解决了机器人操作中稳定性与探索之间的权衡问题。",
+        "relevance_score": 8,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "视觉-语言-动作（VLA）模型已成为机器人操控领域的重要范式。然而现有后训练方法面临稳定性与探索性的两难困境：监督微调（SFT）受限于示范质量且泛化能力不足，而强化学习（RL）虽提升探索性却常产生违反物理约束的抖动轨迹。为此，我们提出SmoothVLA——一种协同优化任务性能与运动平滑度的新型强化学习微调框架。其技术核心是融合二元稀疏任务奖励与轨迹加加速度连续稠密项的物理感知混合奖励函数。该奖励具有内生性，可直接通过策略 rollout 计算获得，无需外部环境反馈或复杂奖励工程。通过群组相对策略优化（GRPO），SmoothVLA将轨迹平滑度作为显式优化先验，引导模型生成符合物理规律的稳定控制。在LIBERO基准测试中，SmoothVLA的平滑度指标较标准RL提升13.8%，并在跨任务泛化性上显著超越SFT。本研究通过内生奖励优化，为VLA模型与物理世界约束对齐提供了可扩展的解决方案。"
+    },
+    {
+        "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+        "summary": "Vision-Language-Action (VLA) models have demonstrated strong potential for predicting semantic actions in navigation tasks, demonstrating the ability to reason over complex linguistic instructions and visual contexts. However, they are fundamentally hindered by visual-reasoning hallucinations that lead to trajectory deviations. Addressing this issue has conventionally required training external critic modules or relying on complex uncertainty heuristics. In this work, we discover that monitoring a few attention heads within a frozen VLA model can accurately detect path deviations without incurring additional computational overhead. We refer to these heads, which inherently capture the spatiotemporal causality between historical visual sequences and linguistic instructions, as Navigation Heads. Using these heads, we propose an intuitive, training-free anomaly-detection framework that monitors their signals to detect hallucinations in real time. Surprisingly, among over a thousand attention heads, a combination of just three is sufficient to achieve a 44.6 % deviation detection rate with a low false-positive rate of 11.7 %. Furthermore, upon detecting a deviation, we bypass the heavy VLA model and trigger a lightweight Reinforcement Learning (RL) policy to safely execute a shortest-path rollback. By integrating this entire detection-to-recovery pipeline onto a physical robot, we demonstrate its practical robustness. All source code will be publicly available.",
+        "url": "http://arxiv.org/abs/2603.13782v1",
+        "published_date": "2026-03-14T06:26:11+00:00",
+        "updated_date": "2026-03-14T06:26:11+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.CV"
+        ],
+        "authors": [
+            "Jaehwan Jeong",
+            "Evelyn Zhu",
+            "Jinying Lin",
+            "Emmanuel Jaimes",
+            "Tuan-Anh Vu",
+            "Jungseock Joo",
+            "Sangpil Kim",
+            "M. Khalid Jawed"
+        ],
+        "tldr": "The paper reveals that specific attention heads in frozen Vision-Language-Action (VLA) models, termed Navigation Heads, can detect path deviations without additional training or computational cost. A lightweight RL policy is triggered upon detection to correct deviations, demonstrating practical robustness on a physical robot.",
+        "tldr_zh": "该论文发现，冻结的视觉-语言-动作（VLA）模型中的特定注意力头（称为导航头）可以在无需额外训练或计算成本的情况下检测路径偏差。检测到偏差后触发轻量级强化学习策略进行纠正，并在物理机器人上展示了实际鲁棒性。",
+        "relevance_score": 8,
+        "novelty_claim_score": 9,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "视觉-语言-动作（VLA）模型在导航任务中展现出预测语义动作的强大潜力，能够对复杂语言指令与视觉上下文进行联合推理。然而这类模型始终受困于视觉推理幻觉导致的轨迹偏离问题。传统解决方案需额外训练外部评判模块或依赖复杂的启发式不确定性估计。本研究发现：仅需监测冻结VLA模型中少量注意力头，即可在不增加计算开销的前提下精准检测路径偏离。这些注意力头天然捕捉历史视觉序列与语言指令间的时空因果关系，我们将其定义为导航头。基于此，我们提出一种零训练成本的异常检测框架，通过实时监控导航头信号来识别幻觉现象。值得注意的是，在上千个注意力头中，仅组合三个导航头就能实现44.6%的偏离检测率，同时保持11.7%的低误报率。当检测到偏离时，系统将绕过笨重的VLA模型，触发轻量级强化学习（RL）策略执行最短路径回退。通过将整套\"检测-恢复\"流程部署至实体机器人，我们验证了该方案的实用鲁棒性。所有源代码将公开提供。"
+    },
+    {
+        "title": "KoopmanFlow: Spectrally Decoupled Generative Control Policy via Koopman Structural Bias",
+        "summary": "Generative Control Policies (GCPs) show immense promise in robotic manipulation but struggle to simultaneously model stable global motions and high-frequency local corrections. While modern architectures extract multi-scale spatial features, their underlying Probability Flow ODEs apply a uniform temporal integration schedule. Compressed to a single step for real-time Receding Horizon Control (RHC), uniform ODE solvers mathematically smooth over sparse, high-frequency transients entangled within low-frequency steady states. To decouple these dynamics without accumulating pipelined errors, we introduce KoopmanFlow, a parameter-efficient generative policy guided by a Koopman-inspired structural inductive bias. Operating in a unified multimodal latent space with visual context, KoopmanFlow bifurcates generation at the terminal stage. Because visual conditioning occurs before spectral decomposition, both branches are visually guided yet temporally specialized. A macroscopic branch anchors slow-varying trajectories via single-step Consistency Training, while a transient branch uses Flow Matching to isolate high-frequency residuals stimulated by sudden visual cues (e.g., contacts or occlusions). Guided by an explicit spectral prior and optimized via a novel asymmetric consistency objective, KoopmanFlow establishes a fused co-training mechanism. This allows the variant branch to absorb localized dynamics without multi-stage error accumulation. Extensive experiments show KoopmanFlow significantly outperforms state-of-the-art baselines in contact-rich tasks requiring agile disturbance rejection. By trading a surplus latency buffer for a richer structural prior, KoopmanFlow achieves superior control fidelity and parameter efficiency within real-time deployment limits.",
+        "url": "http://arxiv.org/abs/2603.13781v1",
+        "published_date": "2026-03-14T06:23:07+00:00",
+        "updated_date": "2026-03-14T06:23:07+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Chengsi Yao",
+            "Ge Wang",
+            "Kai Kang",
+            "Shenhao Yan",
+            "Jiahao Yang",
+            "Fan Feng",
+            "Honghao Cai",
+            "Xianxian Zeng",
+            "Rongjun Chen",
+            "Yiming Zhao",
+            "Yatong Han",
+            "Xi Li"
+        ],
+        "tldr": "KoopmanFlow introduces a generative control policy with a Koopman-inspired structural bias to decouple high-frequency and low-frequency dynamics in robotic manipulation, achieving superior performance in contact-rich tasks.",
+        "tldr_zh": "KoopmanFlow提出了一种具有Koopman结构偏置的生成控制策略，用于解耦机器人操作中的高频和低频动态，在接触丰富的任务中表现出色。",
+        "relevance_score": 7,
+        "novelty_claim_score": 9,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "生成式控制策略（GCPs）在机器人操控领域展现出巨大潜力，但其难以同时建模稳定的全局运动与高频局部修正。尽管现代架构能提取多尺度空间特征，其底层概率流常微分方程（ODE）仍采用统一的时间积分方案。当压缩为单步实时滚动时域控制（RHC）时，均匀ODE求解器会从数学上平滑掉混杂在低频稳态中的稀疏高频瞬态。为解耦这些动力学特性并避免累积管道化误差，我们提出KoopmanFlow——一种受Koopman理论结构归纳偏置引导的参数高效生成策略。该模型在统一的多模态视觉上下文潜空间中运行，并在终端阶段进行生成路径分岔。由于视觉条件化发生在频谱分解之前，两个分支均受视觉引导但具有时序专长：宏观分支通过单步一致性训练锚定慢变轨迹，瞬态分支则利用流匹配技术隔离由突发视觉线索（如接触或遮挡）激发的高频残差。在显式频谱先验引导下，通过新型非对称一致性目标优化，KoopmanFlow建立了融合协同训练机制，使变异分支能吸收局部动力学而不产生多级误差累积。大量实验表明，在需要敏捷干扰抑制的密集接触任务中，KoopmanFlow显著优于最先进基线方法。通过以额外延迟缓冲换取更丰富的结构先验，该模型在实时部署限制下实现了卓越的控制保真度与参数效率。"
+    },
+    {
+        "title": "ToMPC: Task-oriented Model Predictive Control via ADMM for Safe Robotic Manipulation",
+        "summary": "This paper proposes a task-oriented model predictive control (ToMPC) framework for safe and efficient robotic manipulation in open workspaces. The framework unifies collision-free motion and robot-environment interaction to address diverse scenarios. Additionally, it introduces task-oriented obstacle avoidance that leverages kinematic redundancy to enhance manipulation efficiency in obstructed environments. This complex optimization problem is solved by the alternating direction method of multipliers (ADMM), which decomposes the problem into two subproblems tackled by differential dynamic programming (DDP) and quadratic programming (QP), respectively. The effectiveness of this approach is validated in simulation and hardware experiments on a Franka Panda robotic manipulator. Results demonstrate that the framework can plan motion and/or force trajectories in real time, maximize the manipulation range while avoiding obstacles, and strictly adhere to safety-related hard constraints.",
+        "url": "http://arxiv.org/abs/2603.13944v1",
+        "published_date": "2026-03-14T13:35:24+00:00",
+        "updated_date": "2026-03-14T13:35:24+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Xinyu Jia",
+            "Wenxin Wang",
+            "Jun Yang",
+            "Yongping Pan",
+            "Haoyong Yu"
+        ],
+        "tldr": "The paper introduces a task-oriented model predictive control (ToMPC) framework using ADMM for safe robotic manipulation, combining collision-free motion and robot-environment interaction, validated on a Franka Panda robot.",
+        "tldr_zh": "本文提出了一种基于ADMM的任务导向模型预测控制（ToMPC）框架，用于安全高效的机器人操作，结合了无碰撞运动和机器人-环境交互，并在Franka Panda机器人上进行了验证。",
+        "relevance_score": 6,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "本文提出一种面向任务的模型预测控制框架（ToMPC），用于开放工作空间中安全高效的机器人操作。该框架将无碰撞运动与机器人-环境交互统一起来，以应对多样化场景。特别地，框架引入了面向任务的避障方法，通过利用运动学冗余提升障碍环境下的操作效率。这一复杂优化问题采用交替方向乘子法（ADMM）进行求解，将原问题分解为两个子问题，分别通过微分动态规划（DDP）和二次规划（QP）处理。在Franka Panda机械臂上的仿真与硬件实验验证了该方法的有效性。结果表明，该框架能实时规划运动和/或力轨迹，在避障的同时最大化操作范围，并严格遵循安全相关的硬约束条件。"
+    },
+    {
+        "title": "TransDex: Pre-training Visuo-Tactile Policy with Point Cloud Reconstruction for Dexterous Manipulation of Transparent Objects",
+        "summary": "Dexterous manipulation enables complex tasks but suffers from self-occlusion, severe depth noise, and depth information loss when manipulating transparent objects. To solve this problem, this paper proposes TransDex, a 3D visuo-tactile fusion motor policy based on point cloud reconstruction pre-training. Specifically, we first propose a self-supervised point cloud reconstruction pre-training approach based on Transformer. This method accurately recovers the 3D structure of objects from interactive point clouds of dexterous hands, even when random noise and large-scale masking are added. Building on this, TransDex is constructed in which perceptual encoding adopts a fine-grained hierarchical scheme and multi-round attention mechanisms adaptively fuse features of the robotic arm and dexterous hand to enable differentiated motion prediction. Results from transparent object manipulation experiments conducted on a real robotic system demonstrate that TransDex outperforms existing baseline methods. Further analysis validates the generalization capabilities of TransDex and the effectiveness of its individual components.",
+        "url": "http://arxiv.org/abs/2603.13869v1",
+        "published_date": "2026-03-14T09:59:34+00:00",
+        "updated_date": "2026-03-14T09:59:34+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.AI"
+        ],
+        "authors": [
+            "Fengguan Li",
+            "Yifan Ma",
+            "Chen Qian",
+            "Wentao Rao",
+            "Weiwei Shang"
+        ],
+        "tldr": "TransDex is a visuo-tactile fusion policy for dexterous manipulation of transparent objects, using self-supervised point cloud reconstruction pre-training and hierarchical feature fusion to address occlusion and noise issues.",
+        "tldr_zh": "TransDex是一种用于透明物体灵巧操作的视觉-触觉融合策略，通过自监督点云重建预训练和分层特征融合来解决遮挡和噪声问题。",
+        "relevance_score": 6,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "灵巧操控技术能够执行复杂任务，但在操作透明物体时存在自遮挡、深度噪声严重及深度信息缺失等问题。为解决这一难题，本文提出TransDex——一种基于点云重建预训练的三维视觉-触觉融合运动策略。具体而言，我们首先提出基于Transformer的自监督点云重建预训练方法，该方法即使添加随机噪声和大规模掩码，仍能精准地从灵巧手交互点云中恢复物体三维结构。在此基础上构建的TransDex采用细粒度分层感知编码方案，通过多轮注意力机制自适应融合机械臂与灵巧手特征，实现差异化运动预测。在真实机器人系统上开展的透明物体操控实验表明，TransDex性能优于现有基线方法。进一步分析验证了该方案的泛化能力及各组件的有效性。"
+    },
+    {
+        "title": "Robust Automatic Differentiation of Square-Root Kalman Filters via Gramian Differentials",
+        "summary": "Square-root Kalman filters propagate state covariances in Cholesky-factor form for numerical stability, and are a natural target for gradient-based parameter learning in state-space models. Their core operation, triangularization of a matrix $M \\in \\mathbb{R}^{n \\times m}$, is computed via a QR decomposition in practice, but naively differentiating through it causes two problems: the semi-orthogonal factor is non-unique when $m > n$, yielding undefined gradients; and the standard Jacobian formula involves inverses, which diverges when $M$ is rank-deficient. Both are resolved by the observation that all filter outputs relevant to learning depend on the input matrix only through the Gramian $MM^\\top$, so the composite loss is smooth in $M$ even where the triangularization is not. We derive a closed-form chain-rule directly from the differential of this Gramian identity, prove it exact for the Kalman log-marginal likelihood and filtered moments, and extend it to rank-deficient inputs via a two-component decomposition: a column-space term based on the Moore--Penrose pseudoinverse, and a null-space correction for perturbations outside the column space of $M$.",
+        "url": "http://arxiv.org/abs/2603.13559v1",
+        "published_date": "2026-03-13T19:55:08+00:00",
+        "updated_date": "2026-03-13T19:55:08+00:00",
+        "categories": [
+            "stat.ML",
+            "cs.LG",
+            "eess.SP",
+            "eess.SY"
+        ],
+        "authors": [
+            "Adrien Corenflos"
+        ],
+        "tldr": "The paper presents a robust method for automatic differentiation of square-root Kalman filters by leveraging Gramian differentials, addressing issues of non-unique gradients and rank-deficient inputs.",
+        "tldr_zh": "该论文提出了一种通过利用格拉姆微分来稳健地自动微分平方根卡尔曼滤波器的方法，解决了非唯一梯度和秩不足输入的问题。",
+        "relevance_score": 4,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6,
+        "summary_zh": "平方根卡尔曼滤波器以乔列斯基因子形式传播状态协方差以确保数值稳定性，是状态空间模型中基于梯度的参数学习的理想目标。其核心操作——矩阵$M \\in \\mathbb{R}^{n \\times m}$的三角化——实际通过QR分解实现，但直接对其求导会引发两个问题：当$m > n$时半正交因子不唯一，导致梯度未定义；标准雅可比公式涉及逆运算，在$M$秩亏时发散。研究发现，所有与学习相关的滤波器输出仅通过格拉姆矩阵$MM^\\top$依赖于输入矩阵，因此即使三角化不可导处，复合损失函数对$M$仍光滑。我们直接从该格拉姆恒等式的微分推导出闭式链式法则，证明其对卡尔曼对数边缘似然和滤波矩精确成立，并通过双分量分解将其推广至秩亏输入：基于摩尔-彭罗斯伪逆的列空间项，以及针对$M$列空间外扰动的零空间修正项。"
+    },
+    {
+        "title": "Safety in Admittance Control using Reference Trajectory Shaping",
+        "summary": "This paper presents a switched model reference admittance control framework to achieve safe and compliant human-robot collaboration through reference trajectory shaping. The proposed method generates variable admittance parameters according to task compliance and task-space safety requirements. Additionally, a disturbance bound is incorporated to enhance robustness against disturbances. Safety guarantees are explicitly established by integrating invariance control, ensuring that the reference trajectory remains within the admissible region. Stability of the switched system is analyzed using a common quadratic Lyapunov function, which confirms asymptotic convergence of the tracking error. The effectiveness of the approach is demonstrated through simulations on a two link manipulator and comparisons with existing methods are also presented. Furthermore, real time implementation on a single link manipulator validates the practical feasibility of the controller, highlighting its ability to achieve both compliance and safety in physical interaction scenarios.",
+        "url": "http://arxiv.org/abs/2603.13959v1",
+        "published_date": "2026-03-14T14:14:49+00:00",
+        "updated_date": "2026-03-14T14:14:49+00:00",
+        "categories": [
+            "eess.SY"
+        ],
+        "authors": [
+            "Chayan Kumar Paul",
+            "Bhabani Shankar Dey",
+            "Indra Narayan Kar"
+        ],
+        "tldr": "The paper introduces a switched model reference admittance control framework for safe human-robot collaboration, featuring variable admittance parameters, disturbance robustness, and explicit safety guarantees through invariance control. It validates the approach via simulations and real-time implementation on manipulators.",
+        "tldr_zh": "本文提出了一种切换模型参考导纳控制框架，通过参考轨迹整形实现安全的人机协作，具有可变导纳参数、抗干扰鲁棒性和通过不变性控制的明确安全保证。通过仿真和单连杆机械臂的实时实现验证了方法的有效性。",
+        "relevance_score": 5,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6,
+        "summary_zh": "本文提出一种基于切换模型参考导纳控制的框架，通过参考轨迹整形实现安全、柔顺的人机协作。该方法根据任务柔顺性和任务空间安全性需求生成可变导纳参数，并引入扰动边界以增强系统抗干扰鲁棒性。通过整合不变性控制，明确建立安全性保障机制，确保参考轨迹始终保持在允许区域内。采用公共二次型李雅普诺夫函数分析切换系统稳定性，证实了跟踪误差的渐近收敛性。通过在二连杆机械臂上的仿真实验以及与现有方法的对比，验证了该方法的有效性。此外，单连杆机械臂的实时控制实验证明了控制器的工程可行性，凸显其在物理交互场景中兼顾柔顺性与安全性的能力。"
+    }
+]

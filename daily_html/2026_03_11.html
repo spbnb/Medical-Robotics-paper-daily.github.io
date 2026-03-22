@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - March 11, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>March 11, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">NS-VLA: Towards Neuro-Symbolic Vision-Language-Action Models</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Vision-Language-Action (VLA) models are formulated to ground instructions in visual context and generate action sequences for robotic manipulation. Despite recent progress, VLA models still face challenges in learning related and reusable primitives, reducing reliance on large-scale data and complex architectures, and enabling exploration beyond demonstrations. To address these challenges, we propose a novel Neuro-Symbolic Vision-Language-Action (NS-VLA) framework via online reinforcement learning (RL). It introduces a symbolic encoder to embedding vision and language features and extract structured primitives, utilizes a symbolic solver for data-efficient action sequencing, and leverages online RL to optimize generation via expansive exploration. Experiments on robotic manipulation benchmarks demonstrate that NS-VLA outperforms previous methods in both one-shot training and data-perturbed settings, while simultaneously exhibiting superior zero-shot generalizability, high data efficiency and expanded exploration space. Our code is available.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 视觉-语言-动作（VLA）模型旨在将操作指令与视觉上下文关联，并生成机器人操控的动作序列。尽管研究已取得进展，现有VLA模型仍面临三大挑战：学习关联性及可复用操作原语、降低对大规模数据和复杂架构的依赖、实现超越示范数据的自主探索。针对这些问题，我们提出一种基于在线强化学习（RL）的神经符号化视觉-语言-动作（NS-VLA）新框架。该框架通过符号编码器嵌入视觉与语言特征以提取结构化操作原语，采用符号求解器实现数据高效的动作序列生成，并利用在线RL通过扩展探索优化生成过程。在机器人操控基准测试中，NS-VLA在单次训练和数据扰动场景下均优于现有方法，同时展现出更优异的零样本泛化能力、高数据利用效率和扩展的探索空间。代码已开源。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces NS-VLA, a neuro-symbolic framework combining vision, language, and action for robotic manipulation, using symbolic encoding and online RL to improve data efficiency, exploration, and generalizability.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了NS-VLA，一种结合视觉、语言和动作的神经符号框架，通过符号编码和在线强化学习提高机器人操作的数据效率、探索性和泛化能力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09542v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ziyue Zhu, Shangyang Wu, Shuai Zhao, Zhiqiu Zhao, Shengjie Li, Yi Wang, Fang Li, Haoran Luo</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">See, Plan, Rewind: Progress-Aware Vision-Language-Action Models for Robust Robotic Manipulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Measurement of task progress through explicit, actionable milestones is critical for robust robotic manipulation. This progress awareness enables a model to ground its current task status, anticipate verifiable intermediate states, and detect and recover from failures when progress stalls. To embody this capability, we introduce See, Plan, Rewind (SPR), a progress-aware vision-language-action framework that dynamically grounds language instructions into a sequence of spatial subgoals. SPR operates through a continuous core cycle, Seeing the current state and upcoming milestone, Planning a trajectory towards the next 2D waypoint, and Rewinding to a recoverable state upon failure by monitoring progress against the expected sequence. This closed-loop approach enables robust error correction without requiring additional training data or auxiliary models. Extensive experiments demonstrate the framework's effectiveness, generalization and robustness: SPR outperforms the MolmoAct baseline by 5\% on the LIBERO benchmark. On the challenging LIBERO-Plus benchmark with unseen instructions and initial states, SPR achieves state-of-the-art robustness with the smallest performance drop, surpassing OpenVLA-OFT and UniVLA, demonstrating superior out-of-distribution robustness.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 通过明确且可操作的里程碑来测量任务进度对于实现稳健的机器人操作至关重要。这种进度感知能力使模型能够锚定当前任务状态、预测可验证的中间状态，并在进度停滞时检测故障并执行恢复。为实现这一能力，我们提出"观察-规划-回滚"（SPR）框架——一个将语言指令动态锚定为空间子目标序列的进度感知视觉-语言-动作系统。SPR通过持续的核心循环运作：观察当前状态与即将到达的里程碑，规划前往下一个二维路径点的轨迹，并通过监测预期序列的进度在失败时回滚至可恢复状态。这种闭环方法实现了稳健的纠错能力，且无需额外训练数据或辅助模型。大量实验验证了该框架的有效性、泛化性和鲁棒性：在LIBERO基准测试中，SPR以5%的优势超越MolmoAct基线；在包含未知指令和初始状态的挑战性LIBERO-Plus基准测试中，SPR以最小性能下降实现了最先进的鲁棒性，优于OpenVLA-OFT和UniVLA，展现出卓越的分布外鲁棒性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces See, Plan, Rewind (SPR), a progress-aware vision-language-action framework for robust robotic manipulation, which dynamically grounds language instructions into spatial subgoals and enables error correction without additional training. SPR outperforms baselines on benchmarks, showing superior robustness and generalization.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文介绍了See, Plan, Rewind (SPR)，一种用于稳健机器人操作的进度感知视觉-语言-动作框架，该框架将语言指令动态地转化为空间子目标，并无需额外训练即可实现错误纠正。SPR在基准测试中优于基线，显示出卓越的稳健性和泛化能力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09292v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Tingjun Dai, Mingfei Han, Tingwen Du, Zhiheng Liu, Zhihui Li, Salman Khan, Jun Yu, Xiaojun Chang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">GST-VLA: Structured Gaussian Spatial Tokens for 3D Depth-Aware Vision-Language-Action Models</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> VLA models encode visual observations as 2D patch tokens with no intrinsic geometric structure. We introduce GST-VLA with two contributions. First, the Gaussian Spatial Tokenizer (GST) converts frozen dense depth and frozen semantic patch features into $N_g{=}128$ anisotropic 3D Gaussian primitives, each parameterized by a metric residual mean $μ\in \mathbb{R}^3$, log-scale covariance $\log σ\in \mathbb{R}^3$, and learned opacity $α\in (0,1)$. The covariance eigenstructure encodes local surface orientation, and opacity provides per-primitive geometric confidence, both inaccessible from scalar depth. Spatial attention pooling with learned queries concentrates the fixed token budget on geometrically salient regions rather than distributing uniformly. Second, 3D Depth-Aware Chain-of-Thought (DA-CoT) reasoning supervises four structured intermediate spatial thoughts, covering 3D object grounding, grasp affordance contact geometry, pairwise metric distances, and coarse SE(3) waypoints, as explicit generation targets in the training loss. A cross-attention sublayer at every VLM transformer block provides direct access to the raw 256-primitive Gaussian field during DA-CoT generation. A 300M-parameter flow-matching action expert with mixture-of-experts feedforward sublayers decodes 7-DoF delta action chunks via conditional ODE integration, conditioned on both VLM hidden states and DA-CoT outputs through dual cross-attention. Trained with composite $\mathcal{L}_\mathrm{flow} + \mathcal{L}_\mathrm{CoT} + \mathcal{L}_\mathrm{depth}$ across three progressive stages, GST-VLA achieves 96.4% on LIBERO (+2.0%), and 80.2% on SimplerEnv (+5.4%). Ablations isolate the contribution of each GST component, each DA-CoT thought, and each training stage, confirming independent and synergistic gains concentrated on precision demanding tasks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> VLA模型将视觉观测编码为缺乏固有几何结构的二维图像块标记。我们提出的GST-VLA模型包含两项创新：首先，高斯空间标记器（GST）将冻结的稠密深度图与冻结的语义块特征转换为$N_g{=}128$个各向异性3D高斯基元，每个基元由度量残差均值$μ\in \mathbb{R}^3$、对数尺度协方差$\log σ\in \mathbb{R}^3$和学习型不透明度$α\in (0,1)$参数化。协方差本征结构编码局部表面朝向，不透明度提供单基元几何置信度，这两者均无法从标量深度中获取。通过可学习查询的空间注意力池化机制，固定标记预算被集中分配至几何显著区域而非均匀分布。其次，3D深度感知思维链（DA-CoT）推理监督四个结构化中间空间思维，涵盖3D物体定位、抓取可供性接触几何、成对度量距离和粗略SE(3)路径点，作为训练损失中的显式生成目标。每个VLM变换器块中的交叉注意力子层可在DA-CoT生成期间直接访问原始256基元高斯场。采用专家混合前馈子层的3亿参数量流匹配动作专家，通过条件ODE积分解码7自由度增量动作块，其条件输入同时来自VLM隐藏状态和通过双重交叉注意力传递的DA-CoT输出。经过$\mathcal{L}_\mathrm{flow} + \mathcal{L}_\mathrm{CoT} + \mathcal{L}_\mathrm{depth}$复合损失函数在三个渐进阶段的训练，GST-VLA在LIBERO上达到96.4%（提升2.0%），在SimplerEnv上达到80.2%（提升5.4%）。消融实验分离了每个GST组件、每个DA-CoT思维和每个训练阶段的贡献，证实了在精度敏感任务上独立与协同增益的集中体现。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: GST-VLA introduces a Gaussian Spatial Tokenizer (GST) to encode 3D depth-aware visual observations into structured Gaussian primitives, and a 3D Depth-Aware Chain-of-Thought (DA-CoT) reasoning for spatial intermediate thoughts, improving performance in vision-language-action tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: GST-VLA提出了一种高斯空间标记器（GST），将3D深度感知的视觉观察编码为结构化的高斯基元，并引入3D深度感知思维链（DA-CoT）推理用于空间中间思维，提升了视觉-语言-动作任务的性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09079v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Md Selim Sarowar, Omer Tariq, Sungho Kim</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SurgCalib: Gaussian Splatting-Based Hand-Eye Calibration for Robot-Assisted Minimally Invasive Surgery</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We present a Gaussian Splatting-based framework for hand-eye calibration of the da Vinci surgical robot. In a vision-guided robotic system, accurate estimation of the rigid transformation between the robot base and the camera frame is essential for reliable closed-loop control. For cable-driven surgical robots, this task faces unique challenges. The encoders of surgical instruments often produce inaccurate proprioceptive measurements due to cable stretch and backlash. Conventional hand-eye calibration approaches typically rely on known fiducial patterns and solve the AX = XB formulation. While effective, introducing additional markers into the operating room (OR) environment can violate sterility protocols and disrupt surgical workflows. In this study, we propose SurgCalib, an automatic, markerless framework that has the potential to be used in the OR. SurgCalib first initializes the pose of the surgical instrument using raw kinematic measurements and subsequently refines this pose through a two-phase optimization procedure under the RCM constraint within a Gaussian Splatting-based differentiable rendering pipeline. We evaluate the proposed method on the public dVRK benchmark, SurgPose. The results demonstrate average 2D tool-tip reprojection errors of 12.24 px (2.06 mm) and 11.33 px (1.9 mm), and 3D tool-tip Euclidean distance errors of 5.98 mm and 4.75 mm, for the left and right instruments, respectively.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出了一种基于高斯溅射的达芬奇手术机器人手眼标定框架。在视觉引导的机器人系统中，精确估计机器人基座与相机坐标系之间的刚性变换对于实现可靠的闭环控制至关重要。对于线缆驱动的手术机器人而言，这一任务面临独特挑战：由于线缆拉伸和回程间隙，手术器械编码器产生的本体感知测量往往不够精确。传统手眼标定方法通常依赖已知基准标记图案，并通过求解AX=XB方程实现。虽然有效，但在手术室环境中引入额外标记物可能破坏无菌协议并干扰手术流程。本研究提出的SurgCalib是一种无标记全自动框架，具备在手术室应用的潜力。该框架首先利用原始运动学测量初始化手术器械位姿，随后在高斯溅射可微分渲染管线中，通过RCM约束下的两阶段优化过程进行位姿精修。我们在公开的dVRK基准数据集SurgPose上评估了该方法，结果显示左右器械的平均二维器械尖端重投影误差分别为12.24像素（2.06毫米）和11.33像素（1.9毫米），三维器械尖端欧氏距离误差分别为5.98毫米和4.75毫米。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SurgCalib introduces a Gaussian Splatting-based, markerless hand-eye calibration framework for the da Vinci surgical robot, addressing challenges like inaccurate proprioceptive measurements and sterility concerns in the OR. It achieves sub-millimeter accuracy in tool-tip reprojection and Euclidean distance errors.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SurgCalib提出了一种基于高斯泼溅的无标记手眼校准框架，用于达芬奇手术机器人，解决了手术室中因电缆拉伸和回弹导致的测量不准确及无菌问题，实现了亚毫米级的工具尖端重投影和欧氏距离误差。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.08983v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zijian Wu, Shuojue Yang, Yu Chung Lee, Eitan Prisman, Yueming Jin, Septimiu E. Salcudean</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Model-Free Co-Optimization of Manufacturable Sensor Layouts and Deformation Proprioception</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Flexible sensors are increasingly employed in soft robotics and wearable devices to provide proprioception of freeform deformations.Although supervised learning can train shape predictors from sensor signals, prediction accuracy strongly depends on sensor layout, which is typically determined heuristically or through trial-and-error. This work introduces a model-free, data-driven computational pipeline that jointly optimizes the number, length, and placement of flexible length-measurement sensors together with the parameters of a shape prediction network for large freeform deformations. Unlike model-based approaches, the proposed method relies solely on datasets of deformed shapes, without requiring physical simulation models, and is therefore broadly applicable to diverse robotic sensing tasks. The pipeline incorporates differentiable loss functions that account for both prediction accuracy and manufacturability constraints. By co-optimizing sensor layouts and network parameters, the method significantly improves deformation prediction accuracy over unoptimized layouts while ensuring practical feasibility. The effectiveness and generality of the approach are validated through numerical and physical experiments on multiple soft robotic and wearable systems.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 柔性传感器在软体机器人和可穿戴设备中的应用日益广泛，旨在实现对自由形变的本体感知。尽管监督学习能够从传感器信号中训练出形状预测模型，但其预测精度高度依赖于传感器布局——这类布局通常通过启发式方法或试错过程确定。本研究提出了一种无模型、数据驱动的计算流程，能够联合优化用于大尺度自由形变的柔性测长传感器的数量、长度、排布方式以及形状预测网络的参数。与基于模型的方法不同，该技术仅依赖于形变形状的数据集，无需物理仿真模型，因而可广泛应用于各类机器人传感任务。该流程采用可微分损失函数，同时兼顾预测精度与制造工艺约束。通过协同优化传感器布局与网络参数，该方法在保证实际可行性的前提下，较未优化布局显著提升了形变预测精度。针对多种软体机器人和可穿戴系统的数值仿真与物理实验验证了该方法的有效性与普适性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper introduces a model-free, data-driven method to co-optimize sensor layouts and shape prediction networks for flexible sensors in soft robotics and wearable devices, improving accuracy and manufacturability without relying on physical simulation models.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种无模型、数据驱动的方法，共同优化柔性传感器在软机器人和可穿戴设备中的布局和形状预测网络，无需依赖物理仿真模型即可提高精度和可制造性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.10059v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yingjun Tian, Guoxin Fang, Aoran Lyu, Xilong Wang, Zikang Shi, Yuhu Guo, Weiming Wang, Charlie C. L. Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">APPLV: Adaptive Planner Parameter Learning from Vision-Language-Action Model</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Autonomous navigation in highly constrained environments remains challenging for mobile robots. Classical navigation approaches offer safety assurances but require environment-specific parameter tuning; end-to-end learning bypasses parameter tuning but struggles with precise control in constrained spaces. To this end, recent robot learning approaches automate parameter tuning while retaining classical systems' safety, yet still face challenges in generalizing to unseen environments. Recently, Vision-Language-Action (VLA) models have shown promise by leveraging foundation models' scene understanding capabilities, but still struggle with precise control and inference latency in navigation tasks. In this paper, we propose Adaptive Planner Parameter Learning from Vision-Language-Action Model (\textsc{applv}). Unlike traditional VLA models that directly output actions, \textsc{applv} leverages pre-trained vision-language models with a regression head to predict planner parameters that configure classical planners. We develop two training strategies: supervised learning fine-tuning from collected navigation trajectories and reinforcement learning fine-tuning to further optimize navigation performance. We evaluate \textsc{applv} across multiple motion planners on the simulated Benchmark Autonomous Robot Navigation (BARN) dataset and in physical robot experiments. Results demonstrate that \textsc{applv} outperforms existing methods in both navigation performance and generalization to unseen environments.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在高度受限环境中实现自主导航对移动机器人仍具挑战性。传统导航方法虽能提供安全保障，但需针对特定环境进行参数调优；端到端学习虽规避了参数调优环节，却在受限空间内难以实现精准控制。为此，近期机器人学习方案通过自动化参数调优保留了传统系统的安全性，但在泛化至未知环境时仍面临挑战。视觉-语言-动作（VLA）模型通过利用基础模型的场景理解能力展现出潜力，但在导航任务中仍存在控制精度与推理延迟问题。本文提出基于视觉-语言-动作模型的自适应规划器参数学习框架（APPLV）。与传统VLA模型直接输出动作不同，APPLV利用预训练视觉-语言模型配合回归头来预测配置经典规划器的参数。我们开发了两种训练策略：基于已采集导航轨迹的监督学习微调，以及进一步优化导航性能的强化学习微调。通过在仿真BARN数据集和实体机器人实验中对多种运动规划器进行评估，结果表明APPLV在导航性能和环境泛化能力上均优于现有方法。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces APPLV, a method that uses vision-language-action models to predict planner parameters for autonomous navigation, combining the safety of classical planners with the generalization capabilities of learning. It outperforms existing methods in navigation performance and generalization.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了APPLV方法，利用视觉-语言-动作模型预测自主导航的规划器参数，结合了经典规划器的安全性和学习的泛化能力，在导航性能和泛化性上优于现有方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.08862v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yuanjie Lu, Beichen Wang, Zhengqi Wu, Yang Li, Xiaomin Lin, Chengzhi Mao, Xuesu Xiao</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">TubeMLLM: A Foundation Model for Topology Knowledge Exploration in Vessel-like Anatomy</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Modeling medical vessel-like anatomy is challenging due to its intricate topology and sensitivity to dataset shifts. Consequently, task-specific models often suffer from topological inconsistencies, including artificial disconnections and spurious merges. Motivated by the promise of multimodal large language models (MLLMs) for zero-shot generalization, we propose TubeMLLM, a unified foundation model that couples structured understanding with controllable generation for medical vessel-like anatomy. By integrating topological priors through explicit natural language prompting and aligning them with visual representations in a shared-attention architecture, TubeMLLM significantly enhances topology-aware perception. Furthermore, we construct TubeMData, a pionner multimodal benchmark comprising comprehensive topology-centric tasks, and introduce an adaptive loss weighting strategy to emphasize topology-critical regions during training. Extensive experiments on fifteen diverse datasets demonstrate our superiority. Quantitatively, TubeMLLM achieves state-of-the-art out-of-distribution performance, substantially reducing global topological discrepancies on color fundus photography (decreasing the $β_{0}$ number error from 37.42 to 8.58 compared to baselines). Notably, TubeMLLM exhibits exceptional zero-shot cross-modality transferring ability on unseen X-ray angiography, achieving a Dice score of 67.50% while significantly reducing the $β_{0}$ error to 1.21. TubeMLLM also maintains robustness against degradations such as blur, noise, and low resolution. Furthermore, in topology-aware understanding tasks, the model achieves 97.38% accuracy in evaluating mask topological quality, significantly outperforming standard vision-language baselines.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 由于医学管状解剖结构具有复杂的拓扑形态且对数据集偏移高度敏感，其建模工作面临严峻挑战。这导致任务专用模型常出现拓扑不一致问题，包括人为断裂和虚假融合等现象。受多模态大语言模型（MLLMs）在零样本泛化方面的潜力启发，我们提出TubeMLLM——一个融合结构化理解与可控生成的医学管状解剖基础模型。通过显式自然语言提示整合拓扑先验知识，并在共享注意力架构中实现其与视觉表征的对齐，该模型显著提升了拓扑感知能力。此外，我们构建了首个以拓扑为核心的多模态基准测试集TubeMData，并提出自适应损失加权策略以强化训练中对拓扑关键区域的关注。在十五个多样化数据集上的实验表明：定量评估中，TubeMLLM在分布外场景下达到最先进性能，将眼底彩照的全局拓扑差异显著降低（β₀数值误差较基线模型从37.42降至8.58）；特别值得注意的是，模型在未见过的X射线血管造影模态上展现出卓越的零样本跨模态迁移能力，不仅获得67.50%的Dice分数，更将β₀误差大幅降至1.21。TubeMLLM对模糊、噪声及低分辨率等退化因素也保持稳健性。在拓扑感知理解任务中，该模型在掩模拓扑质量评估中取得97.38%的准确率，显著优于标准视觉语言基线方法。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: TubeMLLM is a foundation model for medical vessel-like anatomy that integrates topological priors with visual representations using multimodal large language models, achieving state-of-the-art performance in topology-aware tasks and zero-shot cross-modality transfer.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: TubeMLLM 是一种用于医学血管状解剖的基础模型，通过多模态大型语言模型将拓扑先验与视觉表示相结合，在拓扑感知任务和零样本跨模态迁移中实现了最先进的性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09217v2" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yaoyu Liu, Minghui Zhang, Xin You, Hanxiao Zhang, Yun Gu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">TinyNav: End-to-End TinyML for Real-Time Autonomous Navigation on Microcontrollers</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Autonomous navigation typically relies on power-intensive processors, limiting accessibility in low-cost robotics. Although microcontrollers offer a resource-efficient alternative, they impose strict constraints on model complexity. We present TinyNav, an end-to-end TinyML system for real-time autonomous navigation on an ESP32 microcontroller. A custom-trained, quantized 2D convolutional neural network processes a 20-frame sliding window of depth data to predict steering and throttle commands. By avoiding 3D convolutions and recurrent layers, the 23k-parameter model achieves 30 ms inference latency. Correlation analysis and Grad-CAM validation indicate consistent spatial awareness and obstacle avoidance behavior. TinyNav demonstrates that responsive autonomous control can be deployed directly on highly constrained edge devices, reducing reliance on external compute resources.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 自主导航通常依赖于高功耗处理器，这限制了其在低成本机器人领域的普及。尽管微控制器提供了资源高效的替代方案，但其对模型复杂度有严格限制。我们提出TinyNav——一种部署于ESP32微控制器的端到端TinyML实时自主导航系统。通过定制训练的量化二维卷积神经网络处理20帧深度数据的滑动窗口，可预测转向与油门指令。该模型通过规避三维卷积和循环层结构，仅需23k参数即可实现30毫秒推理延迟。相关性分析与Grad-CAM验证表明系统具有稳定的空间感知与避障行为。TinyNav证明响应式自主控制可直接部署于高度受限的边缘设备，从而降低对外部计算资源的依赖。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: TinyNav is an end-to-end TinyML system for real-time autonomous navigation on microcontrollers, using a lightweight 2D CNN to process depth data for steering and throttle commands, achieving low latency and resource efficiency.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: TinyNav 是一种用于微控制器实时自主导航的端到端 TinyML 系统，使用轻量级 2D CNN 处理深度数据以预测转向和油门命令，实现低延迟和资源高效。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.11071v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Pooria Roy, Nourhan Jadallah. Tomer Lapid, Shahzaib Ahmad, Armita Afroushe, Mete Bayrak</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.4, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Caterpillar-Inspired Spring-Based Compressive Continuum Robot for Bristle-based Exploration</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Exploration of confined spaces, such as pipelines and ducts, remains challenging for conventional rigid robots due to limited space, irregular geometry, and restricted access. Inspired by caterpillar locomotion and sensing, this paper presents a compact spring-based tendon-driven continuum robot that integrates with commercial robotic arms for confined-space inspection. The system combines a mechanically compliant continuum body with a tendon actuation module, enabling coupled bending and axial length change, and uses a constant-curvature kinematic model for positional control. Experiments show a mean position error of 4.32 mm under the proposed model and control pipeline. To extend the system from motion to inspection, we integrate an artificial bristle contact sensor and demonstrate surface perception and confined-space exploration through contact interactions. This compact and compliant design offers a cost-effective upgrade for commercial robots and promises effective exploration in challenging environments.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+管道、风道等密闭空间的探测对传统刚性机器人而言仍具挑战性，原因在于空间受限、几何形状不规则及通道狭窄。受毛虫运动与感知机制启发，本文提出一种基于弹簧的紧凑型腱驱动连续体机器人，可与商用机械臂集成实现密闭空间检测。该系统将机械柔顺的连续体结构与腱驱动模块相结合，实现弯曲与轴向长度变化的耦合运动，并采用恒定曲率运动学模型进行位置控制。实验表明，在提出的模型与控制流程下，系统平均位置误差为4.32毫米。为将系统功能从运动拓展至检测，我们集成了人工刚毛接触传感器，通过接触交互实现了表面感知与密闭空间探测。这种紧凑柔顺的设计为商用机器人提供了经济高效的升级方案，有望在复杂环境中实现高效探测。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper presents a caterpillar-inspired, spring-based tendon-driven continuum robot for confined-space exploration, integrating a compliant body with tendon actuation and an artificial bristle contact sensor for surface perception.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种受毛毛虫启发的、基于弹簧的肌腱驱动连续体机器人，用于受限空间探索，集成了柔性体与肌腱驱动模块以及人工刚毛接触传感器以实现表面感知。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09745v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhixian Hu, Yu She, Juan Wachs</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.45, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ReTac-ACT: A State-Gated Vision-Tactile Fusion Transformer for Precision Assembly</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Precision assembly requires sub-millimeter corrections in contact-rich "last-millimeter" regions where visual feedback fails due to occlusion from the end-effector and workpiece. We present ReTac-ACT (Reconstruction-enhanced Tactile ACT), a vision-tactile imitation learning policy that addresses this challenge through three synergistic mechanisms: (i) bidirectional cross-attention enabling reciprocal visuo-tactile feature enhancement before fusion, (ii) a proprioception-conditioned gating network that dynamically elevates tactile reliance when visual occlusion occurs, and (iii) a tactile reconstruction objective enforcing learning of manipulation-relevant contact information rather than generic visual textures. Evaluated on the standardized NIST Assembly Task Board M1 benchmark, ReTac-ACT achieves 90% peg-in-hole success, substantially outperforming vision-only and generalist baseline methods, and maintains 80% success at industrial-grade 0.1mm clearance. Ablation studies validate that each architectural component is indispensable. The ReTac-ACT codebase and a vision-tactile demonstration dataset covering various clearance levels with both visual and tactile features will be released to support reproducible research.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 精密装配需要在接触密集的"最后一毫米"区域进行亚毫米级校正，该区域因末端执行器与工件的遮挡导致视觉反馈失效。我们提出ReTac-ACT（重建增强型触觉动作模仿学习策略），通过三重协同机制解决这一挑战：(i) 双向交叉注意力机制在特征融合前实现视觉-触觉特征的相互增强；(ii) 本体感知条件门控网络在视觉遮挡时动态提升触觉依赖度；(iii) 触觉重建目标强制学习与操作相关的接触信息而非通用视觉纹理。在标准化的NIST M1装配任务板上进行评估时，ReTac-ACT实现了90%的轴孔装配成功率，显著优于纯视觉和通用基线方法，并在工业级0.1毫米间隙下保持80%的成功率。消融实验证实每个架构组件都不可或缺。我们将公开ReTac-ACT代码库及涵盖多间隙等级的视觉-触觉演示数据集（包含视觉与触觉特征），以支持可重复研究。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ReTac-ACT is a vision-tactile imitation learning policy for precision assembly, using bidirectional cross-attention, dynamic tactile reliance gating, and tactile reconstruction to achieve high success rates in sub-millimeter tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ReTac-ACT是一种用于精密装配的视觉-触觉模仿学习策略，通过双向交叉注意力、动态触觉依赖门控和触觉重建，在亚毫米级任务中实现高成功率。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09565v2" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Minchi Ruan, LiangQing Zhou, Hongtong Li, Zongtao Wang, ZhaoMing Lu, Jianwei Zhang, Bin Fang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.5, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">From Flow to One Step: Real-Time Multi-Modal Trajectory Policies via Implicit Maximum Likelihood Estimation-based Distribution Distillation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Generative policies based on diffusion and flow matching achieve strong performance in robotic manipulation by modeling multi-modal human demonstrations. However, their reliance on iterative Ordinary Differential Equation (ODE) integration introduces substantial latency, limiting high-frequency closed-loop control. Recent single-step acceleration methods alleviate this overhead but often exhibit distributional collapse, producing averaged trajectories that fail to execute coherent manipulation strategies. We propose a framework that distills a Conditional Flow Matching (CFM) expert into a fast single-step student via Implicit Maximum Likelihood Estimation (IMLE). A bi-directional Chamfer distance provides a set-level objective that promotes both mode coverage and fidelity, enabling preservation of the teacher multi-modal action distribution in a single forward pass. A unified perception encoder further integrates multi-view RGB, depth, point clouds, and proprioception into a geometry-aware representation. The resulting high-frequency control supports real-time receding-horizon re-planning and improved robustness under dynamic disturbances.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 基于扩散和流匹配的生成策略通过建模多模态人类示范数据，在机器人操控任务中展现出卓越性能。然而，依赖迭代常微分方程（ODE）积分计算的方式会引入显著延迟，制约了高频闭环控制的实现。现有单步加速方法虽能缓解计算开销，但常出现分布坍缩问题，生成的平均化轨迹难以执行连贯的操控策略。我们提出一个通过隐式最大似然估计（IMLE）将条件流匹配（CFM）专家模型蒸馏为快速单步学生模型的框架。双向Chamfer距离作为集合级优化目标，既能保证模态覆盖度又能保持生成保真度，从而在单次前向传播中保留教师模型的多模态动作分布。统一感知编码器进一步将多视角RGB、深度、点云及本体感知融合为几何感知表征。最终实现的高频控制支持实时滚动时域重规划，并在动态干扰下表现出更强的鲁棒性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes a method to distill a multi-modal generative policy into a single-step model using Implicit Maximum Likelihood Estimation (IMLE), enabling real-time robotic control while preserving mode coverage and fidelity.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种方法，通过隐式最大似然估计（IMLE）将多模态生成策略蒸馏为单步模型，从而在保持模态覆盖和保真度的同时实现实时机器人控制。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09415v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ju Dong, Liding Zhang, Lei Zhang, Yu Fu, Kaixin Bai, Zoltan-Csaba Marton, Zhenshan Bing, Zhaopeng Chen, Alois Christian Knoll, Jianwei Zhang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.55, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Provably Safe Trajectory Generation for Manipulators Under Motion and Environmental Uncertainties</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robot manipulators operating in uncertain and non-convex environments present significant challenges for safe and optimal motion planning. Existing methods often struggle to provide efficient and formally certified collision risk guarantees, particularly when dealing with complex geometries and non-Gaussian uncertainties. This article proposes a novel risk-bounded motion planning framework to address this unmet need. Our approach integrates a rigid manipulator deep stochastic Koopman operator (RM-DeSKO) model to robustly predict the robot's state distribution under motion uncertainty. We then introduce an efficient, hierarchical verification method that combines parallelizable physics simulations with sum-of-squares (SOS) programming as a filter for fine-grained, formal certification of collision risk. This method is embedded within a Model Predictive Path Integral (MPPI) controller that uniquely utilizes binary collision information from SOS decomposition to improve its policy. The effectiveness of the proposed framework is validated on two typical robot manipulators through extensive simulations and real-world experiments, including a challenging human-robot collaboration scenario, demonstrating sim-to-real transfer of the learned model and its ability to generate safe and efficient trajectories in complex, uncertain settings.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在不确定和非凸环境中运行的机器人机械臂为安全、最优的运动规划带来了重大挑战。现有方法往往难以提供高效且具有形式化认证的碰撞风险保证，尤其是在处理复杂几何形状和非高斯不确定性时。本文提出了一种新型风险有界运动规划框架以解决这一未满足的需求。该方法通过刚性机械臂深度随机库普曼算子（RM-DeSKO）模型来鲁棒预测运动不确定性下的机器人状态分布，并引入一种高效分层验证方法——该方法将可并行化的物理仿真与平方和（SOS）规划相结合，作为细粒度形式化碰撞风险认证的过滤器。该框架被嵌入模型预测路径积分（MPPI）控制器中，创新性地利用来自SOS分解的二元碰撞信息来优化控制策略。通过大量仿真和真实世界实验（包括具有挑战性的人机协作场景），该框架在两种典型机器人机械臂上验证了有效性，证明了学习模型的仿真到现实迁移能力及其在复杂不确定环境中生成安全高效轨迹的优越性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces a risk-bounded motion planning framework for robot manipulators, combining a deep stochastic Koopman operator model with hierarchical verification and MPPI control to ensure safe trajectories in uncertain environments.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种风险受限的运动规划框架，结合深度随机Koopman算子模型和分层验证方法，确保机械臂在不确定环境中的安全轨迹。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09083v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Fei Meng, Zijiang Yang, Xinyu Mao, Haobo Liang, Max Q. -H. Meng</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.6000000000000001, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Characterization, Analytical Planning, and Hybrid Force Control for the Inspire RH56DFX Hand</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Commercially accessible dexterous robot hands are increasingly prevalent, but many remain difficult to use as scientific instruments. For example, the Inspire RH56DFX hand exposes only uncalibrated proprioceptive information and shows unreliable contact behavior at high speed (up to 1618% force limit overshoot). Furthermore, its underactuated, coupled finger linkages make antipodal grasps non-trivial. We contribute three improvements to the Inspire RH56DFX to transform it from a black-box device to a research tool: (1) hardware characterization (force calibration, latency, and overshoot), (2) a sim2real validated MuJoCo model for analytical width-to-grasp planning, and (3) a hybrid, closed-loop speed-force grasp controller. We validate these components on peg-in-hole insertion, achieving 65% success and outperforming a wrist-force-only baseline of 10% and on 300 grasps across 15 physically diverse objects, achieving 87% success and outperforming plan-free grasps and learned grasps. Our approach is modular, designed for compatibility with external object detectors and vision-language models for width & force estimation and high-level planning, and provides an interpretable and immediately deployable interface for dexterous manipulation with the Inspire RH56DFX hand, open-sourced at this website https://correlllab.github.io/rh56dfx.html.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 商业化的灵巧机器人手日益普及，但许多设备仍难以作为科研仪器使用。以Inspire RH56DFX手为例，该设备仅提供未校准的本体感知信息，且在高速运行时表现出不可靠的接触行为（力限制超调高达1618%）。此外，其欠驱动、耦合的指间连杆结构使得对握抓取变得复杂。我们针对Inspire RH56DFX提出了三项改进方案，将其从黑箱设备转变为研究工具：(1) 硬件特性分析（力校准、延迟及超调）；(2) 通过sim2real验证的MuJoCo模型，用于解析式宽度-抓取规划；(3) 混合型速度-力闭环抓取控制器。我们在轴孔插入任务中验证了这些组件，成功率提升至65%（优于仅依赖腕部力基准的10%成功率），并在15种物理特性各异的物体上完成300次抓取测试，成功率高达87%（优于无规划抓取和学习型抓取）。本方案采用模块化设计，可与外部物体检测器及视觉语言模型兼容，实现宽度/力估计与高层规划，同时为Inspire RH56DFX手的灵巧操控提供了可解释、即部署的接口。项目已在https://correlllab.github.io/rh56dfx.html开源。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper presents three improvements to the Inspire RH56DFX robotic hand to enhance its usability as a research tool, including hardware characterization, a sim2real validated model, and a hybrid force control system, validated through peg-in-hole and grasping tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了对Inspire RH56DFX机器人手的三个改进，以增强其作为研究工具的可用性，包括硬件表征、sim2real验证模型和混合力控制系统，并通过孔插入和抓取任务进行了验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.08988v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xuan Tan, William Xie, Nikolaus Correll</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.65, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">OTPL-VIO: Robust Visual-Inertial Odometry with Optimal Transport Line Association and Adaptive Uncertainty</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robust stereo visual-inertial odometry (VIO) remains challenging in low-texture scenes and under abrupt illumination changes, where point features become sparse and unstable, leading to ambiguous association and under-constrained estimation. Line structures offer complementary geometric cues, yet many efficient point-line systems still rely on point-guided line association, which can break down when point support is weak and may lead to biased constraints. We present a stereo point-line VIO system in which line segments are equipped with dedicated deep descriptors and matched using an entropy-regularized optimal transport formulation, enabling globally consistent correspondences under ambiguity, outliers, and partial observations. The proposed descriptor is training-free and is computed by sampling and pooling network feature maps. To improve estimation stability, we analyze the impact of line measurement noise and introduce reliability-adaptive weighting to regulate the influence of line constraints during optimization. Experiments on EuRoC and UMA-VI, together with real-world deployments in low-texture and illumination-challenging environments, demonstrate improved accuracy and robustness over representative baselines while maintaining real-time performance.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+在低纹理场景和光照突变条件下，稳健的立体视觉-惯性里程计（VIO）仍面临挑战。此类环境中点特征变得稀疏且不稳定，导致关联模糊和估计欠约束。线结构虽能提供互补的几何线索，但现有高效点线融合系统仍依赖点引导的线特征关联机制——当点特征支持不足时，该机制可能失效并产生有偏约束。本文提出一种立体点线VIO系统，通过为线段配备专用深度描述符，并采用熵正则化最优传输框架进行匹配，可在特征模糊、异常值和部分观测条件下实现全局一致的对应关系。所提出的描述符无需训练，通过采样和池化网络特征图生成。为提升估计稳定性，我们分析了线特征测量噪声的影响，引入可靠性自适应加权机制以调节优化过程中线约束的强度。在EuRoC和UMA-VI数据集上的实验表明，结合在低纹理和光照挑战环境中的实际部署，该系统在保持实时性能的同时，较代表性基线方法实现了更高的精度与鲁棒性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces OTPL-VIO, a robust stereo visual-inertial odometry system that uses optimal transport for line association and adaptive uncertainty weighting to improve accuracy in low-texture and illumination-challenging environments.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文介绍了OTPL-VIO，一种稳健的立体视觉惯性里程计系统，利用最优传输进行线关联和自适应不确定性加权，以提高在低纹理和光照挑战环境中的准确性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09653v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zikun Chen, Wentao Zhao, Yihe Niu, Tianchen Deng, Jingchuan Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.7000000000000001, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Trajectory Optimization for Self-Wrap-Aware Cable-Towed Planar Object Manipulation under Implicit Tension Constraints</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Cable/rope elements are pervasive in deformable-object manipulation, often serving as a deformable force-transmission medium whose routing and contact determine how wrenches are delivered. In cable-towed manipulation, transmission is unilateral and hybrid: the tether can pull only when taut and becomes force-free when slack; in practice, the tether may also contact the object boundary and self-wrap around edges, which is not merely collision avoidance but a change of the wrench transmission channel by shifting the effective application point and moment arm, thereby coupling routing geometry with rigid-body motion and tensioning. We formulate self-wrap towing as a routing-aware, tensioning-implicit trajectory optimization (TITO) problem that couples (i) a tensioning-implicit taut/slack constraint and (ii) routing-conditioned transmission maps for effective length and wrench, and we build a relaxation hierarchy from a strict mode-conditioned reference to three tractable relaxations: Full-Mode Relaxation (FMR), Binary-Mode Relaxation (BMR), and Implicit-Mode Relaxation (IMR). Across planar towing tasks, we find that making routing an explicit decision often yields conservative solutions that stay near switching boundaries, whereas IMR induces self-wrap through state evolution and exploits the redirected torque channel whenever turning requires it.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+缆绳/绳索单元在可变形物体操控中普遍存在，常作为可变形力传递介质，其路径规划与接触状态决定了力矩的传递方式。在缆绳牵引操控中，力的传递具有单向混合特性：绷紧时仅能施加拉力，松弛时则无力传递；实际应用中，缆绳还可能接触物体边界并自主缠绕边缘，这不仅涉及避碰问题，更会通过改变有效施力点和力臂来重塑力矩传递通道，从而将路径几何与刚体运动及张紧状态耦合。我们将自主缠绕牵引建模为路径感知的隐式张紧轨迹优化（TITO）问题，该模型耦合了：(i) 隐式张紧的绷紧/松弛约束；(ii) 路径条件化的有效长度与力矩传递映射，并构建了从严格模态约束基准到三种可处理松弛形式的层次结构：全模态松弛（FMR）、双模态松弛（BMR）和隐模态松弛（IMR）。在平面牵引任务中，显式路径决策常导致保守解（倾向于停留在切换边界附近），而IMR通过状态演化诱导自主缠绕，并在转向需要时主动利用重构的扭矩传递通道。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper presents a trajectory optimization method for cable-towed planar object manipulation that accounts for self-wrap and tension constraints, introducing a hierarchy of relaxations to handle routing and tensioning implicitly.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种用于电缆牵引平面物体操纵的轨迹优化方法，考虑了自缠绕和张力约束，并引入了一系列松弛层次来隐式处理路由和张力问题。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09557v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yu Li, Amin Fakhari, Hamid Sadeghian</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.75, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Stein Variational Ergodic Surface Coverage with SE(3) Constraints</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Surface manipulation tasks require robots to generate trajectories that comprehensively cover complex 3D surfaces while maintaining precise end-effector poses. Existing ergodic trajectory optimization (TO) methods demonstrate success in coverage tasks, while struggling with point-cloud targets due to the nonconvex optimization landscapes and the inadequate handling of SE(3) constraints in sampling-as-optimization (SAO) techniques. In this work, we introduce a preconditioned SE(3) Stein Variational Gradient Descent (SVGD) approach for SAO ergodic trajectory generation. Our proposed approach comprises multiple innovations. First, we reformulate point-cloud ergodic coverage as a manifold-aware sampling problem. Second, we derive SE(3)-specific SVGD particle updates, and, third, we develop a preconditioner to accelerate TO convergence. Our sampling-based framework consistently identifies superior local optima compared to strong optimization-based and SAO baselines while preserving the SE(3) geometric structure. Experiments on a 3D point-cloud surface coverage benchmark and robotic surface drawing tasks demonstrate that our method achieves superior coverage quality with tractable computation in our setting relative to existing TO and SAO approaches, and is validated in real-world robot experiments.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 表面操控任务要求机器人能够生成全面覆盖复杂三维表面的轨迹，同时保持末端执行器的精确位姿。现有遍历轨迹优化（TO）方法在覆盖任务中表现良好，但在处理点云目标时，由于非凸优化特性及采样即优化（SAO）技术对SE(3)约束的处理不足，其性能受限。本研究提出了一种基于预条件处理的SE(3)斯坦因变分梯度下降（SVGD）方法，用于SAO遍历轨迹生成。我们的方法包含多项创新：首先将点云遍历覆盖重构为流形感知采样问题；其次推导了SE(3)专用的SVGD粒子更新规则；最后开发了加速TO收敛的预条件处理器。相较于基于优化的强基准方法和SAO基线，我们的采样框架在保持SE(3)几何结构的同时，始终能发现更优的局部最优解。通过在三维点云表面覆盖基准测试和机器人表面绘制任务的实验验证，本方法在计算可处理范围内实现了优于现有TO和SAO方法的覆盖质量，并在真实机器人实验中得到了有效验证。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces a preconditioned SE(3) Stein Variational Gradient Descent (SVGD) approach for ergodic trajectory generation on 3D surfaces, addressing challenges in nonconvex optimization and SE(3) constraints, demonstrating superior coverage quality in experiments.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种预处理的SE(3) Stein变分梯度下降（SVGD）方法，用于在3D表面上生成遍历轨迹，解决了非凸优化和SE(3)约束的挑战，实验证明了其覆盖质量的优越性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09458v2" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jiayun Li, Yufeng Jin, Sangli Teng, Dejian Gong, Georgia Chalvatzaki</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.8, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">VarSplat: Uncertainty-aware 3D Gaussian Splatting for Robust RGB-D SLAM</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Simultaneous Localization and Mapping (SLAM) with 3D Gaussian Splatting (3DGS) enables fast, differentiable rendering and high-fidelity reconstruction across diverse real-world scenes. However, existing 3DGS-SLAM approaches handle measurement reliability implicitly, making pose estimation and global alignment susceptible to drift in low-texture regions, transparent surfaces, or areas with complex reflectance properties. To this end, we introduce VarSplat, an uncertainty-aware 3DGS-SLAM system that explicitly learns per-splat appearance variance. By using the law of total variance with alpha compositing, we then render differentiable per-pixel uncertainty map via efficient, single-pass rasterization. This map guides tracking, submap registration, and loop detection toward focusing on reliable regions and contributes to more stable optimization. Experimental results on Replica (synthetic) and TUM-RGBD, ScanNet, and ScanNet++ (real-world) show that VarSplat improves robustness and achieves competitive or superior tracking, mapping, and novel view synthesis rendering compared to existing studies for dense RGB-D SLAM.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：  
+基于3D高斯泼溅（3DGS）的同步定位与建图（SLAM）技术能够实现快速可微分渲染，并在多样化真实场景中完成高保真重建。然而，现有3DGS-SLAM方法隐式处理测量可靠性，导致位姿估计与全局对齐在低纹理区域、透明表面或复杂反射特性区域易受漂移影响。为此，我们提出VarSplat——一种显式学习各泼溅单元外观方差的不确定性感知3DGS-SLAM系统。通过结合全方差定律与Alpha合成技术，我们以高效的单通道光栅化方式渲染可微分逐像素不确定性图。该图通过引导跟踪、子图配准与回环检测聚焦可靠区域，从而提升优化稳定性。在Replica（合成数据集）及TUM-RGBD、ScanNet、ScanNet++（真实场景数据集）上的实验表明，相较于现有稠密RGB-D SLAM研究，VarSplat在鲁棒性方面显著提升，并在跟踪精度、建图质量及新视角合成渲染效果上达到竞争性或更优性能。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: VarSplat introduces an uncertainty-aware 3D Gaussian Splatting (3DGS) system for RGB-D SLAM, explicitly learning per-splat appearance variance to improve robustness in challenging scenes like low-texture or reflective areas.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: VarSplat提出了一种不确定性感知的3D高斯泼溅（3DGS）系统，用于RGB-D SLAM，通过学习每个泼溅的外观方差，提高了在低纹理或反射区域等挑战性场景中的鲁棒性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.09673v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Anh Thuan Tran, Jana Kosecka</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-03-22 10:43:23 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
