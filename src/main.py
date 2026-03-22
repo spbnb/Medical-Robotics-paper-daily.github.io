@@ -25,7 +25,7 @@ DEFAULT_TEMPLATE_DIR = os.path.join(PROJECT_ROOT, 'templates')
 DEFAULT_TEMPLATE_NAME = 'paper_template.html' # 确保此模板存在
 
 # 设定最早抓取日期（上限日期），早于此日期的文章将不会自动抓取
-EARLIEST_DATE = date(2026, 1, 1)  # 可以根据需要修改这个日期
+EARLIEST_DATE = date(2026, 3, 20)  # 可以根据需要修改这个日期
 
 
 def find_missing_dates(json_dir: str, earliest: date, latest: date) -> list:
