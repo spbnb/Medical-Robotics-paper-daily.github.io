@@ -30,6 +30,55 @@ MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
 MAX_CONCURRENCY = _safe_int_env("OPENROUTER_MAX_CONCURRENCY", 8)
 REQUEST_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_TIMEOUT_SECONDS", 30)
 
+STRONG_DOMAIN_ANCHORS = (
+    "fbg",
+    "fiber bragg",
+    "optical fiber",
+    "surgical",
+    "surgery",
+    "bronchos",
+    "endoscop",
+    "catheter",
+    "airway",
+    "intervention",
+    "minimally invasive",
+    "soft robot",
+    "continuum robot",
+)
+
+WEAK_DOMAIN_ANCHORS = (
+    "force sensing",
+    "shape sensing",
+    "shape reconstruction",
+    "force estimation",
+    "proprioception",
+    "navigation",
+    "localization",
+    "registration",
+    "tracking",
+    "slam",
+    "planning",
+    "control",
+    "manipulation",
+    "robotic",
+    "medical",
+    "clinical",
+    "vla",
+    "embodied",
+)
+
+
+def _domain_anchor_decision(title: str, summary: str) -> tuple[bool, str]:
+    text = f"{title} {summary}".lower()
+    strong_hits = [anchor for anchor in STRONG_DOMAIN_ANCHORS if anchor in text]
+    weak_hits = [anchor for anchor in WEAK_DOMAIN_ANCHORS if anchor in text]
+
+    if strong_hits:
+        return True, f"strong anchor: {strong_hits[0]}"
+    if len(weak_hits) >= 2:
+        return True, f"weak anchors: {', '.join(weak_hits[:3])}"
+    return False, "insufficient domain anchors"
+
 
 def _strip_json_fence(text: str) -> str:
     content = text.strip()
@@ -115,14 +164,33 @@ def filter_papers_by_topic(
     def _filter_one(i: int, paper: dict):
         title = paper.get("title", "N/A")
         summary = paper.get("summary", "N/A")
+        allow_by_anchor, anchor_reason = _domain_anchor_decision(title, summary)
+        if not allow_by_anchor:
+            logging.info(
+                "Paper %s/%s skipped by domain-anchor gate (%s): %s",
+                i + 1,
+                total,
+                anchor_reason,
+                title[:100],
+            )
+            return i, paper, False
+        logging.info(
+            "Paper %s/%s passed domain-anchor gate (%s): %s",
+            i + 1,
+            total,
+            anchor_reason,
+            title[:100],
+        )
         prompt = (
             "You are selecting papers for FBG-driven surgical robotics and navigation research. "
             "Answer with ONLY 'yes' or 'no'. "
-            "Say 'yes' if the main contribution is an algorithm/model for at least one of: "
+            "Say 'yes' ONLY if the main contribution is an algorithm/model that is explicitly grounded in at least one target domain: "
             "FBG sensing, FBG force sensing, FBG shape sensing, surgical robotics, surgical robot navigation, "
-            "bronchoscopy navigation, or soft robotics; include VLA/VLM/LLM methods only when they are clearly "
+            "bronchoscopy, endoscopy, catheter navigation, or soft robotics; include VLA/VLM/LLM methods only when they are clearly "
             "applied to sensing, estimation, planning, control, localization, registration, SLAM, tracking, or guidance "
             "in these domains. "
+            "Generic VLA foundation-model papers, mechanistic interpretability papers, and pure benchmark/scaling/efficiency papers "
+            "without explicit grounding in these domains must be answered 'no'. "
             "Say 'no' for purely hardware/material/fabrication papers without algorithmic contribution, "
             "pure optics/physics theory without sensing or robotics/medical algorithm use, "
             "general NLP/CV/LLM papers without clear domain linkage, or purely clinical workflow reports without methods. "
@@ -166,7 +234,7 @@ Paper Title: %s
 Paper Abstract: %s
 
 # My Research Interests
-FBG Sensing + FBG Force/Shape Sensing Algorithms + Surgical Robotics + Surgical Robot Navigation + Bronchoscopy Navigation Algorithms + Soft Robotics + Vision-Language-Action (VLA) for Sensing, Estimation, Planning, and Control
+FBG Sensing + FBG Force/Shape Sensing Algorithms + Surgical Robotics + Surgical Robot Navigation + Bronchoscopy Navigation Algorithms + Soft Robotics + Vision-Language-Action (VLA) for Sensing, Estimation, Planning, and Control, but only when explicitly applied to these domains
 
 # Output Requirements
 Output should always be in JSON format, strictly compliant with RFC8259.
@@ -182,7 +250,7 @@ Please output the evaluation and explanations in the following JSON format:
 }
 
 # Scoring Guidelines
-- Relevance: Focus on whether it is directly related to the research interests I provided.
+- Relevance: Score high only when the paper is explicitly grounded in FBG, surgical robotics, bronchoscopy/endoscopy/catheter navigation, or soft robotics. Generic VLA papers without this grounding should score low on relevance.
 - Novelty: Evaluate the degree of innovation claimed in the abstract regarding the method or viewpoint compared to known work.
 - Clarity: Evaluate whether the abstract itself is easy to understand and complete with essential elements.
 - Potential Impact: Evaluate the importance of the problem it claims to solve and the potential application value of the results.
