@@ -10,7 +10,7 @@ from email.utils import formataddr, parseaddr
 from html import escape
 from typing import Optional
 
-DEFAULT_PAGES_BASE_URL = "https://spbnb.github.io/Medical-Robotics-paper-daily.github.io/"
+DEFAULT_PAGES_BASE_URL = ""
 
 
 def _as_bool(value: str, default: bool = False) -> bool:
