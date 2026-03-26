@@ -23,7 +23,7 @@ def _safe_int_env(name: str, default: int) -> int:
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://models.sjtu.edu.cn/api/v1/chat/completions"
-MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-v3")
+MODEL_NAME = os.getenv("MODEL_NAME", "minimax-m2.5")
 
 
 MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
