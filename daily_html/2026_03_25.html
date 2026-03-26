@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - March 25, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>March 25, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PinPoint: Monocular Needle Pose Estimation for Robotic Suturing via Stein Variational Newton and Geometric Residuals</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Reliable estimation of surgical needle 3D position and orientation is essential for autonomous robotic suturing, yet existing methods operate almost exclusively under stereoscopic vision. In monocular endoscopic settings, common in transendoscopic and intraluminal procedures, depth ambiguity and rotational symmetry render needle pose estimation inherently ill-posed, producing a multimodal distribution over feasible configurations, rather than a single, well-grounded estimate. We present PinPoint, a probabilistic variational inference framework that treats this ambiguity directly, maintaining a distribution of pose hypotheses rather than suppressing it. PinPoint combines monocular image observations with robot-grasp constraints through analytical geometric likelihoods with closed-form Jacobians. This framework enables efficient Gauss-Newton preconditioning in a Stein Variational Newton inference, where second-order particle transport deterministically moves particles toward high-probability regions while kernel-based repulsion preserves diversity in the multimodal structure. On real needle-tracking sequences, PinPoint reduces mean translational error by 80% (down to 1.00 mm) and rotational error by 78% (down to 13.80°) relative to a particle-filter baseline, with substantially better-calibrated uncertainty. On induced-rotation sequences, where monocular ambiguity is most severe, PinPoint maintains a bimodal posterior 84% of the time, almost three times the rate of the particle filter baseline, correctly preserving the alternative hypothesis rather than committing prematurely to one mode. Suturing experiments in ex vivo tissue demonstrate stable tracking through intermittent occlusion, with average errors during occlusion of 1.34 mm in translation and 19.18° in rotation, even when the needle is fully embedded.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 手术针三维位置与方向的可靠估计是实现自主机器人缝合的关键，然而现有方法几乎完全依赖立体视觉实现。在经内镜及管腔内手术常见的单目内窥镜场景中，深度模糊性与旋转对称性导致针具姿态估计存在固有不适定性，会生成可行构型的多峰分布而非单一可靠估计。我们提出概率变分推理框架PinPoint，该框架直接处理这种模糊性，通过维持姿态假设分布而非强行抑制多峰特性。PinPoint将单目图像观测与机器人抓取约束相结合，采用具有闭式雅可比矩阵的解析几何似然函数。该框架支持在斯坦变分牛顿推理中实现高效高斯-牛顿预处理，其中二阶粒子传输确定性引导粒子向高概率区域移动，同时基于核函数的排斥力保持多峰结构的多样性。在实际针具追踪实验中，相比粒子滤波基线方法，PinPoint将平均平移误差降低80%（至1.00毫米），旋转误差降低78%（至13.80°），且不确定性校准效果显著更优。在单目模糊性最严重的诱导旋转序列中，PinPoint能保持84%时间的双峰后验分布，几乎是粒子滤波基线三倍的概率，正确保留替代假设而非过早收敛至单一模态。离体组织缝合实验表明，该系统能在间歇性遮挡下稳定追踪，即使针具完全嵌入时，遮挡期间仍保持平均1.34毫米平移误差与19.18°旋转误差。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PinPoint introduces a probabilistic variational inference framework for monocular needle pose estimation in robotic suturing, addressing depth ambiguity and rotational symmetry by maintaining a distribution of pose hypotheses, significantly improving accuracy and uncertainty calibration.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PinPoint提出了一种概率变分推理框架，用于机器人缝合中的单针姿态估计，通过保持姿态假设的分布来解决深度模糊和旋转对称性问题，显著提高了准确性和不确定性校准。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.23365v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jesse F. d'Almeida, Tanner Watts, Susheela Sharma Stern, James Ferguson, Alan Kuntz, Robert J. Webster</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Trajectory Generation for Underactuated Soft Robot Manipulators using Discrete Elastic Rod Dynamics</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Soft robots are well suited for contact-rich tasks due to their compliance, yet this property makes accurate and tractable modeling challenging. Planning motions with dynamically-feasible trajectories requires models that capture arbitrary deformations, remain computationally efficient, and are compatible with underactuation. However, existing approaches balance these properties unevenly: continuum rod models provide physical accuracy but are computationally demanding, while reduced-order approximations improve efficiency at the cost of modeling fidelity. To address this, our work introduces a control-oriented reformulation of Discrete Elastic Rod (DER) dynamics for soft robots, and a method to generate trajectories with these dynamics. The proposed formulation yields a control-affine representation while preserving certain first-principles force-deformation relationships. As a result, the generated trajectories are both dynamically feasible and consistent with the underlying actuation assumptions. We present our trajectory generation framework and validate it experimentally on a pneumatic soft robotic limb. Hardware results demonstrate consistently improved trajectory tracking performance over a constant-curvature-based baseline, particularly under complex actuation conditions.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 软体机器人因其柔顺性而非常适合接触密集型任务，但这一特性也使得精确且易处理的建模具有挑战性。要实现动态可行的运动轨迹规划，需要能捕捉任意形变、保持计算效率并与欠驱动特性兼容的模型。然而现有方法对这些特性的权衡并不均衡：连续杆模型虽能提供物理精度但计算成本高昂，而降阶近似方法虽提高效率却牺牲了建模保真度。为此，本研究提出一种面向控制的离散弹性杆（DER）动力学重构方法，以及基于该动力学生成轨迹的技术。所提方案在保持基本力-形变关系的前提下，实现了控制仿射形式的表达，从而使生成的轨迹既满足动态可行性，又与底层驱动假设保持一致。我们展示了该轨迹生成框架，并在气动软体机械臂上进行了实验验证。硬件结果表明，相较于基于恒定曲率的基准方法，本方案能持续提升轨迹跟踪性能，在复杂驱动条件下表现尤为突出。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper introduces a control-oriented reformulation of Discrete Elastic Rod (DER) dynamics for soft robots, enabling dynamically feasible trajectory generation that balances physical accuracy and computational efficiency, validated on a pneumatic soft robotic limb.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种面向控制的离散弹性杆（DER）动力学重构方法，用于软体机器人，实现了在物理精度和计算效率之间平衡的动态可行轨迹生成，并在气动软体机器人肢体上进行了实验验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.22604v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Beibei Liu, Akua K. Dickson, Ran Jing, Andrew P. Sabelhaus</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Learning Actuator-Aware Spectral Submanifolds for Precise Control of Continuum Robots</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Continuum robots exhibit high-dimensional, nonlinear dynamics which are often coupled with their actuation mechanism. Spectral submanifold (SSM) reduction has emerged as a leading method for reducing high-dimensional nonlinear dynamical systems to low-dimensional invariant manifolds. Our proposed control-augmented SSMs (caSSMs) extend this methodology by explicitly incorporating control inputs into the state representation, enabling these models to capture nonlinear state-input couplings. Training these models relies solely on controlled decay trajectories of the actuator-augmented state, thereby removing the additional actuation-calibration step commonly needed by prior SSM-for-control methods. We learn a compact caSSM model for a tendon-driven trunk robot, enabling real-time control and reducing open-loop prediction error by 40% compared to existing methods. In closed-loop experiments with model predictive control (MPC), caSSM reduces tracking error by 52%, demonstrating improved performance against Koopman and SSM based MPC and practical deployability on hardware continuum robots.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 连续体机器人具有高维、非线性动力学特性，且常与驱动机制相互耦合。谱子流形（SSM）降维法已成为将高维非线性动力系统简化为低维不变流形的主流方法。本文提出的控制增强型谱子流形（caSSM）通过将控制输入显式纳入状态表征，扩展了该方法体系，使模型能够捕捉非线性状态-输入耦合关系。该模型训练仅需基于执行器增强状态的受控衰减轨迹，从而消除了传统SSM控制方法通常需要的额外驱动校准步骤。我们为肌腱驱动躯干机器人建立了紧凑的caSSM模型，实现了实时控制，并将开环预测误差较现有方法降低40%。在模型预测控制（MPC）闭环实验中，caSSM使跟踪误差减少52%，其性能优于基于Koopman和SSM的MPC方法，并验证了在硬件连续体机器人上的实际部署能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces control-augmented Spectral Submanifolds (caSSMs) to improve the control of continuum robots by explicitly incorporating control inputs into state representation, reducing open-loop prediction error by 40% and closed-loop tracking error by 52% compared to existing methods.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了控制增强的光谱子流形（caSSMs），通过将控制输入显式纳入状态表示来改进连续体机器人的控制，与现有方法相比，开环预测误差减少了40%，闭环跟踪误差减少了52%。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.23044v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Paul Leonard Wolff, Hugo Buurmeijer, Luis Pabon, John Irvin Alora, Mark Leone, Roshan S. Kaundinya, Amirhossein Kazemipour, Robert K. Katzschmann, Marco Pavone</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Instrument-Splatting++: Towards Controllable Surgical Instrument Digital Twin Using Gaussian Splatting</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> High-quality and controllable digital twins of surgical instruments are critical for Real2Sim in robot-assisted surgery, as they enable realistic simulation, synthetic data generation, and perception learning under novel poses. We present Instrument-Splatting++, a monocular 3D Gaussian Splatting (3DGS) framework that reconstructs surgical instruments as a fully controllable Gaussian asset with high fidelity. Our pipeline starts with part-wise geometry pretraining that injects CAD priors into Gaussian primitives and equips the representation with part-aware semantic rendering. Built on the pretrained model, we propose a semantics-aware pose estimation and tracking (SAPET) method to recover per-frame 6-DoF pose and joint angles from unposed endoscopic videos, where a gripper-tip network trained purely from synthetic semantics provides robust supervision and a loose regularization suppresses singular articulations. Finally, we introduce Robust Texture Learning (RTL), which alternates pose refinement and robust appearance optimization, mitigating pose noise during texture learning. The proposed framework can perform pose estimation and learn realistic texture from unposed videos. We validate our method on sequences extracted from EndoVis17/18, SAR-RARP, and an in-house dataset, showing superior photometric quality and improved geometric accuracy over state-of-the-art baselines. We further demonstrate a downstream keypoint detection task where unseen-pose data augmentation from our controllable instrument Gaussian improves performance.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 高质量且可控的手术器械数字孪生体对于机器人辅助手术中的"真实到仿真"(Real2Sim)至关重要，它们能实现新颖姿态下的逼真模拟、合成数据生成与感知学习。本文提出Instrument-Splatting++，一种基于单目视觉的3D高斯泼溅(3DGS)框架，可将手术器械重建为高保真度的全可控高斯资产。我们的流程始于部件级几何预训练——将CAD先验知识注入高斯基元，使表征具备部件感知的语义渲染能力。基于预训练模型，我们提出语义感知的姿态估计与跟踪方法(SAPET)，从无位姿标注的内窥镜视频中恢复每帧6自由度位姿与关节角度：其中仅通过合成语义训练的夹爪尖端网络提供鲁棒监督，宽松正则化则抑制异常关节状态。最后，我们引入鲁棒纹理学习(RTL)，通过交替执行位姿优化与鲁棒外观学习，有效缓解纹理学习过程中的位姿噪声。该框架能从无位姿视频中同时完成姿态估计与真实纹理学习。我们在EndoVis17/18、SAR-RARP及内部数据集提取的序列上验证方法，其重建的光度质量与几何精度均超越现有最优基线。进一步的下游关键点检测实验表明，利用本方法生成的可控器械高斯资产进行新姿态数据增强，能有效提升任务性能。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Instrument-Splatting++ is a monocular 3D Gaussian Splatting framework for creating high-fidelity, controllable digital twins of surgical instruments from unposed endoscopic videos, enabling realistic simulation and synthetic data generation.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: Instrument-Splatting++ 是一种单目3D高斯溅射框架，用于从无姿态内窥镜视频中创建高保真、可控的手术器械数字孪生，实现逼真的模拟和合成数据生成。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.22792v2" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Shuojue Yang, Zijian Wu, Chengjiaao Liao, Qian Li, Daiyun Shen, Chang Han Low, Septimiu E. Salcudean, Yueming Jin</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Strain-Parameterized Coupled Dynamics and Dual-Camera Visual Servoing for Aerial Continuum Manipulators</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Tendon-driven aerial continuum manipulators (TD-ACMs) combine the maneuverability of uncrewed aerial vehicles (UAVs) with the compliance of lightweight continuum robots (CRs). Existing coupled dynamic modeling approaches for TD-ACMs incur high computational costs and do not explicitly account for aerial platform underactuation. To address these limitations, this paper presents a generalized dynamic formulation of a coupled TD-ACM with an underactuated base. The proposed approach integrates a strain-parameterized Cosserat rod model with a rigid-body model of the UAV into a unified Lagrangian ordinary differential equation (ODE) framework on $\mathrm{SE}(3)$, thereby eliminating computationally intensive symbolic derivations. Building upon the developed model, a robust dual-camera image-based visual servoing (IBVS) scheme is introduced. The proposed controller mitigates the field-of-view (FoV) limitations of conventional IBVS, compensates for attitude-induced image motion caused by UAV lateral dynamics, and incorporates a low-level adaptive controller to address modeling uncertainties with formal stability guarantees. Extensive simulations and experimental validation on a compact custom-built prototype demonstrate the effectiveness and robustness of the proposed framework in real-world scenarios.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+肌腱驱动空中连续体机械臂（TD-ACM）将无人飞行器（UAV）的机动性与轻型连续体机器人（CR）的柔顺性相结合。现有TD-ACM耦合动力学建模方法计算成本高昂，且未明确考虑空中平台的欠驱动特性。针对这些局限性，本文提出了一种具有欠驱动基座的耦合TD-ACM广义动力学建模方法。该方法将应变参数化的Cosserat杆模型与无人机刚体模型集成到$\mathrm{SE}(3)$上的统一拉格朗日常微分方程（ODE）框架中，从而消除了计算密集的符号推导。基于所建模型，进一步提出了一种鲁棒的双摄像头基于图像的视觉伺服（IBVS）方案。该控制器缓解了传统IBVS的视场（FoV）限制，补偿了由无人机横向动力学引起的姿态诱导图像运动，并引入底层自适应控制器以处理建模不确定性，同时提供形式化稳定性保证。在紧凑型定制原型机上开展的广泛仿真与实验验证表明，所提框架在实际场景中具有高效性与鲁棒性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a dynamic modeling approach for tendon-driven aerial continuum manipulators (TD-ACMs) that integrates a strain-parameterized Cosserat rod model with a UAV's rigid-body model, and introduces a robust dual-camera visual servoing scheme to address field-of-view limitations and attitude-induced image motion.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种用于肌腱驱动空中连续体机械臂（TD-ACM）的动态建模方法，该方法将应变参数化的Cosserat杆模型与无人机的刚体模型相结合，并引入了一种鲁棒的双摄像头视觉伺服方案，以解决视野限制和姿态引起的图像运动问题。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2603.23333v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Niloufar Amiri, Farrokh Janabi-Sharifi</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-03-26 02:00:31 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
