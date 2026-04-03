@@ -1,6 +1,7 @@
 ﻿import json
 import logging
 import os
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional
@@ -87,6 +88,75 @@ def _strip_json_fence(text: str) -> str:
     elif content.startswith("```") and "```" in content[3:]:
         content = content.split("```", 2)[1]
     return content.strip()
+
+
+def _strip_think_blocks(text: str) -> str:
+    """Remove explicit reasoning/thinking blocks emitted by some models."""
+    content = text.strip()
+    content = re.sub(r"<think>[\s\S]*?</think>", "", content, flags=re.IGNORECASE)
+    content = re.sub(r"```(?:think|thinking|reasoning)\s*[\s\S]*?```", "", content, flags=re.IGNORECASE)
+    return content.strip()
+
+
+def _normalize_model_content(text: str) -> str:
+    """Normalize model output for downstream parsing."""
+    return _strip_json_fence(_strip_think_blocks(text))
+
+
+def _parse_json_object_from_response(text: str) -> dict:
+    """Parse the first JSON object from model output with tolerant fallback."""
+    candidates = [
+        text.strip(),
+        _strip_json_fence(text),
+        _strip_think_blocks(text),
+        _normalize_model_content(text),
+    ]
+    decoder = json.JSONDecoder()
+
+    for candidate in candidates:
+        content = candidate.strip()
+        if not content:
+            continue
+        try:
+            obj = json.loads(content)
+            if isinstance(obj, dict):
+                return obj
+        except Exception:
+            pass
+
+        for idx, char in enumerate(content):
+            if char != "{":
+                continue
+            try:
+                obj, _ = decoder.raw_decode(content[idx:])
+                if isinstance(obj, dict):
+                    return obj
+            except Exception:
+                continue
+
+    raise ValueError("No valid JSON object found in model response")
+
+
+def _extract_yes_no_decision(text: str) -> Optional[bool]:
+    """Extract a yes/no decision from model output."""
+    content = _normalize_model_content(text)
+
+    try:
+        obj = _parse_json_object_from_response(content)
+        for key in ("answer", "decision", "label", "keep", "relevant"):
+            if key in obj:
+                value = str(obj[key]).strip().lower()
+                if value in ("yes", "true", "1"):
+                    return True
+                if value in ("no", "false", "0"):
+                    return False
+    except Exception:
+        pass
+
+    match = re.search(r"\b(yes|no)\b", content.lower())
+    if not match:
+        return None
+    return match.group(1) == "yes"
 
 
 def call_openrouter_api(prompt: str, max_tokens: int = 5, retries: int = MAX_API_RETRIES) -> Optional[str]:
@@ -198,12 +268,26 @@ def filter_papers_by_topic(
         )
 
         response = call_openrouter_api(prompt, max_tokens=5, retries=MAX_API_RETRIES)
-        keep = response is not None and "yes" in response.lower()
+        decision = _extract_yes_no_decision(response) if response else None
+        keep = decision is True
 
         if response is None:
             logging.warning("Paper %s/%s filter failed after retries: %s", i + 1, total, title[:60])
+        elif decision is None:
+            logging.warning(
+                "Paper %s/%s filter ambiguous response: %s",
+                i + 1,
+                total,
+                _normalize_model_content(response)[:100],
+            )
         else:
-            logging.info("Paper %s/%s filter response: %s", i + 1, total, response[:100])
+            logging.info(
+                "Paper %s/%s filter decision=%s response: %s",
+                i + 1,
+                total,
+                "yes" if keep else "no",
+                _normalize_model_content(response)[:100],
+            )
 
         return i, paper, keep
 
@@ -281,7 +365,7 @@ def rate_papers(papers: list) -> list:
             if not response:
                 continue
             try:
-                rating = json.loads(_strip_json_fence(response))
+                rating = _parse_json_object_from_response(response)
                 out.update(rating)
                 logging.info("Paper %s/%s rating success (attempt %s)", i + 1, total, attempt)
                 return i, out
@@ -337,7 +421,7 @@ def translate_summaries(papers: list, target_language: str = "中文") -> list:
         for attempt in range(1, MAX_API_RETRIES + 1):
             response = call_openrouter_api(prompt, max_tokens=2000, retries=MAX_API_RETRIES)
             if response and response.strip():
-                content = response.strip()
+                content = _normalize_model_content(response)
                 if content.startswith("```") and "```" in content[3:]:
                     content = content.split("```", 2)[1].strip()
                     if "\n" in content and (
