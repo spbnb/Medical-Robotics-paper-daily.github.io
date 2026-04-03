@@ -30,6 +30,11 @@ MODEL_NAME = "minimax-m2.5"
 MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
 MAX_CONCURRENCY = _safe_int_env("OPENROUTER_MAX_CONCURRENCY", 2)
 REQUEST_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_TIMEOUT_SECONDS", 30)
+REQUEST_CONNECT_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_CONNECT_TIMEOUT_SECONDS", 10)
+REQUEST_READ_TIMEOUT_SECONDS = _safe_int_env(
+    "OPENROUTER_READ_TIMEOUT_SECONDS",
+    max(REQUEST_TIMEOUT_SECONDS, 120),
+)
 
 STRONG_DOMAIN_ANCHORS = (
     "fbg",
@@ -183,7 +188,7 @@ def call_openrouter_api(prompt: str, max_tokens: Optional[int] = None, retries: 
                 OPENROUTER_API_URL,
                 headers=headers,
                 json=data,
-                timeout=REQUEST_TIMEOUT_SECONDS,
+                timeout=(REQUEST_CONNECT_TIMEOUT_SECONDS, REQUEST_READ_TIMEOUT_SECONDS),
             )
             response.raise_for_status()
             result = response.json()
