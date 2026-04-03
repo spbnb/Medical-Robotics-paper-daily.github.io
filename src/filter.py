@@ -36,48 +36,56 @@ REQUEST_READ_TIMEOUT_SECONDS = _safe_int_env(
     max(REQUEST_TIMEOUT_SECONDS, 120),
 )
 
-STRONG_DOMAIN_ANCHORS = (
-    "fbg",
-    "fiber bragg",
-    "optical fiber",
-    "surgical",
-    "surgery",
-    "bronchos",
-    "endoscop",
-    "catheter",
-    "airway",
-    "intervention",
-    "minimally invasive",
-    "soft robot",
-    "continuum robot",
+STRONG_DOMAIN_ANCHOR_RULES = (
+    ("fbg", r"\b(fbg|fiber\s*bragg(?:\s*grating)?s?)\b"),
+    ("optical fiber", r"\b(optic(?:al)?\s*fib(?:er|re)s?)\b"),
+    ("surgery", r"\b(surg(?:ery|ical)|intraoperative|perioperative)\b"),
+    ("bronchoscopy", r"\b(bronchoscop(?:y|ic|ies)?|bronchial\s*endoscop(?:y|ic|ies)?|airway\s*endoscop(?:y|ic|ies)?)\b"),
+    ("endoscopy", r"\b(endoscop(?:y|ic|ies)?|laparoscop(?:y|ic|ies)?)\b"),
+    ("catheter", r"\b(cathet(?:er|ers|erization|erisation)|guide\s*wire|guidewire)\b"),
+    ("airway", r"\b(airway|trache(?:a|al)|intubat(?:e|ion|ing))\b"),
+    ("intervention", r"\b(intervention(?:al)?|interventional)\b"),
+    ("minimally invasive", r"\b(minimally\s*invasive|mi[-\s]?surgery)\b"),
+    ("soft robot", r"\b(soft[-\s]?robot(?:ic|ics|s)?|compliant\s*robot(?:ic|ics|s)?)\b"),
+    ("continuum robot", r"\b(continuum\s*robot(?:ic|ics|s)?|snake\s*robot(?:ic|ics|s)?)\b"),
 )
 
-WEAK_DOMAIN_ANCHORS = (
-    "force sensing",
-    "shape sensing",
-    "shape reconstruction",
-    "force estimation",
-    "proprioception",
-    "navigation",
-    "localization",
-    "registration",
-    "tracking",
-    "slam",
-    "planning",
-    "control",
-    "manipulation",
-    "robotic",
-    "medical",
-    "clinical",
-    "vla",
-    "embodied",
+WEAK_DOMAIN_ANCHOR_RULES = (
+    ("force sensing", r"\b(force\s*(sensing|estimation|measurement)|tactile\s*sensing|haptic\s*sensing)\b"),
+    ("shape sensing", r"\b(shape\s*(sensing|reconstruction|estimation)|deformation\s*estimation)\b"),
+    ("proprioception", r"\b(propriocept(?:ion|ive)|self[-\s]?sensing)\b"),
+    ("navigation", r"\b(navigation|guidance|path\s*planning|path\s*following)\b"),
+    ("localization", r"\b(locali[sz]ation|pose\s*estimation)\b"),
+    ("registration", r"\b(registration|co[-\s]?registration|alignment)\b"),
+    ("tracking", r"\b(tracking|tracked)\b"),
+    ("slam", r"\b(slam|simultaneous\s+localization\s+and\s+mapping)\b"),
+    ("planning", r"\b(planning|planner|trajectory\s*optimization)\b"),
+    ("control", r"\b(control|controller|model\s*predictive\s*control|mpc)\b"),
+    ("manipulation", r"\b(manipulation|grasping|grasp)\b"),
+    ("robotic", r"\b(robot(?:ic|ics|s)?)\b"),
+    ("medical", r"\b(medical|biomedical|healthcare)\b"),
+    ("clinical", r"\b(clinical|in[-\s]?vivo|patient)\b"),
+    ("vla", r"\b(vla|vision[-\s]?language[-\s]?action|vlm|llm)\b"),
+    ("embodied", r"\b(embodied|embodiment)\b"),
 )
+
+
+def _compile_anchor_rules(rules: tuple[tuple[str, str], ...]) -> tuple[tuple[str, re.Pattern], ...]:
+    return tuple((name, re.compile(pattern, re.IGNORECASE)) for name, pattern in rules)
+
+
+STRONG_DOMAIN_ANCHORS = tuple(name for name, _ in STRONG_DOMAIN_ANCHOR_RULES)
+WEAK_DOMAIN_ANCHORS = tuple(name for name, _ in WEAK_DOMAIN_ANCHOR_RULES)
+STRONG_DOMAIN_PATTERNS = _compile_anchor_rules(STRONG_DOMAIN_ANCHOR_RULES)
+WEAK_DOMAIN_PATTERNS = _compile_anchor_rules(WEAK_DOMAIN_ANCHOR_RULES)
 
 
 def _domain_anchor_decision(title: str, summary: str) -> tuple[bool, str]:
     text = f"{title} {summary}".lower()
-    strong_hits = [anchor for anchor in STRONG_DOMAIN_ANCHORS if anchor in text]
-    weak_hits = [anchor for anchor in WEAK_DOMAIN_ANCHORS if anchor in text]
+    text = re.sub(r"[/_-]+", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    strong_hits = [name for name, pattern in STRONG_DOMAIN_PATTERNS if pattern.search(text)]
+    weak_hits = [name for name, pattern in WEAK_DOMAIN_PATTERNS if pattern.search(text)]
 
     if strong_hits:
         return True, f"strong anchor: {strong_hits[0]}"
