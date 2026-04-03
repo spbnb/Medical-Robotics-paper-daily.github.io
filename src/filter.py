@@ -159,7 +159,7 @@ def _extract_yes_no_decision(text: str) -> Optional[bool]:
     return match.group(1) == "yes"
 
 
-def call_openrouter_api(prompt: str, max_tokens: int = 5, retries: int = MAX_API_RETRIES) -> Optional[str]:
+def call_openrouter_api(prompt: str, max_tokens: Optional[int] = None, retries: int = MAX_API_RETRIES) -> Optional[str]:
     """Call the model API with retry support."""
     if not OPENROUTER_API_KEY:
         logging.error("OPENROUTER_API_KEY is not set. Cannot call model API.")
@@ -173,8 +173,9 @@ def call_openrouter_api(prompt: str, max_tokens: int = 5, retries: int = MAX_API
     data = {
         "model": MODEL_NAME,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": max_tokens,
     }
+    if max_tokens is not None and max_tokens > 0:
+        data["max_tokens"] = max_tokens
 
     for attempt in range(1, retries + 1):
         try:
@@ -267,7 +268,7 @@ def filter_papers_by_topic(
             f"\nTitle: {title}\nAbstract: {summary}"
         )
 
-        response = call_openrouter_api(prompt, max_tokens=5, retries=MAX_API_RETRIES)
+        response = call_openrouter_api(prompt, retries=MAX_API_RETRIES)
         decision = _extract_yes_no_decision(response) if response else None
         keep = decision is True
 
@@ -361,7 +362,7 @@ def rate_papers(papers: list) -> list:
         out = dict(paper)
 
         for attempt in range(1, MAX_API_RETRIES + 1):
-            response = call_openrouter_api(prompt, max_tokens=1000, retries=MAX_API_RETRIES)
+            response = call_openrouter_api(prompt, retries=MAX_API_RETRIES)
             if not response:
                 continue
             try:
@@ -419,7 +420,7 @@ def translate_summaries(papers: list, target_language: str = "中文") -> list:
         )
 
         for attempt in range(1, MAX_API_RETRIES + 1):
-            response = call_openrouter_api(prompt, max_tokens=2000, retries=MAX_API_RETRIES)
+            response = call_openrouter_api(prompt, retries=MAX_API_RETRIES)
             if response and response.strip():
                 content = _normalize_model_content(response)
                 if content.startswith("```") and "```" in content[3:]:
