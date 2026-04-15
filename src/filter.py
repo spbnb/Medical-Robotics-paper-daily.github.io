@@ -40,6 +40,7 @@ STRONG_DOMAIN_ANCHOR_RULES = (
     ("fbg", r"\b(fbg|fiber\s*bragg(?:\s*grating)?s?)\b"),
     ("optical fiber", r"\b(optic(?:al)?\s*fib(?:er|re)s?)\b"),
     ("surgery", r"\b(surg(?:ery|ical)|intraoperative|perioperative)\b"),
+    ("endoluminal", r"\b(endo[-\s]?lum(?:en|inal|inals)?|intra[-\s]?lum(?:en|inal|inals)?)\b"),
     ("bronchoscopy", r"\b(bronchoscop(?:y|ic|ies)?|bronchial\s*endoscop(?:y|ic|ies)?|airway\s*endoscop(?:y|ic|ies)?)\b"),
     ("endoscopy", r"\b(endoscop(?:y|ic|ies)?|laparoscop(?:y|ic|ies)?)\b"),
     ("catheter", r"\b(cathet(?:er|ers|erization|erisation)|guide\s*wire|guidewire)\b"),
