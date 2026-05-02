@@ -10,6 +10,8 @@ from email.utils import formataddr, parseaddr
 from html import escape
 from typing import Optional
 
+from paper_text import first_meaningful_text
+
 DEFAULT_PAGES_BASE_URL = ""
 
 
@@ -118,7 +120,7 @@ def _build_digest_html(settings: EmailSettings, target_date: date, papers: list[
             paper_title = escape(paper.get("title", "Untitled"))
             paper_url = escape(paper.get("url", ""))
             score = paper.get("overall_priority_score", "-")
-            tldr = paper.get("tldr_zh") or paper.get("tldr") or paper.get("summary_zh") or paper.get("summary") or ""
+            tldr = first_meaningful_text(paper, ("tldr_zh", "tldr", "summary_zh", "summary"))
             tldr = escape(tldr)
             if paper_url:
                 body_lines.append(

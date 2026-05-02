@@ -3,6 +3,7 @@ import os
 import logging
 from datetime import date, datetime, timezone
 from jinja2 import Environment, FileSystemLoader
+from paper_text import normalize_paper_display_fields
 
 
 def generate_html_from_json(json_file_path: str, template_dir: str, template_name: str, output_dir: str):
@@ -19,6 +20,7 @@ def generate_html_from_json(json_file_path: str, template_dir: str, template_nam
             papers = json.load(f)
             # Sort papers by overall_priority_score in descending order
             papers.sort(key=lambda x: x.get('overall_priority_score', 0), reverse=True)
+            papers = [normalize_paper_display_fields(paper) for paper in papers]
     except FileNotFoundError:
         logging.error(f"JSON file not found at {json_file_path}")
         return
