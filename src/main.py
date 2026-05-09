@@ -28,6 +28,13 @@ DEFAULT_TEMPLATE_NAME = 'paper_template.html' # 确保此模板存在
 # 设定最早抓取日期（上限日期），早于此日期的文章将不会自动抓取
 EARLIEST_DATE = date(2026, 3, 9)  # 可以根据需要修改这个日期
 
+FETCH_CATEGORIES = [
+    'cs.RO', 'cs.AI', 'cs.LG', 'cs.CV', 'cs.CL', 'cs.MA',
+    'eess.SP', 'eess.IV', 'eess.SY',
+    'physics.optics', 'physics.med-ph', 'physics.ins-det',
+    'cond-mat.soft', 'q-bio.QM'
+]
+
 
 def find_missing_dates(json_dir: str, earliest: date, latest: date) -> list:
     """扫描 json_dir，返回 earliest 到 latest 之间缺失 JSON 文件的日期列表。"""
@@ -106,16 +113,10 @@ def main(target_date: date):
         logging.info("步骤 1: 抓取 ArXiv FBG/手术机器人/导航相关多类别论文...")
         # 注意：fetch_cv_papers 内部默认使用 UTC 日期
         # 目标方向论文可能分布在多个类别，我们从多个类别抓取并合并结果
-        categories = [
-            'cs.RO', 'cs.AI', 'cs.LG', 'cs.CV', 'cs.CL',
-            'eess.SP', 'eess.IV', 'eess.SY',
-            'physics.optics', 'physics.med-ph', 'physics.ins-det',
-            'cond-mat.soft', 'q-bio.QM'
-        ]
         raw_papers = []
         seen_urls = set()  # 用于去重，避免同一篇论文被多次添加
         
-        for category in categories:
+        for category in FETCH_CATEGORIES:
             logging.info(f"正在抓取 {category} 类别的论文...")
             papers = fetch_cv_papers(category=category, specified_date=target_date)
             for paper in papers:
@@ -124,7 +125,7 @@ def main(target_date: date):
                     seen_urls.add(paper.get('url'))
             logging.info(f"{category} 类别抓取到 {len(papers)} 篇论文，去重后当前总计 {len(raw_papers)} 篇。")
             # 在类别之间等待，避免触发 arXiv 429 限流
-            if category != categories[-1]:
+            if category != FETCH_CATEGORIES[-1]:
                 time.sleep(10)
         
         if not raw_papers:
@@ -134,14 +135,17 @@ def main(target_date: date):
         logging.info(f"总共抓取到 {len(raw_papers)} 篇原始论文（已去重）。")
 
         # --- 2. 过滤论文、论文打分、翻译摘要 --- #
-        logging.info("步骤 2: 使用 AI 过滤论文并打分 (主题: FBG + Surgical Robotics Navigation + Bronchoscopy + Soft Robotics + VLA Algorithms)...")
+        logging.info("步骤 2: 使用 AI 过滤论文并打分 (主题: FBG + Surgical Robotics Navigation + Bronchoscopy + Soft Robotics + Medical Agents + VLA Algorithms)...")
         # 注意：filter_papers_by_topic 依赖 OPENROUTER_API_KEY 环境变量
         filtered_papers = filter_papers_by_topic(
             raw_papers,
             topic=(
                 "FBG sensing, FBG force sensing algorithms, FBG shape sensing algorithms, "
                 "surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, "
-                "soft robotics, and vision-language-action methods for sensing, estimation, "
+                "soft robotics, medical AI agents, clinical agents, healthcare agents, "
+                "surgical copilots, clinical copilots, image-guided intervention, "
+                "computer-assisted intervention, computer-assisted surgery, "
+                "and vision-language-action methods for sensing, estimation, "
                 "planning, and control in these domains"
             )
         )

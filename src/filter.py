@@ -24,10 +24,10 @@ def _safe_int_env(name: str, default: int) -> int:
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://models.sjtu.edu.cn/api/v1/chat/completions"
-MODEL_NAME = "minimax-m2.5"
+MODEL_NAME = "deepseek-reasoner"
 
 
-MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 3)
+MAX_API_RETRIES = _safe_int_env("OPENROUTER_MAX_RETRIES", 5)
 MAX_CONCURRENCY = _safe_int_env("OPENROUTER_MAX_CONCURRENCY", 2)
 REQUEST_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_TIMEOUT_SECONDS", 30)
 REQUEST_CONNECT_TIMEOUT_SECONDS = _safe_int_env("OPENROUTER_CONNECT_TIMEOUT_SECONDS", 10)
@@ -39,6 +39,11 @@ REQUEST_READ_TIMEOUT_SECONDS = _safe_int_env(
 STRONG_DOMAIN_ANCHOR_RULES = (
     ("fbg", r"\b(fbg|fiber\s*bragg(?:\s*grating)?s?)\b"),
     ("optical fiber", r"\b(optic(?:al)?\s*fib(?:er|re)s?)\b"),
+    ("surgical copilot", r"\bsurgical\s+(?:ai\s+|robotic\s+)?co\s*pilots?\b|\bco\s*pilots?\s+(?:for|in)\s+surg(?:ery|ical)\b"),
+    ("clinical copilot", r"\bclinical\s+(?:ai\s+)?co\s*pilots?\b|\bco\s*pilots?\s+(?:for|in)\s+(?:clinical\s+care|medicine|healthcare)\b"),
+    ("image-guided intervention", r"\bimage\s*guided\s+interventions?\b|\binterventions?\s+guided\s+by\s+(?:medical\s+)?images?\b"),
+    ("computer-assisted intervention", r"\bcomputer\s*assisted\s+interventions?\b"),
+    ("computer-assisted surgery", r"\bcomputer\s*assisted\s+surg(?:ery|ical)\b"),
     ("surgery", r"\b(surg(?:ery|ical)|intraoperative|perioperative)\b"),
     ("endoluminal", r"\b(endo[-\s]?lum(?:en|inal|inals)?|intra[-\s]?lum(?:en|inal|inals)?)\b"),
     ("bronchoscopy", r"\b(bronchoscop(?:y|ic|ies)?|bronchial\s*endoscop(?:y|ic|ies)?|airway\s*endoscop(?:y|ic|ies)?)\b"),
@@ -49,6 +54,10 @@ STRONG_DOMAIN_ANCHOR_RULES = (
     ("minimally invasive", r"\b(minimally\s*invasive|mi[-\s]?surgery)\b"),
     ("soft robot", r"\b(soft[-\s]?robot(?:ic|ics|s)?|compliant\s*robot(?:ic|ics|s)?)\b"),
     ("continuum robot", r"\b(continuum\s*robot(?:ic|ics|s)?|snake\s*robot(?:ic|ics|s)?)\b"),
+    (
+        "medical agent",
+        r"\b(?:(?:medical|clinical|healthcare|surgical|hospital|patient(?:[-\s]?facing)?)\s+(?:ai\s+|intelligent\s+)?agents?|agents?\s+(?:for|in)\s+(?:medicine|healthcare|clinical\s+care|medical\s+care|surgery|hospitals?))\b",
+    ),
 )
 
 WEAK_DOMAIN_ANCHOR_RULES = (
@@ -231,7 +240,10 @@ def filter_papers_by_topic(
     topic: str = (
         "FBG sensing, FBG force sensing algorithms, FBG shape sensing algorithms, "
         "surgical robotics, surgical robot navigation, bronchoscopy navigation algorithms, "
-        "soft robotics, and vision-language-action methods for sensing, estimation, "
+        "soft robotics, medical AI agents, clinical agents, healthcare agents, "
+        "surgical copilots, clinical copilots, image-guided intervention, "
+        "computer-assisted intervention, computer-assisted surgery, "
+        "and vision-language-action methods for sensing, estimation, "
         "planning, and control in these domains"
     ),
 ) -> list:
@@ -271,9 +283,11 @@ def filter_papers_by_topic(
             "Answer with ONLY 'yes' or 'no'. "
             "Say 'yes' ONLY if the main contribution is an algorithm/model that is explicitly grounded in at least one target domain: "
             "FBG sensing, FBG force sensing, FBG shape sensing, surgical robotics, surgical robot navigation, "
-            "bronchoscopy, endoscopy, catheter navigation, or soft robotics; include VLA/VLM/LLM methods only when they are clearly "
+            "bronchoscopy, endoscopy, catheter navigation, soft robotics, medical AI agents/clinical agents/healthcare agents, "
+            "surgical copilots, clinical copilots, image-guided intervention, computer-assisted intervention, or computer-assisted surgery; "
+            "include VLA/VLM/LLM methods only when they are clearly "
             "applied to sensing, estimation, planning, control, localization, registration, SLAM, tracking, or guidance "
-            "in these domains. "
+            "in these domains, or to medical/clinical agent workflows with an explicit algorithmic contribution. "
             "Generic VLA foundation-model papers, mechanistic interpretability papers, and pure benchmark/scaling/efficiency papers "
             "without explicit grounding in these domains must be answered 'no'. "
             "Say 'no' for purely hardware/material/fabrication papers without algorithmic contribution, "
@@ -334,6 +348,8 @@ Paper Abstract: %s
 
 # My Research Interests
 FBG Sensing + FBG Force/Shape Sensing Algorithms + Surgical Robotics + Surgical Robot Navigation + Bronchoscopy Navigation Algorithms + Soft Robotics + Vision-Language-Action (VLA) for Sensing, Estimation, Planning, and Control, but only when explicitly applied to these domains
+Also include medical AI agents, clinical agents, and healthcare agents when the work has an explicit algorithmic/modeling contribution.
+Also include surgical copilots, clinical copilots, image-guided intervention, computer-assisted intervention, and computer-assisted surgery when the work has an explicit algorithmic/modeling contribution.
 
 # Output Requirements
 Output should always be in JSON format, strictly compliant with RFC8259.
@@ -349,7 +365,7 @@ Please output the evaluation and explanations in the following JSON format:
 }
 
 # Scoring Guidelines
-- Relevance: Score high only when the paper is explicitly grounded in FBG, surgical robotics, bronchoscopy/endoscopy/catheter navigation, or soft robotics. Generic VLA papers without this grounding should score low on relevance.
+- Relevance: Score high only when the paper is explicitly grounded in FBG, surgical robotics, bronchoscopy/endoscopy/catheter navigation, soft robotics, medical AI/clinical/healthcare agents, surgical/clinical copilots, image-guided intervention, computer-assisted intervention, or computer-assisted surgery with algorithmic contribution. Generic VLA or AI-agent papers without this grounding should score low on relevance.
 - Novelty: Evaluate the degree of innovation claimed in the abstract regarding the method or viewpoint compared to known work.
 - Clarity: Evaluate whether the abstract itself is easy to understand and complete with essential elements.
 - Potential Impact: Evaluate the importance of the problem it claims to solve and the potential application value of the results.
