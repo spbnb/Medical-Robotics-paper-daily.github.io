@@ -1,0 +1,147 @@
+[
+    {
+        "title": "SurgicalMamba: Dual-Path SSD with State Regramming for Online Surgical Phase Recognition",
+        "summary": "Online surgical phase recognition (SPR) underpins context-aware operating-room systems and requires committing to a prediction at every frame from past context alone. Surgical video poses three demands that natural-video recognizers do not jointly address: procedures span tens of thousands of frames, time flows non-uniformly as long routine stretches are punctuated by brief phase-defining transitions, and the visual domain is narrow so backbone features are strongly correlated across channels. Existing recognizers either let per-frame cost grow with elapsed length, or hold cost bounded but advance state at a uniform rate with channel-independent dynamics, leaving the latter two demands unaddressed. We present SurgicalMamba, a causal SPR model built on Mamba2's structured state-space duality (SSD) that holds per-frame cost at O(d). It introduces three SSD-compatible components, each targeting one demand: a dual-path SSD block that separates long- and short-term regimes at the level of recurrent state; intensity-modulated stepping, a continuous-time time-warp that adapts the slow path's effective rate to phase-relevant information; and state regramming, a per-chunk Cayley rotation that opens cross-channel mixing in the otherwise axis-aligned SSM recurrence. The learned rotation planes inherit a phase-aligned structure without any direct supervision, offering an interpretable internal signature of surgical workflow. Across seven public SPR benchmarks, SurgicalMamba reaches state-of-the-art accuracy and phase-level Jaccard under strict online evaluation: 94.6%/82.7% on Cholec80 (+0.7 pp/+2.2 pp over the strongest prior) and 89.5%/68.9% on AutoLaparo (+1.7 pp/+2.0 pp), at 119 fps on a single GPU. Ablations isolate the contribution of each component. The code is publicly available at https://github.com/sukjuoh/Surgical-Mamba.",
+        "url": "http://arxiv.org/abs/2605.14889v1",
+        "published_date": "2026-05-14T14:34:55+00:00",
+        "updated_date": "2026-05-14T14:34:55+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.AI"
+        ],
+        "authors": [
+            "Sukju Oh",
+            "Sukkyu Sun"
+        ],
+        "tldr": "This paper presents SurgicalMamba, a novel online surgical phase recognition model based on the Mamba2 structured state-space duality (SSD). It introduces three SSD-compatible components to address the unique challenges of surgical video (long duration, non-uniform time flow, and strong channel correlations), achieving state-of-the-art accuracy and speed on multiple public benchmarks.",
+        "tldr_zh": "本文提出SurgicalMamba，一种基于Mamba2结构化状态空间对偶（SSD）的新型在线手术阶段识别模型。它引入了三个SSD兼容的组件，以解决手术视频的独特挑战（时长、非均匀时间流、强通道相关性），在多个公开基准上实现了最先进的准确性和速度。",
+        "relevance_score": 9,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8.5,
+        "summary_zh": "在线手术阶段识别（SPR）是情境感知手术室系统的核心支撑技术，其要求仅依据历史上下文对每一帧画面即时做出预测。手术视频具有三个自然视频识别器未共同应对的需求：手术流程长达数万帧；时间流逝非均匀，漫长常规操作段间穿插着短暂而决定阶段转换的关键时刻；视觉域狭窄，导致骨干网络特征在通道间高度相关。现有识别器要么使单帧处理成本随已处理时长增长，要么控制成本恒定但以均匀速率推进状态并采用通道独立动态机制，未能解决后两个需求。本文提出SurgicalMamba——一种基于Mamba2结构化状态空间对偶（SSD）构建的因果SPR模型，将单帧计算成本控制在O(d)。我们引入三个SSD兼容组件，分别针对上述需求：在循环状态层面分离长短期机制的**双路径SSD模块**；通过连续时间扭曲自适应调整慢路径有效速率以适应阶段相关信息的**强度调制步进机制**；以及通过每数据块的**凯莱旋转实现状态重组**，在原本轴对齐的SSM循环中开启跨通道混合。学习到的旋转平面在没有直接监督的情况下继承了阶段对齐结构，为手术工作流提供了可解释的内部特征表征。在七个公开SPR基准测试中，SurgicalMamba在严格在线评估下达到最先进的精度和阶段级杰卡德系数：在Cholec80数据集上达94.6%/82.7%（较先前最优结果提升0.7个百分点/2.2个百分点），在AutoLaparo数据集上达89.5%/68.9%（提升1.7个百分点/2.0个百分点），单GPU推理速度达119帧/秒。消融实验验证了各组件的独立贡献。代码公开于https://github.com/sukjuoh/Surgical-Mamba。"
+    },
+    {
+        "title": "Towards Real-Time Autonomous Navigation: Transformer-Based Catheter Tip Tracking in Fluoroscopy",
+        "summary": "Purpose: Mechanical thrombectomy (MT) improves stroke outcomes, but is limited by a lack of local treatment access. Widespread distribution of reinforcement learning (RL)-based robotic systems can be used to alleviate this challenge through autonomous navigation, but current RL methods require live device tip coordinate tracking to function. This paper aims to develop and evaluate a real-time catheter tip tracking pipeline under fluoroscopy, addressing challenges such as low contrast, noise, and device occlusion. Methods: A multi-threaded pipeline was designed, incorporating frame reading, preprocessing, inference, and post-processing. Deep learning segmentation models, including U-Net, U-Net+Transformer, and SegFormer, were trained and benchmarked using two-class and three-class formulations. Post-processing involved two-step component filtering, one-pixel medial skeletonization, and greedy arc-length path following with contour fall-back. Results: On manually-labeled moderate complexity fluoroscopic video data, the two-class SegFormer achieved a mean absolute error of 4.44 mm, outperforming U-Net (4.60 mm), U-Net+Transformer (6.20 mm) and all three-class models (5.19-7.74 mm). On segmentation benchmarks, the system exceeded state-of-the-art CathAction results with improvements of up to +5% in Dice scores for three-segmentation. Conclusion: The results demonstrate that the proposed multi-threaded tracking framework maintains stable performance under challenging imaging conditions, outperforming prior benchmarks, while providing a reliable and efficient foundation for RL-based autonomous MT navigation.",
+        "url": "http://arxiv.org/abs/2605.14253v1",
+        "published_date": "2026-05-14T01:42:56+00:00",
+        "updated_date": "2026-05-14T01:42:56+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.LG"
+        ],
+        "authors": [
+            "Harry Robertshaw",
+            "Yanghe Hao",
+            "Weiyuan Deng",
+            "Benjamin Jackson",
+            "S. M. Hadi Sadati",
+            "Nikola Fischer",
+            "Tom Vercauteren",
+            "Alejandro Granados",
+            "Thomas C. Booth"
+        ],
+        "tldr": "This paper proposes a real-time, multi-threaded pipeline for tracking catheter tips in fluoroscopy using deep learning segmentation models (like SegFormer) to enable RL-based autonomous navigation for mechanical thrombectomy, outperforming prior benchmarks in tracking accuracy.",
+        "tldr_zh": "本文提出了一种用于在透视下实时跟踪导管尖端的多线程流程，使用深度学习分割模型（如 SegFormer），以支持基于强化学习的机械取栓自主导航，在跟踪精度上超过了现有基准。",
+        "relevance_score": 9,
+        "novelty_claim_score": 7,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "目的：机械取栓虽可改善卒中预后，但受限于本地治疗资源不足。基于强化学习的机器人系统若能广泛部署，可通过自主导航缓解这一难题，但现有强化学习方法需依赖实时的导管尖端坐标追踪。本文旨在开发并评估一种血管造影下的实时导管尖端追踪流程，以应对低对比度、噪声及器械遮挡等挑战。方法：设计包含帧读取、预处理、推理与后处理的多线程处理流程。采用深度学习分割模型（包括U-Net、U-Net+Transformer与SegFormer）进行训练，并通过二分类与三分类架构进行性能比较。后处理流程包含两步分量滤波、单像素中轴骨架化、结合轮廓回退的贪婪弧长路径追踪。结果：在人工标注的中等复杂度血管造影视频数据上，二分类SegFormer模型的平均绝对误差为4.44毫米，优于U-Net（4.60毫米）、U-Net+Transformer（6.20毫米）及所有三分类模型（5.19-7.74毫米）。在分割性能基准测试中，本系统超越现有CathAction最佳结果，三分割任务的戴斯系数最高提升5%。结论：结果表明，所提出的多线程追踪框架在挑战性成像条件下保持稳定性能，优于现有基准测试结果，为基于强化学习的机械取栓自主导航提供了可靠高效的技术基础。"
+    },
+    {
+        "title": "Agentifying Patient Dynamics within LLMs through Interacting with Clinical World Model",
+        "summary": "Sepsis management in the ICU requires sequential treatment decisions under rapidly evolving patient physiology. Although large language models (LLMs) encode broad clinical knowledge and can reason over guidelines, they are not inherently grounded in action-conditioned patient dynamics. We introduce SepsisAgent, a world model-augmented LLM agent for sepsis treatment recommendation. SepsisAgent uses a learned Clinical World Model to simulate patient responses under candidate fluid--vasopressor interventions, and follows a propose--simulate--refine workflow before committing to a prescription. We first show that world-model access alone yields inconsistent LLM decision performance, motivating agent-specific training. We then train SepsisAgent through a three-stage curriculum: patient-dynamics supervised fine-tuning, propose--simulate--refine behavior cloning, and world-model-based agentic reinforcement learning. On MIMIC-IV sepsis trajectories, SepsisAgent outperforms all traditional RL and LLM-based baselines in off-policy value while achieving the best safety profile under guideline adherence and unsafe-action metrics. Further analysis shows that repeated interaction with the Clinical World Model enables the agent to learn regularities in patient evolution, which remain useful even when simulator access is removed.",
+        "url": "http://arxiv.org/abs/2605.14723v1",
+        "published_date": "2026-05-14T11:50:00+00:00",
+        "updated_date": "2026-05-14T11:50:00+00:00",
+        "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.LG"
+        ],
+        "authors": [
+            "Minghao Wu",
+            "Yuting Yan",
+            "Zhenyang Cai",
+            "Ke Ji",
+            "Chuangsen Fang",
+            "Ziying Sheng",
+            "Xidong Wang",
+            "Rongsheng Wang",
+            "Hejia Zhang",
+            "Shuang Li",
+            "Benyou Wang",
+            "Hongyuan Zha"
+        ],
+        "tldr": "This paper introduces SepsisAgent, an LLM-based agent for sepsis treatment recommendations that uses a learned Clinical World Model to simulate patient responses to interventions. It is trained via a three-stage curriculum and outperforms traditional RL and LLM baselines in safety and policy value on ICU data.",
+        "tldr_zh": "本文介绍了SepsisAgent，一种用于脓毒症治疗建议的基于大语言模型的智能体。它通过一个学习的临床世界模型来模拟患者对干预措施的反应，并采用三阶段课程进行训练。在ICU数据上，它在安全性和策略价值方面优于传统的强化学习和基于大语言模型的基线方法。",
+        "relevance_score": 6,
+        "novelty_claim_score": 9,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 6,
+        "summary_zh": "ICU脓毒症管理需要在快速演变的患者生理状态下进行序贯治疗决策。尽管大语言模型编码了广泛的临床知识并能依据指南进行推理，但其本质上缺乏对行动条件化患者动态的认知基础。本文提出SepsisAgent——一种基于世界模型增强的大语言模型智能体，用于脓毒症治疗推荐。该智能体通过习得的临床世界模型对候选输液-升压药干预下的患者反应进行模拟，并遵循\"提议-模拟-优化\"工作流程后最终确定处方方案。我们首先证明仅依赖世界模型会导致大语言模型决策性能不稳定，这促使我们开展针对智能体的专项训练。随后通过三阶段课程训练SepsisAgent：患者动态监督微调、提议-模拟-优化行为克隆，以及基于世界模型的智能体强化学习。在MIMIC-IV脓毒症诊疗轨迹数据中，SepsisAgent在离线策略价值评估上优于所有传统强化学习及基于大语言模型的基线方法，同时在指南遵循性和不安全行为指标方面展现出最优的安全性。进一步分析表明，通过与临床世界模型的反复交互，智能体能够掌握患者状态演变的规律性，这种认知即使在移除模拟器后依然持续有效。"
+    },
+    {
+        "title": "Computational Imaging Priors for Wireless Capsule Endoscopy: Monte Carlo-Guided Hemoglobin Mapping for Rare-Anomaly Detection",
+        "summary": "Background. RGB-trained capsule-endoscopy classifiers underperform on small-vessel vascular findings by\n  conflating hemoglobin contrast with bile and illumination falloff. Thus, here we test whether a Monte\n  Carlo-inspired analytic model can compute hemoglobin from RGB signal built upon extracted classifier.\n  Methods. On Kvasir-Capsule (47,238 frames, video-level 70/15/15 split, 11 evaluable classes) we evaluate two\n  software-only configurations against RGB-only EfficientNet-B0 across 6 seeds: (i) a prior P_blood =\n  sigma(alpha * (H_norm - 0.5)) * Phi(r) fused as 2 zero-init auxiliary channels; (ii) a distillation head\n  training a 3-channel RGB backbone to predict P_blood. Significance: paired DeLong, McNemar, bootstrap CIs\n  with Bonferroni correction.\n  Results. Across 6 seeds (n=6,423), the analytic prior provides a small but direction-consistent macro-AUC\n  improvement: RGB-only 0.760 +/- 0.027, input-fusion 0.783 +/- 0.024 (paired Delta = +0.023, sign-positive on\n  5/6 seeds), distillation 0.773 +/- 0.028. The largest robust per-class lift is on Lymphangiectasia, where AUC\n  rises from RGB 0.238 +/- 0.057 to input-fusion 0.337 +/- 0.019, sign-consistent across all 6 seeds. On rare\n  focal-vascular classes (Angiectasia, Blood - fresh) the prior's per-seed effects are bimodal: seed=42 reaches\n  Angiectasia AUC 0.528 -> 0.916, but the cross-seed mean is 0.646 -> 0.608 with sigma_PI = 0.23 - reported as\n  a high-variance per-seed exemplar.\n  Conclusion. A Monte Carlo-inspired analytic prior provides a small, direction-consistent macro-AUC\n  improvement on Kvasir-Capsule across 6 seeds with the largest robust per-class lift on Lymphangiectasia; the\n  distillation variant runs on plain 3-channel RGB and yields a free interpretability heatmap.",
+        "url": "http://arxiv.org/abs/2605.15062v1",
+        "published_date": "2026-05-14T16:52:33+00:00",
+        "updated_date": "2026-05-14T16:52:33+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Chengshuai Yang",
+            "Lei Xing",
+            "Gregory Entin",
+            "Roopa Vemulapalli",
+            "Lisa Casey",
+            "Raiyan Tripti Zaman"
+        ],
+        "tldr": "This paper proposes using a Monte Carlo-inspired analytic model to compute hemoglobin concentration from RGB signals in wireless capsule endoscopy video frames. By incorporating this prior as additional input channels or via distillation, the method achieves modest but consistent improvements in macro-AUC for classifying rare vascular anomalies, with the largest robust gain on Lymphangiectasia.",
+        "tldr_zh": "本文提出使用蒙特卡洛启发的分析模型从无线胶囊内窥镜的RGB信号中计算血红蛋白浓度。通过将该先验知识作为额外输入通道或通过蒸馏方法融入模型，该技术在罕见血管异常的宏AUC分类上实现了小幅但一致的改进，其中对淋巴管扩张的增益最为稳健。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 6,
+        "summary_zh": "背景。基于RGB训练的胶囊内镜分类器在小血管病变识别上表现欠佳，主要原因是将血红蛋白对比度与胆汁及照明衰减效应相混淆。因此，本研究测试了一种受蒙特卡洛方法启发的分析模型，该模型能否通过基于已有分类器提取的RGB信号计算血红蛋白含量。方法。在Kvasir-Capsule数据集（47,238帧图像，视频级70/15/15划分，11个可评估类别）上，我们评估了两种纯软件配置方案，并与纯RGB的EfficientNet-B0模型在6次随机种子下进行对比：（i）采用先验概率P_blood = sigma(alpha * (H_norm - 0.5)) * Phi(r)作为两个零初始化辅助通道进行融合；（ii）通过蒸馏头训练3通道RGB主干网络预测P_blood。显著性检验采用配对DeLong检验、McNemar检验及经过Bonferroni校正的Bootstrap置信区间。结果。在6次随机种子实验中（n=6,423），分析先验模型带来了虽小但方向一致的宏观AUC提升：纯RGB模型0.760 +/- 0.027，输入融合模型0.783 +/- 0.024（配对Δ = +0.023，5/6次种子呈正向提升），蒸馏模型0.773 +/- 0.028。最显著的稳健类别提升出现在淋巴管扩张症，AUC从纯RGB的0.238 +/- 0.057提升至输入融合模型的0.337 +/- 0.019，6次种子结果均呈一致正向趋势。在罕见局灶性血管病变（血管扩张症、新鲜出血）上，先验模型的种子间效应呈双峰分布：种子42使血管扩张症AUC从0.528提升至0.916，但跨种子均值从0.646变为0.608（σ_PI = 0.23），这被报告为高方差的单种子示例。结论。受蒙特卡洛启发的分析先验模型在Kvasir-Capsule数据集6次种子实验中带来了虽小但方向一致的宏观AUC提升，其中对淋巴管扩张症的类别提升最为显著且稳健；蒸馏变体可在普通3通道RGB系统上运行，并免费提供可解释性热力图。"
+    },
+    {
+        "title": "Physics-Based iOCT Sonification for Real-time Interaction Awareness in Subretinal Injection",
+        "summary": "Subretinal injection is a delicate vitreoretinal procedure requiring precise needle placement within the subretinal space while avoiding perforation of the retinal pigment epithelium (RPE), a layer directly beneath the target with extremely limited regenerative capacity. To enhance depth perception during cannula advancement, intraoperative optical coherence tomography (iOCT) offers high-resolution cross-sectional visualization of needle-tissue interaction; however, interpreting these images requires sustained visual attention alongside the en face microscope view, thereby increasing cognitive load during critical phases and placing additional demands on the surgeon's proprioceptive control. In this paper, we propose a structured, real-time sonification framework designed for extensible mapping of iOCT-derived anatomical features into perceptual auditory feedback. The method employs a physics-inspired acoustic model driven by segmented retinal layers from a stream of iOCT B-scans, with needle motion and injection-induced retinal layer displacements serving as excitation inputs to the sound model, enabling perception of tool position and retinal deformation. In a controlled user study (n=34), the proposed sonification achieved high retinal layer identification accuracy and robust detection of retinal deformation-related events, significantly outperforming a state-of-the-art baseline in overall event identification (83.4% vs. 60.6%, p < 0.001), with gains driven primarily by enhanced detection of injection-induced retinal deformation. Evaluation by experts (n=4) confirmed the clinical relevance and potential intraoperative applicability of the method. These results establish structured iOCT sonification as a viable complementary modality for real-time surgical guidance in subretinal injection.",
+        "url": "http://arxiv.org/abs/2605.14500v1",
+        "published_date": "2026-05-14T07:44:53+00:00",
+        "updated_date": "2026-05-14T07:44:53+00:00",
+        "categories": [
+            "cs.SD",
+            "cs.HC",
+            "eess.IV"
+        ],
+        "authors": [
+            "Luis D. Reyes Vargas",
+            "Veronica Ruozzi",
+            "Andrea K. M. Ross",
+            "Shervin Dehghani",
+            "Michael Sommersperger",
+            "Koorosh Faridpooya",
+            "Mohammad Ali Nasseri",
+            "Merle Fairhurst",
+            "Nassir Navab",
+            "Sasan Matinfar"
+        ],
+        "tldr": "This paper proposes a real-time sonification framework that converts iOCT data into auditory feedback during subretinal injections, using a physics-based acoustic model to convey needle position and retinal deformation. A user study (n=34) showed it significantly outperformed a baseline in event identification accuracy, particularly for detecting injection-induced retinal deformation.",
+        "tldr_zh": "本文提出了一种实时声化框架，将术中光学相干断层扫描（iOCT）数据在视网膜下注射过程中转化为听觉反馈，使用基于物理的声学模型来传达针头位置和视网膜形变。一项用户研究（n=34）表明，该方法在事件识别准确率上显著优于基线，特别是在检测注射引起的视网膜形变方面。",
+        "relevance_score": 6,
+        "novelty_claim_score": 9,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 6,
+        "summary_zh": "视网膜下注射是一种精细的玻璃体视网膜手术，需将针头精准置于视网膜下间隙，同时避免刺穿其下方再生能力极为有限的视网膜色素上皮层。为增强套管推进过程中的深度感知，术中光学相干断层扫描能够以高分辨率横截面可视化呈现针头与组织的交互过程；然而，解读这些图像需要在外科显微镜正面视图之外持续保持视觉注意力，这不仅在关键步骤中增加了认知负荷，还对术者的本体感觉控制能力提出了更高要求。本文提出了一种结构化的实时声化框架，旨在将iOCT获取的解剖特征可扩展地映射为感知听觉反馈。该方法采用物理启发的声学模型，由iOCT连续B扫描分割出的视网膜层结构驱动，将针头运动及注射引起的视网膜层位移作为声学模型的激励输入，从而实现器械位置与视网膜形变的感知。在受控用户研究（n=34）中，该声化方案实现了高精度的视网膜层识别与稳健的视网膜形变事件检测，在整体事件识别率上显著优于现有先进基线方法（83.4% vs. 60.6%，p < 0.001），其优势主要来源于对注射诱导视网膜形变检测能力的提升。专家评估（n=4）证实了该方法的临床相关性及潜在的术中应用价值。这些结果表明，结构化iOCT声化技术可作为视网膜下注射手术中实时引导的可行辅助模式。"
+    }
+]
