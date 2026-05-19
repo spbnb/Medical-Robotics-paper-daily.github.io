@@ -1,0 +1,61 @@
+[
+    {
+        "title": "Rapid Vibration Suppression and Trajectory Tracking of a Serial Manipulator with Multi-Flexible Links",
+        "summary": "Flexible robotic manipulators (FRMs) offer advantages in lightweight design and large workspace, but their structural flexibility induces vibrations, accelerates fatigue, degrades tracking performance, and limits operational speed. These challenges are further amplified in multi-link serial manipulators, where increased overall length leads to greater structural flexibility. This article presents a backstepping output-feedback framework for fast vibration suppression and tip tracking of an n-degree-of-freedom serial flexible manipulator robot (nDSFMR), with a DeepONet-based approximation for practical deployment. Each link-joint is modeled as a Timoshenko beam coupled with an ODE and transformed into a canonical hyperbolic PDE with boundary dynamics. A backstepping-based boundary controller at the joint is developed to equivalently inject distributed damping along the beam, enabling rapid vibration suppression and trajectory tracking, only using available boundary measurements. To enable real-time implementation and scalability, a DeepONet neural operator is introduced to approximate the backstepping kernels, significantly reducing computational cost and facilitating fast controller updates under varying operating conditions. Experiments on a two-link flexible manipulator demonstrate faster vibration suppression and convergence of the end-effector to the desired trajectory, compared with a linear quadratic regulator (LQR) with feedforward control.",
+        "url": "http://arxiv.org/abs/2605.17477v1",
+        "published_date": "2026-05-17T14:30:45+00:00",
+        "updated_date": "2026-05-17T14:30:45+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Chengyi Wang",
+            "Yilong Huang",
+            "Ji Wang"
+        ],
+        "tldr": "The paper presents a backstepping output-feedback control framework with a DeepONet approximation for real-time vibration suppression and trajectory tracking of multi-link flexible manipulators. It uses boundary measurements to inject distributed damping, achieving faster performance than an LQR controller in experiments.",
+        "tldr_zh": "本文提出了一种采用DeepONet近似反步输出反馈控制框架，用于实现多连杆柔性机械臂的实时振动抑制和轨迹跟踪。该框架仅使用边界测量实现分布式阻尼注入，在实验中比LQR控制器展现了更快的性能。",
+        "relevance_score": 4,
+        "relevance_explanation": "The paper's core focus is on the control of flexible robotic manipulators, a technology that is foundational to many surgical and continuum robots. There is a tangential connection to the user's interests in soft robotics (flexible structures) and advanced control algorithms for sensing/estimation/control. However, it lacks explicit grounding in the specified medical contexts (e.g., FBG sensing, surgical navigation, bronchoscopy, medical agents, or copilots). The novel integration of the DeepONet neural operator for kernel approximation is an explicit algorithmic contribution, which keeps the score from being lower.",
+        "novelty_claim_score": 8,
+        "novelty_explanation": "The abstract claims a significant combination of innovations: 1) a backstepping controller design for a complex n-degree-of-freedom Timoshenko beam model, 2) the use of only boundary measurements for distributed damping, and 3) the novel application of a DeepONet neural operator to approximate the backstepping kernels for real-time, scalable deployment. This integration of PDE-based control with modern neural operators for practical implementation is a strong novelty claim.",
+        "clarity_score": 9,
+        "clarity_explanation": "The abstract is exceptionally clear and well-structured. It succinctly states the problem, the specific challenges (multi-link amplification), the proposed solution (methodology), the key technical contributions (boundary control, kernel approximation), and the experimental validation with a direct comparison to a benchmark (LQR). All essential elements of a strong abstract are present.",
+        "potential_impact_score": 7,
+        "potential_impact_explanation": "The problem of vibration in lightweight, high-speed manipulators is critical for precision tasks in robotics, including potential medical applications. The proposed method claims faster suppression and tracking than a standard LQR approach. If the DeepONet approximation enables real-time performance on complex, multi-link systems, it could have substantial impact in fields requiring high-speed, precise manipulation with flexible structures, such as advanced manufacturing and potentially surgery. The demonstrated experimental results strengthen the impact claim.",
+        "overall_priority_score": 5,
+        "overall_explanation": "The paper is technically strong, novel, and well-written, meriting a high score for researchers in robotic control. However, for the user's specific interests, the relevance is moderate (score of 4). It does not directly address medical/surgical applications, FBG sensing, or agent/copilot frameworks. It is worth reading as a high-quality example of advanced control and neural operator application in a foundational robotics domain (flexible manipulators) that underpins surgical soft robots, but it is not a top priority compared to papers explicitly situated in the medical/surgical context.",
+        "summary_zh": "柔性机器人操纵器（FRMs）具有轻量化设计和大工作空间的优势，但其结构柔性会引发振动、加速疲劳、降低轨迹跟踪性能，并限制操作速度。这些挑战在多连杆串联机械臂中进一步加剧，因为整体长度的增加会导致更大的结构柔性。本文提出一种基于反步法的输出反馈控制框架，用于实现n自由度串联柔性机械臂（nDSFMR）的快速振动抑制与末端跟踪，并通过DeepONet神经网络算子实现实际部署。每个连杆-关节模块被建模为铁木辛柯梁与常微分方程耦合系统，并转化为具有边界动力学的标准双曲型偏微分方程形式。在关节处设计了基于反步法的边界控制器，等效于沿梁注入分布式阻尼，从而仅利用边界测量值即可实现快速振动抑制与轨迹跟踪。为实现实时控制与系统可扩展性，引入DeepONet神经算子近似反步法核函数，显著降低了计算成本，并支持不同工况下的快速控制器更新。在两连杆柔性机械臂上的实验表明，相较于采用前馈控制的线性二次调节器（LQR），该方法能实现更快的振动抑制，并使末端执行器更迅速地收敛至目标轨迹。"
+    },
+    {
+        "title": "RoboFlow4D: A Lightweight Flow World Model Toward Real-Time Flow-Guided Robotic Manipulation",
+        "summary": "Planning and acting in 3D environments is a fundamental capability for robotic manipulation in the real world. Although prior work has explored predictive flow planners to guide 3D manipulation, existing approaches often rely on modular pipelines stacking multiple submodels, resulting in high computational overhead and limited real-time performance. To address these challenges, we introduce RoboFlow4D, a lightweight flow world model that unifies perception and planning by estimating temporal motion in physical 3D space. As an end-to-end framework, RoboFlow4D directly predicts multi-frame 3D flows from visual observations and textual instructions, providing explicit flow-based planning to guide action generation. This design allows seamless integration with general action policies, forming an efficient observation-planning-execution closed loop. Through slow-fast collaboration between flow prediction and action control, RoboFlow4D enables real-time and resource-efficient manipulation. Extensive experiments in both simulation and real-world settings demonstrate that RoboFlow4D consistently improves manipulation success rates and computational efficiency, advancing flow-guided planning for embodied intelligence.",
+        "url": "http://arxiv.org/abs/2605.17522v1",
+        "published_date": "2026-05-17T16:11:22+00:00",
+        "updated_date": "2026-05-17T16:11:22+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Sixu Lin",
+            "Junliang Chen",
+            "Huaiyuan Xu",
+            "Zhuohao Li",
+            "Guangming Wang",
+            "Yixiong Jing",
+            "Sheng Xu",
+            "Runyi Zhao",
+            "Brian Sheil",
+            "Lap-Pui Chau",
+            "Guiliang Liu"
+        ],
+        "tldr": "The paper introduces RoboFlow4D, a lightweight, end-to-end flow world model for robotics. It predicts 3D motion flows from vision and language to guide action generation in real-time, improving manipulation success and computational efficiency.",
+        "tldr_zh": "该论文介绍了RoboFlow4D，一个轻量级、端到端的机器人流世界模型。它通过视觉和语言输入预测3D运动流，以实时指导动作生成，提升了操作成功率和计算效率。",
+        "relevance_score": 2,
+        "novelty_claim_score": 7,
+        "clarity_score": 9,
+        "potential_impact_score": 6,
+        "overall_priority_score": 3,
+        "summary_zh": "摘要：  \n在三维环境中进行规划与行动是实现现实世界机器人操作的基础能力。尽管已有研究探索利用预测性流规划器来指导三维操作，但现有方法通常依赖于堆叠多个子模型的模块化流程，导致计算开销大且实时性能有限。为应对这些挑战，我们提出RoboFlow4D——一种轻量级流世界模型，通过估计物理三维空间中的时空运动，将感知与规划统一起来。作为一个端到端框架，RoboFlow4D能够直接从视觉观察和文本指令中预测多帧三维流，提供基于流的显式规划以指导动作生成。该设计支持与通用动作策略的无缝集成，形成高效的观测-规划-执行闭环。通过流预测与动作控制的缓急协同机制，RoboFlow4D实现了实时且资源高效的操作控制。在仿真与真实环境中的大量实验表明，RoboFlow4D能持续提升操作成功率与计算效率，推动基于流规划的具身智能技术发展。"
+    }
+]

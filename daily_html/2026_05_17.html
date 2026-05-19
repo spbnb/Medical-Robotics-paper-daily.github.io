@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - May 17, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>May 17, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SSTL: Self-Sensing Tendon Loop for Hysteresis Modeling and Compensation in Tendon-Sheath Mechanisms</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Flexible endoscopic robots enable minimally invasive access through natural orifices, but their control accuracy is limited by configuration-dependent hysteresis in the tendon-sheath mechanisms (TSMs). Tendon-sheath friction and tendon elasticity induce a systematic discrepancy between the proximal actuation input and distal output, and this discrepancy varies with the insertion tube configuration. To address this challenge, this paper proposes the Self-Sensing Tendon Loop (SSTL), a double-pass tendon loop routed through the insertion tube and wrapped around a distal pulley, and returned to the proximal end. The loop structure allows both the input and output tensions of the SSTL to be measured proximally, thereby providing an input-output tension profile without requiring distal force or fiber-optic sensors. Because the SSTL shares the same routing path as the actuation TSM, the two TSMs exhibit strongly correlated hysteresis behaviors. From the SSTL tension profile, a learning-based mapping estimates the configuration-dependent hysteresis parameters of the actuation TSM, which are then used by a feedforward controller to compensate for actuation hysteresis. We validate the proposed method by tracking actuation tendon tension under three different insertion tube configurations. Across sinusoidal and random trajectories, the proposed method reduces average RMSE by 88.1% compared with the uncompensated baseline, achieving 97.8% of the performance of direct identification, which requires direct measurement of the input and output tension profile of the actuation TSM.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 柔性内窥镜机器人能够通过自然腔道实现微创介入，但其控制精度受制于肌腱-鞘管机制中与构型相关的滞后效应。肌腱-鞘管间的摩擦力与肌腱弹性导致近端驱动输入与远端输出之间存在系统性偏差，且该偏差随插入管构型变化而变化。为解决这一问题，本文提出自感肌腱回路——一种双通道肌腱回路，该回路贯穿插入管并绕经远端滑轮后返回近端。其环状结构使得可在近端同步测量SSTL的输入与输出张力，从而无需借助远端力传感器或光纤传感器即可获取输入-输出张力关系曲线。由于SSTL与驱动TSM具有相同的路径布置，两者的滞后行为呈现强相关性。基于SSTL张力曲线，通过学习方法映射可估计驱动TSM中与构型相关的滞后参数，进而由前馈控制器进行滞后补偿。我们在三种不同插入管构型下进行驱动肌腱张力跟踪实验，验证了所提方法的有效性。在正弦与随机轨迹测试中，相较于无补偿基准方案，该方法将平均均方根误差降低了88.1%，达到了直接辨识法（需直接测量驱动TSM的输入-输出张力曲线）97.8%的性能水平。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a Self-Sensing Tendon Loop (SSTL) to measure and learn the configuration-dependent hysteresis in tendon-sheath actuation of flexible endoscopic robots, enabling feedforward compensation and improving control accuracy significantly.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种自传感腱环（SSTL），用于测量和学习柔性内窥镜机器人中腱鞘驱动的、与构型相关的迟滞特性，并通过前馈补偿显著提高了控制精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.16870v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Myeongbo Park, Junhyun Park, Ihsan Ullah, Chunggil An, Minho Hwang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SCARED-C: Corrected Camera Poses for Endoscopic Depth Estimation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The SCARED dataset is a widely used benchmark for endoscopic depth estimation, offering ground-truth 3D reconstructions captured with a structured light sensor. However, the depth maps for non-keyframe images rely on robot kinematics that introduce substantial pose errors, limiting the reliably labeled portion of the dataset to 35 keyframes. We present SCARED-C, a corrected version of the SCARED dataset that expands the number of reliable RGB-D pairs from 35 to 17,135. Our pipeline applies COLMAP, a Structure-from-Motion system, to re-estimate camera poses for all frames, followed by a scale recovery step that aligns the resulting reconstructions to metric space using the ground-truth keyframe depth maps. We validate the corrected poses through (1) stereo disparity evaluation and (2) monocular depth estimation experiments. The corrected dataset and code are publicly released to the community.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> SCARED数据集是内窥镜深度估计领域广泛使用的基准数据集，其通过结构光传感器捕获的真实三维重建数据提供了深度真值。然而，非关键帧图像的深度图依赖机器人运动学进行估计，该方法会引入显著位姿误差，使得数据集中可靠标注部分仅限35个关键帧。本文提出SCARED-C——SCARED数据集的校正版本，将可靠RGB-D图像对数量从35帧扩展至17,135帧。我们采用运动恢复结构系统COLMAP重新估计所有帧的相机位姿，随后通过尺度恢复步骤，利用关键帧真实深度图将重建结果对齐至公制空间。校正后的位姿通过以下两种方式验证：(1) 立体视差评估；(2) 单目深度估计实验。校正后的数据集及相关代码已向研究社区公开。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents SCARED-C, a corrected version of the SCARED endoscopic depth estimation dataset, where camera poses are re-estimated using Structure-from-Motion (COLMAP) and aligned to metric scale using ground-truth keyframes, expanding the number of reliable RGB-D pairs from 35 to over 17,000.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了SCARED-C，这是SCARED内窥镜深度估计数据集的修正版本。该工作使用运动恢复结构（COLMAP）重新估计所有帧的相机位姿，并利用关键帧的真实深度图将重建结果对齐到度量空间，从而将可靠的RGB-D数据对从35个扩展到超过17,000个。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.16628v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: John J. Han, Adam Schmidt, Max Allan, Jie Ying Wu, Omid Mohareri</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Rethinking the State Update Gate for Long-Sequence Recurrent 3D Reconstruction</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Streaming 3D reconstruction under a strict constant-memory budget hinges on how the recurrent state is updated as the stream evolves. We profile TTT3R-style per-token gates across five benchmarks and discover a structural bottleneck: the gate is intrinsically bounded in magnitude (median $0.31$; never exceeding $0.6$) and nearly frame-invariant, yielding an effective memory horizon of only $\sim$3 frames per state token, which serves as the structural origin of long-sequence drift. We trace this to a missing axis: existing inference-time methods modulate updates only at the per-token, intra-frame level, while the orthogonal frame-level question of \emph{how strongly each frame should contribute to the state} has been treated as content-independent. We close this gap with a scalar frame-level gate $α_t \in (0, 1]$ derived in closed form from frame-to-frame changes of internal features -- a continuous relaxation of classical Simultaneous Localization and Mapping (SLAM) keyframe selection that requires no parameters, no training, and no extra forward pass. Across six benchmarks spanning camera pose, video depth, and 3D reconstruction at sequence lengths up to $4,541$ frames, our gate cuts ATE by $51\%$ on long TUM-RGBD pose sequences, reduces AbsRel by $12.8\%$ on Bonn video depth, and on KITTI long-sequence pose estimation surpasses both LongStream and Keyframe-VO, while retaining strictly constant memory at zero training cost.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在严格恒定内存预算下的流式三维重建，其核心在于如何随着数据流演进更新循环状态。我们通过五个基准测试分析了TTT3R式的逐令牌门控机制，发现一个结构性瓶颈：该门控机制在幅度上存在固有上限（中位数0.31，从未超过0.6），且近乎帧不变性，导致每个状态令牌的有效记忆范围仅约3帧，这构成了长序列漂移的结构性根源。我们将其归因于缺失的调控维度：现有推理方法仅在逐令牌的帧内层面调节更新，而关于“每帧应对状态产生多大贡献”这一正交的帧级问题，却被视作与内容无关。我们通过闭式推导的标量帧级门控α_t∈(0,1]填补了这一空白，该参数由内部特征的帧间变化导出——这是对经典即时定位与地图构建（SLAM）关键帧选择的连续松弛，无需参数、训练或额外前向计算。在涵盖相机位姿、视频深度及序列长度高达4,541帧的三维重建的六个基准测试中，我们的门控机制在长序列TUM-RGBD位姿数据上使绝对轨迹误差降低51%，在Bonn视频深度数据集上将绝对相对误差减少12.8%，并在KITTI长序列位姿估计中超越LongStream与Keyframe-VO方法，同时以零训练成本保持严格的恒定内存消耗。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a novel scalar frame-level gate for recurrent 3D reconstruction models. The gate is derived in closed form from feature changes, requires no training, and significantly improves long-sequence performance by better managing memory state updates.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文为循环3D重建模型提出了一种新颖的标量帧级门控机制。该门控根据特征变化的闭式解推导得出，无需训练，并通过更好地管理内存状态更新，显著提升了长序列任务的性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.16981v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Kejun Ren, Lei Jin, Tianxin Huang, Lianming Xu, Li Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">DepthPolyp: Pseudo-Depth Guided Lightweight Segmentation for Real-Time Colonoscopy</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Accurate polyp segmentation in colonoscopy is essential for early colorectal cancer detection, yet real-world clinical environments pose persistent challenges such as motion blur, specular reflections, and illumination instability. Most existing methods are optimized on clean benchmark images and suffer noticeable performance degradation when deployed in authentic surgical scenarios. We propose DepthPolyp, a lightweight and robust segmentation framework based on pseudo-depth-guided multi-task learning and efficient feature modulation. The architecture combines hierarchical Ghost factorization for compact feature generation, Interleaved Shuffle Fusion for low-cost cross-scale interaction, and Dynamic Group Gating for adaptive group-wise feature weighting. Extensive experiments demonstrate that DepthPolyp achieves strong cross-dataset generalization when trained on degraded data and evaluated on both clean and noisy target domains, consistently outperforming lightweight baselines and remaining competitive with substantially larger models. In real surgical video evaluation on PolypGen, DepthPolyp achieves better segmentation performance than models up to $20\times$ larger while preserving real-time inference speed. With only 3.57M parameters and 0.86 GMACs, the proposed method runs at over 180 FPS on mobile devices, making it well suited for real-time deployment in resource-constrained clinical environments. Code and pretrained weights are available at: https://github.com/ReaganWu/DepthPolyp/</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 结肠镜图像中的精准息肉分割对早期结直肠癌检测至关重要，但真实临床环境中持续存在的运动模糊、镜面反射和光照不稳定等问题带来严峻挑战。现有方法大多基于洁净基准图像优化，在真实手术场景中部署时会出现显著的性能下降。本研究提出DepthPolyp——一种基于伪深度引导多任务学习与高效特征调制的轻量化鲁棒分割框架。该架构融合了层次化Ghost因子分解以生成紧凑特征、交错式混洗融合实现低成本跨尺度交互，以及动态组门控机制完成自适应分组特征加权。大量实验表明，DepthPolyp在退化数据上训练后，无论在洁净或含噪声目标域上测试均展现出强大的跨数据集泛化能力，持续超越轻量化基线模型，并与参数量大得多的模型保持竞争力。在PolypGen真实手术视频评估中，DepthPolyp取得了比参数量大20倍的模型更优的分割性能，同时保持实时推理速度。该方法仅需3.57M参数和0.86 GMACs计算量，在移动设备上运行速度超过180 FPS，非常适合在资源受限的临床环境中进行实时部署。代码与预训练权重已开源：https://github.com/ReaganWu/DepthPolyp/</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes DepthPolyp, a lightweight and robust framework for real-time polyp segmentation in colonoscopy videos. It uses pseudo-depth-guided multi-task learning and efficient architectural modules to achieve strong performance on degraded clinical data while being fast enough for mobile deployment.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出DepthPolyp，一个用于结肠镜视频实时息肉分割的轻量级、鲁棒性框架。它采用伪深度引导的多任务学习和高效架构模块，在质量较差的临床数据上取得了强性能，同时速度快到足以在移动设备上部署。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.16519v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhuoyu Wu, Wenhui Ou, Lexi Zhang, Pei-Sze Tan, Dongjun Wu, Junhe Zhao, Wenqi Fang, Raphaël C. -W. Phan</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-05-19 06:53:36 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
