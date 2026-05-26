@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - May 24, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>May 24, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Know You Before You Speak: User-State Modeling for LLM Personalization in Multi-Turn Conversation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Personalized dialogue requires more than recalling explicit user histories: systems also need to infer hidden user states that evolve through interaction and shape appropriate response strategies. Existing memory- and profile-based methods primarily reuse observable user information, offering limited support for modeling user-state dynamics or selecting actions based on how they shape future user states. We propose PUMA (Prospective User-state Modeling for Action selection), a framework grounded in the Free Energy Principle (FEP) that formulates personalization as decision-making under partial observability, centered on an explicit user state model that captures latent user states and their action-conditioned dynamics. At each turn, PUMA maintains a belief over the user's hidden state, refines the user state model for observation generation and action-conditioned state transition, and selects dialogue actions by minimizing expected free energy, balancing epistemic and pragmatic objectives under a unified criterion. This formulation shifts personalization from passive memory retrieval to model-based decision-making over user evolution. We instantiate PUMA on healthcare-oriented counseling and motivational interviewing benchmarks with latent state annotations for rigorous evaluation. Experiments show that PUMA improves long-horizon dialogue outcomes while maintaining strong response quality, and a cross-dataset study demonstrates more reliable user-state estimation and next-state prediction.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 个性化对话不仅需要回忆显式的用户历史：系统还需推断通过交互演化并塑造适当响应策略的隐藏用户状态。现有基于记忆和档案的方法主要复用可观察的用户信息，在建模用户状态动态或基于状态对未来的塑造作用来选择动作方面支持有限。我们提出PUMA（面向动作选择的预期用户状态建模），这是一个基于自由能原理（FEP）的框架，将个性化建模为部分可观测条件下的决策问题，核心是一个显式的用户状态模型，可捕捉潜在用户状态及其受动作调节的动态。在每一轮对话中，PUMA维护对用户隐藏状态的信念，优化用于观测生成和动作调节状态转移的用户状态模型，并通过最小化预期自由能来选择对话动作，在统一准则下平衡认知与实用目标。这种形式化将个性化从被动的记忆检索转变为基于模型的用户演化决策。我们在面向医疗保健的咨询和动机性访谈基准上实例化PUMA，并附带潜在状态标注以进行严格评估。实验表明，PUMA能在保持强响应质量的同时改善长期对话结果，跨数据集研究也展示了更可靠的用户状态估计和下一状态预测能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Proposes PUMA, a framework using the Free Energy Principle for user-state modeling in personalized multi-turn dialogue, applied to healthcare counseling, improving long-horizon outcomes.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出PUMA框架，基于自由能原理进行用户状态建模，用于多轮对话个性化，应用于医疗咨询，提升长期对话效果。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24647v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jiani Luo, Xiaoyan Zhao, Yang Zhang, Shuyi Miao, Bingbing Xu, Stefan Konigorski, Tat-Seng Chua</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Catching MRI outliers: unsupervised detection and localization of MRI artefacts and clinical anomalies using deep learning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Artificial intelligence is increasingly integrated into radiotherapy workflows, yet such pipelines remain vulnerable to out-of-distribution image data that may introduce unexpected behavior in clinical tasks. Deep learning-based anomaly detection for pelvic magnetic resonance imaging (MRI) remains largely unexplored, and transparent evaluation of its feasibility for full automation is limited. We developed and evaluated a fully automated, unsupervised anomaly-detection framework for pelvic and brain MRI. A two-stage framework was trained on reference images from public datasets: LUND-PROBE for pelvic MRI, and IXI, fastMRI, and fastMRI+ for brain MRI. In the first stage, MRI slices were compressed into discrete tokens; in the second, the distribution of normal tokens was modeled. Anomaly evidence was estimated by combining perceptual image differences with token-surprisal scores based on negative log-likelihood. Automated detection was evaluated on pelvic MRI with synthetic global and real clinical anomalies, and on brain MRI with clinically annotated fastMRI+ abnormalities. Sensitivity, specificity, area under the receiver operating characteristic curve (AUC), and false-positive behavior in held-out normal cases were assessed. The framework achieved robust detection across hidden evaluation cohorts, with AUCs of 0.97 (95% CI, 0.95-0.98) and 0.81 (95% CI, 0.74-0.87) for pelvic and brain MRI, respectively. Heatmap analysis showed strong spatial agreement between detected anomalies and ground-truth locations, supporting localization accuracy and interpretability. These results support the potential of unsupervised anomaly detection as an automated MRI quality-control layer for radiotherapy workflows, with transparent visualization of image regions likely to compromise downstream AI-based tasks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 人工智能正日益融入放射治疗工作流程，但这类流程仍易受分布外影像数据的影响，这些数据可能在临床任务中引发意外行为。基于深度学习的盆腔磁共振成像异常检测仍基本未得到探索，且对其全自动化可行性的透明评估十分有限。我们开发并评估了一个用于盆腔和脑部MRI的完全无监督异常检测框架。该两阶段框架使用来自公共数据集的参考图像进行训练：盆腔MRI使用LUND-PROBE数据集，脑部MRI使用IXI、fastMRI和fastMRI+数据集。第一阶段将MRI切片压缩为离散令牌；第二阶段对正常令牌的分布进行建模。通过将感知图像差异与基于负对数似然的令牌惊讶分数相结合，估计异常证据。在含有合成全局异常和真实临床异常的盆腔MRI上，以及含有临床标注fastMRI+异常的脑部MRI上，评估了自动检测性能。评估指标包括敏感性、特异性、受试者工作特征曲线下面积以及保留正常病例中的假阳性行为。该框架在隐藏评估队列中实现了稳健检测，盆腔MRI和脑部MRI的AUC分别为0.97（95% CI，0.95-0.98）和0.81（95% CI，0.74-0.87）。热图分析显示，检测到的异常与真实位置之间具有强空间一致性，支持定位准确性和可解释性。这些结果支持无监督异常检测作为放射治疗工作流中自动化MRI质量控制层的潜力，并能够透明可视化可能危及下游基于AI任务的图像区域。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: An unsupervised deep learning framework for detecting and localizing anomalies in pelvic and brain MRI, achieving high AUC scores and spatial localization accuracy, proposed as a quality-control layer for radiotherapy workflows.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 一种无监督的深度学习框架用于检测和定位盆腔和脑部MRI中的异常，取得了高AUC分数和空间定位精度，作为放射治疗工作流程的质量控制层。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24609v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mustafa Kadhim, Viktor Rogowski, Emilia Persson, Camila Gonzalez, André Haraldsson, Sofie Ceberg, Mikael Nilsson, Malin Kügele, Sven Bäck, Christian Jamtheim Gustafsson</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">EPPC-OASIS: Ontology-Aware Adaptation and Structured Inference Refinement for Electronic Patient-Provider Communication Mining in Secure Messages</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Secure patient-provider messages contain clinically important communication behaviors that are difficult to characterize manually at scale. The Electronic Patient-Provider Communication (EPPC) framework provides an ontology for coding these behaviors, but automated extraction remains challenging because predictions must preserve fine-grained code/sub-code structure while grounding annotations in message text. We developed EPPC-OASIS, an ontology-aware adaptation approach for structured EPPC extraction, and combined it with deployable inference-refinement procedures designed to improve the coherence of final annotations. EPPC-OASIS augments supervised fine-tuning with a Wasserstein alignment objective that encourages alignment between model representation neighborhoods and EPPC ontology-derived neighborhoods, while inference refinement uses verification, self-consistency, hybrid correction, and selection or ensembling to address residual prediction errors. We evaluated the framework on a de-identified corpus of secure patient-provider messages against prompting, supervised fine-tuning, preference-based, and robustness-oriented baselines across multiple open-weight language models. Across model families, the best deployable pipeline achieved 77.13% Code+Sub-code F1 and 63.83% Triplet F1, corresponding to modest but consistent absolute gains of +1.39 and +2.12 F1 points over the strongest supervised fine-tuning baseline. These results suggest that ontology-aware adaptation with structured inference refinement can support scalable retrospective EPPC mining, although external validation is needed before operational use.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 安全医患信息中包含具有临床重要性的沟通行为，这些行为难以通过人工方式大规模标注。电子医患沟通（EPPC）框架提供了对这些行为进行编码的本体，但自动提取仍面临挑战，因为预测结果必须保留细粒度的代码/子代码结构，同时将注释锚定在消息文本中。我们开发了EPPC-OASIS，一种面向本体的结构化EPPC提取自适应方法，并将其与旨在提升最终注释一致性的可部署推理优化流程相结合。EPPC-OASIS通过Wasserstein对齐目标增强监督微调，该目标鼓励模型表征邻域与EPPC本体派生邻域之间的对齐；而推理优化则利用验证、自一致性、混合校正以及选择或集成策略来处理残留预测误差。我们在一个去标识化的安全医患消息语料库上，基于多个开放权重语言模型，将本框架与基于提示词、监督微调、偏好优化及鲁棒性导向的基线方法进行了对比评估。在各模型系列中，最佳可部署流水线实现了77.13%的代码+子代码F1分数和63.83%的三元组F1分数，相较于最强的监督微调基线，获得了虽温和但一致的绝对增益，分别提升+1.39和+2.12个F1百分点。这些结果表明，结合结构化推理优化的本体感知自适应方法能够支持可扩展的回顾性EPPC挖掘，但在投入实际应用前仍需进行外部验证。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: EPPC-OASIS is an ontology-aware adaptation and inference refinement framework for automatically extracting clinically important communication behaviors from secure patient-provider messages, achieving modest but consistent improvements over strong baselines.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: EPPC-OASIS 是一个本体感知自适应与推理精炼框架，用于从安全的医患消息中自动提取具有临床意义的沟通行为，相比强基线取得了温和但一致的改进。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24172v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Samah Fodeh, Sreeraj Ramachandran, Elyas Irankhah, Muhammad Arif, Afshan Khan, Ganesh Puthiaraju, Linhai Ma, Srivani Talakokkul, Jordan Alpert, Sarah Schellhorn</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PrivFusion: A Privacy-preserving Multi-Agent Framework for Harmonizing Distributed Datasets</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The growing availability of clinical data has increased the use of machine learning, yet centralized data aggregation is often infeasible for sensitive health information. Federated Learning (FL) offers a distributed alternative, but its adoption is limited by substantial heterogeneity across institutional datasets, making harmonization a critical but frequently overlooked prerequisite for multi-site analytics. We introduce PrivFusion, a privacy-preserving multi-agent framework that automates the harmonization of structured datasets prior to federated training. PrivFusion uses agents to analyze local data, cluster semantically similar features across sites, and provide iterative transformation recommendations until alignment is achieved. Evaluation across four heterogeneous COVID-19 datasets demonstrates that PrivFusion effectively and efficiently harmonizes multi-site data while substantially reducing manual effort.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：临床数据的日益普及推动了机器学习的广泛应用，但对于敏感健康信息而言，集中式数据聚合往往不可行。联邦学习（FL）提供了一种分布式替代方案，但其应用受到各机构数据集之间显著异质性的限制，这使得数据统一成为多站点分析中关键但常被忽视的前提条件。我们提出PrivFusion——一种隐私保护的多智能体框架，能够在联邦训练前自动实现结构化数据集的统一。PrivFusion利用智能体分析本地数据，跨站点聚类语义相似的特征，并提供迭代式的转换建议直至数据对齐。在四个异质性COVID-19数据集上的评估表明，PrivFusion能够高效且有效地实现多站点数据统一，同时显著减少人工工作量。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PrivFusion is a privacy-preserving multi-agent framework that automates the harmonization of structured clinical datasets across heterogeneous sites before federated learning, reducing manual effort and enabling effective multi-site analytics.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PrivFusion 是一个隐私保护的多智能体框架，在联邦学习之前自动协调异构临床机构的结构化数据集，减少人工工作并实现有效的多站点分析。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24249v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Anisa Halimi, Liubov Nedoshivina, Kieran Fraser, Stefano Braghin</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SliceWorld: A Predictive and Controllable World-State Model for CT Report Generation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> CT report generation (CTRG) requires models to summarize three-dimensional anatomical context and pathological findings from hundreds of axial slices. Existing methods typically learn a direct image-to-text mapping, providing limited mechanisms for modeling how CT evidence evolves across slices or how reports respond to controlled changes in latent lesion-related factors. We propose SliceWorld, a CT-specific world-state framework that treats an axial CT scan as an ordered sequence along the z-axis. SliceWorld encodes prefix CT evidence into factor-aware latent states containing anatomy, lesion, and uncertainty components, and projects these states into world tokens used for multi-step future-slice feature prediction, lesion-factor intervention, and LLM-based report generation. The model is first pretrained on CT slice sequences with predictive, factor-aware, and counterfactual objectives, and is then fine-tuned on paired CT-report data. Experiments on M3D-Cap and CT-RATE show that SliceWorld improves natural language generation metrics and clinically oriented automatic evaluation. Further analyses demonstrate multi-horizon future-slice prediction, measurable factor alignment, reduced-slice robustness, and selective lesion-sensitive report modulation.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+CT报告生成需要模型从数百个轴向切片中总结三维解剖背景和病理发现。现有方法通常学习直接的图像到文本映射，缺乏对CT证据如何跨切片演变或报告如何响应潜在病变相关因素的可控变化进行建模的机制。我们提出SliceWorld，一个面向CT的世界状态框架，将轴向CT扫描视为沿z轴的有序序列。SliceWorld将前缀CT证据编码为包含解剖、病变和不确定性组件的因子感知潜在状态，并将这些状态投影到世界令牌中，用于多步未来切片特征预测、病变因子干预和基于LLM的报告生成。该模型首先在CT切片序列上使用预测性、因子感知和反事实目标进行预训练，然后在配对的CT-报告数据上进行微调。在M3D-Cap和CT-RATE上的实验表明，SliceWorld改善了自然语言生成指标和临床导向的自动评估。进一步分析证明了多视野未来切片预测、可测量的因子对齐、减少切片的鲁棒性以及选择性病变敏感的报告调制。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SliceWorld introduces a world-state framework for CT report generation that models axial slices as sequences, learns latent factor-aware states for anatomy, lesion, and uncertainty, and enables future-slice prediction, lesion intervention, and LLM-based report generation, achieving improved metrics on public benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SliceWorld提出了一种用于CT报告生成的世界状态框架，将轴向切片视为序列，学习包含解剖、病灶和不确定性的因子感知潜在状态，并实现未来切片预测、病灶干预和基于LLM的报告生成，在公开基准上取得了更好的指标。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24371v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yuanhe Tian, Yan Song</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Optimizing Digital Therapeutic Interventions: Online Learning under Endogenous Adherence</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> A critical challenge facing clinicians managing chronic disease interventions is sustaining long-run patient health given limited information and resources. Digital therapeutics (DTs) provide a cost-effective way to manage interventions at scale through repeated interactions (e.g. daily treatment recommendations), but patient success is highly dependent on their adherence. Behavioral psychology suggests that both treatment recommendations and past adherence affect future adherence, yet existing decision support frameworks for DTs model only recommendation effects or treat adherence as exogenous context, leaving a key gap in model and algorithm development. To address this gap, we present a DT decision support framework that captures both recommendation and adherence effects, allowing clinicians to better plan treatment recommendations. We model a patient's time-varying capacity for engagement with treatment using a linear dynamical system (LDS) that captures both recommendation and adherence effects, endogenously connected to adherence behavior with a logit link. We establish finite-time identification guarantees for this model, extending LDS results to our setting. Next, we propose an optimism-based algorithm, UCB-BOLD, for online treatment selection and prove that it achieves sublinear regret. We evaluate UCB-BOLD against benchmarks via ablation studies on a synthetic patient cohort generated using micro-randomized trial data. DT decision support tools can include dynamical models to enable decision makers to efficiently use the data in DT settings to improve patient health through effective resource allocation. While myopic or heuristic approaches suffice for some patient types, the benefits of explicitly planning around recommendation and adherence effects are significant for others; UCB-BOLD achieves 2-3x lower conditional value-at-risk regret than the next-best benchmark.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：临床医生在管理慢性病干预时面临的一个关键挑战是，在信息和资源有限的情况下维持患者的长期健康。数字疗法（DTs）通过重复互动（如每日治疗建议）提供了一种经济有效的规模化干预管理方式，但患者的成功高度取决于其依从性。行为心理学表明，治疗建议和过去的依从性都会影响未来的依从性，然而现有的数字疗法决策支持框架仅建模建议效应，或将依从性视为外生背景，导致模型与算法开发存在关键空白。为填补这一空白，我们提出了一种数字疗法决策支持框架，该框架同时捕捉建议效应和依从性效应，使临床医生能够更好地规划治疗建议。我们使用线性动力系统（LDS）对患者随时间变化的治疗参与能力进行建模，该系统同时捕捉建议效应和依从性效应，并通过logit连接内在地与依从行为相关联。我们为该模型建立了有限时间辨识保证，将LDS的结果推广至我们的场景。接下来，我们提出一种基于乐观主义的在线治疗选择算法UCB-BOLD，并证明其实现了次线性遗憾。我们通过消融研究，在基于微随机试验数据生成的合成患者队列上，将UCB-BOLD与基准方法进行比较评估。数字疗法决策支持工具可包含动态模型，使决策者能够有效利用数字疗法场景中的数据，通过优化资源配置改善患者健康。虽然短视或启发式方法对某些患者类型已足够，但对其他患者而言，围绕建议效应和依从性效应进行明确规划的好处显著；UCB-BOLD的条件风险价值遗憾比次优基准方法低2-3倍。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a decision support framework for digital therapeutics that models the dynamic interplay between treatment recommendations and patient adherence using a linear dynamical system, and introduces an online learning algorithm (UCB-BOLD) with finite-time guarantees and sublinear regret.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一个数字疗法的决策支持框架，使用线性动态系统建模治疗建议与患者依从性之间的动态相互作用，并引入了一种具有有限时间保证和次线性遗憾的在线学习算法（UCB-BOLD）。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24261v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Eric Pulick, Stephanie Carpenter, Matthew Buman, Yonatan Mintz</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ChainLearn: A Blockchain-Based Capacity-Aware Framework for Federated Ensemble Learning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Federated learning is used in medical imaging where privacy prohibits centralizing data. Standard federated algorithms assume homogeneous hardware, identical architectures, and centralized aggregation, which fails when hospitals have unequal compute resources. We propose capacity-aware coordination: measure each hospital's throughput, assign capacity-appropriate architectures (MobileNetV3-Small, EfficientNet-B0, ResNet-50), and combine predictions via weighted ensemble. Weak and strong hospitals can participate without forcing uniform architectures.
+  We separate on-chain policy from off-chain learning. A Solidity contract stores hospital registration, benchmark hashes, metrics, and weights. Hospitals train locally and submit only hashes and scalars (not parameters). Weighted ensemble inference is computed off-chain.
+  Experiments on PneumoniaMNIST and DermaMNIST (5 seeds, 3 non-IID levels) show our method achieves lower or equal calibration error versus equal-weight ensemble and competitive accuracy versus FedAvg, FedProx, and FedMD. Communication overhead is 224 bytes per round, a reduction of over 912,000x compared to FedAvg.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 联邦学习用于医学影像领域，其中隐私保护禁止数据集中化。标准联邦算法假设同构硬件、相同架构以及集中式聚合，当医院计算资源不均时便无法适用。我们提出容量感知协调机制：测量每家医院的吞吐量，分配与容量匹配的架构（MobileNetV3-Small、EfficientNet-B0、ResNet-50），并通过加权集成融合预测结果。弱医院和强医院无需强制统一架构即可参与。  
+我们将链上策略与链下学习分离。Solidity合约存储医院注册信息、基准哈希、指标和权重。医院在本地训练，仅提交哈希值和标量（而非参数）。加权集成推理在链下计算。  
+在PneumoniaMNIST和DermaMNIST数据集上的实验（5个随机种子、3个非独立同分布水平）表明，与等权集成相比，我们的方法实现了更低或相等的校准误差，与FedAvg、FedProx和FedMD相比具有竞争力的准确率。通信开销为每轮224字节，相较于FedAvg降低了超过912,000倍。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ChainLearn proposes a blockchain-based federated ensemble learning framework that assigns heterogeneous architectures to hospitals based on their compute capacity, using on-chain policy for coordination and off-chain training to drastically reduce communication overhead while maintaining accuracy on medical imaging benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ChainLearn 提出了一种基于区块链的联邦集成学习框架，根据医院的计算能力为其分配异构架构，通过链上策略协调和链下训练大幅降低通信开销，同时在医学影像基准上保持准确性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24418v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Karan Sharma, Aditya Tripathi, Rahul Mishra, Tapas Kumar Maiti</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ProofAgent Harness: Open Infrastructure for Adversarial Evaluation of AI Agents</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> AI agents are entering high-risk production settings, where they use tools, retain context, follow policies, handle private data, and interact with users over multiple turns. Yet many evaluation methods still judge isolated outputs or static tasks, missing failures that emerge through trajectory, pressure, and adversarial interaction. We introduce ProofAgent Harness, open infrastructure for scalable, auditable, and adversarial AI agent evaluation. The harness provides evaluation infrastructure around an agent: it curates evaluation intelligence, runs adversarial multi-turn trials, captures behavioral traces, applies post-hoc multi-juror scoring, resolves disagreement, and produces evidence-linked reports. Its open design allows developers and researchers to extend domains, traps, metrics, juror personas, scoring rules, and reporting formats. At its core is Adversarial Multi-Juror Scoring with Turn-Level Audit, which evaluates completed agent behavior under pressure using calibrated juror personas, consensus checks, and turn-level evidence. Experiments across customer support, medical triage, privacy and security, and code generation agents show that strong agents fail selectively through weak metrics, fragile turns, unsafe reframing, and manipulation paths. We also find that a small quantized local Harness LLM can challenge production agents powered by best-in-class large LLMs, suggesting that evaluation capability emerges from the full harness pipeline rather than model scale alone. ProofAgent Harness turns AI agent evaluation from a static score into scalable adversarial evaluation infrastructure: repeatable, evidence-backed, extensible, and actionable before deployment.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> AI智能体正进入高风险生产环境，它们在此环境中使用工具、保留上下文、遵循政策、处理私有数据，并通过多轮交互与用户协作。然而，许多评估方法仍仅评判孤立输出或静态任务，未能捕捉到从轨迹、压力与对抗交互中涌现的失败案例。我们提出ProofAgent Harness（验证智能体框架），这是一套可扩展、可审计且支持对抗性评估的开源基础设施。该框架围绕智能体提供评估基础设施：它汇集评估情报、运行对抗性多轮试验、捕获行为轨迹、实施事后多裁判评分、解决分歧并生成附带证据的评估报告。其开放设计允许开发者和研究者扩展领域、陷阱、指标、裁判角色、评分规则及报告格式。其核心是“带回合级审计的对抗性多裁判评分”，该方法使用校准后的裁判角色、共识检查及回合级证据，在压力条件下评估已完成智能体行为。针对客服、医疗分诊、隐私安全及代码生成智能体的实验表明，强智能体会因薄弱指标、脆弱回合、不安全重构及操纵路径而出现选择性失效。我们还发现，一个小型量化本地框架大语言模型能够挑战由顶尖大型大语言模型驱动的生产级智能体，这表明评估能力源自完整的框架流程而非单纯模型规模。ProofAgent Harness将AI智能体评估从静态分数转化为可扩展的对抗性评估基础设施：可重复、有证据支撑、可扩展，且在部署前即可付诸行动。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ProofAgent Harness is an open infrastructure for adversarial evaluation of AI agents, using multi-turn trials, adversarial scoring, and evidence-linked reports to detect failures that static evaluations miss, demonstrated across domains including medical triage.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ProofAgent Harness 是一个用于 AI 代理对抗性评估的开放基础设施，通过多轮对抗测试、对抗性评分和证据链接报告来检测静态评估遗漏的失败，并在医疗分诊等多个领域进行了验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24134v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Fouad Bousetouane</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.4, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">RoboHitch: Learning Visual Affordance from Disordered Keypoints for Hitch Knots Tying</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robotic manipulation of deformable linear objects (DLOs) presents significant challenges due to complex dynamics and frequent self-occlusions. Existing robotic knot tying methods typically rely on precise topological state tracking with ordered keypoints and explicit edge connectivity. This reliance makes them prone to failures due to tracking drift and topology mismatch caused by repeated bending and crossings during knot formation.To address these limitations, we introduce RoboHitch, a novel framework that learns to perform hitch knot tying from human demonstrations using only disordered 3D keypoints and RGB images. This eliminates the need for explicit topological order, allowing for more flexible manipulation. Our method employs a dynamic Graph Autoencoder to extract geometric features from untracked keypoints, complemented by a Convolutional Autoencoder that captures essential visual context. A bidirectional cross-attention mechanism then fuses these modalities to jointly predict pick and place affordances, facilitating implicit reasoning about the rope's state and enabling knot tying under occlusion.Real-world experiments demonstrate the effectiveness and generalizability of our approach, successfully completing hitch knots in scenarios with self-occlusions.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：由于复杂的动力学特性和频繁的自遮挡，机器人操作可变形线性物体（DLOs）面临重大挑战。现有的机器人打结方法通常依赖于精确的拓扑状态跟踪，需使用有序关键点和显式边连接。这种依赖使其容易因跟踪漂移以及打结过程中反复弯曲和交叉导致的拓扑不匹配而失效。为解决这些局限性，我们提出了RoboHitch——一个新颖的框架，它能从人类演示中仅利用无序的3D关键点和RGB图像学习执行系结打结。这消除了对显式拓扑顺序的需求，实现了更灵活的操作。我们的方法采用动态图自编码器从未跟踪的关键点中提取几何特征，并辅以卷积自编码器捕获必要的视觉上下文。随后，双向交叉注意力机制融合这些模态，共同预测抓取与放置的可行性，从而隐式推理绳索状态，并实现遮挡下的打结。真实世界实验证明了我们方法的有效性和泛化能力，成功完成了存在自遮挡场景中的系结打结。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: RoboHitch proposes a framework for robotic hitch knot tying using disordered 3D keypoints and RGB images, bypassing the need for explicit topological ordering by fusing geometric and visual features with cross-attention.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: RoboHitch 提出了一种使用无序3D关键点和RGB图像进行机器人打结的框架，通过交叉注意力融合几何和视觉特征，绕过了显式拓扑排序的需求。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24394v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jiahui Zuo, Boyang Zhang, Fumin Zhang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.45, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">EchoVQA: Enabling Conversational Assistance for Point-of-Care Cardiac Ultrasound</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Point-of-care transthoracic echocardiography (TTE) enables cardiac assessment in virtually any clinical setting, yet its diagnostic utility remains constrained by the expertise required for image acquisition and interpretation. Visual question answering (VQA) offers a promising paradigm for bridging this expertise gap through interactive clinical assistance, but existing echocardiography VQA datasets are limited in scale, restricted to high-quality images, and only cover a few views. We introduce EchoVQA, the first large-scale VQA dataset for echocardiography, comprising 14,299 images and 74,819 question-answer pairs. The dataset integrates public sources (EchoNet-Dynamic, CAMUS) with our own point-of-care acquisitions from two handheld probes (Lumify, Clarius), spanning diverse views and including both high-quality and suboptimal images. Uniquely, EchoVQA includes acquisition guidance questions to help users optimize transducer positioning toward a diagnostic apical 4-chamber view for left ventricular ejection fraction estimation -- a challenging task for novice operators in point-of-care settings. We further develop a parameter-efficient method based on multimodal learnable prompts achieving state-of-the-art performance on most benchmarks, including EchoVQA, with significantly less trainable parameters than existing state-of-the-art approaches.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 床旁经胸超声心动图（TTE）几乎可在任何临床环境中实现心脏评估，但其诊断效用仍受限于图像采集与解读所需的专业经验。视觉问答（VQA）提供了一种通过交互式临床辅助来弥合这一专业差距的有前景范式，但现有的超声心动图VQA数据集规模有限、仅局限于高质量图像，且仅覆盖少数切面。我们提出了EchoVQA，这是首个大规模超声心动图VQA数据集，包含14,299张图像和74,819个问答对。该数据集整合了公开来源（EchoNet-Dynamic、CAMUS）以及我们使用两种手持探头（Lumify、Clarius）自行采集的床旁数据，涵盖多种切面，并同时包含高质量和次优图像。独特之处在于，EchoVQA包含了采集指导性问题，旨在帮助用户优化探头定位，以获得用于左心室射血分数评估的诊断性心尖四腔心切面——这对于床旁环境中的新手操作者而言是一项具有挑战性的任务。我们进一步开发了一种基于多模态可学习提示的参数高效方法，在包括EchoVQA在内的大多数基准测试中达到了最先进性能，且其可训练参数远少于现有最先进方法。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: EchoVQA introduces the first large-scale VQA dataset for echocardiography, including acquisition guidance questions, and proposes a parameter-efficient multimodal prompt method achieving state-of-the-art performance.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: EchoVQA 提出了首个大规模超声心动图 VQA 数据集，包含采集指导问题，并采用参数高效的多模态提示方法，在基准测试中达到最优性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24159v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Filippos Bellos, Yutong Li, Jessie N Dong, Zaiyang Guo, Emily Mackay, Yayuan Li, Yannis Avrithis, Alison Pouch, Jason J. Corso</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.5, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">HiMed: Incentivizing Hindi Reasoning in Medical LLMs</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Medical large language models hold promise for reducing healthcare disparities, yet Hindi remains severely underrepresented. While medical LLMs excel in high-resource languages, their performance degrades sharply in Hindi, particularly on Indian systems of medicine. We argue that robust cross-lingual medical transfer requires Hindi reasoning. To this end, we introduce HiMed, a Hindi reasoning medical corpus and benchmark suite covering both Western and Indian medicine. We further propose HiMed-8B, a Hindi-form medical reasoning LLM, through the design of decaying scaffolding reward. Extensive experiments demonstrate improvement in Hindi medical reasoning performance and reduction in the English--Hindi accuracy gap. Ablation studies validate the contribution of each training stage and reward component. All data and code are available on GitHub: https://github.com/FreedomIntelligence/HiMed.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：医学大语言模型有望减少医疗保健中的不平等现象，但印地语仍严重缺乏代表性。尽管医学大语言模型在高资源语言中表现出色，但在印地语中性能急剧下降，尤其是在印度传统医学体系中。我们论证了稳健的跨语言医学迁移需要印地语推理能力。为此，我们提出了HiMed——一个涵盖西方医学与印度医学的印地语推理医学语料库及基准测试套件。我们进一步通过设计衰减支架奖励机制，提出了HiMed-8B——一个印地语形式的医学推理大语言模型。大量实验表明，该模型在印地语医学推理性能上有所提升，并缩小了英语与印地语之间的准确率差距。消融实验验证了每个训练阶段和奖励组件的贡献。所有数据和代码均可在GitHub上获取：https://github.com/FreedomIntelligence/HiMed。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: HiMed introduces a Hindi reasoning medical corpus and benchmark (HiMed) and a Hindi-form medical reasoning LLM (HiMed-8B) using decaying scaffolding reward to improve Hindi medical reasoning and reduce the English-Hindi accuracy gap.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: HiMed 引入了一个印地语推理医学语料库和基准（HiMed），以及一个印地语医学推理大语言模型（HiMed-8B），通过衰减脚手架奖励来提升印地语医学推理性能并缩小英印精度差距。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24635v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Dingfeng Jiang, Han Yan, Chenze Ma, Amit Kumar Jaiswal, Ang Li, Yunxiang Jiang, Xinlei Xiong, Juhao Liang, Hongru Xiao, Xiang Li, Fan Bu, Jiale Han, Ruchir Gupta, Prayag Tiwari, Benyou Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.55, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">OmniEgo-R$^2$: A Routed Reasoning Framework for the 1st Cross-Domain EgoCross Challenge at CVPR 2026</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The 1st Cross-Domain EgoCross Challenge at EgoVis, CVPR 2026 evaluates whether multimodal large language models can reason over egocentric videos across surgery, industry, extreme sports, and animal perspective. We achieved second place in both the Source-Limited and Open-Source tracks. In this report, we formulate EgoCross as a robust cross-domain embodied video reasoning problem rather than a simple multiple-choice visual question answering task. We identify three key challenges: (C1) temporal boundary ambiguity, where critical state transitions are sparsely sampled and often occur between frames; (C2) cross-domain semantic granularity mismatch, where the same capability requires different domain-specific visual grammar; and (C3) decision instability under close options, where long multimodal reasoning can select unsupported distractors or produce malformed outputs. To address them, we propose OmniEgo-R$^2$ (Omnidomain Egocentric Routed Reasoning), a unified routed reasoning pipeline consisting of temporal-evidence normalization, domain-agnostic capability routing, structured perception--dynamics--decision reasoning, boundary-aware option verification, and defensive answer calibration. OmniEgo-R$^2$ uses the Qwen3-VL-4B-SFT checkpoints on each EgoCross domain as the visual-language backbone, and wraps them with lightweight test-time reasoning and parsing programs. Our final submissions obtain 66.35% overall accuracy in the Source-Limited track and 66.77% in the Open-Source track, ranking second in both leaderboards.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：在CVPR 2026 EgoVis举办的首届跨域EgoCross挑战赛中，旨在评估多模态大语言模型能否对涵盖手术、工业、极限运动及动物视角的自我中心视频进行推理。我们在“有限源”和“开源”两个赛道均获得第二名。本报告中，我们将EgoCross定义为一个稳健的跨域具身视频推理问题，而非简单的多项选择视觉问答任务。我们识别出三个关键挑战：(C1) 时间边界模糊性，即关键状态转换采样稀疏且常发生于帧间；(C2) 跨域语义粒度不匹配，即相同能力需要不同领域特定的视觉语法；(C3) 近似选项下的决策不稳定性，即长程多模态推理可能选中无依据的干扰项或产生畸形输出。为此，我们提出OmniEgo-R²（全域自我中心路由推理），一种统一的路由推理流程，包含时间证据归一化、域无关能力路由、结构化感知-动力学-决策推理、边界感知选项验证及防御性答案校准。OmniEgo-R²以每个EgoCross领域上的Qwen3-VL-4B-SFT检查点作为视觉语言主干，并通过轻量级测试时推理与解析程序进行封装。最终提交结果在有限源赛道取得66.35%总体准确率，开源赛道取得66.77%，在两个排行榜均位列第二。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents OmniEgo-R², a routed reasoning framework for cross-domain egocentric video reasoning, achieving second place in the CVPR 2026 EgoCross Challenge across surgery, industry, sports, and animal domains.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出OmniEgo-R²，一种用于跨领域第一人称视频推理的路由推理框架，在CVPR 2026 EgoCross挑战赛中（涉及手术、工业、极限运动及动物视角）获得第二名。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2605.24481v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zixu Li, Zhiwei Chen, Zhiheng Fu, Wenbo Wang, Yupeng Hu, Weili Guan, Liqiang Nie</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-05-26 06:35:44 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
