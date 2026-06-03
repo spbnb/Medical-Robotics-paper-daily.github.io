@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 02, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 02, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PINNOCHIO: Physics-Informed Neural Network for Coupled Hyperelastic Interface-Volume Simulation in Orthognathic Surgery</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Predicting patient-specific facial soft-tissue deformation is critical for iterative orthognathic surgery planning. However, current computational methods face a strict accuracy-efficiency trade-off: high-fidelity Finite Element Methods (FEM) are computationally prohibitive, whereas pure deep learning models often produce biomechanically inconsistent results. While Physics-Informed Neural Networks (PINNs) offer a promising avenue, learning the complex heterogeneous mechanics of bone--soft-tissue interactions with only partial clinical supervision (i.e., outer facial surfaces) remains highly unstable. To overcome these challenges, we present PINNOCHIO, a novel physics-informed framework for facial soft-tissue simulation. PINNOCHIO introduces a hybrid sequential decomposition that explicitly decouples discontinuous bone--soft-tissue interface movements from continuous volumetric hyperelastic deformation. This structural separation enables stable training and facilitates a physics-enabled sim-to-real adaptation strategy, ensuring internal biomechanical consistency without requiring volumetric ground truth. Evaluated on a 40-patient clinical cohort, PINNOCHIO outperforms existing baselines in both surface accuracy and physical validity. Furthermore, it achieves a substantial speedup over FEM, successfully resolving the accuracy-efficiency trade-off to provide a highly reliable and practical tool for interactive surgical planning.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：  
+预测患者特异性面部软组织变形对于迭代式正颌外科手术规划至关重要。然而，当前计算方法面临着严格的精度-效率权衡：高保真有限元法计算成本过高，而纯深度学习模型常常产生不符合生物力学特性的结果。尽管物理信息神经网络提供了一条有前景的路径，但在仅有部分临床监督（即外表面数据）的情况下，学习骨-软组织相互作用的复杂异质力学特性仍高度不稳定。为应对这些挑战，我们提出了PINNOCHIO——一种用于面部软组织模拟的新型物理信息框架。PINNOCHIO引入了一种混合序列分解方法，明确地将不连续的骨-软组织界面运动与连续的体积超弹性变形解耦。这种结构分离实现了稳定训练，并促进了基于物理的仿真到现实自适应策略，确保内部生物力学一致性，而无需体积真值数据。在包含40名患者的临床队列上进行评估，PINNOCHIO在表面精度和物理有效性方面均优于现有基线方法。此外，它相较于有限元法实现了显著加速，成功解决了精度-效率权衡问题，为交互式手术规划提供了高度可靠且实用的工具。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PINNOCHIO introduces a physics-informed neural network framework that decouples discontinuous bone-soft tissue interface movements from continuous volumetric hyperelastic deformation to enable accurate and efficient facial soft-tissue simulation for orthognathic surgery planning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PINNOCHIO提出了一种物理信息神经网络框架，将不连续的骨-软组织界面运动与连续的体积超弹性变形解耦，从而为正颌手术规划提供准确且高效的面部软组织模拟。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.01572v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jungwook Lee, Daeseung Kim, Kevin Gu, Zhangfeng Hu, Tianshu Kuang, Finn Hopeman, Michael A. K. Liebschner, Jaime Gateno, Pingkun Yan</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Closed-Form Pose Estimation of Endoluminal Medical Devices via Gradiometer-Based Electromagnetic Localization System</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Embedded magnetic tracking holds highly attractive prospects for remote navigation of endoluminal medical devices. However, existing six-degree-of-freedom pose recovery approaches often require pre-calibrated workspace field maps or iterative nonlinear optimization. This letter presents a Gradiometer-Based Electromagnetic Localization System (GELS), a closed-form tracking framework that uses a compact magnetometer array as an embedded quasi-gradiometer to estimate local magnetic fields and gradient tensors. These quantities are mapped by the Euler homogeneous relation to displacements between source and array, from which multi-source Procrustes registration recovers the array orientation and position using at least three non-collinear sources. The algorithm requires known source positions and array geometry, but no pre-calibrated workspace field maps, initial pose guesses, or calibrated excitation-source moments. The recovered pose also enables a proof-of-concept sub-level dipole localization task by serving as a mobile magnetic reference frame. Benchtop experiments across sensor-array configurations and excitation modes demonstrate sequence-averaged position errors of \SI{10.80}{\milli\meter}--\SI{15.57}{\milli\meter}, a fastest update rate of \SI{14.49}{\hertz}, and a median solver runtime of \SI{172.00}{\micro\second}. A perturbation-based error propagation analysis further identifies inter-sensor inconsistency and dipole-model mismatch as the dominant accuracy limits, thereby informing future sensor array and magnetic source design for further reducing pose-estimation error.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 嵌入式磁跟踪在腔内医疗器械的远程导航中具有极具吸引力的前景。然而，现有的六自由度位姿恢复方法通常需要预先校准的工作空间场图或迭代非线性优化。本文提出了一种基于梯度仪的电磁定位系统（GELS）——一种闭式跟踪框架，该框架使用紧凑的磁力计阵列作为嵌入式准梯度仪，以估计局部磁场和梯度张量。这些量通过欧拉齐次关系映射到源与阵列之间的位移，进而利用至少三个非共线源，通过多源Procrustes配准恢复阵列的方向和位置。该算法需要已知的源位置和阵列几何结构，但无需预先校准的工作空间场图、初始位姿猜测或校准的激励源磁矩。恢复的位姿还可作为移动磁参考框架，用于概念验证的子级偶极子定位任务。跨传感器阵列配置和激励模式的台架实验表明，序列平均位置误差为10.80毫米至15.57毫米，最高更新速率为14.49赫兹，求解器中位数运行时间为172.00微秒。基于扰动的误差传播分析进一步指出，传感器间不一致性和偶极子模型失配是主要的精度限制因素，从而为未来传感器阵列和磁源的设计提供指导，以进一步减小位姿估计误差。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a closed-form, non-iterative pose estimation method for endoluminal medical devices using a compact magnetometer array as a quasi-gradiometer, eliminating the need for pre-calibrated field maps and achieving fast update rates with millimeter-level errors.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种用于腔内医疗设备的闭式位姿估计方法，利用紧凑型磁力计阵列作为准梯度计，无需预校准场图，实现快速更新率和毫米级误差。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.01946v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhiwei Wu, Jiahao Luo, Yubo Pu, Siyi Wei, Yuankai Chen, Jinhui Zhang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Predicting the risk of colorectal anastomotic leak based on preoperative mapping of the blood supply of the bowel</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Anastomotic leak remains one of the most serious complications following colorectal cancer surgery, substantially affecting patient outcomes, recovery trajectories, and healthcare costs. Despite advances in imaging technology, current preoperative assessment relies only on clinical assessment, a process that is subjective, error-prone, and highly dependent on individual expertise. To date, no validated CT-based method exists to predict anastomotic leak risk prior to surgery. This protocol paper outlines a comprehensive framework for developing and validating an AI-driven system for preoperative risk assessment using pre- and post-contrast CT imaging. The study describes the stages of data collection, ethical handling, and preprocessing of patient data in accordance with GDPR, image preprocessing, and the exploration of deep learning architectures designed to generate clinically interpretable outputs. Two integrated tools constitute the main deliverables of this workflow: 1) a risk assessment module, which quantifies the likelihood of leakage by analyzing vascular and tissue features in CT scans, and 2) a Content-Based Medical Image Retrieval (CBMIR) module, which identifies and displays similar historical cases to support evidence-based surgical decision making. The protocol paper requires close collaboration between hospitals and universities; this protocol demonstrates that such a system is technically feasible and clinically implementable within existing healthcare infrastructures. By following the proposed methodological stages and regulatory principles, other institutions can reproduce this workflow to develop analogous decision-support tools. Ultimately, this interdisciplinary framework aims to enhance surgical planning, reduce leak incidence, and contribute to a broader paradigm shift toward explainable, data-driven precision surgery.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 吻合口漏仍然是结直肠癌术后最严重的并发症之一，显著影响患者预后、恢复轨迹及医疗成本。尽管影像技术有所进步，目前的术前评估仍仅依赖临床评估，该过程具有主观性、易出错且高度依赖个人经验。迄今为止，尚无经过验证的基于CT的方法可用于术前预测吻合口漏风险。本方案论文概述了一个全面的框架，旨在开发并验证一种基于对比增强CT影像的AI驱动系统，用于术前风险评估。研究描述了数据收集、伦理处理及根据通用数据保护条例规范对患者数据进行预处理、图像预处理，以及探索能够生成临床可解释输出的深度学习架构等阶段。该工作流程的主要交付成果包含两个集成工具：1）风险评估模块，通过分析CT扫描中的血管和组织特征来量化漏的发生概率；2）基于内容的医学图像检索模块，用于识别并展示相似历史病例，以支持循证外科决策。本方案需要医院与大学之间的紧密合作；该方案证明了此类系统在现有医疗基础设施中的技术可行性和临床可实施性。通过遵循所提出的方法学阶段和监管原则，其他机构可重现该工作流程以开发类似的决策支持工具。最终，这一跨学科框架旨在优化手术规划、降低漏发生率，并推动向可解释、数据驱动的精准外科手术的更广泛范式转变。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This protocol paper outlines a framework for an AI-driven system that uses preoperative CT imaging to predict anastomotic leak risk in colorectal cancer surgery, integrating a risk assessment module and a content-based medical image retrieval (CBMIR) module to support surgical decision-making.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本协议论文概述了一个基于术前CT成像的AI驱动系统框架，用于预测结直肠癌手术中的吻合口漏风险，该系统集成了风险评估模块和基于内容的医学图像检索模块，以支持手术决策。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.02156v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zahra Tabatabaei, Jon Sporring, Mark Bremholm Ellebæk, Alaa El-Hussuna</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Learning Label-Efficient Interpretable Medical Image Diagnosis via Semi-supervised Hypergraph Concept Bottleneck Model</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Deep learning has revolutionized medical image analysis, delivering exceptional diagnostic accuracy across diverse applications. Yet, the lack of interpretability in its decision-making hinders clinical adoption, particularly in high-stakes medical contexts where transparency is paramount for trustworthiness. For example, in Placenta Accreta Spectrum (PAS), subtle cues in ultrasound imaging challenge reliable diagnosis, rendering black-box models untrustworthy for accurate scoring. To address this, Concept Bottleneck Models (CBMs) offer a promising avenue by embedding clinically meaningful intermediate concepts into the diagnosis pipeline, enabling clinicians to scrutinize and refine model outputs. However, conventional CBMs falter in capturing complex inter-concept dependencies and demand costly, expert-driven concept annotations, limiting their scalability. This study introduces a novel semi-supervised CBM framework designed for medical imaging, which leverages dual-level hypergraph learning to model high-order concept dependencies and generate domain-adaptive pseudo-labels. Our approach achieves superior interpretability and performance by integrating a concept-level hypergraph for enhanced reasoning and an image-level hypergraph for robust pseudo-label generation. Experiments on a newly annotated PAS ultrasound dataset and a breast ultrasound public dataset demonstrate the effectiveness of the proposed concept label-efficient interpretable framework. Its universality is further validated on the dermoscopic image dataset SkinCon. The code is available at https://github.com/scott-yjyang/HyperCBM.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 深度学习技术革新了医学图像分析，在多种应用场景中展现了卓越的诊断准确性。然而，其决策过程缺乏可解释性阻碍了临床采纳，尤其是在高风险医疗环境中，透明度对建立信任至关重要。以胎盘植入谱（PAS）为例，超声图像中的细微征象给可靠诊断带来挑战，导致黑箱模型无法为准确评分提供可信依据。为此，概念瓶颈模型（CBM）通过将临床有意义的中间概念嵌入诊断流程，为临床医生审视和优化模型输出提供了可行途径。然而，传统CBM难以捕捉概念间的复杂依赖关系，且需要代价高昂、依赖专家标注的概念注释，限制了其可扩展性。本研究提出一种面向医学影像的新型半监督CBM框架，利用双层超图学习建模高阶概念依赖并生成领域自适应伪标签。该方法通过整合用于增强推理的概念级超图和用于稳健伪标签生成的图像级超图，实现了更优的可解释性与性能。在新增标注的PAS超声数据集和乳腺超声公开数据集上的实验验证了所提概念标签高效可解释框架的有效性，并在皮肤镜图像数据集SkinCon上进一步验证了其普适性。代码开源地址：https://github.com/scott-yjyang/HyperCBM。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper introduces a semi-supervised hypergraph concept bottleneck model (HyperCBM) for interpretable medical image diagnosis, leveraging dual-level hypergraph learning to capture high-order concept dependencies and generate pseudo-labels, validated on PAS ultrasound, breast ultrasound, and dermoscopic datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种半监督超图概念瓶颈模型（HyperCBM），用于可解释的医学图像诊断，利用双层级超图学习捕获高阶概念依赖并生成伪标签，在PAS超声、乳腺超声和皮肤镜数据集上进行了验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.01698v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yijun Yang, Ruiqiang Xiao, Lijie Hu, Angelica I Aviles-Rivero, Yunzhu Wu, Jing Qin, Lei Zhu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">RL-ACRGNet: Reinforcement Learning-Based Chest Radiology Report Generation Network</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Medical imaging interpretation is a foundational pillar of modern clinical diagnostics, yet the manual generation of radiology reports remains a time-consuming process prone to interpretation inconsistencies. Within the field of medical AI, automating these descriptions through deep learning promises to streamline clinical workflows and standardise diagnostic output. However, accurate disease detection and precise report generation remain significant challenges due to limitations in capturing fine-grained visual features and ensuring clinical coherence. To address these issues, we propose RL-ACRGNet, an improved encoder-decoder model that integrates a pre-trained DenseNet encoder with a multilevel LSTM decoder within an off-policy reinforcement learning framework. Using a dual-network approach to refine visual-semantic embeddings through a metric-based reward mechanism, we demonstrate that RL-ACRGNet consistently outperforms state-of-the-art baselines on the IU-Xray dataset, achieving quantitative improvements in BLEU-4 (0.47%), METEOR (0.17%) and ROUGE-L (0.518). Furthermore, comprehensive evaluations on the large-scale MIMIC-CXR data set confirm the robust generalisation of the model and its ability to generate high-quality, clinically relevant reports</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 医学影像解读是现代临床诊断的基础支柱，然而手动生成放射学报告仍是一个耗时且易出现解读不一致的过程。在医学人工智能领域，通过深度学习实现这些描述的自动化有望简化临床工作流程并标准化诊断输出。然而，由于在捕获细粒度视觉特征和确保临床连贯性方面存在局限性，准确的疾病检测和精确的报告生成仍然是重大挑战。为解决这些问题，我们提出了RL-ACRGNet，一种改进的编码器-解码器模型，它将预训练的DenseNet编码器与多层LSTM解码器集成在离策略强化学习框架中。通过采用双网络方法，利用基于度量的奖励机制优化视觉-语义嵌入，我们证明RL-ACRGNet在IU-Xray数据集上持续优于最先进的基线模型，在BLEU-4（0.47%）、METEOR（0.17%）和ROUGE-L（0.518）上实现了定量改进。此外，在大规模MIMIC-CXR数据集上的全面评估证实了该模型的强大泛化能力及其生成高质量、临床相关报告的能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes RL-ACRGNet, an encoder-decoder model combining a pre-trained DenseNet with a multilevel LSTM decoder and off-policy reinforcement learning to generate chest radiology reports, achieving slight improvements over baselines on IU-Xray and MIMIC-CXR datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出RL-ACRGNet，一种结合预训练DenseNet编码器和多级LSTM解码器的编码器-解码器模型，采用离策略强化学习生成胸部放射学报告，在IU-Xray和MIMIC-CXR数据集上相比基线方法略有改进。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.02035v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yogesh Kumar Meena, Saurabh Agarwal, K. V. Arya</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-03 08:15:32 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
