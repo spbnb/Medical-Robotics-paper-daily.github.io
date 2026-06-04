@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 03, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 03, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Efficient Transformer-Based Localized Patch Sampling for Choroid Plexus Segmentation in Multiple Sclerosis</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Background: The lateral ventricle choroid plexus (LVCP) is gaining recognition as a key imaging biomarker for multiple sclerosis (MS) related to physical disability and neuroinflammation. Yet, manual segmentation of the LVCP is highly tedious, restricting its use in broad clinical trials and longitudinal assessments. This research aims to develop a SwinUNETR-driven pipeline that leverages targeted intra- and peri-ventricular small patch sampling to automatically segment the LVCP in MS from both standalone and multi-modal MRI inputs. Methods: We retrospectively assessed 3T MRI scans across three sets of data stemming from two separate MS-dominant cohorts (Dataset 1: n=177; Dataset 2: n=177; expanded test set: n=388). Our method employed a SwinUNETR architecture trained on 32x32x32 voxel patches, benchmarking it against the 3D UXNET model. The primary metric for evaluation was the Dice Similarity Coefficient (DSC), supplemented by computational demand (GFLOPs) and the 95th percentile Hausdorff Distance (HD95). Results: On the extended test set, the SwinUNETR model secured a mean DSC of 0.868 (95% CI: 0.863-0.872) with MPRAGE and FLAIR combined, showing a statistically significant gain over UXNET (DSC: 0.858 [95% CI: 0.853-0.862], p<0.0001). When restricted to standalone FLAIR inputs, the transformer-based approach sustained a high DSC of 0.863, while the spatial localization of UXNET worsened considerably (HD95: 1.86 vs. 3.00 mm). Importantly, the proposed framework lowered computational load by 99% (91.8 vs. 22,080 GFLOPs). By integrating localized patch sampling with a SwinUNETR architecture, this methodology offers an accurate, robust, and statistically superior alternative to current leading models for LVCP segmentation. Its vast reduction in computational cost makes it ideal for widespread implementation in clinical and research environments.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 侧脑室脉络丛（LVCP）正逐渐被公认为与多发性硬化症（MS）患者身体残疾和神经炎症相关的重要影像生物标志物。然而，手动分割LVCP极为繁琐，限制了其在广泛临床试验和纵向评估中的应用。本研究旨在开发一种基于SwinUNETR的流程，通过靶向性的脑室内及脑室周围小样本块采样，从独立或多模态MRI输入中自动分割MS患者的LVCP。方法：我们回顾性评估了来自两个独立MS优势队列的三组3T MRI扫描数据（数据集1：n=177；数据集2：n=177；扩展测试集：n=388）。该方法采用在32×32×32体素块上训练的SwinUNETR架构，并以3D UXNET模型作为基准。主要评估指标为Dice相似系数（DSC），辅以计算需求（GFLOPs）和95百分位豪斯多夫距离（HD95）。结果：在扩展测试集中，结合MPRAGE和FLAIR输入时，SwinUNETR模型的平均DSC达到0.868（95% CI: 0.863-0.872），显著优于UXNET（DSC: 0.858 [95% CI: 0.853-0.862]，p<0.0001）。当仅限于独立FLAIR输入时，基于变换器的方法仍保持高DSC（0.863），而UXNET的空间定位显著恶化（HD95: 1.86 vs. 3.00 mm）。重要的是，所提出的框架将计算负载降低了99%（91.8 vs. 22,080 GFLOPs）。通过将局部样本块采样与SwinUNETR架构相结合，该方法为当前领先的LVCP分割模型提供了一种精准、稳健且统计上更优的替代方案。其计算成本的大幅降低使其非常适合在临床和研究环境中广泛实施。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a SwinUNETR-based pipeline with localized intra- and peri-ventricular patch sampling for automatic segmentation of the lateral ventricle choroid plexus in multiple sclerosis from MRI, achieving high Dice scores and a 99% reduction in computational cost compared to the 3D UXNET baseline.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种基于SwinUNETR的局部补丁采样流水线，用于自动分割多发性硬化症MRI中的侧脑室脉络丛，相比3D UXNET基线获得了高Dice分数并降低了99%的计算成本。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.03566v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Po-Jui Lu, Alessandro Cagol, Mario Ocampo-Pineda, Federico Spagnolo, Marina Mastantuono, Andreea-Alexandra Aldea, Jannis Müller, Özgür Yaldizli, Matthias Weigel, Lester Melie-Garcia, Roberta Magliozzi, Maria Pia Sormani, Ludwig Kappos, Jens Kuhle, Cristina Granziera</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">GLINT: Sparsely Gated Vision-Language Alignment for Fine-Grained Radiology Representations</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Vision-language models (VLMs) for radiology have emerged as a scalable paradigm by leveraging image-report pairs naturally produced in clinical workflows. However, this pairing reveals a mismatch in scale: each finding occupies only a small region of the image, yet supervision is provided only at the global image-report level. This poses a central challenge: prior approaches spread weight densely across all patches rather than concentrating on the sparse subset relevant to a given query. To address this, we present GLINT (Gated Language-Image alignmeNT), a framework that explicitly models this sparse correspondence. On the alignment side, we introduce Sparsely Gated Alignment, a novel architecture in which a sigmoid gate over a separate gate embedding space activates only the patches relevant to each textual query, enforcing explicit sparsity. On the representation side, we add Dense Feature Regularization, which anchors the trainable encoder's intermediate features to a frozen self-supervised learning (SSL) teacher, preserving the fine-grained patch features that the gate relies on. The same recipe applies to both 2D chest X-ray (CXR) and 3D chest computed tomography (CT), built with DINOv3 and V-JEPA 2.1, respectively. GLINT enables zero-shot classification, grounding, and segmentation from free-text queries, and to our knowledge is the first to demonstrate zero-shot segmentation on 3D CT volumes without mask supervision. Notably, the most pronounced gains arise on zero-shot grounding and segmentation, where sparse, query-specific localization is required, consistent with our design intent. In downstream evaluation, GLINT outperforms both SSL encoders and medical VLMs on classification, report generation, and segmentation.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 放射学领域的视觉-语言模型（VLM）通过利用临床工作流中自然生成的图像-报告对，已成为一种可扩展的范式。然而，这种配对揭示了尺度上的不匹配：每个病灶仅占据图像的一小片区域，但监督信号却仅在全局图像-报告层面提供。这带来了一个核心挑战：先前的方法将权重密集地分布于所有图像块，而非集中于与给定查询相关的稀疏子集。为解决此问题，我们提出GLINT（门控语言-图像对齐）框架，显式建模这种稀疏对应关系。在对齐方面，我们引入稀疏门控对齐——一种新型架构，其中独立门控嵌入空间上的sigmoid门仅激活与每个文本查询相关的图像块，从而强制实现显式稀疏性。在表征方面，我们添加密集特征正则化，将可训练编码器的中间特征锚定到冻结的自监督学习（SSL）教师模型上，从而保留门控所依赖的细粒度图像块特征。该方案同样适用于2D胸部X光片（CXR）和3D胸部计算机断层扫描（CT），分别基于DINOv3和V-JEPA 2.1构建。GLINT支持基于自由文本查询的零样本分类、定位和分割，据我们所知，这是首个在无需掩码监督的情况下实现3D CT体素零样本分割的方法。值得注意的是，最显著的提升出现在零样本定位和分割任务上，这些任务需要稀疏的、查询特异性的定位能力，这与我们的设计意图一致。在下游评估中，GLINT在分类、报告生成和分割任务上均优于SSL编码器和医学VLM。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: GLINT introduces a sparsely gated vision-language alignment framework for fine-grained radiology representations, enabling zero-shot classification, grounding, and segmentation on 2D chest X-ray and 3D CT volumes.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: GLINT 提出了一种基于稀疏门控的视觉-语言对齐框架，用于细粒度放射学表征，在二维胸片和三维 CT 体积上实现了零样本分类、定位和分割。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.03180v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jonggwon Park, Seongeun Lee, Junhyun Park, Hannah Yun, Hyunwoong Kim, Sohyun Jeong, Hyewon Kang, Byungmu Yoon, Kyoyun Choi</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Gender-Dependent Diagnostic Substitution in LLM Medical Triage: Same Symptoms, Unequal Urgency</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We investigate whether large language models produce different medical triage recommendations for identical neurological symptoms when only the patient's stated gender and age vary. Using three model families--Gemini 3.5 Flash, Claude Sonnet 4.6, and GPT-5.4-mini--we present a standardized symptom profile (persistent headache, blurred vision, morning nausea, visual disturbances) across seven demographic conditions: three age groups (25, 38, 65) x two genders (male, female), plus a gender-unspecified baseline (n = 30 per condition per model, 630 total trials). We find a stark, systemic gender-dependent triage disparity: young women receive significantly lower emergency room (ER) referral rates than age-matched men (Gemini: 0% vs. 23.3%; Claude: 6.7% vs. 96.7%; GPT: 6.7% vs. 66.7%, all p < 0.001). The disparity disappears at age 65 for all models. The primary mechanism is diagnostic substitution: the models anchor on a gender-associated diagnosis, preferentially classifying young women with Idiopathic Intracranial Hypertension (IIH)--a condition epidemiologically linked to women of childbearing age--while diagnosing men with generic increased intracranial pressure with space-occupying lesions in the differential. This diagnostic closure routes female patients to lower-urgency care (outpatient doctor appointments) despite comparable severity ratings (7-9/10). Our findings demonstrate that clinical LLMs replicate documented human clinical biases by using epidemiological priors to suppress triage urgency, suggesting that AI triage engines must decouple urgency assessment from probabilistic diagnostic priors. We release all code, prompts, and raw results.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们研究了当仅改变患者的性别和年龄时，大语言模型是否会对相同的神经系统症状产生不同的医疗分诊建议。使用三个模型系列——Gemini 3.5 Flash、Claude Sonnet 4.6 和 GPT-5.4-mini——我们在七种人口统计条件下呈现了一个标准化的症状描述（持续性头痛、视力模糊、晨起恶心、视觉障碍）：三种年龄组（25、38、65）×两种性别（男性、女性），外加一个未指定性别的基线（每个模型每个条件 n = 30，共 630 次试验）。我们发现存在显著且系统性的性别依赖分诊差异：年轻女性获得的急诊科转诊率显著低于年龄匹配的男性（Gemini：0% vs. 23.3%；Claude：6.7% vs. 96.7%；GPT：6.7% vs. 66.7%，所有 p < 0.001）。对于所有模型，这种差异在 65 岁时消失。主要机制是诊断替代：模型锚定于与性别相关的诊断，倾向于将年轻女性归类为特发性颅内高压（IIH）——一种在流行病学上与育龄女性相关的疾病——而对男性则诊断为伴有占位性病变的通用颅内压增高（鉴别诊断中）。这种诊断闭合导致女性患者被导向较低紧急程度的护理（门诊预约），尽管严重程度评分相当（7-9/10）。我们的研究结果表明，临床大语言模型通过利用流行病学先验来抑制分诊紧急程度，从而复制了已知的人类临床偏见，这表明人工智能分诊引擎必须将紧急程度评估与概率诊断先验解耦。我们已发布所有代码、提示和原始结果。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper investigates gender and age biases in LLM-based medical triage, finding that young women receive significantly lower emergency room referral rates than men with identical symptoms due to diagnostic substitution (e.g., IIH vs. space-occupying lesions).</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文研究了大语言模型在医疗分诊中的性别和年龄偏见，发现相同症状下年轻女性获得急诊转诊的比率显著低于男性，原因是诊断替换（如特发性颅内高压 vs. 占位性病变）。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.03641v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Qi Han Wong</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Short-Acquisition Contrast-Free Super-Resolution Microvascular Imaging in Rabbit Kidney</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Ultrasound localization microscopy (ULM) enables micrometer-scale microvascular imaging by localizing and tracking intravascular microbubbles, but its dependence on exogenous contrast agents and long acquisition times limits clinical translation. This study presents a high-frame-rate contrast-free super-resolution ultrasound microvascular imaging method based on high-frequency ultrafast ultrasound and nonlinear beamforming of backscatter signals from native blood flow. Using only 125 milliseconds of in vivo ultrafast data per image, the proposed method achieved an imaging frame rate of 8 frames/s in a rabbit kidney model. The reconstructed microvascular images resolved vessels with a global spatial resolution of 22.2 um over a field of view of 23.04 x 15.18 mm2, where the wavelength of ultrasound was 67.5 um. This corresponds to a three-fold improvement over conventional power Doppler imaging under the same acquisition duration. Compared with conventional flow imaging, the proposed method provided improved microvascular contrast and finer vessel delineation without microbubble injection. These results demonstrate a practical pathway toward high frame rate, contrast-free super-resolution ultrasound imaging for microvascular assessment.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 超声定位显微镜（ULM）通过定位和追踪血管内微泡实现微米级微血管成像，但其依赖外源性造影剂且采集时间较长，限制了临床转化。本研究提出一种基于高频超快超声和原生血流背向散射信号非线性波束成形的无造影剂超分辨率超声微血管成像方法。在兔肾模型中，每幅图像仅需125毫秒的体内超快数据，即可实现8帧/秒的成像帧率。重建的微血管图像在23.04 × 15.18 mm²的视野内，可分辨全局空间分辨率为22.2 μm的血管（超声波长为67.5 μm）。在相同采集时长下，该分辨率较传统功率多普勒成像提升三倍。与传统血流成像相比，本方法无需注射微泡即可提供更优的微血管对比度和更精细的血管轮廓描绘。这些结果表明，该方法为实现高帧率、无造影剂的超分辨率超声微血管评估提供了实用途径。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a contrast-free super-resolution ultrasound microvascular imaging method using high-frame-rate ultrafast ultrasound and nonlinear beamforming, achieving 22.2 μm resolution in rabbit kidney without microbubble injection, enabling 8 frames/s imaging from only 125 ms of data.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种无造影剂的超分辨率超声微血管成像方法，利用高帧率超快超声和非线性波束成形，在兔肾模型中无需微泡注射即可实现22.2微米的分辨率，仅用125毫秒数据即可达到8帧/秒的成像速度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.02782v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhengchang Kou, Yuning Zhao, Mingrui Liu, Rita J. Miller, Michael L. Oelze</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-04 07:41:29 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
