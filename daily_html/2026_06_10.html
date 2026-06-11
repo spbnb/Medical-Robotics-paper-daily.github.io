@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 10, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 10, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Model-based Optimization of Anguilliform Swimming Gaits for Soft Robotic Applications</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> In this paper, we introduce the Soft Lamprey-Inspired Dual Environment Robot (SLIDER) and a proper modeling and optimization procedure employed to design the robot. We represent the primary fluid environment actions - inertial effects, vortex forces, and viscous dissipation - using Lighthill's theory for large-amplitude elongated bodies. For structural design parameters such as internal pressure, tail size, and body stiffness, a fast, geometrically and materially nonlinear model is developed and validated. The fluid-structure interaction equations are solved implicitly with an efficient second-order box method. A pneumatic manifold robotic system is employed to actuate SLIDER in a quiescent water tank environment, allowing cross-comparison of computational and experimental results. We find that low-frequency swimming is dominated by resistant environmental forces, whereas higher-frequency swimming is primarily affected by inertial fluid forces. Using our efficient model alongside a genetic algorithm, we co-optimize a swimming control pattern and caudal fin design (subject to SLIDER's climbing morphology) to achieve a tethered swimming speed of 21.7 +/- 0.4 cm/s (0.59 Bl/s). Furthermore, we investigate the optimization procedure for a multimodal robot performing both swimming and climbing tasks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在本论文中，我们介绍了一种软体七鳃鳗仿生双环境机器人（SLIDER）及其设计所采用的建模与优化流程。我们利用Lighthill的大振幅细长体理论来表征主要的流体环境作用——惯性效应、涡旋力及粘性耗散。针对内部压力、尾鳍尺寸及身体刚度等结构设计参数，我们开发并验证了一种快速的几何与材料非线性模型。流固耦合方程通过高效的二阶盒式方法隐式求解。采用气动歧管机器人系统驱动SLIDER在静水槽环境中运动，从而实现了计算与实验结果的交叉对比。我们发现，低频游泳主要受阻力环境力支配，而高频游泳则主要受惯性流体力影响。利用我们的高效模型及遗传算法，我们协同优化了游泳控制模式与尾鳍设计（受限于SLIDER的攀爬形态），实现了21.7±0.4 cm/s（0.59 Bl/s）的系留游泳速度。此外，我们还研究了执行游泳与攀爬双重任务的多模态机器人的优化流程。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents SLIDER, a soft lamprey-inspired robot, and introduces a modeling and optimization framework using Lighthill's theory and a genetic algorithm to co-optimize swimming gaits and fin design, achieving a tethered speed of 21.7 cm/s.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文介绍了一种软体鳗鱼机器人SLIDER，并提出了基于Lighthill理论和遗传算法的建模与优化框架，协同优化游泳步态和尾鳍设计，实现了21.7厘米/秒的绳系游泳速度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.11278v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Brian Van Stratum, James Gallentine, Caleb Rucker, Eric Barth, Jonathan E. Clark, Kourosh Shoele</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Improving PET/CT-Based Whole-Body Lesion Segmentation Using Prediction Uncertainty-Augmented Models</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Accurate lesion segmentation from whole-body Positron Emission Tomography (PET)/Computed Tomography (CT) scans is essential for cancer staging and treatment planning. PET provides functional metabolic information with different radiotracers, while CT offers anatomical localization. Lesion delineation from PET/CT imaging is clinically challenging due to subtle imaging features, confounders, and inter-reader variability. Existing deep learning approaches suffer from training-related stochasticity, inconsistent predictions, missed lesions in high tumor-burden cases, and lack uncertainty quantification, limiting their clinical reliability. Using nnU-Net as a baseline, we propose an uncertainty-aware framework for whole-body PET/CT lesion segmentation that integrates (1) Bayesian ensembling to reduce training stochasticity, (2) voxel-wise uncertainty quantification with epistemic and aleatoric decomposition, and (3) epistemic uncertainty-augmented training to improve lesion detection. Two public datasets, AutoPET-III (1,611 scans) and Deep-PSMA (200 scans), comprising FDG and PSMA studies across multiple cancer types, are used for training and evaluation. Bayesian ensembling improves robustness and performance over deterministic nnU-Net models on the unseen AutoPET-III test set. Uncertainty maps highlight regions of model disagreement and correlate with misclassifications, particularly false positives. Uncertainty-augmented training improves lesion recovery at the cost of increased FPVol, reflecting a precision-recall trade-off. A case-adaptive routing strategy further improves Dice by selecting between the base and augmented models. To our knowledge, this is the first study to systematically investigate uncertainty quantification in multi-tracer, pan-cancer PET/CT segmentation and to combine Bayesian ensembling with uncertainty-aware modeling for this task.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 从全身正电子发射断层扫描（PET）/计算机断层扫描（CT）图像中准确分割病灶对于癌症分期和治疗规划至关重要。PET利用不同放射性示踪剂提供功能性代谢信息，而CT提供解剖定位。由于影像特征细微、存在混杂因素以及阅片者间差异，从PET/CT图像中勾画病灶在临床上具有挑战性。现有的深度学习方法存在训练相关随机性、预测不一致、高肿瘤负荷病例中漏检病灶以及缺乏不确定性量化等问题，限制了其临床可靠性。以nnU-Net为基线，我们提出了一种面向全身PET/CT病灶分割的不确定性感知框架，该框架整合了：（1）贝叶斯集成以减少训练随机性；（2）基于体素的不确定性量化，并分解为认知不确定性与偶然不确定性；（3）认知不确定性增强训练以改善病灶检测。使用两个公开数据集——AutoPET-III（1,611次扫描）和Deep-PSMA（200次扫描），涵盖多种癌症类型的FDG和PSMA研究，进行训练与评估。在未见过的AutoPET-III测试集上，贝叶斯集成相比确定性nnU-Net模型提升了稳健性和性能。不确定性图突出了模型存在分歧的区域，并与错误分类（尤其是假阳性）相关。不确定性增强训练在增加FPVol（假阳性体积）的代价下提高了病灶检出率，体现了精确率-召回率的权衡。一种病例自适应路由策略通过选择基础模型或增强模型进一步提升了Dice系数。据我们所知，本研究首次系统性地探讨了多示踪剂、泛癌种PET/CT分割中的不确定性量化，并针对该任务将贝叶斯集成与不确定性感知建模相结合。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes an uncertainty-aware framework based on nnU-Net for whole-body PET/CT lesion segmentation, integrating Bayesian ensembling, voxel-wise uncertainty quantification, and uncertainty-augmented training to improve robustness and lesion detection, with evaluation on multi-tracer, pan-cancer datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种基于 nnU-Net 的不确定性感知框架，用于全身 PET/CT 病灶分割，集成了贝叶斯集成、体素级不确定性量化和不确定性增强训练，以提高鲁棒性和病灶检测能力，并在多示踪剂、泛癌数据集上进行了评估。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.10115v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Bashirul Azam Biswas, Biratal Raj Wagle, Zhihan Yang, Marc A. Seltzer, Matthew E. Maeder, James B. Yu, Indrani Bhattacharya</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">++nnU-Net: Scaling nnU-Net with Prefix-Based Data Augmentation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The nnU-Net has demonstrated continuous success in medical segmentation tasks, which heavily rely on the availability and diversity of annotated biomedical data. However, assembling medical imaging cohorts remains challenging due to numerous factors such as privacy regulations and annotation costs. As a result, data augmentation plays a crucial role in increasing data availability while maintaining anatomical feasibility. Hence, we propose the ++nnU-Net, a novel data augmentation module based on image registration that operates prior to preprocessing and training take place. Our framework was evaluated across five different 2D datasets. In this workflow, image data go through a two-stage registration process, generating new warped images. The transformations are then applied to the respective segmentation. In addition, the pipeline computes available disk space, generates supplementary binary synthetic masks and generates checkpoints. We demonstrate that the ++nnU-Net outperforms the nnU-Net baseline, yielding improvements in Dice Similarity Coefficient scores. In the most prominent cases, we observe performance gains of approximately 22\%. These findings highlight the effectiveness of registration-based data augmentation, particularly for 2D medical imaging datasets and suggest that the ++nnU-Net provides a practical and scalable approach for enhancing segmentation performance in data-limited settings. The source code for the ++nnU-Net is available at: https://github.com/sofia-adelie/plusplusnnunet.git</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> nnU-Net在医学分割任务中持续取得成功，这高度依赖于标注生物医学数据的可用性和多样性。然而，由于隐私法规和标注成本等诸多因素，收集医学影像队列仍然具有挑战性。因此，数据增强在提高数据可用性同时保持解剖学可行性方面发挥着关键作用。为此，我们提出++nnU-Net，一种基于图像配准的新型数据增强模块，在预处理和训练之前运行。我们的框架在五个不同的2D数据集上进行了评估。在该工作流程中，图像数据经过两阶段配准过程，生成新的变形图像，然后将变换应用于相应的分割结果。此外，该流程还计算可用磁盘空间、生成补充性二元合成掩膜并创建检查点。我们证明++nnU-Net优于nnU-Net基线，在Dice相似系数得分上有所提升。在最显著的情况下，我们观察到约22%的性能提升。这些发现凸显了基于配准的数据增强的有效性，尤其适用于2D医学影像数据集，并表明++nnU-Net为数据有限场景下提升分割性能提供了实用且可扩展的方法。++nnU-Net的源代码可在以下地址获取：https://github.com/sofia-adelie/plusplusnnunet.git</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes ++nnU-Net, a registration-based data augmentation module that operates before preprocessing and training, improving segmentation performance on 2D medical imaging datasets by up to 22% over the nnU-Net baseline.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出++nnU-Net，一种基于图像配准的预处理数据增强模块，在2D医学影像数据集上相比nnU-Net基线最高提升22%的分割性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.10713v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ana Sofia Santos, André Ferreira, Gijs Luijten, Naida Solak, Lisle Faray de Paiva, Behrus Hinrichs-Puladi, Jens Kleesiek, Jan Egger, Victor Alves</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Belief-Space Control for Personalized Cancer Treatment via Active Inference</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Cancer treatment is at the core a sequential decision-making problem with partial observability, latent patient heterogeneity, and explicit constraints on the budget for medical measurements. Unlike standard Reinforcement Learning (RL) approaches that control state trajectories, cancer treatments permanently modify patients' transition dynamics, changing how states evolve over time. We model cancer treatment as a belief-space planning problem using active inference, deriving an expected free-energy objective that unifies goal-directed control and information acquisition under measurement budgets without. We implement this framework using real clinical cancer data from the AACR Project GENIE Biopharma Collaborative dataset. Results on clinical data demonstrate a simultaneous patient categorization and high treatment efficacy, under real measurement and treatment constraints.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 癌症治疗本质上是一个具有部分可观测性、潜在的患者异质性以及医疗测量预算明确约束的序贯决策问题。与标准强化学习（RL）方法控制状态轨迹不同，癌症治疗会永久性地改变患者的转移动态，从而改变状态随时间演化的方式。我们将癌症治疗建模为使用主动推理的信念空间规划问题，推导出一个期望自由能目标函数，该函数在测量预算约束下统一了目标导向控制与信息获取。我们利用来自AACR项目GENIE生物制药合作数据集的真实临床癌症数据实现了这一框架。在真实测量与治疗约束下，临床数据结果表明实现了患者分类与高治疗疗效的同步提升。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper models cancer treatment as a belief-space planning problem using active inference, optimizing an expected free-energy objective for goal-directed control and information acquisition under measurement budgets, and validates it on real clinical cancer data.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文将癌症治疗建模为使用主动推理的信念空间规划问题，在测量预算下优化预期自由能目标以实现目标导向控制和信息获取，并在真实临床癌症数据上进行验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.10376v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Deniz Sargun, H. Bugra Tulay, C. Emre Koksal</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-11 06:56:53 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
