@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 14, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 14, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Landmark-free Assessment of Lower-limb Alignment with Implicit Neural Shape Functions from Knee Radiographs</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Radiographic assessment of lower-limb alignment (LLA) is important for predicting joint health and surgical outcomes in total knee arthroplasty. Traditional measurement methods are manual and time-consuming, while recent machine learning approaches typically rely on locating a fixed set of anatomical landmarks. This dependence limits flexibility and may require re-annotation when clinical definitions change. To address this, we propose an automated workflow using Implicit Neural Shape Functions (INSF). Rather than relying on explicit landmark coordinates, we encode the anatomy into a compact latent space and regress clinical alignment measurements directly from these latent codes. This architecture allows for rapid extendability to new tasks without altering the backbone representation. We trained our method on an internal dataset of 566 knee radiographs, each annotated with the outline of the femur and tibia. We evaluated it on both an internal test dataset of 50 patients and a separate external set of 402 preoperative cases from the MRKR dataset. Manual clinical measurements are available for these data, and the MRKR measurements will be made publicly accessible. Performance was comparable to state-of-the-art landmark-based methods and manual agreement, while offering a flexible shape representation that can be extended to additional measurement tasks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 下肢力线（LLA）的放射学评估对于预测全膝关节置换术中的关节健康及手术结局至关重要。传统测量方法依赖人工操作且耗时，而近期机器学习方法通常依赖于定位一组固定的解剖标志点。这种依赖性限制了灵活性，当临床定义发生变化时可能需要重新标注。为解决这一问题，我们提出了一种基于隐式神经形状函数（INSF）的自动化工作流。该方法不依赖显式的标志点坐标，而是将解剖结构编码至紧凑的潜在空间中，并直接从这些潜在编码中回归临床力线测量值。该架构可在不更改主干表示的情况下快速扩展至新任务。我们在一个包含566张膝关节X线片的内数据集上训练了该方法，每张图像均标注了股骨和胫骨的轮廓。我们在一个由50例患者组成的内测试数据集以及来自MRKR数据集的402例独立术前病例上进行了评估。这些数据均具备人工临床测量值，且MRKR测量值将公开提供。该方法在性能上可与最先进的基于标志点的方法及人工测量一致性相媲美，同时提供了可扩展至其他测量任务的灵活形状表示。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents an automated landmark-free method for assessing lower-limb alignment from knee radiographs using Implicit Neural Shape Functions (INSF), which encodes anatomy into a latent space and directly regresses clinical measurements, achieving performance comparable to state-of-the-art landmark-based approaches while offering flexibility for extension to new tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种无需标记点的自动下肢力线评估方法，利用隐式神经形状函数（INSF）将解剖结构编码到潜在空间并直接回归临床测量值，性能与最先进的基于标记点的方法相当，且具有可扩展至新任务的灵活性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.15250v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhisen Hu, Antti Kemppainen, David Johnson, Egor Panfilov, Huy Hoang Nguyen, Timothy Cootes, Claudia Lindner, Aleksei Tiulpin</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Towards Global AI-Driven Cervical Cancer Screening</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The global elimination of cervical cancer is a key public health goal set by the World Health Organization (WHO), with screening programs reducing mortality by up to 80%. However, access to experts and biopsy services is limited in low- to middle-income countries (LMICs). Deep learning (DL)-based algorithms offer promising support for screening, but most existing approaches have been developed and validated on private datasets from single countries. We present the first DL-based approach to cervical cancer screening validated on data from multiple countries. Technically, we phrase the problem of detecting and classifying lesions in colposcopy images as a multi-task learning problem, in which we simultaneously perform image-level classification and lesion segmentation. Our model was trained on a private data set of acid stain colposcopy images with manually generated lesion segmentation masks and corresponding histopathological results, employing extensive data augmentation to address image variability. In an in-distribution validation with pathology results serving as ground truth, our algorithm outperformed medical experts (Balanced Accuracy: 0.68 vs 0.64) in CIN1- (Cervical intraepithelial neoplasia grade 1 or lower) versus CIN2+ (grade 2 or higher) classification. External validation on four colposcopy data sets from four countries featuring radical differences in prevalence and patient characteristics yielded superior performance of our method compared to baseline methods. Performance variability across countries was high with AUC values ranging from 0.54 - 0.80. Overall, algorithm performance varied with age, transformation zone (cervical area most prone to lesion development), presence of comorbidities and pathognomonic signs, with comorbidities having by far the largest negative effect. Future work should focus on improving model robustness and generalizability.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 全球消除宫颈癌是世界卫生组织（WHO）设定的重要公共卫生目标，筛查项目可使死亡率降低高达80%。然而，在中低收入国家（LMICs），获取专家和活检服务的机会有限。基于深度学习（DL）的算法为筛查提供了有前景的支持，但现有大多数方法都在单一国家的私有数据集上开发和验证。我们提出了首个基于DL的宫颈癌筛查方法，并在多国数据上进行了验证。技术上，我们将阴道镜图像中病变检测与分类问题表述为多任务学习问题，同时进行图像级分类和病变分割。模型使用带有手动标注的病变分割掩膜及相应组织病理学结果的醋酸染色阴道镜图像私有数据集进行训练，并采用广泛的数据增强以应对图像变异性。在以病理结果为金标准的分布内验证中，我们的算法在CIN1-（宫颈上皮内瘤变1级或更低）与CIN2+（2级或更高）分类上优于医学专家（平衡准确率：0.68 vs 0.64）。在来自四个国家的四个阴道镜数据集上进行的外部验证中，尽管各数据集的患病率和患者特征差异显著，我们的方法相比基线方法仍表现出更优性能。各国间算法性能差异较大，AUC值范围为0.54至0.80。总体而言，算法性能随年龄、转化区（最易发生病变的宫颈区域）、合并症及病理性体征的存在而变化，其中合并症的负面影响最为显著。未来工作应聚焦于提升模型鲁棒性和泛化能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents the first deep learning-based cervical cancer screening method validated on multi-country data, using multi-task learning for image-level classification and lesion segmentation on colposcopy images, achieving higher balanced accuracy than medical experts on in-distribution data but with high performance variability across different populations.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了首个在多国数据上验证的基于深度学习的宫颈癌筛查方法，采用多任务学习对阴道镜图像进行图像级分类和病灶分割，在分布内数据上实现了比医学专家更高的平衡准确率，但在不同人群中性能差异较大。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.15019v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Thuy Nuong Tran, Ömer Sümer, Evangelia Christodoulou, Lennart Nauschütte, Simon Kalteis, Martin Paulikat, Esmira Pashayeva, Klara Steinheuer, Isabella Borges, Piotr Kalinowski, Hermann Bussmann, Sieng Sokmney, Poeung Kuong, Sathiarany Vong, Achim Schneider, Magnus von Knebel-Doeberitz, Patrick Godau, Lena Maier-Hein</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SimWeaver: Zero-Shot RGB Sim-to-Real for Deformable Manipulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> RGB sim-to-real for deformable manipulation has remained largely unsolved without real-world fine-tuning. We present SimWeaver, which trains zero-shot RGB VLA policies on 200 simulated demonstrations per task, reaching above 80% per-task and 91% average real-world success across 5 diverse deformable tasks including plastic-bag manipulation, without teleoperation or per-task calibration. SimWeaver combines a reliable measurement-backed simulator (SimWeaver-Sim) with an extensible asset framework supporting single-image generation(SimWeaver-Asset), a deterministic topology-aware trajectory synthesizer (SimWeaver-Syn), and a sim-to-real protocol with ISP-aware photometric augmentation (SimWeaver-Real). On silk grasping, the sim-trained policy reaches 100% under visual distribution shifts where real-data baselines drop to 9-70%, at two orders of magnitude lower per-trajectory cost. We will release SimWeaver and a representative asset subset. Project page: https://simweaver.github.io/</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 针对可变形物体的RGB仿真到真实迁移，目前在没有真实环境微调的情况下仍基本未能解决。我们提出SimWeaver，该方法在每项任务仅使用200次模拟演示即可训练零样本RGB VLA策略，在包括塑料袋操作在内的5项不同可变形任务中，每任务成功率超过80%，平均真实世界成功率达91%，无需遥操作或每任务校准。SimWeaver将可靠的支持测量的模拟器（SimWeaver-Sim）与可扩展的资产框架（支持单图像生成，SimWeaver-Asset）、确定性拓扑感知轨迹合成器（SimWeaver-Syn）以及包含ISP感知光度增强的仿真到真实协议（SimWeaver-Real）相结合。在丝绸抓取任务中，模拟训练的策略在视觉分布偏移下达到100%成功率，而基于真实数据的基线方法成功率降至9-70%，同时每轨迹成本降低两个数量级。我们将开源SimWeaver及代表性资产子集。项目页面：https://simweaver.github.io/</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SimWeaver enables zero-shot RGB sim-to-real transfer for deformable object manipulation using only simulated demonstrations, achieving high real-world success rates on tasks like plastic-bag and silk grasping without real-world fine-tuning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SimWeaver 实现了仅使用模拟演示的零样本 RGB 仿真到真实变形物体操作迁移，在塑料袋和丝绸抓取等任务上无需真实世界微调即取得了较高的实际成功率。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.15338v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Wenkang Hu, Haoran Wang, Yitong Li, Liu Liu, Mengao Zhao, Lai Jiang, Xincheng Tang, Junhang Wei, Zhengjie Shu, Zhendong Wang, Zhizhong Su, Huamin Wang, Ruigang Yang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Enabling Real-Time Point-of-Care Ultrasound Segmentation: A GPU-Free Deployment in Resource-Limited Settings</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Ultrasound imaging is the most widely adopted medical modality globally due to its low cost and portability, yet artificial intelligence (AI) deployment remains constrained by reliance on GPU-accelerated models, creating a structural paradox where the cost of "intelligence" exceeds that of the imaging device itself. Here, we present the systematic adaptation and extensive evaluation of UltraSeg, an ultra-lightweight architecture originally developed for colonoscopic polyp segmentation, now engineered for point-of-care ultrasound (POCUS) across ten public datasets spanning six anatomical sites (breast, thyroid, kidney, carotid, fetal, and small-animal tumor). We systematically validate both variants in ultrasound domains: UltraSeg-130K (0.13M parameters) achieves 89.7 FPS on single-core CPUs and 34.8 FPS on a refurbished mobile device, while UltraSeg-500K (0.5M parameters) delivers 44.6 FPS on CPU and 16.1 FPS on mobile device. UltraSeg-500K matches or exceeds the Dice performance of the 31M-parameter UNet and approaches 105M-parameter TransUNet in average performance, with superior zero-shot cross-dataset generalization on external validation sets (UDIAT, DDTI). By enabling clinical-grade segmentation without GPU dependency, this work brings AI costs in line with ultrasound accessibility, making advanced diagnostics available in resource-limited settings.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 超声成像是全球应用最广泛的医学影像模态，因其低成本和高便携性而普及，但人工智能（AI）的部署仍受限于对GPU加速模型的依赖，导致“智能化”成本高于成像设备本身的结构性矛盾。本文介绍了对UltraSeg的系统性适配与广泛评估——该架构最初为结肠镜息肉分割而设计的超轻量级架构，现经工程化改造适用于十组涵盖六个解剖部位（乳腺、甲状腺、肾脏、颈动脉、胎儿及小动物肿瘤）的公开数据集上的床旁超声（POCUS）。我们在超声领域对两种变体进行了系统性验证：UltraSeg-130K（0.13M参数）在单核CPU上达到89.7 FPS，在翻新移动设备上达到34.8 FPS；而UltraSeg-500K（0.5M参数）在CPU上达到44.6 FPS，在移动设备上达到16.1 FPS。UltraSeg-500K在Dice性能上匹配或超过31M参数的UNet，平均性能接近105M参数的TransUNet，并在外部验证集（UDIAT、DDTI）上展现出卓越的零样本跨数据集泛化能力。通过在不依赖GPU的情况下实现临床级分割，本工作使AI成本与超声的可及性相匹配，从而在资源有限的环境中实现先进诊断。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper adapts the ultra-lightweight UltraSeg architecture for point-of-care ultrasound segmentation across multiple anatomical sites, demonstrating real-time performance on CPU and mobile devices without GPU dependency, matching or exceeding larger models like UNet and TransUNet.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文将超轻量级UltraSeg架构适配至多部位超声图像分割，在无GPU的CPU和移动设备上实现实时性能，性能匹敌甚至超过UNet和TransUNet等大型模型。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.15176v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Weihao Gao</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-16 07:35:37 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
