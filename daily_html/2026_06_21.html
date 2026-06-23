@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 21, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 21, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Surgical Anatomy Recognition with Context Learning using Foundation Representations</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Accurate recognition of anatomical structures is essential for safe and effective minimally invasive surgery (MIS), yet it remains underexplored in surgical computer vision due to limited annotated data and methods tailored primarily to natural scenes. In this work, we present a combined dataset and model framework to advance anatomy-aware perception in MIS. First, we introduce ATLAS-120k, a large-scale clip-level semantic segmentation dataset comprising over 120,000 annotated frames from 100 surgical videos spanning 14 procedures and multiple modalities, including laparoscopic and robot-assisted surgery. The dataset captures substantial procedural variability and was created using a scalable annotation pipeline that integrates expert manual labeling, automated propagation, iterative refinement, and surgeon verification to ensure high-quality annotations. Second, we propose ATLAS (Anatomy Recognition with Context Learning using Foundation Representations), a video semantic segmentation model specifically designed for surgical anatomy recognition. Unlike conventional approaches that emphasize object tracking, ATLAS leverages foundation-model embeddings together with lightweight temporal reasoning to incorporate contextual cues such as procedure type, surgical phase, and short-term visual memory. This design enables temporally consistent and accurate predictions while maintaining real-time feasibility. Together, the dataset and model establish a practical foundation for robust surgical scene understanding and support the development of clinically applicable guidance systems for minimally invasive surgery. The models, dataset annotations and annotation platform are publicly available at: https://github.com/TimJaspers0801/ATLAS.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 准确的解剖结构识别对于安全有效的微创手术（MIS）至关重要，然而，由于标注数据有限且现有方法主要针对自然场景，该问题在外科计算机视觉领域仍未得到充分探索。在本工作中，我们提出了一种联合数据集与模型框架，以推进微创手术中的解剖感知视觉识别。首先，我们引入了ATLAS-120k，一个大规模片段级语义分割数据集，包含来自100个手术视频的超过12万帧标注，涵盖14种手术类型及多种模态，包括腹腔镜手术和机器人辅助手术。该数据集体现了显著的手术变异性，并通过一套可扩展的标注流程构建而成，该流程整合了专家手动标注、自动传播、迭代优化及外科医生验证，以确保高质量的标注。其次，我们提出了ATLAS（利用基础模型表征进行上下文学习的解剖识别），一种专为手术解剖识别设计的视频语义分割模型。与强调目标跟踪的传统方法不同，ATLAS利用基础模型嵌入结合轻量级时间推理，以融入手术类型、手术阶段及短期视觉记忆等上下文线索。这种设计在保持实时可行性的同时，实现了时间上一致且准确的预测。该数据集与模型共同为稳健的手术场景理解奠定了实践基础，并支持开发适用于临床的微创手术引导系统。模型、数据集标注及标注平台公开于：https://github.com/TimJaspers0801/ATLAS。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces ATLAS-120k, a large-scale clip-level semantic segmentation dataset for surgical anatomy, and ATLAS, a video semantic segmentation model that leverages foundation-model embeddings and temporal reasoning for accurate and real-time anatomy recognition in minimally invasive surgery.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了ATLAS-120k，一个大规模的手术解剖语义分割数据集，以及ATLAS模型，该模型利用基础模型嵌入和时间推理实现微创手术中准确且实时的解剖结构识别。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.22124v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ronald L. P. D. de Jong, Tim J. M. Jaspers, Raf A. H. Vervoort, Aron F. H. A. Bakker, Yiping Li, Jip L. Tolenaar, Jelle P. Ruurda, Willem M. Brinkman, Josien P. W. Pluim, Marcel Breeuwer, Daan de Geus, Fons van der Sommen</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">THREAD: Trajectory Planning for Hybrid Rigid-Soft Manipulators with Environment-Aware Diffusion</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Manipulation in confined environments, such as threading a manipulator through narrow apertures, remains a fundamental challenge, especially for conventional rigid robots. Hybrid rigid-soft manipulators offer promise but face two compounding planning challenges: backbone shapes feasible in free space become infeasible under environmental contact, and planning rigid and soft segments independently ignores their kinematic coupling. We present THREAD, the first diffusion-based trajectory planner for hybrid manipulation, learning a generative prior over physically realizable backbone trajectories conditioned on local environment geometry, with physics-inspired losses encoding curvature, smoothness, and collision constraints jointly across both segments. Trained in simulation, THREAD achieves 92.4% task success with 5x fewer collisions than the strongest baseline. We show cross-embodiment real-world transfer with minimal online updates, successfully threading through apertures as small as 1.3x the soft segment diameter.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在受限环境中的操控任务（例如将机械臂穿过狭窄孔洞）仍然是一项根本性挑战，尤其对于传统刚性机器人而言。混合刚柔机械臂展现出潜力，但面临两个叠加的规划难题：自由空间中可行的骨架形状在与环境接触时变得不可行，且分别规划刚性段与柔性段会忽略其运动学耦合。我们提出THREAD——首个基于扩散的混合操控轨迹规划器，它学习一个基于局部环境几何条件、物理可实现骨架轨迹的生成先验，并通过物理启发的损失函数在两类机械臂段上联合编码曲率、平滑度与碰撞约束。经过仿真训练，THREAD实现了92.4%的任务成功率，碰撞次数比最强基线方法减少5倍。我们展示了跨形态的真实世界迁移能力，仅需极少的在线更新，即可成功穿过直径仅为柔性段直径1.3倍的孔洞。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: THREAD is the first diffusion-based trajectory planner for hybrid rigid-soft manipulators, learning a generative prior conditioned on local environment geometry and enforcing physical constraints jointly across both segments. It achieves 92.4% task success with 5x fewer collisions than baselines and demonstrates cross-embodiment real-world transfer.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: THREAD是首个针对混合刚柔机械臂的基于扩散的轨迹规划器，学习以局部环境几何为条件的生成先验，并在两个段上联合施加物理约束。它实现了92.4%的任务成功率，碰撞次数比最强基线少5倍，并展示了跨本体的真实世界迁移。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.21792v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Shivani Kamtikar, Pranav Asthana, Naveen Kumar Uppalapati, Girish Krishnan, Girish Chowdhary</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">OphthaDT: Generative Digital Twins for Forecasting Visual Acuity Trajectories in Ophthalmology</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Precision medicine in ophthalmology requires accurate longitudinal predictions, but the fragmented nature of multimodal clinical data remains a barrier to forecasting. We introduce OphthaDT, an LLM-based digital twin for ophthalmology that serializes longitudinal patient histories from 3,220 patients across four Phase III clinical trials into structured narratives to forecast best corrected visual acuity (BCVA). In benchmarks spanning up to 100 weeks, OphthaDT demonstrated the lowest prediction error in neovascular age-related macular degeneration (nAMD), achieving an average mean absolute error (MAE) reduction of 6.0% compared to all baselines. In diabetic macular edema (DME), OphthaDT demonstrated competitive performance against all baselines while outperforming Random Forest and XGBoost by an average MAE reduction of 2.6% and 6.9%, respectively. Results reveal that OphthaDT's predictive advantage scales with trajectory complexity: whereas linear models remain effective for the more stable treatment responses of DME, OphthaDT's capacity is better suited for capturing the high longitudinal variability of nAMD. Finally, OphthaDT handles irregular sampling without imputation, positioning LLM-based clinical trajectory modeling as a methodology that could reduce patient burden and accelerate drug development.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 眼科学中的精准医疗要求对纵向病程进行准确预测，但多模态临床数据的碎片化特征始终是预测的障碍。我们提出OphthaDT——一种基于大语言模型的眼科学数字孪生系统，该系统将来自四项III期临床试验的3220例患者的纵向病史序列化，转化为结构化叙事，以预测最佳矫正视力（BCVA）。在长达100周的基准测试中，OphthaDT在新生血管性年龄相关性黄斑变性（nAMD）的预测中展现出最低的预测误差，与所有基线模型相比，平均绝对误差（MAE）平均降低6.0%。在糖尿病性黄斑水肿（DME）中，OphthaDT与所有基线模型相比表现相当，同时相较于随机森林和极限梯度提升模型，MAE平均分别降低2.6%和6.9%。结果表明，OphthaDT的预测优势随病程轨迹复杂性递增：线性模型对DME相对稳定的治疗反应仍保持有效，而OphthaDT的能力更适合捕捉nAMD的高纵向变异性。最后，OphthaDT无需插补即可处理非规则采样，使基于大语言模型的临床轨迹建模成为可能，该方法有望减轻患者负担并加速药物研发。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: OphthaDT uses LLMs to create digital twins from longitudinal ophthalmology data, forecasting visual acuity trajectories with improved accuracy over baselines, especially for nAMD.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: OphthaDT利用大语言模型从纵向眼科数据创建数字孪生，预测视力轨迹，相比基线方法（尤其是nAMD）提高了准确性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.22101v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Pietro Belligoli, Nikita Makarov, Sayedali Shetab Boushehri, Fabian Schmich, Raul Rodriguez-Esteban, Michael Menden</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-23 06:27:08 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
