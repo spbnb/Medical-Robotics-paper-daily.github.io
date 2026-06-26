@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - June 25, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>June 25, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Deep Reinforcement Learning-Enhanced Event-Triggered Data-Driven Predictive Control for a 3D Cable-Driven Soft Robotic Arm</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Soft robots are challenging to control due to their nonlinear and time-varying dynamics. Data-enabled predictive control (DeePC) offers a model-free alternative by directly leveraging measured input-output trajectories to construct a predictive controller. However, its receding-horizon formulation requires solving a constrained optimization problem at every sampling instant, which can be computationally demanding for real-time deployment on resource-limited robotic platforms.To address this limitation, we propose an adaptive reinforcement-learning-based event-triggered DeePC (RL-ET-DeePC) framework for soft robotic control. A model-free RL policy is trained to determine when to invoke the DeePC optimizer based on the current system state representation, thereby reducing unnecessary optimization calls while preserving closed-loop performance.Simulation results show that RL-ET-DeePC reduces optimization frequency by up to 66% compared to periodic DeePC, while maintaining comparable tracking accuracy. Hardware experiments on a three-dimensional cable-driven soft robotic arm demonstrate zero-shot transfer, achieving a 34% reduction in optimization frequency with tracking accuracy comparable to periodic DeePC and more consistent performance than a static threshold-based event-triggered baseline.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：软体机器人因其非线性和时变动力学特性而难以控制。数据驱动预测控制（DeePC）通过直接利用测量的输入-输出轨迹构建预测控制器，提供了一种无模型的替代方案。然而，其滚动时域公式需要在每个采样时刻求解一个带约束的优化问题，这在资源受限的机器人平台上进行实时部署时计算负担较大。为解决这一局限，我们提出了一种基于自适应强化学习的事件触发DeePC（RL-ET-DeePC）框架用于软体机器人控制。该框架训练一个无模型的强化学习策略，根据当前系统状态表示决定何时调用DeePC优化器，从而在保持闭环性能的同时减少不必要的优化调用。仿真结果表明，与周期性DeePC相比，RL-ET-DeePC将优化频率降低高达66%，同时保持相当的跟踪精度。在三维绳驱动软体机械臂上的硬件实验验证了零样本迁移能力，实现了优化频率降低34%，跟踪精度与周期性DeePC相当，且性能比基于静态阈值的事件触发基线更加稳定。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Proposes an RL-based event-triggered data-driven predictive control framework for soft robotic arms, reducing optimization frequency by up to 66% while maintaining accuracy, validated in simulation and hardware.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出了一种基于强化学习的事件触发数据驱动预测控制框架，用于软体机器人手臂，将优化频率降低高达66%同时保持精度，并在仿真和硬件上验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.26048v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Cheng Ouyang, Moeen Ul Islam, Kaixiang Zhang, Zhaojian Li, Xiaobo Tan, Dong Chen</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">MedGuards: Multi-Agent System for Reliable Medical Error Detection and Correction</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> As Large Language Models (LLMs) are increasingly deployed in healthcare settings, accurate error detection and correction in generated or existing text becomes critical, as even minor mistakes can pose risks to patient safety. Existing methods for error detection and correction, including automated checks and heuristic-based approaches, do not generalize well across unseen datasets. In this paper, we propose MedGuards as a medical safety guardrail, which is a new framework that treats medical error detection and correction as a multi-agent in-context learning task. Specialized agents separately detect, localize, and correct errors, while a confidence-guided arbitration mechanism resolves disagreements using reasoning traces and confidence scores. This design enhances interpretability, robustness, and adaptability, without requiring additional training of the base LLMs. Additionally, we introduce the Keyword-Prioritized Correction Score (KPCS), a new evaluation metric that considers whether critical keywords within the reference text are generated correctly, providing a more comprehensive assessment than conventional metrics. Experiments across four multilingual medical datasets consisting of clinical notes demonstrate significant improvements by the proposed framework across several metrics and models. Our aim is to enable safer deployment of LLMs in real-world healthcare applications. For reproducibility, we make our code publicly available at https://github.com/congboma/MedErrBench.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 随着大型语言模型在医疗场景中的部署日益增多，对生成文本或现有文本进行准确的错误检测与纠正变得至关重要，因为即使是微小的错误也可能对患者安全构成风险。现有的错误检测与纠正方法（包括自动化检查与基于启发式的方法）在面对未见过的数据集时泛化能力不足。本文提出MedGuards作为一种医疗安全护栏，这是一个将医疗错误检测与纠正视为多智能体上下文学习任务的新框架。专门化的智能体分别负责错误检测、定位与纠正，同时一个置信度引导的仲裁机制通过推理轨迹与置信度分数来消除分歧。该设计增强了可解释性、鲁棒性与适应性，且无需对基础大型语言模型进行额外训练。此外，我们引入了关键词优先修正分数（KPCS）这一新的评估指标，该指标考虑了参考文本中的关键关键词是否被正确生成，从而相比传统指标提供了更全面的评估。在包含临床笔记的四个多语言医疗数据集上的实验表明，所提出的框架在多个指标和模型上均取得了显著改进。我们的目标是使大型语言模型在真实医疗应用中实现更安全的部署。为便于复现，我们在 https://github.com/congboma/MedErrBench 上公开了代码。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: MedGuards is a multi-agent framework for detecting and correcting errors in medical text generated by LLMs, using specialized agents and a confidence-guided arbitration mechanism, and introduces a new evaluation metric (KPCS). Experiments on multilingual clinical notes show improvements over baselines.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: MedGuards是一个多智能体框架，用于检测和纠正LLM生成的医疗文本中的错误，使用专门的智能体和置信度引导的仲裁机制，并引入了新的评估指标KPCS。在多语言临床笔记上的实验表明，该方法优于基线。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.25651v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Congbo Ma, Hu Wang, Yichun Zhang, Farah E. Shamout</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Bridging the Post-discharge Gap: A Traceable Multi-agent Framework for Safe and Continuous Care</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Post-discharge clinical follow-up is critical for maintaining continuity of care and mitigating long-term health risks. However, traditional follow-up paradigms suffer from shortage of health workforce, fragmented patient histories, and information silos across clinical departments. While large language models have demonstrated potential in medical question-answering, their deployment in continuous care is hindered by hallucination risks and a fundamental inability to reason over longitudinal, patient-specific constraints. Here we present Healink, a memory-enhanced multi-agent framework to support AI-assisted post-discharge follow-up by generating prescription-grounded, traceable responses that improved completeness and perceived clinical utility in retrospective and physician-blinded evaluations. The architecture seamlessly integrates a triage routing mechanism, a unified memory enhancement module utilizing a robust relational database for optimal latency, and a strict constraint-based retrieval-augmented generation engine. By vectorizing historical clinical records and employing weighted similarity functions across diverse phenotypic and intervention dimensions, Healink ensures precise inter-patient and intra-patient case matching while actively preventing cross-departmental drug conflicts. We evaluated Healink on a dataset comprising 400 continuous and 85 highly complex real-world follow-up cases, alongside the webMedQA benchmark. In a rigorous single-blind evaluation conducted by clinical experts, the framework outperformed human physician baselines in both authoritativeness and clinical safety. By generating a traceable, white-box evidence chain, Healink provides a scalable, safe, and highly effective paradigm for intelligent patient management, ultimately enhancing societal healthcare outcomes.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：出院后临床随访对于维持护理连续性及降低长期健康风险至关重要。然而，传统随访模式面临卫生人力资源短缺、患者病史碎片化以及各临床科室之间信息孤岛等问题。尽管大语言模型在医学问答领域已展现出潜力，但其在连续性护理中的应用仍受制于幻觉风险以及无法对纵向、患者特定约束条件进行推理的根本性缺陷。我们提出Healink——一种记忆增强型多智能体框架，通过生成基于处方且可追溯的响应来支持AI辅助的出院后随访，在回顾性及医生盲法评估中显著提升了响应完整性与临床实用性。该架构无缝集成了分诊路由机制、利用稳健关系数据库实现最优延迟的统一记忆增强模块，以及基于严格约束的检索增强生成引擎。通过向量化历史临床记录，并跨不同表型与干预维度采用加权相似度函数，Healink能够确保精准的跨患者及患者内部病例匹配，同时主动预防跨科室药物冲突。我们基于包含400例连续随访病例和85例高度复杂真实世界随访病例的数据集，以及webMedQA基准对Healink进行了评估。在临床专家进行的严格单盲评估中，该框架在权威性与临床安全性方面均优于人类医生基线水平。通过生成可追溯的白盒证据链，Healink为智能化患者管理提供了一种可扩展、安全且高效的范式，最终提升了社会医疗健康结局。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Healink is a memory-enhanced multi-agent framework for safe, continuous post-discharge follow-up, integrating triage routing, relational database memory, and constraint-based RAG to produce traceable, prescription-grounded responses that outperformed human physicians in clinical evaluations.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: Healink是一个基于记忆增强的多智能体框架，用于安全、持续的患者出院后随访，集成分诊路由、关系数据库记忆和约束检索增强生成，生成可追溯、基于处方的响应，在临床评估中优于人类医生。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.25334v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Runwei Guan, Yi Zhou, Heyi Lin, Jinjing Zhu, Mingyuan Hou, Yang Yang, Fang Yuan, Xiaohong Lin, Shaofeng Liang, Xuming Hu, Tao Li, Tianbin Zhao, Yutao Yue, Zhiyuan Wang, Hui Xiong</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Morphology-Specific Closed-Loop Control of Logarithmic-Spiral Continuum Arms via Online Jacobian Error Compensation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Logarithmic spirals are ubiquitous in biological appendages and provide an attractive morphology for continuum manipulators capable of reaching, wrapping, and grasping. Recently reported logarithmic-spiral robots demonstrated scalable fabrication and versatile grasping but lacked inverse kinematics and closed-loop control. This work presents the first morphology-specific closed-loop task-space control framework for logarithmic-spiral continuum arms. A segmented tendon-driven model with a centerline backbone and equilateral tendon routing is developed in MuJoCo to capture tapered compliance and contact dynamics. An analytical task-space Jacobian is derived directly from the logarithmic-spiral kinematics and combined with online Jacobian error compensation using a Broyden secant update and Kalman-filter estimation. The resulting controller continuously corrects modeling errors arising from nonlinear deformation, contact, and geometric mismatch. The framework is validated through planar and spatial simulations, including trajectory tracking, attitude regulation, disturbance rejection, three-dimensional position tracking, and simultaneous position-orientation control. Compared with a piecewise-constant-curvature (PCC) baseline, the proposed method consistently reduces tracking errors, suppresses attitude drift, and maintains a bounded Jacobian estimation error. The controller is further applied to morphology-enabled manipulation tasks, including obstacle-assisted reach-wrap-release motions, adaptive whole-arm grasping, and cooperative multi-arm object handling. Results demonstrate that combining logarithmic-spiral morphology with online Jacobian compensation enables accurate, robust, and scalable control of highly underactuated continuum manipulators. The proposed framework establishes a physics-grounded baseline for future hardware implementation and learning-augmented soft robotic control.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 对数螺旋在生物附肢中普遍存在，并为具备伸展、缠绕和抓取能力的连续体机械臂提供了极具吸引力的形态学结构。近期报道的对数螺旋机器人展示了可扩展的制造工艺与多功能抓取能力，但缺乏逆运动学与闭环控制。本文提出了首个面向对数螺旋连续体臂的形态特异性闭环任务空间控制框架。我们在MuJoCo中开发了一种基于中心线骨干与等边腱索布线的分段腱驱动模型，以捕获锥形柔顺性与接触动力学。直接从对数螺旋运动学推导出解析任务空间雅可比矩阵，并结合在线雅可比误差补偿——采用Broyden割线更新与卡尔曼滤波估计。所得控制器持续校正由非线性变形、接触及几何失配引起的建模误差。通过平面与空间仿真验证该框架，包括轨迹跟踪、姿态调节、扰动抑制、三维位置跟踪以及同步位姿控制。与分段常曲率（PCC）基线相比，所提方法持续降低跟踪误差、抑制姿态漂移，并保持有界的雅可比估计误差。该控制器进一步应用于形态赋能的操作任务，包括障碍辅助的“伸-绕-放”运动、自适应全臂抓取以及多臂协同物体操作。结果表明，将对数螺旋形态与在线雅可比补偿相结合，能够实现对高度欠驱动连续体机械臂的精确、鲁棒且可扩展的控制。所提框架为未来的硬件实现与学习增强型软体机器人控制奠定了基于物理的基线。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents the first morphology-specific closed-loop control framework for logarithmic-spiral continuum arms, combining an analytical Jacobian with online Broyden/Kalman-filter error compensation to achieve accurate trajectory tracking and manipulation in simulation, outperforming the PCC baseline.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了首个针对对数螺旋连续体臂的形态特异性闭环控制框架，结合分析雅可比矩阵与在线Broyden/卡尔曼滤波误差补偿，在仿真中实现了精确的轨迹跟踪和操作，优于PCC基线。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.26188v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Partha Datta, Yi Jin, Wei Lin, C. Chase Cao</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Enhancing Brain MRI Anomaly Detection and Reasoning with ROI Rethink and Synthetic Data</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Medical vision-language models typically generate diagnoses through single-pass inference without indicating which image regions support their conclusions. This lack of spatial grounding limits clinical utility: outputs cannot be audited, and models may hallucinate findings on normal scans. We present BrReMark (Brain Rethink via ROI Marking), a framework that introduces explicit region marking into brain MRI diagnosis. The model first generates hypotheses about potential abnormalities and grounds them through explicit bounding box marking, then verifies conclusions by re-examining the marked evidence. Training combines supervised fine-tuning on structured reasoning trajectories with reinforcement learning using a composite reward over localization accuracy and diagnostic reasoning. Furthermore, we integrate a domain randomization-based pathology synthesis augmentation strategy to improve the model's generalizability to out-of-distribution (OOD) data. On internal benchmark, BrReMark improves mAP50 from 0.74% to 37.54% compared to the base model, while achieving 21.57% Clinical F1 and 45.26% diagnostic accuracy. On NOVA OOD benchmark, it also achieves competitive overall performance with a 45.7% reduction in false positives compared to the state-of-the-art, indicating reduced hallucination on rare pathologies. These findings suggest that explicit hypothesis-verification grounding is a practical path toward trustworthy open-ended brain MRI diagnosis across both in-distribution and OOD settings.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+医学视觉语言模型通常通过单次推理生成诊断，而未能指出哪些图像区域支持其结论。这种空间基础性的缺失限制了临床实用性：输出结果无法被审计，模型可能在正常扫描中产生幻觉性发现。我们提出BrReMark（通过ROI标记实现脑部再思考）框架，该框架将显式区域标记引入脑部MRI诊断中。模型首先生成关于潜在异常的假设，并通过显式边界框标记进行定位，然后重新检查所标记的证据来验证结论。训练过程结合了基于结构化推理轨迹的有监督微调，以及基于定位准确性和诊断推理的复合奖励的强化学习。此外，我们集成了一种基于域随机的病理合成增强策略，以提升模型对分布外（OOD）数据的泛化能力。在内部基准测试中，与基础模型相比，BrReMark将mAP50从0.74%提升至37.54%，同时实现了21.57%的临床F1分数和45.26%的诊断准确率。在NOVA OOD基准测试中，它也取得了具有竞争力的整体性能，与现有最优方法相比，假阳性降低了45.7%，表明在罕见病理上幻觉现象有所减少。这些发现表明，显式假设-验证定位是在分布内和分布外场景下实现可信赖的开放式脑部MRI诊断的实用路径。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: BrReMark introduces a hypothesis-verification framework for brain MRI diagnosis that explicitly marks bounding boxes of potential abnormalities, uses reinforcement learning for localization accuracy, and incorporates synthetic data augmentation to reduce false positives and enhance OOD generalization.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: BrReMark 提出了一种用于脑部 MRI 诊断的假设-验证框架，显式标记潜在异常的边界框，利用强化学习优化定位精度，并引入合成数据增强以减少假阳性并提高对分布外数据的泛化能力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.25894v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Shangkun Li, Jie Xu, Yi Guo, Zeju Li, Yuanyuan Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Pulmonary Embolism Risk Stratification from CTPA and Medical Records: Vascular Graphs Are Not All You Need</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Risk stratification for pulmonary embolism (PE) is critical for clinical decision-making. Stratification guidelines are based on patient medical records, parameters measured from computed tomography pulmonary angiography (CTPA), and blood tests. However, blood tests are often missing in routine practice. This work studies whether state-of-the-art models can accurately classify risk stratification from only medical records and biomarkers extracted from CTPA images. We benchmark different approaches to combine medical records and cardiac biomarkers with rich pulmonary vascular information; we add vascular biomarkers to tabular models and apply graph neural networks (GNNs) on the vascular tree's intrinsic graph representation. We use a private dataset (n=353) with uniquely complete data for PE risk stratification. Our results show that, among global features, medical records and cardiac biomarkers are the most significant predictors, while vascular biomarkers do not further improve stratification. Even more surprising, even GNNs on vascular graphs fail to outperform strong tabular baseline on global features. We consider hypotheses, on both models and data, that could explain this suboptimal performance. Our investigation suggests that, counter-intuitively, vascular graphs might hold no discriminative information for PE risk stratification. Code is available from https://github.com/creatis-myriad/GENESIS.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 肺栓塞（PE）的风险分层对于临床决策至关重要。分层指南基于患者病历、CT肺动脉造影（CTPA）测量的参数以及血液检测结果。然而，常规诊疗中常缺失血液检测数据。本研究探讨现有最优模型能否仅凭病历和从CTPA图像中提取的生物标志物准确实现风险分层分类。我们对比了将病历和心脏生物标志物与丰富的肺血管信息相结合的不同方法：将血管生物标志物纳入表格模型，并在血管树的内在图表示上应用图神经网络（GNN）。我们使用了一个包含完整独特数据的私人数据集（n=353）进行PE风险分层。结果表明，在全局特征中，病历和心脏生物标志物是最重要的预测因子，而血管生物标志物并未进一步改善分层效果。更令人意外的是，即使基于血管图的GNN也未能超越基于全局特征的强表格基线模型。我们从模型和数据两个角度探讨了可能导致此次优性能的假设。本研究表明，与直觉相反，血管图可能对PE风险分层不具有判别性信息。代码可从https://github.com/creatis-myriad/GENESIS获取。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper benchmarks deep learning models for pulmonary embolism risk stratification using CTPA and medical records, finding that vascular graphs and graph neural networks do not improve over strong tabular baselines, suggesting limited discriminative value of vascular structure for this task.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文基准测试了基于CTPA和医疗记录的肺栓塞风险分层深度学习模型，发现血管图和图神经网络未能优于强表格基线，表明血管结构对此任务区分价值有限。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2606.25956v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Nathan Painchaud, Tristan Habémont, Morgane des Ligneris, Allan Serva, Pierre Croisille, Laurent Bertoletti, Thomas Lampert, Johannes F. Lutzeyer, Odyssée Merveille</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-06-26 06:17:39 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
