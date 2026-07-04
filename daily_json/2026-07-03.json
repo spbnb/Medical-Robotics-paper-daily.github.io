@@ -1,0 +1,225 @@
+[
+    {
+        "title": "World Feedback for Clinical Agents: Diagnosing RL in FHIR Environments",
+        "summary": "Clinical protocol-execution tasks -- checking a lab value, applying a threshold, placing a correctly structured FHIR order -- are natural candidates for RL from world feedback: once clinical SMEs encode decision logic into a verifier, that verifier grades unlimited rollouts without per-episode annotation. But applying RL requires a sound feedback channel and sufficient base capability. We audit MedAgentBench v1/v2, find a 41.7\\% silent-finish ceiling that makes inaction the RL dominant strategy, and construct \\textbf{MedAgentBench-v3 (MAB-v3)} (508 tasks, 8.9\\% ceiling). Training Qwen3-8B exposes two structural barriers: a \\emph{capability ceiling} (10/20 task types have 0\\% base performance, zero gradient) and a \\emph{format-knowledge barrier} (3/20 types require exact clinical codes undiscoverable by exploration). Pure RL reaches 18.2\\% pass@1 vs.\\ 34.1\\% for rule-based SFT; the 15.9~pp gap is attributable entirely to these barriers. A decision/format-knowledge/lookup taxonomy predicts RL learnability and prescribes the fix: SFT to inject codes, RL to learn conditionals.",
+        "url": "http://arxiv.org/abs/2607.01470v1",
+        "published_date": "2026-07-01T21:02:54+00:00",
+        "updated_date": "2026-07-01T21:02:54+00:00",
+        "categories": [
+            "cs.AI"
+        ],
+        "authors": [
+            "Ananya Mantravadi",
+            "Harshit Rajgarhia",
+            "Prasanna Desikan",
+            "Abhishek Mukherji"
+        ],
+        "tldr": "The paper audits MedAgentBench, finds a silent-finish ceiling, constructs MAB-v3, and identifies capability and format-knowledge barriers for RL in clinical agent tasks, proposing a taxonomy to guide SFT and RL.",
+        "tldr_zh": "论文审计了MedAgentBench，发现了静默完成上限，构建了MAB-v3，并识别了临床智能体任务中RL的能力上限和格式知识障碍，提出了分类法指导SFT和RL。",
+        "relevance_score": 7,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "摘要：临床协议执行任务——检查实验室数值、应用阈值、下达结构正确的FHIR医嘱——天然适合基于世界反馈的强化学习：一旦临床领域专家将决策逻辑编码到验证器中，该验证器即可对无限次推演进行评分，无需逐轮标注。但应用强化学习需要可靠的反馈通道和足够的基础能力。我们审计了MedAgentBench v1/v2，发现其存在41.7%的静默完成上限，这导致不作为成为RL的主导策略，并构建了**MedAgentBench-v3 (MAB-v3)**（508个任务，上限为8.9%）。训练Qwen3-8B暴露了两个结构性障碍：**能力上限**（10/20种任务类型的基线表现为0%，梯度为零）和**格式知识障碍**（3/20种任务类型需要探索无法发现的精确临床编码）。纯RL达到18.2%的pass@1，而基于规则的SFT为34.1%；这15.9个百分点的差距完全归因于这些障碍。决策/格式知识/查找分类法可预测RL的可学习性并规定修复方案：SFT用于注入编码，RL用于学习条件逻辑。"
+    },
+    {
+        "title": "FaithMed: Training LLMs For Faithful Evidence-Based Medical Reasoning",
+        "summary": "Faithful reasoning is essential in medicine, where clinical decisions require transparent justification grounded in reliable evidence. Current medical LLMs either lack active access to evidence or use retrieved evidence without supervising how it should be appraised and applied during reasoning. To address this, we formalize evidence-based medicine principles as process-level criteria and introduce FaithMed, a framework that combines clinician-designed, automatically refined rubrics with reinforcement learning using step-level process reward assignment and advantage grouping. Across seven medical benchmarks, FaithMed improves over agentic-search baselines (+9% on average) and outcome-only RL (+5.8%), while raising average evidence-based medicine rubric scores over agentic-search Qwen3 baselines (+15.5%). This work demonstrates that explicit step-level supervision can improve both task success and the faithfulness of the reasoning process. Code is available at https://github.com/cxcscmu/FaithMed.",
+        "url": "http://arxiv.org/abs/2607.01440v1",
+        "published_date": "2026-07-01T20:02:55+00:00",
+        "updated_date": "2026-07-01T20:02:55+00:00",
+        "categories": [
+            "cs.CL"
+        ],
+        "authors": [
+            "Zhiyun Zhang",
+            "Liwen Sun",
+            "Xiang Qian",
+            "Chenyan Xiong"
+        ],
+        "tldr": "FaithMed introduces a framework that uses process-level reward supervision and reinforcement learning to train LLMs for faithful, evidence-based medical reasoning, achieving significant improvements across multiple benchmarks.",
+        "tldr_zh": "FaithMed 提出了一种框架，通过过程级奖励监督和强化学习训练 LLM，实现忠实的、基于证据的医学推理，在多个基准测试中取得了显著改进。",
+        "relevance_score": 7,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "摘要：  \n在医学领域，忠实推理至关重要——临床决策需要基于可靠证据的透明论证。当前医疗大语言模型要么缺乏主动获取证据的能力，要么在检索证据后未对其在推理过程中的评估与应用进行监督。为解决这一问题，我们将循证医学原则形式化为过程级准则，并引入FaithMed框架——该框架将临床医生设计并经自动优化的评分标准与强化学习相结合，采用步骤级过程奖励分配与优势分组机制。在七项医学基准测试中，FaithMed相比基于智能体搜索的基线方法平均提升9%，相比仅结果导向的强化学习方法提升5.8%，同时相较于基于智能体搜索的Qwen3基线，循证医学评分标准平均得分提升15.5%。本研究表明，显式的步骤级监督能够同时提升任务成功率与推理过程的忠实性。代码见https://github.com/cxcscmu/FaithMed。"
+    },
+    {
+        "title": "Discrete Diffusion Language Models for Interactive Radiology Report Drafting",
+        "summary": "Diffusion language models, which generate text by denoising a token canvas bidirectionally instead of emitting tokens left to right, have become competitive with autoregressive (AR) generation. Medical foundation models, however, remain almost entirely autoregressive. We adapt a mixture-of-experts diffusion language model, DiffusionGemma-26B, and benchmark it against its same-size AR sibling Gemma-4-26B under an identical LoRA recipe on medical visual question answering datasets, scored by a verbosity-robust LLM judge. Diffusion matches or exceeds AR on all of them, and the finetuned model (3.8B active) is competitive with frontier vision-language models; its decoding is also 3.5-4.4x faster. Beyond this parity, the diffusion model offers a drafting capability AR lacks: any-order infill. Because the canvas is denoised bidirectionally, a radiologist can fix report fragments and have the model fill the text between them, an operation inherent to diffusion but not to autoregression, which is subpar at it. This suits real reports, which are often terse or inconsistent across clinicians and institutions.",
+        "url": "http://arxiv.org/abs/2607.01436v1",
+        "published_date": "2026-07-01T19:59:09+00:00",
+        "updated_date": "2026-07-01T19:59:09+00:00",
+        "categories": [
+            "cs.AI",
+            "cs.LG"
+        ],
+        "authors": [
+            "Max Van Puyvelde",
+            "Halil Ibrahim Gulluk",
+            "Wim Van Criekinge",
+            "Olivier Gevaert"
+        ],
+        "tldr": "This paper adapts a diffusion language model (DiffusionGemma-26B) for medical visual question answering, showing it matches or exceeds autoregressive models with faster decoding and enabling any-order infill for interactive radiology report drafting.",
+        "tldr_zh": "本文改编了扩散语言模型（DiffusionGemma-26B）用于医学视觉问答，结果表明其性能与自回归模型相当或更优，且解码速度更快，并支持任意顺序填充，适用于交互式放射报告草拟。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "扩散语言模型通过双向去噪标记画布而非从左到右生成标记来生成文本，现已与自回归生成方法形成竞争。然而，医学基础模型几乎完全采用自回归架构。我们针对混合专家扩散语言模型DiffusionGemma-26B进行适配，并在医学视觉问答数据集上，采用相同的LoRA方案，将其与同等规模的同类自回归模型Gemma-4-26B进行对比评估，由对冗长程度鲁棒的LLM评判器打分。扩散模型在所有数据集上均达到或超越自回归模型的性能，其微调版本（活跃参数3.8B）可与前沿视觉语言模型相媲美；解码速度更是快3.5-4.4倍。除性能持平外，扩散模型还具备自回归模型所缺乏的草稿能力：任意顺序填充。由于画布是双向去噪的，放射科医生可以固定报告片段，让模型填充两者之间的文本——这一操作内置于扩散模型，但自回归模型对此表现欠佳。该特性尤其适合真实的报告场景，这些报告往往因临床医生和机构差异而简洁或不一致。"
+    },
+    {
+        "title": "MARVEL: Margin-Aware Robust von Mises-Fischer Expert Learning for Long-Tailed Out-of-Distribution Detection",
+        "summary": "For clinical deployment, it is essential that automated diagnostic systems remain reliable when confronted with previously unseen cases, yet deep models routinely misclassify out-of-distribution (OOD) inputs with high confidence, underscoring the need for more robust OOD detection methods. Although substantial effort has been devoted to improving model robustness, most of the existing literature assumes balanced datasets, evaluates OOD detection on coarse or non-clinical OOD sources, or lacks comprehensive assessment across diverse OOD scenarios. To address the gaps, we propose a novel methodology trained on diverse and imbalanced medical datasets and evaluated across a clinically reflective OOD spectrum. Our framework comprises three key components: (1) a Nonlinear von Mises-Fisher (NvMF) classifier capable of learning non-linear decision boundaries, with theoretical proof of its asymptotic connection to cosine classifiers; (2) a multi-expert framework in which margin-aware NvMF classifiers specialise in different regions of label distribution to better handle imbalance; and (3) an outlier expert trained explicitly to distinguish inlier from outlier data, thereby strengthening OOD detection. Evaluation on RFMiD, ISIC2019, and NCTCRC datasets demonstrates consistent improvements over state-of-the-art methods, achieving mean FPR95 reductions of 8.45%, 13.02%, and 36.90% respectively. These gains are further supported by comprehensive ablations that validated the contributions of each component. This enables reliable identification of unfamiliar cases for deferral to clinicians, supporting safer AI-assisted diagnosis in real-world workflows. Our code is available at https://github.com/redboxup/MARVEL.",
+        "url": "http://arxiv.org/abs/2607.02435v1",
+        "published_date": "2026-07-02T17:06:31+00:00",
+        "updated_date": "2026-07-02T17:06:31+00:00",
+        "categories": [
+            "cs.CV",
+            "eess.IV"
+        ],
+        "authors": [
+            "A. S. Anudeep",
+            "Vaanathi Sundaresan"
+        ],
+        "tldr": "MARVEL proposes a margin-aware robust von Mises-Fisher expert learning framework for out-of-distribution detection in long-tailed medical datasets, achieving significant FPR95 reductions on multiple benchmarks.",
+        "tldr_zh": "MARVEL提出了一种基于边际感知的鲁棒von Mises-Fisher专家学习框架，用于长尾医疗数据集中的分布外检测，在多个基准上实现了显著的FPR95降低。",
+        "relevance_score": 5,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 7,
+        "summary_zh": "对于临床应用而言，自动化诊断系统在面对未见过的病例时仍需保持可靠性，这一点至关重要。然而，深度模型通常会以高置信度错误分类分布外（OOD）输入，这凸显了开发更鲁棒的OOD检测方法的必要性。尽管已有大量研究致力于提升模型鲁棒性，但现有文献大多假设数据集平衡、仅在粗粒度或非临床OOD源上进行OOD检测评估，或缺乏对多样化OOD场景的全面评估。为填补这些空白，我们提出了一种新方法，该方法在多样且不平衡的医学数据集上训练，并在具有临床代表性的OOD谱系上进行评估。我们的框架包含三个关键组件：（1）非线性von Mises-Fisher（NvMF）分类器，能够学习非线性决策边界，并理论证明了其与余弦分类器的渐近联系；（2）多专家框架，其中边界感知的NvMF分类器专门处理标签分布的不同区域，以更好地应对不平衡问题；（3）离群值专家，专门训练以区分内点与离群点数据，从而增强OOD检测。在RFMiD、ISIC2019和NCTCRC数据集上的评估表明，该方法相比现有最优方法持续提升性能，平均FPR95分别降低了8.45%、13.02%和36.90%。全面的消融实验进一步验证了各组件的贡献，支持了这些性能提升。这使得系统能够可靠识别不熟悉的病例并交由临床医生处理，从而在真实工作流程中支持更安全的AI辅助诊断。我们的代码开源于https://github.com/redboxup/MARVEL。"
+    },
+    {
+        "title": "Patient-Specific Articulated Digital Twins from a Single Full-Body CT Scan",
+        "summary": "Patient-specific anatomical models provide individualized context for surgical planning, image-guided intervention, and algorithm development. However, most CT-derived models are static: they preserve the body configuration captured at scan time, but cannot represent how the same anatomy would appear after patient repositioning. This limitation is especially important for radiographic imaging, where appearance depends jointly on imaging geometry and patient pose. We present a proof-of-concept for constructing a patient-specific articulated digital twin from a single full-body CT scan. The method fits a parametric human body model (SMPL) to obtain a patient-aligned kinematic scaffold, binds segmented bones and organs to an anatomy-aware rig, and retargets body-pose changes while preserving skeletal geometry. On three full-body CT subjects, the fitted scaffold achieved 15.8 $\\pm$ 4.0 mm chamfer distance and 95.9 $\\pm$ 1.8% skeletal enclosure. Recomposition at the acquisition pose preserved major radiographic structure, with overall SSIM of 0.872 $\\pm$ 0.016 and PSNR of 18.5 $\\pm$ 1.4 dB across paired DRRs. Across unseen target poses, the resulting twins enabled articulation while maintaining high skeletal enclosure (94.4 $\\pm$ 0.4%). As a feasibility demonstration, we render the articulated twin as pose-dependent DRRs. These results suggest the feasibility of extending static, view-controllable CT simulation toward pose-controllable anatomical twins for future synthetic imaging and positioning studies.",
+        "url": "http://arxiv.org/abs/2607.02156v1",
+        "published_date": "2026-07-02T13:30:45+00:00",
+        "updated_date": "2026-07-02T13:30:45+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Han Zhang",
+            "Boyang Zhao",
+            "Mathias Unberath"
+        ],
+        "tldr": "This paper presents a proof-of-concept method to construct patient-specific articulated digital twins from a single full-body CT scan by fitting a parametric human body model (SMPL), binding bones and organs, and retargeting body poses while preserving skeletal geometry, enabling pose-controllable synthetic imaging for surgical planning and image-guided intervention.",
+        "tldr_zh": "本文提出一种概念验证方法，从单个全身CT扫描构建患者特定的关节数字孪生，通过拟合参数化人体模型(SMPL)、绑定骨骼和器官，并在保持骨骼几何的同时重定向身体姿势，实现可控制姿态的合成成像，用于手术规划和图像引导干预。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：  \n患者特异性解剖模型为手术规划、图像引导介入和算法开发提供了个性化背景。然而，大多数基于CT的模型是静态的：它们保留了扫描时刻的身体构型，却无法呈现相同解剖结构在患者重新定位后的外观。这一限制对放射影像学尤为重要，因为其成像结果同时取决于成像几何和患者姿态。我们提出了一种概念验证方法，从单次全身CT扫描构建患者特异性的关节式数字孪生。该方法通过拟合参数化人体模型（SMPL）获取与患者对齐的运动学骨架，将分割的骨骼和器官绑定到解剖感知的操控骨架（rig）上，并在保持骨骼几何结构的同时重定向身体姿态变化。在三个全身CT受试者上，拟合的骨架实现了15.8 ± 4.0 mm的倒角距离和95.9 ± 1.8%的骨骼包裹率。在采集姿态下的重组保留了主要放射学结构，配对DRR的整体SSIM为0.872 ± 0.016，PSNR为18.5 ± 1.4 dB。在未见过的目标姿态下，生成的数字孪生体在保持高骨骼包裹率（94.4 ± 0.4%）的同时实现了关节运动。作为可行性演示，我们将关节式数字孪生渲染为姿态依赖的DRR。这些结果表明，将静态、视角可控的CT模拟扩展为姿态可控的解剖孪生体是可行的，为未来的合成成像和定位研究奠定了基础。"
+    },
+    {
+        "title": "RadiomicNet: A Hybrid Radiomics-Guided Lightweight Architecture for Interpretable Medical Image Segmentation",
+        "summary": "Deep learning has achieved remarkable performance in medical image segmentation, yet it suffers from critical limitations: mathematical intractability, substantial parameter requirements, and lack of clinical interpretability. We propose RadiomicNet, a novel two-stream hybrid architecture that enhances standard deep learning by integrating handcrafted radiomics features directly into the segmentation learning process. The key contribution is the Radiomics Attention Gate (RAG), which leverages Gray-Level Co-occurrence Matrix (GLCM) and Local Binary Pattern (LBP) features to modulate skip-connection attention in a lightweight MobileNetV2-based encoder-decoder, providing ante-hoc interpretability without post-hoc approximations. A novel Radiomics Consistency Loss further enforces alignment between texture complexity and prediction uncertainty, reducing Expected Calibration Error (ECE) from 0.142 to 0.118. RadiomicNet achieves a Dice Similarity Coefficient (DSC) of 0.763 +/- 0.231 on the Breast Ultrasound Images (BUSI) dataset and 0.854 +/- 0.112 on Kvasir-SEG, outperforming U-KAN by 1.2% and 1.8%, respectively (p < 0.05, Wilcoxon signed-rank test), with only 3.27M parameters, 9.5x fewer than standard U-Net and 4.3x fewer than U-KAN. Gradient-based feature importance analysis reveals that GLCM dissimilarity (15.24%), GLCM energy (14.56%), and LBP entropy (11.49%) are the dominant radiomics cues, providing clinically meaningful explanations for segmentation decisions. The proposed approach demonstrates that compact, interpretable models grounded in domain knowledge can deliver state-of-the-art segmentation performance with substantially reduced computational overhead.",
+        "url": "http://arxiv.org/abs/2607.02185v1",
+        "published_date": "2026-07-02T13:54:33+00:00",
+        "updated_date": "2026-07-02T13:54:33+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.AI"
+        ],
+        "authors": [
+            "Mohammad Amanour Rahman"
+        ],
+        "tldr": "RadiomicNet is a lightweight, interpretable medical image segmentation model that integrates handcrafted radiomics features (GLCM, LBP) via a novel attention gate and consistency loss, achieving state-of-the-art performance with significantly fewer parameters than standard U-Net.",
+        "tldr_zh": "RadiomicNet是一种轻量级、可解释的医学图像分割模型，通过新颖的注意力门和一致性损失整合了手工设计的影像组学特征（GLCM、LBP），在参数远少于标准U-Net的情况下实现了最先进的性能。",
+        "relevance_score": 3,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 4,
+        "summary_zh": "深度学习在医学图像分割中已取得显著性能，但仍存在关键局限：数学不可解性、参数需求庞大以及缺乏临床可解释性。我们提出RadiomicNet——一种新型双流混合架构，通过将手工设计的影像组学特征直接集成到分割学习过程中，增强标准深度学习。核心贡献在于影像组学注意力门控（RAG），该模块利用灰度共生矩阵（GLCM）和局部二值模式（LBP）特征，在轻量级MobileNetV2编码器-解码器中调制跳跃连接注意力，提供事前可解释性而无需事后近似。新提出的影像组学一致性损失进一步强制纹理复杂度与预测不确定性之间的对齐，将期望校准误差（ECE）从0.142降至0.118。RadiomicNet在乳腺超声图像（BUSI）数据集上达到Dice相似系数（DSC）0.763 ± 0.231，在Kvasir-SEG上达到0.854 ± 0.112，分别以1.2%和1.8%的优势超越U-KAN（p < 0.05，Wilcoxon符号秩检验），且仅需3.27M参数，比标准U-Net少9.5倍，比U-KAN少4.3倍。基于梯度的特征重要性分析显示，GLCM相异性（15.24%）、GLCM能量（14.56%）和LBP熵（11.49%）是主导影像组学线索，为分割决策提供了具有临床意义的解释。所提方法表明，基于领域知识的紧凑可解释模型能够以大幅降低的计算开销实现最先进的分割性能。"
+    },
+    {
+        "title": "Embracing Intra-Class Heterogeneity for Semi-Supervised Medical Image Segmentation: From Diversity to Precision",
+        "summary": "Due to the scarcity of expert-annotated data, Semi-Supervised Medical Image Segmentation (SSMIS) has emerged as a promising approach. Many anatomical structures in medical images exhibit significant intra-class heterogeneity, with different regions showing heterogeneous intensity patterns within the same structure. However, existing methods inadequately exploit this intensity-manifested intra-class heterogeneity, resulting in uniform structural representations and imprecise segmentation. Furthermore, the scarcity of labeled data makes it more difficult to effectively capture such complex heterogeneity. To address this, we propose Multiple Prototype Contrastive Learning (MPCL), an SSMIS framework that possesses better diversity and better precision. It consists of three novel designs: First, we provide structural representations with better diversity and propose Intensity-aligned Heterogeneous Prototype Generation (IHPG) that effectively models intra-class heterogeneity by generating multiple prototypes aligned with intensity characteristics. Second, we further enhance more diverse structural representations and build a solid foundation for more precise segmentation through Prototypical Space Optimization (PSO) that systematically optimizes a more discriminative and generalizable prototypical space. Finally, we achieve segmentation results with better precision through Dual-branch Knowledge Alignment (DKA) that efficiently promotes intra-class heterogeneity knowledge transfer from prototypical space to the segmentation network. Extensive experiments on three medical image datasets with significant intra-class heterogeneity demonstrate that MPCL significantly outperforms existing methods, especially under extremely limited labeled data.",
+        "url": "http://arxiv.org/abs/2607.02051v1",
+        "published_date": "2026-07-02T11:26:11+00:00",
+        "updated_date": "2026-07-02T11:26:11+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Yuqi Liu",
+            "Yufei Chen",
+            "Wei Fu",
+            "Xiaodong Yue",
+            "Shuo Li"
+        ],
+        "tldr": "This paper proposes a Multiple Prototype Contrastive Learning (MPCL) framework for semi-supervised medical image segmentation that explicitly models intra-class heterogeneity by generating intensity-aligned prototypes, optimizing the prototypical space, and aligning knowledge to improve segmentation diversity and precision.",
+        "tldr_zh": "本文提出了一种多原型对比学习（MPCL）框架，用于半监督医学图像分割，通过生成强度对齐的原型、优化原型空间和对齐知识来显式建模类内异质性，从而提升分割的多样性和精度。",
+        "relevance_score": 2,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 3,
+        "summary_zh": "由于专家标注数据稀缺，半监督医学图像分割（SSMIS）成为一种有前景的方法。医学图像中的许多解剖结构表现出显著的类内异质性，同一结构内不同区域呈现不同的强度模式。然而，现有方法未能充分利用这种由强度体现的类内异质性，导致结构表示单一且分割不精确。此外，标注数据的稀缺使得有效捕捉这种复杂异质性更加困难。为解决这一问题，我们提出多原型对比学习（MPCL），这是一种具有更好多样性和更高精度的SSMIS框架。该框架包含三项创新设计：首先，我们提供了更具多样性的结构表示，并提出了强度对齐的异质性原型生成（IHPG），通过生成与强度特征对齐的多个原型，有效建模类内异质性。其次，我们进一步增强更多样化的结构表示，并通过原型空间优化（PSO）系统优化更具区分性和泛化性的原型空间，为更精确的分割奠定坚实基础。最后，我们通过双分支知识对齐（DKA）高效地将类内异质性知识从原型空间迁移至分割网络，从而获得更高精度的分割结果。在三个具有显著类内异质性的医学图像数据集上的大量实验表明，MPCL显著优于现有方法，尤其在标注数据极为有限的条件下。"
+    },
+    {
+        "title": "Spatio-Temporal and Clinical Conditioning for Fine-Grained Radiology Report Retrieval",
+        "summary": "Radiology is vital to modern healthcare, but rising imaging demand and persistent workforce shortages strain reporting capacity and clinical workflows. Automated radiology report generation has the potential to support radiologists and help alleviate this burden; however, existing retrieval-based methods remain rigid, lack explicit anatomical grounding, and do not account for longitudinal disease progression or available clinical context. In this work, we introduce STAR3, a multimodal, spatio-temporal, attentive retrieval framework for radiology report generation that aligns region-level anatomical information with clinical indications and longitudinal changes across chest X-ray studies. Our framework employs an object detector to identify anatomically meaningful regions and retrieves semantically relevant report sentences conditioned on both current clinical context and changes observed between prior and current examinations. This design enables anatomically and temporally grounded report generation that better reflects clinical reporting practice. Experiments on the MIMIC-CXR dataset demonstrate that STAR3 outperforms current retrieval-based approaches on retrieval, NLP and clinical metrics, highlighting the value of conditioning retrieval anatomically, temporally and clinically for advancing automated radiology report generation.",
+        "url": "http://arxiv.org/abs/2607.02024v1",
+        "published_date": "2026-07-02T10:54:02+00:00",
+        "updated_date": "2026-07-02T10:54:02+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "P. Sloan",
+            "E. Simpson",
+            "M. Mirmehdi"
+        ],
+        "tldr": "STAR3 is a multimodal retrieval framework for radiology report generation that aligns region-level anatomy with clinical context and temporal changes across chest X-ray studies, outperforming existing retrieval-based methods on the MIMIC-CXR dataset.",
+        "tldr_zh": "STAR3 是一个多模态检索框架，用于放射学报告生成，它结合区域级解剖结构与临床背景及胸部X光检查的纵向变化，在MIMIC-CXR数据集上优于现有基于检索的方法。",
+        "relevance_score": 2,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 3,
+        "summary_zh": "放射学在现代医疗中至关重要，但日益增长的影像需求与持续存在的人员短缺给报告撰写能力和临床工作流程带来了压力。自动化放射学报告生成有望为放射科医生提供支持并帮助缓解这一负担；然而，现有的基于检索的方法仍显僵化，缺乏明确的解剖学依据，且未考虑纵向疾病进展或可用的临床背景。在本研究中，我们提出了STAR3——一种用于放射学报告生成的多模态、时空注意力检索框架，该框架将区域级解剖信息与临床指征及胸部X光检查中的纵向变化相整合。我们的框架采用目标检测器来识别具有解剖意义的区域，并根据当前临床背景以及前后检查之间的变化，检索语义相关的报告语句。这一设计能够生成具有解剖学和时间依据的报告，从而更好地反映临床报告实践。在MIMIC-CXR数据集上的实验表明，STAR3在检索、自然语言处理和临床指标上均优于当前基于检索的方法，突显了在解剖、时间和临床层面进行检索条件约束对于推进自动化放射学报告生成的价值。"
+    },
+    {
+        "title": "Rethinking Speech-LLM Integration for ASR: Effective Joint Speech-Text Training by Interleaving",
+        "summary": "Speech-LLM integration has shown promising results by leveraging extensive textual pretraining, yet its specific benefits for automatic speech recognition (ASR) remain unclear. We observe that as supervised ASR training data increases, the contribution of LLM priors becomes less evident, and simple speech-text joint training under-utilizes textual knowledge. We therefore propose Joint Speech-Text Interleaved Pretraining (JSTIP), an ASR-oriented pretraining strategy that constructs word-level and segment-level interleaved speech-text sequences within aligned pairs for speech-LLM architectures that accept continuous inputs. Experiments on 38k hours of ASR data show consistent entity accuracy improvement compared to ASR-only and joint speech-text training baselines. JSTIP achieves on-par entity recognition performance using domain transcription text compared to synthetic speech-text pairs, simplifying domain adaptation. Benefiting from textual pretraining and domain text data, JSTIP is competitive with open-source ASR and Speech-LLM systems in medical entity recognition. The zero-shot speech question answering behaviors further suggest that interleaving reduces the speech-text modality gap and preserves the LLM generative prior, which is likely the reason for the entity improvements on the ASR task.",
+        "url": "http://arxiv.org/abs/2607.01733v1",
+        "published_date": "2026-07-02T05:42:01+00:00",
+        "updated_date": "2026-07-02T05:42:01+00:00",
+        "categories": [
+            "cs.CL",
+            "eess.AS"
+        ],
+        "authors": [
+            "Ruchao Fan",
+            "Yiming Wang",
+            "Rui Zhao",
+            "Liliang Ren",
+            "Keqi Deng",
+            "Xiaoyang Chen",
+            "Ali Zare",
+            "Bo Ren",
+            "Yuxuan Hu",
+            "Junkun Chen",
+            "Yan Huang",
+            "Yelong Shen",
+            "Jinyu Li"
+        ],
+        "tldr": "The paper proposes JSTIP, a joint speech-text interleaved pretraining strategy for ASR that constructs word-level and segment-level interleaved sequences to better utilize LLM priors, showing entity accuracy improvements over baselines on 38k hours of data.",
+        "tldr_zh": "本文提出了一种用于ASR的联合语音-文本交错预训练策略（JSTIP），通过构建词级和段级交错序列来更好地利用LLM先验知识，在38k小时数据上相比基线实现了实体准确率的提升。",
+        "relevance_score": 1,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 2,
+        "summary_zh": "摘要：语音-大语言模型融合通过利用大规模文本预训练展现了令人鼓舞的结果，但其对自动语音识别（ASR）的具体益处仍不明确。我们观察到，随着监督式ASR训练数据的增加，大语言模型先验知识的贡献逐渐减弱，而简单的语音-文本联合训练未能充分利用文本知识。因此，我们提出了面向ASR的联合语音-文本交错预训练策略（JSTIP），该策略在已对齐的语音-文本对中构建词级和片段级交错序列，适用于接受连续输入的语音-大语言模型架构。在3.8万小时ASR数据上的实验表明，与仅使用ASR及联合语音-文本训练的基线相比，实体准确率持续提升。JSTIP在使用领域转录文本时达到了与合成语音-文本对相当的实体识别性能，从而简化了领域适配。得益于文本预训练和领域文本数据，JSTIP在医学实体识别任务上与开源ASR及语音-大语言模型系统具有竞争力。零样本语音问答行为进一步表明，交错策略缩小了语音-文本模态差距并保留了大语言模型的生成先验，这很可能是ASR任务上实体识别性能提升的原因。"
+    }
+]
