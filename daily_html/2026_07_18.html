@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - July 18, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>July 18, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Scalable Open-Source Visuotactile Sensor for 6-Axis Contact Wrench Estimation in Tensegrity Robots</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> This paper presents a scalable, open-source visuotactile sensing system for tensegrity robots that enables six-axis wrench estimation and contact detection. The proposed endcap sensor integrates an elastomeric shell, a 3D-printed thermoplastic polyurethane (TPU) interface, and a rigid base housing an embedded camera and LED illumination ring. A novel gyroid-infill bonding technique is introduced to form a durable elastomer-TPU interface without adhesives, yielding a lightweight and modular design compatible with large-scale tensegrity structures. A tactile-to-wrench neural network maps shear vector fields to six-dimensional force and torque measurements. Experimental results demonstrate accurate and stable wrench estimation with a mean squared error (MSE) of 0.1531 on static validation data and out-of-domain generalization under dynamic motion. Furthermore, full-system integration on a 12 kg tensegrity robot confirms the sensor's ability to reliably identify ground contacts. The system substantially improves the practicality of tactile feedback for tensegrity robots, offering a low-cost, reproducible, and physically interpretable pathway toward contact-aware proprioception and state estimation. Open source files are available at \href{https://github.com/Jonathan-Twz/tensegrity-gelfoot}{github.com/Jonathan-Twz/tensegrity-gelfoot}</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 本文提出一种适用于张拉整体机器人的可扩展开源视触觉传感系统，可实现六轴力旋量估计与接触检测。该端盖传感器集成了弹性体外壳、3D打印热塑性聚氨酯（TPU）接口以及内置摄像头和LED照明环的刚性底座。引入了一种新型螺旋填充粘合技术，可在不使用粘合剂的情况下形成耐久的弹性体-TPU界面，从而实现轻量化与模块化设计，适用于大型张拉整体结构。通过触觉到力旋量的神经网络将剪切矢量场映射为六维力与力矩测量值。实验结果表明，该传感器在静态验证数据上实现了均方误差（MSE）为0.1531的精确稳定力旋量估计，并在动态运动下展现出域外泛化能力。此外，在12公斤级张拉整体机器人上的全系统集成验证了该传感器可靠识别地面接触的能力。该系统显著提升了张拉整体机器人触觉反馈的实用性，为面向接触的感知与状态估计提供了一条低成本、可复现且具有物理可解释性的途径。开源文件可在 \href{https://github.com/Jonathan-Twz/tensegrity-gelfoot}{github.com/Jonathan-Twz/tensegrity-gelfoot} 获取。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents an open-source visuotactile sensor for tensegrity robots that estimates 6-axis contact wrench using a neural network, with a novel adhesive-free bonding technique and validated on a 12 kg robot.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种用于张力集成机器人的开源视觉触觉传感器，通过神经网络估计六轴接触力/力矩，采用无胶粘合技术，并在12公斤机器人上进行了验证。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2607.15633v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Wenzhe Tong, Jonathan Mi, Xili Yi, Nima Fazeli, Xiaonan Huang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">A Model-Based Decoupling Strategy for Proprioception and Contact Sensing in an Architected Soft Manipulator</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Soft continuum robots require embedded sensing for proprioception and contact detection, yet integrating sensors into sparse, highly deformable architected structures remains challenging. We present a model-based strategy that decouples proprioceptive and contact signals from a common set of fluidic pressure sensors embedded in a soft architected segment. Each segment of the Innervated Trimmed Helicoid (ITH) contains six air channels routed in a localized zigzag pattern along the circumference. With only three principal kinematic degrees of freedom (axial compression, bending in x, bending in y), the six pressure readings form an overdetermined system. A piecewise constant curvature model maps pressures to shape, and Huber regression identifies outlier channels whose residuals indicate external contact. On a single ITH segment, this approach achieves proprioceptive shape estimation with a relative bending error of 0.11 +/- 0.02 and a contact detection rate of 97% across 178 trials. We integrate eight ITH segments into Air-Helix, a tendon-driven soft continuum manipulator, and present exploratory whole-arm demonstrations that include tactile teaching by demonstration, admittance-controlled force regulation, and tactile object reconstruction. The results suggest that localized fluidic innervation combined with model-based redundancy resolution is a practical path toward concurrent proprioception and contact sensing in architected soft robots.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+软体连续体机器人需要嵌入式传感以实现本体感知和接触检测，但将传感器集成到稀疏且高度可变形的人工结构中仍具有挑战性。我们提出一种基于模型的策略，从嵌入软体人工结构段的一组公共流体压力传感器中解耦本体感知和接触信号。每个神经化修剪螺旋体（ITH）段包含六个沿圆周呈局部锯齿形分布的空气通道。仅凭借三个主要运动自由度（轴向压缩、x方向弯曲、y方向弯曲），六组压力读数构成一个过定系统。分段恒定曲率模型将压力映射为形状，Huber回归识别出残差指示外部接触的异常通道。在单个ITH段上，该方法实现了本体感知形状估计，相对弯曲误差为0.11±0.02，在178次试验中接触检测率达97%。我们将八个ITH段集成到Air-Helix（一种腱驱动软体连续体操作臂）中，并展示了全臂探索性演示，包括基于示教的触觉教学、导纳控制力调节以及触觉物体重建。结果表明，局部流体神经支配与基于模型的冗余解析相结合，是实现人工结构软体机器人同时进行本体感知和接触传感的实用途径。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a model-based method using fluidic pressure sensors in a soft architected manipulator to simultaneously estimate shape (proprioception) and detect external contacts by exploiting an overdetermined system and Huber regression, achieving high contact detection rates and low bending errors.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种基于模型的方法，利用软体结构操作器中的流体压力传感器，通过超定系统和Huber回归同时估计形状（本体感知）并检测外部接触，实现了高接触检测率和低弯曲误差。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2607.15582v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Francesco Stella, Annan Zhang, Cosimo Della Santina, Josie Hughes, Daniela Rus</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">NeuroCommitSSM: Decision-Centric Shared Autonomy for Safe Assistive Manipulation via EEG-EMG-ET Commit Readiness</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We present NeuroCommitSSM, a decision-centric framework that models when to execute, not just what to do, for safe commit-to-execute control in assistive robotic manipulation. NeuroCommitSSM predicts a continuous commit-readiness score c_t in [0,1] from synchronized electroencephalography (EEG), electromyography (EMG), and eye-tracking (ET), and converts it into discrete commit events through dwell and hysteresis filtering. A three-state finite-state supervisor, HOLD-ASSIST-COMMIT (HAC), gates execution by requiring both a sustained commit-readiness signal from the neural model and real-time perception and robot-state feasibility, including target visibility, inverse kinematics solvability, and collision-free planning, before initiating motion. We evaluate the framework on N=32 subjects performing five activities of daily living (ADL) tasks aligned with the International Classification of Functioning, Disability and Health (ICF), using leave-one-subject-out (LOSO) cross-validation and seven sensor-dropout scenarios (S0-S6). NeuroCommitSSM achieves 0.950 action-balanced accuracy with 0.75 false commit events per 1000 REST windows (FP/1k REST), and maintains low false commits and stable state transitions under sensor loss. For example, in the EEG-only condition, it achieves 0.785 balanced accuracy and 0.29 FP/1k REST, whereas the Temporal Convolutional Network baseline produces 99.95 FP/1k REST under the same condition. Hardware-in-the-loop (HIL) validation on a Kinova Gen3 arm shows that feasibility-checked execution reduces false starts and decision instability without sacrificing task success. Supplementary materials, including code, datasets, videos, and additional analyses, are available at https://madibabaiasl.github.io/NeuroCommitSSM/.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出了NeuroCommitSSM，这是一种以决策为中心的框架，不仅建模要执行什么动作，还建模何时执行，以实现辅助机器人操作中的安全“承诺-执行”控制。NeuroCommitSSM从同步的脑电图（EEG）、肌电图（EMG）和眼动追踪（ET）中预测一个连续的承诺就绪分数c_t ∈ [0,1]，并通过驻留和迟滞滤波将其转换为离散的承诺事件。一个三态有限状态监督器HOLD-ASSIST-COMMIT（HAC）通过要求同时满足来自神经模型的持续承诺就绪信号以及实时感知和机器人状态可行性（包括目标可见性、逆运动学可解性和无碰撞规划）来门控执行，之后才启动运动。我们在N=32名受试者上评估了该框架，这些受试者执行了与国际功能、残疾和健康分类（ICF）相一致的五项日常生活活动（ADL）任务，采用了留一受试者交叉验证（LOSO）和七种传感器缺失场景（S0-S6）。NeuroCommitSSM实现了0.950的动作平衡准确率，每1000个REST窗口仅有0.75个虚假承诺事件（FP/1k REST），并在传感器缺失情况下保持了低虚假承诺和稳定的状态转移。例如，在仅使用EEG的条件下，它实现了0.785的平衡准确率和0.29 FP/1k REST，而时序卷积网络基线在相同条件下产生了99.95 FP/1k REST。在Kinova Gen3机械臂上的硬件在环（HIL）验证表明，经过可行性检查的执行减少了误启动和决策不稳定性，同时不牺牲任务成功率。补充材料（包括代码、数据集、视频和额外分析）可在https://madibabaiasl.github.io/NeuroCommitSSM/获取。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: NeuroCommitSSM is a decision-centric shared autonomy framework that predicts a continuous commit-readiness score from EEG, EMG, and eye-tracking to gate robotic manipulation execution, achieving high accuracy and low false commitments in assistive tasks with sensor dropout robustness.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: NeuroCommitSSM 是一个以决策为中心的共享自主框架，通过 EEG、EMG 和眼动追踪预测连续的执行就绪度分数，从而控制机器人辅助操作的执行，在传感器缺失情况下实现了高精度和低误触发。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2607.15395v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Tipu Sultan, Param Sangani, Kody Cool, Pascal Sikorski, Guangping Liu, Hadi Akbarpour, Madi Babaiasl</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">When Can Test-Time Adaptation Help Zero-Shot CT Vision-Language Models?</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> 3D CT vision-language models (VLMs) classify abnormalities from text prompts in a zero-shot manner, enabling cross-institution deployment where labels are scarce and clinical tasks shift faster than supervised models can be retrained. A real CT scan, however, typically contains several co-occurring abnormalities, and the reliability of zero-shot multi-label prediction under distribution shift remains poorly understood. Test-time adaptation (TTA) updates a model on unlabeled target scans without source data or target annotations, yet existing TTA methods target multi-class softmax prediction on natural images or 2D medical segmentation, and none addresses unsupervised multi-label adaptation for zero-shot 3D CT VLMs. We study when TTA helps zero-shot 3D CT VLMs. A controlled diagnostic analysis shows that TTA is conditional: the volumetric input must preserve the encoder's depth structure, and the base representation must transfer to the target cohort, with depth reduction alone lowering internal AUROC by more than 0.12. We then focus on the regime where the base model already separates present from absent abnormalities. We introduce CARVE (Cardinality-Aware Retained-View Entropy), the first TTA method for this setting. CARVE estimates a sample-specific positive-label cardinality $\hat{k}$, optimizes a top-$\hat{k}$ objective to preserve co-occurring abnormalities, and performs memory-efficient multi-view adaptation by scoring weak 3D views without gradients before updating on a retained subset. Across contrastive CT-CLIP and anatomy-aware fVLM, CARVE provides the most consistent improvements across multi-label, three-class, and binary CT tasks when the base model is already discriminative. These results establish multi-label TTA for zero-shot 3D CT VLMs as a distinct problem and CARVE as a cardinality-aware solution.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 3D CT视觉语言模型（VLM）能够以零样本方式根据文本提示对异常进行分类，从而在标签稀缺且临床任务变化速度快于监督模型重新训练速度的跨机构部署场景中发挥作用。然而，实际CT扫描通常包含多个共现的异常，在分布偏移下零样本多标签预测的可靠性仍知之甚少。测试时适应（TTA）可在无源数据或目标标注的情况下，基于未标注的目标扫描更新模型，但现有TTA方法主要针对自然图像或2D医学分割的多类softmax预测，尚无方法解决零样本3D CT VLM的无监督多标签适应问题。我们研究了TTA何时能帮助零样本3D CT VLM。一项受控诊断分析表明，TTA具有条件性：体积输入必须保留编码器的深度结构，且基础表示必须能够迁移至目标队列，仅减少深度就会导致内部AUROC下降超过0.12。随后，我们聚焦于基础模型已能区分异常存在与否的场景。我们提出CARVE（基数感知的保留视图熵），这是首个针对该场景的TTA方法。CARVE估计样本特定的正标签基数$\hat{k}$，优化top-$\hat{k}$目标以保留共现异常，并在更新前通过无梯度评分弱3D视图再基于保留子集进行更新，实现内存高效的多视图适应。在对比的CT-CLIP和具有解剖感知能力的fVLM上，当基础模型已具备判别能力时，CARVE在多标签、三分类和二分类CT任务中提供了最一致的改进。这些结果将零样本3D CT VLM的多标签TTA确立为一个独特问题，并将CARVE确立为一种基数感知的解决方案。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper studies when test-time adaptation (TTA) helps zero-shot 3D CT vision-language models for multi-label abnormality classification, and introduces CARVE, a cardinality-aware TTA method that preserves co-occurring abnormalities via top-k optimization and memory-efficient multi-view adaptation.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文研究了测试时自适应（TTA）何时有助于零样本3D CT视觉语言模型进行多标签异常分类，并提出了CARVE方法，通过top-k优化保留共现异常并进行内存高效的多视图自适应。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2607.15556v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ailar Mahdizadeh, Puria Azadi Moghadam, Xiangteng He, Leonid Sigal</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-07-20 05:46:17 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
