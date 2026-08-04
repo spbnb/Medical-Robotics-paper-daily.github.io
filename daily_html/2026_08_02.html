@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - August 02, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>August 02, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Fused electrical impedance tomography using an electromagnetically tracked handheld probe for oral cancer margin assessment: reconstruction methods and phantom validation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Objective: Positive margins in oral squamous cell carcinoma (OSCC) resection are common and significantly impact patient outcomes. Electrical impedance tomography (EIT) can be used to intraoperatively distinguish cancer from healthy tissue. The objective of this study was to develop and identify a fused EIT approach to accurately reconstruct a tumor boundary using multiple impedance measurements recorded with a handheld electrical impedance probe. Approach: Simulations and noise analyses were used to investigate the best reconstruction method for fused EIT, and a measured phantom experiment was conducted to evaluate the EIT reconstructions. Main results: Fused approaches successfully and accurately recovered the conductivity boundary location from multiple probe sites, increasing boundary localization to within 0.5 mm of the true boundary for both simulated and experimental results. Simulations and noise analysis revealed that all reconstruction methods maintain strong classification accuracy with added noise on a half-plane boundary scenario and fused difference EIT is the most robust to all types of added noise, due to the high data redundancy in the reconstruction formulation. Significance: The measured multi-site probe experiments represent important steps in the development of an approach that can combine EIT from multiple locations to increase boundary localization accuracy. Overall, this result is a step towards a clinically deployable impedance imaging approach to scanning the entire tumor boundary, which could significantly help to improve surgical outcomes for OSCC.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：  
+目的：口腔鳞状细胞癌（OSCC）切除术中切缘阳性现象普遍，且显著影响患者预后。电阻抗断层成像（EIT）可在术中区分癌变组织与健康组织。本研究旨在开发并确定一种融合EIT方法，利用手持式电阻抗探头记录的多个阻抗测量值，精确重建肿瘤边界。方法：通过仿真与噪声分析，探究融合EIT的最佳重建方法，并开展实测体模实验评估EIT重建效果。主要结果：融合方法能从多个探头位置成功且准确地恢复电导率边界位置，仿真与实验结果均将边界定位精度提升至真实边界0.5 mm以内。仿真与噪声分析表明，在半平面边界场景下，所有重建方法在添加噪声后仍保持强分类准确度，其中融合差分EIT因重建公式中数据冗余度高，对各类添加噪声的稳健性最强。意义：实测多位点探头实验是开发可结合多位点EIT以提升边界定位精度方法的重要步骤。总体而言，本研究结果向临床可部署的全肿瘤边界扫描阻抗成像方法迈进一步，有望显著改善OSCC手术预后。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper develops a fused electrical impedance tomography (EIT) method using a handheld probe to accurately reconstruct tumor boundaries for oral cancer margin assessment, achieving sub-millimeter localization accuracy in simulations and phantom experiments.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文开发了一种融合电阻抗断层成像（EIT）方法，使用手持探头精确重建口腔癌边界，在仿真和体模实验中实现了亚毫米级的定位精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2608.00312v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Sophie A Lloyd, Ehsan Nasiri, Allaire F Doussan, Ryan J Halter, Ethan K Murphy</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">RadYOLO: Computationally Efficient 3D Object Detection and Segmentation in CT and MRI</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Object detection and segmentation in three-dimensional medical images is a very active area of research. However, most proposed deep learning models carry a high computational cost, and only few aim to be broadly applicable, achieve high detection performance, and remain fast to execute on resource-constrained hardware. To address this gap, we present RadYOLO, a 3D extension of YOLO11 tailored to medical images. We compare it with nnU-Net and nnDetection on five datasets comprising CT and MRI data with varying object sizes and prevalence. RadYOLO's detection performance surpasses that of nnDetection on four of five datasets and is comparable on one. Compared to nnU-Net, RadYOLO performs better on lesion detection tasks, while nnU-Net excels at detecting large organs when precise localization is required. When rough object localization is sufficient, RadYOLO matches or outperforms nnU-Net on all five datasets. Regarding inference time, RadYOLO is 8-46x faster than nnU-Net on a GPU. Compared to nnDetection the speedup is even higher. When executed on a CPU, RadYOLO's inference runs within seconds (still faster than nnU-Net on a GPU) offering a significant advantage for clinical and edge-device deployment.
+  RadYOLO repository: https://github.com/FraunhoferMEVIS/RadYOLO</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 三维医学图像中的目标检测与分割是一个活跃的研究领域。然而，大多数提出的深度学习模型计算成本高昂，且仅有少数模型旨在具有广泛适用性、实现高检测性能，并在资源受限硬件上保持快速执行。为弥补这一不足，我们提出了RadYOLO，它是YOLO11的三维扩展，专门针对医学图像定制。我们在五个包含CT和MRI数据、目标尺寸和出现频率各不相同的数据集上，将其与nnU-Net和nnDetection进行了比较。RadYOLO的检测性能在五个数据集中有四个超越了nnDetection，在一个数据集上与其相当。与nnU-Net相比，RadYOLO在病灶检测任务上表现更优，而nnU-Net在需要精确定位的大器官检测中表现出色。当仅需粗略目标定位时，RadYOLO在所有五个数据集上均匹配或超越nnU-Net。在推理时间方面，RadYOLO在GPU上比nnU-Net快8-46倍。与nnDetection相比，加速比甚至更高。当在CPU上执行时，RadYOLO的推理可在数秒内完成（仍快于nnU-Net在GPU上的速度），这为临床和边缘设备部署提供了显著优势。
+
+RadYOLO仓库：https://github.com/FraunhoferMEVIS/RadYOLO</p>
+            
+            
+            
+
+            
+            
+            
+
+            
+
+            <a href="http://arxiv.org/abs/2608.00508v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Kai Geissler, Laurens Müller-Groh, Hans Meine</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Test-time Adaptation of Pelvic Bone Segmentation Models via Dynamic Reliability-Guided</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Reliable pelvic bone segmentation (PBS) from CT is essential for robot-assisted pelvic trauma surgery, yet deploying a source-trained model to a new hospital suffers from severe performance degradation due to cross-center domain shifts. While test-time adaptation (TTA) enables online model adaptation without accessing source data, existing methods show limited effectiveness for PBS, facing challenges including boundary degradation, anatomical inconsistency under domain shifts, and voxel-level class imbalance. To address these challenges, we propose a novel closed-loop dynamic Reliability-Guided TTA framework (ReGA) for PBS. Specifically, we introduce a pseudo-label reliability criterion termed Segmentation Inference Consistency Evaluation (SICE), which jointly measures region overlap and boundary deviation via dropout-based ensemble predictions. Based on SICE, a trust-weighted refinement module adaptively updates features to mitigate boundary errors in pseudo-labels. Furthermore, a confidence-weighted region-level contrastive learning strategy is proposed to enforce anatomical consistency. Finally, ReGA follows the teacher-student (TS) scheme to alleviate voxel-level class imbalance. Experiments on three heterogeneous 3D pelvic CT datasets demonstrate that ReGA consistently outperforms state-of-the-art TTA methods, enabling effective adaptation of the source-trained PBS model to unseen clinical domains. The code is available at https://github.com/Ren-ling/ReGA.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 从CT图像中实现可靠的骨盆骨分割（PBS）对于机器人辅助骨盆创伤手术至关重要，然而将源域训练模型部署至新医院时，由于跨中心域偏移会导致性能严重下降。尽管测试时自适应（TTA）可在不访问源数据的情况下实现模型在线调整，但现有方法在PBS任务中效果有限，面临边界退化、域偏移下解剖结构不一致以及体素级类别不平衡等挑战。为解决这些问题，我们提出了一种新颖的闭环动态可靠性引导TTA框架（ReGA）用于PBS。具体而言，我们引入了一种称为分割推理一致性评估（SICE）的伪标签可靠性准则，该准则通过基于丢弃的集成预测联合衡量区域重叠与边界偏差。基于SICE，信任加权细化模块自适应更新特征以减轻伪标签中的边界误差。此外，我们提出了一种置信加权区域级对比学习策略以强制解剖结构一致性。最后，ReGA遵循教师-学生（TS）方案来缓解体素级类别不平衡。在三个异质3D骨盆CT数据集上的实验表明，ReGA持续优于最先进的TTA方法，能够使源域训练的PBS模型有效适应未见过的临床域。代码已开源：https://github.com/Ren-ling/ReGA。</p>
+            
+            
+            
+
+            
+            
+            
+
+            
+
+            <a href="http://arxiv.org/abs/2608.00510v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ling Ren, Chao Deng, Ziming Wang, Yuecong Xu, Kai Zheng</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-08-04 05:27:13 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
