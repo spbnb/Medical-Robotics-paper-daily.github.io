@@ -1,0 +1,391 @@
+[
+    {
+        "title": "Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning",
+        "summary": "Learning reliable surgical manipulation policies is bottlenecked by the scarcity of action-labeled demonstrations: teleoperated surgical robot (e.g., dVRK) trajectories with synchronized kinematics are costly to collect, while surgical tasks demand precise contact handling, long-horizon reasoning, and bimanual coordination. Endoscopic video is comparatively inexpensive and abundant relative to synchronized video--kinematics trajectories, and a natural way to exploit it is to learn world models of surgical scenes. However, existing surgical world models use video primarily for simulation or policy evaluation, and rarely translate the learned dynamics into closed-loop control. This gap raises our central question: under a fixed budget of action-labeled demonstrations, does action-free video pretraining improve closed-loop surgical manipulation? To answer it, we introduce the Surgical World-Action Model (Surgical WAM), a unified generative model built on Cosmos Policy that jointly predicts future endoscopic observations and executable surgical robot action chunks. Surgical WAM first learns surgical visual dynamics from action-free video and is then fine-tuned on the fixed action-labeled budget; at deployment, it acts as a closed-loop, receding-horizon controller that executes a short prefix of each predicted action chunk and replans from the resulting observation. On a suite of four simulated surgical manipulation tasks, video pretraining improves the average success rate from 63.5% to 77.8%, including an absolute gain of 20 percentage points on PegTransfer, with the largest improvements on contact-rich and bimanual tasks. These results demonstrate that action-free video provides transferable visual dynamics priors for learning surgical robot control with limited action supervision, positioning data-efficient video pretraining as a practical path toward scaling up surgical robot learning.",
+        "url": "http://arxiv.org/abs/2608.11204v1",
+        "published_date": "2026-08-11T17:59:13+00:00",
+        "updated_date": "2026-08-11T17:59:13+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.AI",
+            "cs.CV"
+        ],
+        "authors": [
+            "Wenrui Bao",
+            "Tianyun Jiang",
+            "Zhiben Chen",
+            "Ser-Nam Lim",
+            "Peter D. Peng",
+            "Yuzhang Shang"
+        ],
+        "tldr": "Surgical WAM introduces a unified generative model that learns visual dynamics from action-free endoscopic video and fine-tunes on limited action-labeled data to improve closed-loop surgical robot manipulation, achieving significant success rate gains on simulated tasks.",
+        "tldr_zh": "Surgical WAM提出了一种统一的生成模型，从无动作标签的内窥镜视频中学习视觉动态，并在少量动作标签数据上微调，以改进闭环手术机器人操作，在模拟任务上显著提升了成功率。",
+        "relevance_score": 9,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 9,
+        "overall_priority_score": 9,
+        "summary_zh": "摘要：学习可靠的手术操作策略受到动作标注演示稀缺的制约：遥操作手术机器人（如dVRK）的轨迹与同步运动学数据采集成本高昂，而手术任务要求精确的接触处理、长程推理和双手协调。相比之下，内窥镜视频相对于同步视频-运动学轨迹而言成本较低且数据丰富，利用它的自然方式是学习手术场景的世界模型。然而，现有的手术世界模型主要将视频用于模拟或策略评估，很少将学习到的动力学转化为闭环控制。这一差距引出了我们的核心问题：在动作标注演示预算固定的情况下，无动作视频预训练能否改善闭环手术操作？为了回答这个问题，我们引入了手术世界-动作模型（Surgical WAM），这是一个基于Cosmos Policy构建的统一生成模型，能够联合预测未来的内窥镜观察结果和可执行的手术机器人动作块。Surgical WAM首先从无动作视频中学习手术视觉动力学，然后在固定的动作标注预算上进行微调；在部署时，它作为一个闭环、滚动时域控制器，执行每个预测动作块的短前缀，并根据得到的观察结果重新规划。在一组四个模拟手术操作任务上，视频预训练将平均成功率从63.5%提升至77.8%，其中在PegTransfer任务上绝对提升了20个百分点，在接触密集和双手任务上改进最为显著。这些结果表明，无动作视频为在有限动作监督下学习手术机器人控制提供了可迁移的视觉动力学先验，将数据高效的视频预训练定位为扩大手术机器人学习的实用途径。"
+    },
+    {
+        "title": "Uncertainty-Aware Compositional Localization and Placement Assessment of Catheters and Tubes in Chest X-Rays",
+        "summary": "Assessing catheter and tube placement on chest X-rays is safety-critical yet tedious and error-prone. Current deep learning methods either classify placement globally -- losing track of which device is where -- or segment all devices into a single mask, making per-device assessment impossible when catheters overlap. We introduce UCompCXR, a compositional framework that detects local catheter fragments, associates them into device instances via graph-based clustering, fuses per-fragment tip predictions through precision-weighted Gaussian estimation, and classifies placement per device. On the RANZCR CLiP dataset (30,083 images, 5-fold patient-level CV with bootstrap CIs), UCompCXR detects 26% more devices than a strong multi-task baseline sharing the same MobileNetV3 backbone, with 75% fewer false positives and well-calibrated tip uncertainty (95% coverage = 0.948). The aggregate tip error rises -- but only because the model finds devices the baseline misses entirely, especially nasogastric tubes. On matched devices, catastrophic localization failures drop substantially. At 2.27M parameters in a single forward pass, the model is deployable on resource-constrained clinical hardware.",
+        "url": "http://arxiv.org/abs/2608.11288v1",
+        "published_date": "2026-08-11T16:04:58+00:00",
+        "updated_date": "2026-08-11T16:04:58+00:00",
+        "categories": [
+            "eess.IV",
+            "cs.CV",
+            "cs.LG"
+        ],
+        "authors": [
+            "Harshil Lodhiya"
+        ],
+        "tldr": "UCompCXR is a compositional framework that detects, associates, and assesses catheter/tube placement in chest X-rays using graph-based clustering and uncertainty-aware tip estimation, achieving higher detection rates and fewer false positives than baseline methods.",
+        "tldr_zh": "UCompCXR是一种组合式框架，通过基于图的聚类和不确定性感知的尖端估计来检测、关联和评估胸部X光片中导管/管子的放置，比基线方法实现了更高的检测率和更少的假阳性。",
+        "relevance_score": 7,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "在胸部X光片上评估导管和管道放置位置对于安全性至关重要，但过程繁琐且容易出错。当前的深度学习方法要么全局分类放置情况（无法追踪每个设备的具体位置），要么将所有设备分割到单个掩膜中，导致导管重叠时无法进行逐设备评估。我们提出UCompCXR——一种组合式框架，能够检测局部导管片段，通过基于图的聚类将其关联为设备实例，通过精度加权高斯估计融合每个片段的尖端预测，并对每个设备进行分类评估。在RANZCR CLiP数据集上（30,083张图像，5折患者级交叉验证，带自助法置信区间），UCompCXR比使用相同MobileNetV3骨干网络的强多任务基线多检测出26%的设备，假阳性减少75%，且尖端不确定性校准良好（95%覆盖率=0.948）。聚合尖端误差上升——但仅因为模型发现了基线完全遗漏的设备，尤其是鼻胃管。在匹配的设备上，灾难性定位失败大幅减少。单次前向传播仅需2.27M参数，该模型可部署于资源受限的临床硬件。"
+    },
+    {
+        "title": "Rethinking LLM Verification: Evidence Structure, Uncertainty, and Selective Refinement",
+        "summary": "Large language models (LLMs) often rely on shortcuts rather than systematic reasoning, raising safety concerns in medical applications. Allowing models to abstain when uncertain improves reliability but introduces a coverage accuracy tradeoff. We propose a two-stage framework for medical hypothesis verification in multiple-choice settings that manages this tradeoff through targeted ontology grounding, applied only when the model abstains. We show that abstention is not random but reflects genuine uncertainty, with abstained predictions associated with lower confidence. Across two frontier models (GPT-5.5, accessed via the Azure OpenAI API, and DeepSeek-R1), the proposed framework improves question-level accuracy by 9.6 percentage points (82.9% to 92.5%) and hypothesis-level accuracy by 4.2 percentage points (92.0% to 96.2%). Our experiments conducted on MedReason and MedQA show that abstention can be repurposed as a control signal for selective reasoning refinement, achieving knowledge-graph-level performance without explicit knowledge graph construction.",
+        "url": "http://arxiv.org/abs/2608.10725v1",
+        "published_date": "2026-08-11T09:43:14+00:00",
+        "updated_date": "2026-08-11T09:43:14+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.SC"
+        ],
+        "authors": [
+            "Uma Ranjan",
+            "Kunal Tilaganji",
+            "Aditya Koul",
+            "Anurag Mahipal",
+            "Dashpreet Singh",
+            "Hriday Rana",
+            "Manan Jain",
+            "Sidharth Gupta",
+            "Ajo Babu George",
+            "Vineeth Balasubramanian",
+            "Nagarajan Natarajan",
+            "Amit Sharma"
+        ],
+        "tldr": "Proposes a two-stage framework for medical hypothesis verification using LLMs that selectively applies ontology grounding only when the model abstains, improving accuracy by 9-10% on MedReason and MedQA without explicit knowledge graph construction.",
+        "tldr_zh": "提出一个用于医学假设验证的两阶段框架，仅在模型弃权时选择性应用本体论基础，在MedReason和MedQA上提升9-10%的准确性，无需显式知识图谱构建。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "大型语言模型（LLMs）常依赖捷径而非系统性推理，这在医疗应用中引发了安全性担忧。允许模型在不确定时弃权可提升可靠性，但会引入覆盖率和准确率之间的权衡。我们提出了一种面向多选题场景的医学假设验证两阶段框架，通过仅在模型弃权时应用目标本体锚定来管理这一权衡。研究表明，弃权并非随机行为，而是反映了真实的不确定性，与弃权相关的预测往往对应较低的置信度。在两个前沿模型（通过Azure OpenAI API访问的GPT-5.5以及DeepSeek-R1）上，所提框架将问题级准确率提升了9.6个百分点（从82.9%提升至92.5%），假设级准确率提升了4.2个百分点（从92.0%提升至96.2%）。我们在MedReason和MedQA上的实验表明，弃权可被重新用作选择性推理优化的控制信号，在不显式构建知识图谱的情况下达到了知识图谱级别的性能。"
+    },
+    {
+        "title": "PolypVision: A Three-Stage Hierarchical Deep Learning Framework for Classification and Segmentation of Colorectal Polyps",
+        "summary": "Colorectal cancer (CRC) remains one of the leading causes of cancer-related mortality worldwide, predominantly arising from precancerous polyps. Accurate detection, segmentation, and endoscopic and histological classification of colorectal polyps are crucial for timely clinical intervention. In this study, we present PolypVision, a three-stage hierarchical deep learning framework that sequentially performs: (Stage 1) binary classification of polyps as adenomatous or hyperplastic, with simultaneous Paris and JNet classification, using EfficientNetV2-M with Focal Loss; (Stage 2) polyp segmentation with recommended resection method using a UNet++ decoder with the Stage 1 backbone as encoder, optimized with Dice and BCE losses; and (Stage 3) adenoma subtype classification (tubular, tubulovillous, villous) using EfficientNetV2-M with transfer learning from Stage 2. Evaluated on three public datasets -- PolypGen, Kvasir-SEG, and CVC-ClinicDB -- PolypVision achieves an AUC of approximately 0.99 for frame classification and a detection mAP@50 of 94.4% on Kvasir-SEG, outperforming or matching state-of-the-art methods. Gradient-weighted Class Activation Maps (Grad-CAM) confirm that the model attends to clinically relevant lesion features. The framework is device-independent, operating across diverse endoscopic imaging systems without hardware-specific adaptation. These results demonstrate that a hierarchical, transfer-learning-driven pipeline with task-specific loss functions offers a robust, device-independent, and clinically meaningful approach to automated colorectal polyp analysis. PolypVision is freely available as a web application at https://polypvision.com, a DataBioX initiative, with a free usage tier open to all users.",
+        "url": "http://arxiv.org/abs/2608.10649v1",
+        "published_date": "2026-08-11T08:33:17+00:00",
+        "updated_date": "2026-08-11T08:33:17+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Hamidreza Bolhasani",
+            "Hamidreza Rastad",
+            "Amir Mohammad Akbari",
+            "Mohammad Tashakoripour",
+            "Parnian Asadollahi",
+            "Ata Khodami",
+            "Mojgan Forootan"
+        ],
+        "tldr": "PolypVision is a three-stage hierarchical deep learning framework for colorectal polyp classification, segmentation, and subtype analysis, achieving high accuracy on public datasets and available as a web application.",
+        "tldr_zh": "PolypVision是一个三阶段层次化深度学习框架，用于结直肠息肉的分类、分割及亚型分析，在公开数据集上取得高准确率，并以Web应用形式提供。",
+        "relevance_score": 7,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 7,
+        "summary_zh": "结直肠癌（CRC）仍是全球癌症相关死亡的主要原因之一，主要源于癌前息肉。结直肠息肉的精确检测、分割以及内镜和组织学分类对于及时的临床干预至关重要。在本研究中，我们提出PolypVision，一个三阶段分层深度学习框架，依次执行以下任务：（阶段1）将息肉二分类为腺瘤性或增生性，同时进行Paris分型和JNet分类，使用基于Focal Loss的EfficientNetV2-M；（阶段2）息肉分割并推荐切除方法，采用以阶段1主干网络为编码器的UNet++解码器，通过Dice损失和BCE损失优化；（阶段3）腺瘤亚型分类（管状、管状绒毛状、绒毛状），使用从阶段2迁移学习的EfficientNetV2-M。在三个公共数据集——PolypGen、Kvasir-SEG和CVC-ClinicDB上的评估显示，PolypVision在帧分类上达到约0.99的AUC，在Kvasir-SEG上检测mAP@50为94.4%，优于或持平于现有最佳方法。梯度加权类激活映射（Grad-CAM）证实模型关注临床相关的病灶特征。该框架不依赖设备，可在多种内镜成像系统上运行，无需针对特定硬件进行调整。这些结果表明，一个结合任务特定损失函数的分层迁移学习流水线，为自动化结直肠息肉分析提供了一种稳健、不依赖设备且具有临床意义的方法。PolypVision作为一个Web应用程序免费开放，网址为https://polypvision.com，这是DataBioX的一项倡议，所有用户均可使用免费层级。"
+    },
+    {
+        "title": "Who Are You Explaining To? A Multi-Agent System for Audience-Aware XAI Narratives",
+        "summary": "Feature-attribution methods such as SHAP provide useful evidence about individual model predictions, but their numerical outputs are rarely sufficient for audiences with different expertise, goals, and risks of misinterpretation. In medical AI, the same local explanation must reach patients, clinicians, and data scientists through markedly different forms of communication, and naive verbalization through large language models (LLMs) is prone to weak grounding, conflation of attribution with causal language, and outputs that are persuasive without being faithful to the underlying model evidence. We introduce XstrAI, an audience-aware multi-agent framework that treats local explanations as fixed evidence and structures how it is communicated to each target reader. Each prediction case is encoded as an immutable structured representation, shared identically across audiences so the underlying evidence remains fixed. Generation is factored into three specialized LLM agents responsible for audience-aware planning, linguistic realization, and validation for grounding, attribution consistency, communicative risk, and audience appropriateness, with a bounded revision loop triggered on detected inconsistencies. We evaluate XstrAI on diabetes and stroke risk prediction against 11 baselines, ranging from direct verbalization to a re-implementation of a state-of-the-art narrator. The evaluation combines an intra-narrative regime measuring fidelity to SHAP evidence with an extra-narrative regime assessing audience appropriateness through reference corpora, multi-family LLM judges, and a survey with target readers. In both evaluations, XstrAI's narratives are consistently assigned to their intended audience by independent judges, and preferred over all baselines on Clinician and Patient audiences, with competitive performance on Data Scientist, where audience-conditioned single-prompt baselines lead.",
+        "url": "http://arxiv.org/abs/2608.11033v1",
+        "published_date": "2026-08-11T15:10:34+00:00",
+        "updated_date": "2026-08-11T15:10:34+00:00",
+        "categories": [
+            "cs.MA"
+        ],
+        "authors": [
+            "Francesco Musicco",
+            "Danilo Danese",
+            "Giuseppe Fasano",
+            "Angela Lombardi",
+            "Alberto Carlo Maria Mancino",
+            "Tommaso Di Noia"
+        ],
+        "tldr": "XstrAI is a multi-agent LLM framework that generates audience-aware explanations for feature-attribution methods like SHAP, ensuring fidelity and appropriateness for different medical stakeholders (patients, clinicians, data scientists) via planning, realization, and validation agents.",
+        "tldr_zh": "XstrAI 是一个多智能体大语言模型框架，用于为 SHAP 等特征归因方法生成受众感知的解释，通过规划、实现和验证代理确保对患者、临床医生和数据科学家等不同医疗利益相关者的忠实性和适当性。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：  \nSHAP等特征归因方法能为个体模型预测提供有价值的证据，但其数值输出往往难以满足不同专业知识背景、目标和误解风险的受众需求。在医疗人工智能领域，同一局部解释必须通过截然不同的沟通形式传达给患者、临床医生和数据科学家，而依赖大语言模型（LLM）进行的朴素语言化处理易出现证据基础薄弱、将归因与因果语言混淆、输出虽具说服力却偏离底层模型证据真实性的问题。我们提出XstrAI——一种面向受众的多智能体框架，将局部解释视为固定证据，并结构化其向各目标读者的传达方式。每个预测案例被编码为不可变的结构化表示，在不同受众间共享相同格式，确保底层证据保持不变。生成过程被分解为三个专用LLM智能体，分别负责面向受众的规划、语言实现以及证据基础、归因一致性、沟通风险和受众适配性的验证，并在检测到不一致时触发受限的修订循环。我们在糖尿病与中风风险预测任务上，将XstrAI与从直接语言化到最新解释器复现的11种基线方法进行对比。评估包含两个维度：叙事内评估测量对SHAP证据的忠实度，叙事外评估则通过参考语料库、多族系LLM评判者及目标受众调查来衡量受众适配性。两项评估中，独立评判者一致将XstrAI生成的叙事判定为面向其预期受众，并且在临床医生与患者受众群体中，XstrAI优于所有基线方法；在数据科学家受众群体中，其表现与基于受众条件的单一提示基线方法具有竞争力。"
+    },
+    {
+        "title": "Expert-Guided g-computation with Large Language Models for Estimating Causal Effects on Timings: Applications to Hospital Quality Improvement",
+        "summary": "Hospital quality improvement (QI) programs routinely face multiple candidate interventions to optimize hospital flow, but existing methods struggle to estimate and rank the causal effects of such interventions. This work focuses on one of the most standard hospital metrics, the average length of stay (LOS), and its causal estimand, the average time saved. To characterize this causal effect, qualitative approaches rely on expert judgment to map patient trajectories, making them susceptible to cognitive biases; quantitative approaches rely on data-driven models, which fail when interventions are hypothetical with no historical data or have complex causal mechanisms that require clinical reasoning rather than data alone. We propose expert-guided g-computation, or egg-computation, which combines the complementary strengths of both approaches by connecting the Gantt charts commonly used to map patient trajectories with the causal DAG literature. We introduce a causal model over Gantt charts and establish identification using a variant of g-computation that seeks expert input only for components unidentifiable from data. To make egg-computation practical, we develop an LLM-assisted pipeline that reliably scales up expert reasoning. In simulations, egg-computation outperforms conventional causal inference methods when patients have diverse causal structures and intervention mechanisms. In a study of eleven candidate QI interventions at an urban safety-net hospital, the LLM pipeline generated graphs and time-saving estimates highly concordant with those of human experts. Beyond healthcare, egg-computation is a broadly applicable framework for estimating the average time saved for candidate interventions whose causal mechanisms can be represented using Gantt charts.",
+        "url": "http://arxiv.org/abs/2608.10339v1",
+        "published_date": "2026-08-11T00:42:58+00:00",
+        "updated_date": "2026-08-11T00:42:58+00:00",
+        "categories": [
+            "stat.ME",
+            "cs.AI",
+            "stat.AP"
+        ],
+        "authors": [
+            "Patrick Vossler",
+            "Jialin Ouyang",
+            "F. Richard Guo",
+            "Anran Huang",
+            "Ali Shojaie",
+            "Lucas Zier",
+            "Fan Xia",
+            "Jean Feng"
+        ],
+        "tldr": "This paper proposes egg-computation, a method combining expert knowledge and LLMs to estimate causal effects of interventions on hospital length of stay, outperforming conventional approaches in simulations and showing concordance with human experts in a real-world hospital study.",
+        "tldr_zh": "本文提出了一种结合专家知识和大型语言模型的egg-computation方法，用于估计干预措施对住院时间的因果效应，在模拟中优于传统方法，并在真实医院研究中与人类专家高度一致。",
+        "relevance_score": 5,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6,
+        "summary_zh": "摘要：  \n医院质量改进（QI）项目通常面临多种候选干预措施以优化医院流程，但现有方法难以评估并排序这些干预措施的因果效应。本研究聚焦于医院最标准的指标之一——平均住院时间（LOS）及其因果估计量——平均节省时间。为刻画这一因果效应，定性方法依赖专家判断来绘制患者轨迹，易受认知偏差影响；定量方法则依赖数据驱动模型，当干预措施为假设性且无历史数据、或具有需要临床推理而非仅依赖数据的复杂因果机制时，此类方法会失效。我们提出了专家引导的g计算（egg-computation），该方法通过将常用于绘制患者轨迹的甘特图与因果有向无环图（DAG）文献相结合，整合了两种方法的互补优势。我们引入了基于甘特图的因果模型，并利用g计算的一种变体建立可识别性，该变体仅针对数据无法识别的部分寻求专家输入。为使egg-computation实用化，我们开发了一个大语言模型（LLM）辅助管道，可可靠地扩展专家推理。在模拟中，当患者具有多样化因果结构与干预机制时，egg-computation优于传统因果推断方法。在一项针对某城市安全网医院11项候选QI干预措施的研究中，LLM管道生成的图表与节省时间估计值与人类专家的结果高度一致。在医疗领域之外，egg-computation是一个广泛适用的框架，可用于估计候选干预措施的平均节省时间，这些干预措施的因果机制可通过甘特图表示。"
+    },
+    {
+        "title": "UniMod: Enhancing Multi-Modal Medical Diagnosis through Cross-Modality and Within-Modality Alignment",
+        "summary": "Multi-modal learning combining medical images and clinical text is promising for disease diagnosis. However, standard multi-modal training leads to shortcut learning: models exploit the easier modality (e.g., diagnostic cues in text) while neglecting harder-to-learn features (e.g., subtle visual patterns). We propose UniMod, a framework that mitigates shortcut learning by requiring each modality to predict the diagnosis on its own. It supervises image-only, text-only, and multi-modal classification simultaneously, so each modality must extract diagnostic features. We add cross-modality alignment for knowledge transfer and within-modality supervised contrastive alignment over same-diagnosis patients. On Harvard-Glaucoma, UniMod reaches 0.850 AUC, outperforming OGM-GE and Gradient Blending by 1.6-1.8%; on CheXpert Plus, it reaches 0.966 AUC, surpassing them by over 5%. UniMod also extends to 5-class multi-label diagnosis without architectural change, improving mean AUC by 0.097 over CGGM.",
+        "url": "http://arxiv.org/abs/2608.10316v1",
+        "published_date": "2026-08-10T23:39:49+00:00",
+        "updated_date": "2026-08-10T23:39:49+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.LG",
+            "cs.MM"
+        ],
+        "authors": [
+            "Zijian Gu",
+            "Weikai Lin",
+            "Shuang Zhou",
+            "Zihan Chen",
+            "Song Wang"
+        ],
+        "tldr": "UniMod is a multi-modal learning framework that mitigates shortcut learning in medical image-text diagnosis by enforcing each modality to independently predict the diagnosis, using cross-modality and within-modality alignment, achieving significant AUC improvements on glaucoma and chest X-ray datasets.",
+        "tldr_zh": "UniMod是一个多模态学习框架，通过强制每个模态独立预测诊断、并采用跨模态和模态内对齐来缓解医学图像-文本诊断中的捷径学习问题，在青光眼和胸部X光数据集上取得了显著的AUC提升。",
+        "relevance_score": 2,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 4,
+        "summary_zh": "摘要：  \n将医学图像与临床文本相结合的多模态学习在疾病诊断中展现出巨大潜力。然而，标准的多模态训练会导致捷径学习：模型倾向于利用较容易的模态（例如文本中的诊断线索），而忽略较难学习的特征（例如细微的视觉模式）。我们提出了UniMod框架，通过要求每种模态独立预测诊断结果来缓解捷径学习问题。该框架同时监督纯图像、纯文本及多模态分类任务，从而迫使每种模态提取诊断特征。我们引入跨模态对齐实现知识迁移，并对相同诊断结果的患者实施模态内监督对比对齐。在哈佛-青光眼数据集上，UniMod取得了0.850 AUC，比OGM-GE和Gradient Blending高出1.6-1.8%；在CheXpert Plus数据集上，其AUC达到0.966，超过上述方法5%以上。UniMod还能在不改变架构的情况下扩展至5类多标签诊断，平均AUC比CGGM提升0.097。"
+    },
+    {
+        "title": "ConfTriage: A Calibration-Aware LLM Triage Framework for Pulmonary Nodule Malignancy with Selective Specialist Deferral",
+        "summary": "Pulmonary nodule malignancy prediction typically depends on image-trained specialist deep learning (DL) models that require substantial annotated imaging data and task-specific training. We investigate whether a generalist large language model (LLM), reading only a faithful natural-language rendering of standard nodule attributes, can serve as a calibrated triage layer. We propose ConfTriage, a confidence-calibrated method built on three pillars: language as the modality, calibration as the safety mechanism, and a selective specialist DL backstop for low-confidence cases. We prove two guarantees: a finite-sample combined-error bound yielding an explicit per-threshold operational certificate, and an oracle inequality showing that excess risk over the Bayes-optimal deferral classifier is controlled by the L1 calibration error of the LLM probability. A controlled seven-way input ablation across five frontier LLMs on LIDC-IDRI shows that natural-language descriptions dominate the diagnostic signal, while low-level image statistics are essentially diagnostically vacuous. ConfTriage achieved an F1 score of 88.22% and an AUC of 0.92, resolving 76.5% of cases using zero-shot LLM inference alone and referring only uncertain cases to the specialist DL backstop. These results demonstrate that clinically meaningful diagnostic information can be captured through structured radiological descriptions and leveraged by calibrated LLMs for selective referral. The framework suggests a practical pathway for combining generalist LLM prediction with specialist AI models in medical decision-support systems. Source code is publicly available at https://github.com/rabiul-ai/ConfTriage.",
+        "url": "http://arxiv.org/abs/2608.10885v1",
+        "published_date": "2026-08-11T13:02:41+00:00",
+        "updated_date": "2026-08-11T13:02:41+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Md Rabiul Islam",
+            "Samir Abdaljalil",
+            "Erchin Serpedin",
+            "Hasan Kurban"
+        ],
+        "tldr": "ConfTriage uses a calibrated large language model (LLM) to triage pulmonary nodule malignancy from structured text descriptions, deferring low-confidence cases to a specialist deep learning model, achieving F1=88.22% and AUC=0.92 with theoretical guarantees.",
+        "tldr_zh": "ConfTriage使用校准的大语言模型（LLM），基于结构化文本描述对肺结节恶性进行分诊，将低置信度病例转交给专业深度学习模型，在具有理论保证的情况下取得了F1=88.22%、AUC=0.92的性能。",
+        "relevance_score": 3,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 4,
+        "summary_zh": "肺结节恶性预测通常依赖基于图像训练的专科深度学习（DL）模型，这类模型需要大量标注影像数据和任务特定训练。我们探究一种通用大语言模型（LLM）——仅读取标准结节属性的忠实自然语言描述——能否作为校准的分诊层。我们提出ConfTriage，一种基于置信度校准的方法，其三大支柱为：以语言为模态、以校准为安全机制、以及对低置信度病例采用选择性专科DL后备。我们证明了两个保证：有限样本组合误差界，给出每个阈值下明确的操作证书；以及一个oracle不等式，表明相对于贝叶斯最优推迟分类器的超额风险受LLM概率的L1校准误差控制。在LIDC-IDRI数据集上对五个前沿LLM进行受控的七路输入消融实验表明，自然语言描述主导诊断信号，而底层图像统计信息在诊断上基本无效。ConfTriage的F1分数达88.22%，AUC达0.92，其中76.5%的病例仅通过零样本LLM推理解决，仅将不确定病例转诊至专科DL后备。这些结果表明，临床上有意义的诊断信息可通过结构化放射学描述捕获，并由校准后的LLM用于选择性转诊。该框架为医学决策支持系统中通用LLM预测与专科AI模型的结合提供了一条实用路径。源代码公开于https://github.com/rabiul-ai/ConfTriage。"
+    },
+    {
+        "title": "ConRub-Med: Reinforcement Learning with Consensus Rubrics for Open-Ended Medical Question Answering",
+        "summary": "Reinforcement learning with verifiable rewards has been especially effective in mathematics and coding, where answers can be checked automatically. Many open-ended medical questions lack comparably cheap outcome verifiers: responses may be partly correct, incomplete, or contain clinically consequential errors. Rubrics written or validated by physicians offer strong clinical grounding, but involving experts in every instance is costly. Model-generated rubrics make this supervision scalable. We introduce ConRub-Med to preserve useful distinctions as rubric feedback moves from construction to policy optimization. For each prompt, three heterogeneous language models propose atomic criteria independently; a separate model reviews them, retaining only criteria with semantic support from all three generators. Three-State scoring distinguishes correct coverage, missing information, and incorrect claims. Errors receive negative rather than zero credit. When every response in a complete Group Relative Policy Optimization (GRPO) group receives the same final reward, a pairwise judge provides sequence advantages only if both candidate orders agree, without changing the scalar rewards. Groups without ties use vanilla GRPO. In a blinded study matched by question, two medical experts rate panels from the full pipeline as more clinically relevant than panels produced by one generator. Across the evaluated open models, ConRub-Med ranks first on six of nine benchmarks and achieves the highest medical and generalization averages. Using the resulting rubric dataset of 5,166 prompts, it scores $38.98 \\pm 1.04$ (mean $\\pm$ SD) on HealthBench-Hard, compared with InfiMed-ORBIT's 33.60 with 8,000 samples and 37.30 with 28,000.",
+        "url": "http://arxiv.org/abs/2608.10996v1",
+        "published_date": "2026-08-11T14:48:15+00:00",
+        "updated_date": "2026-08-11T14:48:15+00:00",
+        "categories": [
+            "cs.CL"
+        ],
+        "authors": [
+            "Taojie Zhu",
+            "Yuan Xia",
+            "Tao Sun",
+            "Yizhi Wang",
+            "Yan Chen",
+            "Qunshan He",
+            "Tian Guan",
+            "Jian Wang",
+            "Jinjie Gu",
+            "Junwei Liu",
+            "Yonghong He"
+        ],
+        "tldr": "ConRub-Med introduces a reinforcement learning framework for open-ended medical question answering that uses consensus rubrics from multiple language models, three-state scoring (correct, missing, incorrect), and a pairwise judge to resolve reward ties, achieving top performance on several benchmarks.",
+        "tldr_zh": "ConRub-Med 提出了一种用于开放式医学问答的强化学习框架，采用多语言模型共识评分标准、三态评分（正确、缺失、错误）以及成对法官来解决奖励平局问题，在多个基准测试中取得了最佳性能。",
+        "relevance_score": 3,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 4,
+        "summary_zh": "可验证奖励的强化学习在数学和编程领域尤为有效，因为这些领域的答案可以自动检验。许多开放性的医学问题缺乏同样廉价的答案验证器：回答可能部分正确、不完整，或包含具有临床后果的错误。由医生编写或验证的评分标准提供了坚实的临床基础，但每次都由专家参与成本高昂。模型生成的评分标准使这种监督具备可扩展性。我们提出ConRub-Med方法，以在评分反馈从构建到策略优化的过程中保留有用的区分维度。针对每个提示，三个异构语言模型独立提出原子标准；另一个模型对这些标准进行审查，仅保留获得所有三个生成模型语义支持的标准。三态评分区分了正确覆盖、信息缺失和错误陈述。错误获得负分而非零分。当完整分组相对策略优化（GRPO）组内的每个响应获得相同最终奖励时，成对评判器仅在两个候选顺序一致的情况下提供序列优势，而不改变标量奖励。无平局的分组使用标准GRPO。在一项按问题匹配的盲法研究中，两位医学专家评定，由完整流程生成的评分配置比单一生成器生成的配置更具临床相关性。在评估过的开放模型中，ConRub-Med在九个基准中的六个上排名第一，并取得最高的医学和泛化平均值。利用由此生成的包含5,166个提示的评分标准数据集，它在HealthBench-Hard上得分为38.98 ± 1.04（均值±标准差），而InfiMed-ORBIT在8,000个样本下得分为33.60，在28,000个样本下得分为37.30。"
+    },
+    {
+        "title": "Precise Top-Layer Fabric Segmentation for Fabric Destacking with Edge- and Shape-Aware Deep Networks",
+        "summary": "Fabric destacking requires precise segmentation of the topmost fabric layer, a task complicated by subtle fabric boundaries and high visual similarity between fabric layers. Existing semantic and edge-based segmentation approaches often struggle with these complexities, limiting the performance of robotic manipulation for different tasks. In this work, a novel segmentation training architecture tailored for top-layer fabric segmentation in stacked fabrics is proposed. The method extends the classical encoder-decoder framework by introducing two specialized branches - an edge-aware branch and a shape-aware branch - that are used to supervise the backbone network for better tuning. The edge-aware branch enhances boundary delineation, while the shape-aware branch guides the network to capture and align the overall fabric shape with reference masks derived from Computer Aided Design (CAD) models. Experiments on a real-world fabric dataset demonstrate that the training approach outperforms established baselines, verifying the effectiveness of the multi-branch design through both quantitative results and ablation studies.",
+        "url": "http://arxiv.org/abs/2608.10648v1",
+        "published_date": "2026-08-11T08:32:28+00:00",
+        "updated_date": "2026-08-11T08:32:28+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.RO"
+        ],
+        "authors": [
+            "Wenbo Dong",
+            "Dipankar Bhattacharya",
+            "Akinari Kobayashi",
+            "Akira Seino",
+            "Fuyuki Tokuda",
+            "Xuzhao Huang",
+            "Kai Tang",
+            "Norman C. Tien",
+            "Kazuhiro Kosuge"
+        ],
+        "tldr": "This paper proposes a multi-branch deep learning training architecture for precise segmentation of the top fabric layer in stacked fabrics, using edge-aware and shape-aware branches guided by CAD models to improve boundary delineation and shape alignment.",
+        "tldr_zh": "本文提出了一种多层分支深度学习训练架构，用于精确分割堆叠织物中的顶层织物，通过边缘感知和形状感知分支，并利用CAD模型引导，以改善边界描绘和形状对齐。",
+        "relevance_score": 1,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 4,
+        "overall_priority_score": 3,
+        "summary_zh": "摘要：  \n织物拆垛需要对最上层织物进行精确分割，而织物边界模糊及层间视觉高度相似性使该任务尤为复杂。现有基于语义和边缘的分割方法常难以应对这些复杂性，从而限制了机器人操作在不同任务中的性能。本文提出一种专用于叠放织物顶层分割的新型分割训练架构。该方法在经典编码器-解码器框架基础上引入两个专用分支——边缘感知分支与形状感知分支——用于监督主干网络以优化参数调整。边缘感知分支强化边界描绘，而形状感知分支引导网络捕获并调整织物整体形状，使其与源自计算机辅助设计（CAD）模型的参考掩膜对齐。基于真实织物数据集的实验表明，该训练方法优于现有基线模型，定量结果与消融研究均验证了多分支设计的有效性。"
+    },
+    {
+        "title": "RadFusion: Towards Threshold-Controllable Radiology Report Generation",
+        "summary": "Automated radiology report generation is advancing rapidly in response to the shortage of radiologists, yet unlike a perception model, existing generation models offer no control over the sensitivity-specificity trade-off of their diagnostic content. Such control is essential because clinical scenarios diverge: emergency triage prioritizes sensitivity to reduce missed findings, whereas confirmatory interpretation emphasizes specificity to limit unnecessary interventions. A single fixed report can neither adapt to these scenarios nor support the ROC-based validation widely expected for regulatory clearance. We introduce RadFusion, a framework that equips report generation with threshold controllability. Our method fuses a multi-label classifier, which provides per-disease confidence scores, with a VQA-based report generator, which describes medical findings in detail; an LLM then rewrites the report so that its stated diagnoses follow the classifier's decisions at the selected threshold while staying grounded in the generator's descriptions. On MIMIC-CXR, the performance of RadFusion conforms to the classifier's ROC curve: sweeping the threshold and mapping the reports back to class labels reproduces the classifier's validated ROC performance. This conformance makes generated reports quantitatively evaluable through ROC analysis, strengthening the case for regulatory clearance, and enables operating-point selection that matches report behavior to clinical context. Moreover, combining the two model types improves diagnostic accuracy over uncontrolled generation: sensitivity increases by 6.9% at matched specificity, and specificity by 20.7% at matched sensitivity. These results show that RadFusion makes report generation clinically adaptable, quantitatively verifiable, and diagnostically more reliable.",
+        "url": "http://arxiv.org/abs/2608.10505v1",
+        "published_date": "2026-08-11T05:23:48+00:00",
+        "updated_date": "2026-08-11T05:23:48+00:00",
+        "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.CV"
+        ],
+        "authors": [
+            "Ying Jin",
+            "Noel C. F. Codella",
+            "John Corring",
+            "Mu Wei",
+            "Dinei Florencio",
+            "Eric Horvitz"
+        ],
+        "tldr": "RadFusion introduces threshold-controllable radiology report generation by fusing a multi-label classifier, VQA-based generator, and LLM, enabling adjustable sensitivity-specificity trade-offs and ROC-based validation, improving diagnostic accuracy on MIMIC-CXR.",
+        "tldr_zh": "RadFusion 通过融合多标签分类器、基于 VQA 的报告生成器和 LLM，实现了阈值可控的放射学报告生成，支持灵敏度-特异度权衡调整和 ROC 验证，在 MIMIC-CXR 上提高了诊断准确性。",
+        "relevance_score": 2,
+        "novelty_claim_score": 8,
+        "clarity_score": 9,
+        "potential_impact_score": 7,
+        "overall_priority_score": 3,
+        "summary_zh": "摘要：  \n自动放射学报告生成技术正迅速发展以应对放射科医师短缺的问题，然而与感知模型不同，现有生成模型无法控制其诊断内容的敏感度-特异度权衡。这种控制至关重要，因为临床场景存在差异：急诊分诊优先考虑敏感度以减少漏诊，而确诊性解读则强调特异度以限制不必要的干预。单一固定的报告既无法适应这些场景，也无法支持监管审批中广泛期望的基于ROC的验证。我们提出了RadFusion框架，该框架为报告生成赋予阈值可控性。我们的方法将提供每种疾病置信度得分的多标签分类器与基于VQA的报告生成器（详细描述医学发现）相融合；随后，大语言模型（LLM）重写报告，使其所陈述的诊断在选定阈值下遵循分类器的决策，同时保持基于生成器描述的准确性。在MIMIC-CXR数据集上，RadFusion的性能符合分类器的ROC曲线：调整阈值并将报告映射回类别标签，可重现分类器经验证的ROC性能。这种一致性使生成的报告能够通过ROC分析进行定量评估，从而增强监管审批的说服力，并支持选择与临床情境相匹配的操作点。此外，两种模型类型的结合在无控制生成的基础上提高了诊断准确性：在匹配的特异度下敏感度提升6.9%，在匹配的敏感度下特异度提升20.7%。这些结果表明，RadFusion使报告生成在临床上具有适应性、可定量验证且诊断上更可靠。"
+    },
+    {
+        "title": "Foundation Model-Enabled Efficient Data Sampling (FEEDS): A label-efficient training strategy for pan-cancer, multi-tracer PET/CT datasets",
+        "summary": "Automated lesion segmentation in whole-body PET/CT imaging can assist clinicians with cancer detection, staging, and treatment planning across radiotracers and cancer types. However, training lesion segmentation models that capture variations in lesion size, distribution, and appearance requires large annotated datasets, whose creation is both time- and expertise-intensive. As a result, models trained on limited labeled PET/CT data often lack the accuracy and generalizability needed for clinical use. We present FEEDS (Foundation model-Enabled Efficient Data Sampling), a label- and compute-efficient learning strategy that uses vision foundation model embeddings to select the most informative and diverse unlabeled cases for expert annotation. Unlike unsupervised, semi-supervised, and active learning approaches, FEEDS is a one-step training paradigm requiring only a limited, representative training set, making it label- and compute-efficient. We train and validate FEEDS using the AutoPET-III dataset. We test its accuracy and generalizability on three held-out sets: AutoPET-III, DeepPSMA, and an internal Dartmouth-Hitchcock Medical Center dataset. We evaluate clinical utility at the voxel, lesion, and anatomic region level to assess performance in high-risk areas and treatment planning utility. FEEDS outperforms random-sampling-based labeling, pseudolabel-based semi-supervised learning, and training with limited labeled data alone. It generalizes across all three test sets, FDG and PSMA tracers, and multiple diseases, matching fully-labeled (100\\%) training performance with 70\\% less annotation burden. FEEDS addresses the challenge of label scarcity in an automatic lesion segmentation framework by providing a practical approach for constructing representative and diverse annotation queues from large, unannotated clinical repositories.",
+        "url": "http://arxiv.org/abs/2608.11076v1",
+        "published_date": "2026-08-11T15:38:44+00:00",
+        "updated_date": "2026-08-11T15:38:44+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Biratal Raj Wagle",
+            "Bashirul Azam Biswas",
+            "Grant Chau",
+            "Matthew E. Maeder",
+            "Muhammad Azeem Arshad",
+            "Michael S. Leapman",
+            "James B. Yu",
+            "Indrani Bhattacharya"
+        ],
+        "tldr": "FEEDS uses vision foundation model embeddings to select the most informative unlabeled PET/CT cases for annotation, achieving performance comparable to fully labeled training with 70% less annotation burden.",
+        "tldr_zh": "FEEDS利用视觉基础模型嵌入来选择最具信息量的未标记PET/CT病例进行标注，在减少70%标注负担的同时达到与全标注训练相当的性能。",
+        "relevance_score": 2,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 5,
+        "overall_priority_score": 3,
+        "summary_zh": "摘要：  \n全身PET/CT成像中的自动化病灶分割可辅助临床医生在不同放射性示踪剂和癌症类型中进行癌症检测、分期及治疗规划。然而，训练能够捕捉病灶大小、分布及外观差异的病灶分割模型需要大量标注数据集，其构建既耗时又依赖专业知识。因此，基于有限标注PET/CT数据训练的模型常缺乏临床应用所需的准确性和泛化能力。本文提出FEEDS（基于基础模型的高效数据采样策略），一种标签与计算高效的学习方法，利用视觉基础模型嵌入来筛选最具信息量和多样性的未标注病例，供专家标注。与无监督、半监督及主动学习方法不同，FEEDS是一种一步式训练范式，仅需少量具有代表性的训练集，因此兼具标签与计算效率。我们使用AutoPET-III数据集训练并验证FEEDS，并在三个独立测试集（AutoPET-III、DeepPSMA及内部达特茅斯-希区柯克医学中心数据集）上测试其准确性与泛化能力。在体素、病灶及解剖区域层面评估临床实用性，以考察在高风险区域及治疗规划中的效用。FEEDS优于基于随机采样的标注方法、基于伪标签的半监督学习以及仅使用有限标注数据的训练方式；其在全部三个测试集、FDG与PSMA示踪剂以及多种疾病中均表现出泛化能力，以标注量减少70%达到了全标注（100%）训练性能。FEEDS通过提供一种从大规模未标注临床数据集中构建具有代表性及多样性的标注队列的实用方法，解决了自动化病灶分割框架中的标签稀缺难题。"
+    },
+    {
+        "title": "DoseBridge: Denoising Diffusion Bridge Model for Dose Prediction in Lung Intensity-Modulated Proton Therapy",
+        "summary": "Most radiotherapy dose-prediction models use only CT images and anatomical structures, although intensity-modulated proton therapy (IMPT) dose also depends strongly on beam geometry and available clinical datasets are often small. We present DoseBridge, a denoising diffusion bridge model that uses the patient CT as a structured bridge endpoint and encodes plan-specific beam geometry in a spatially aligned beam mask. Multiscale fusion combines CT, target, organ-at-risk, and beam-mask representations with 1.95% additional parameters. DoseBridge was retrospectively evaluated on single-institution CT images and treatment plans from 52 patients with advanced-stage lung cancer treated with 60 Gy in 30 fractions; 42 cases were used for training and 10 for testing. Performance was assessed using image-similarity, dose-volume, and Lyman-Kutcher-Burman normal-tissue complication probability (NTCP) metrics and compared with two deep-learning models. On the test cohort, DoseBridge achieved a mean absolute error of 4.170 Gy, peak signal-to-noise ratio of 23.06 dB, and structural similarity index of 0.798, outperforming both comparison models on these metrics. Clinical target volume D95 differed from the reference dose by 0.62 +/- 1.6 Gy; signed organ-at-risk mean-dose differences ranged from -0.32 to 0.24 Gy, and NTCP differences were -0.40 +/- 2.2 and 0.52 +/- 3.4 percentage points for acute esophagitis and radiation pneumonitis, respectively. Changing only the beam mask redirected predicted low-dose entrance regions while preserving the high-dose target region. To our knowledge, DoseBridge is the first denoising diffusion bridge model for radiotherapy dose prediction. These results support its feasibility as a beam-aware planning prior for lung IMPT, pending evaluation in larger external cohorts.",
+        "url": "http://arxiv.org/abs/2608.10173v1",
+        "published_date": "2026-08-10T19:43:10+00:00",
+        "updated_date": "2026-08-10T19:43:10+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Zerun Zhang",
+            "Xiaoda Cong",
+            "Xiangkun Xu",
+            "Peter Y. Chen",
+            "Xuanfeng Ding"
+        ],
+        "tldr": "DoseBridge is a denoising diffusion bridge model for predicting proton therapy dose distributions using CT images and beam geometry, achieving superior accuracy on a small lung cancer dataset.",
+        "tldr_zh": "DoseBridge 是一种利用CT图像和射束几何预测质子治疗剂量分布的去噪扩散桥模型，在小型肺癌数据集上取得了更优的精度。",
+        "relevance_score": 1,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 3,
+        "summary_zh": "大多数放疗剂量预测模型仅使用CT图像和解剖结构，然而调强质子治疗（IMPT）的剂量也高度依赖于射束几何，且可用的临床数据集通常较小。我们提出DoseBridge——一种去噪扩散桥模型，该模型将患者CT作为结构化桥接端点，并在空间对齐的射束掩膜中编码特定计划的射束几何。多尺度融合将CT、靶区、危及器官和射束掩膜表示相结合，仅增加1.95%的额外参数。DoseBridge在单中心CT图像和52例接受60 Gy/30次治疗的晚期肺癌患者的治疗计划上进行了回顾性评估；其中42例用于训练，10例用于测试。性能通过图像相似度、剂量体积和Lyman-Kutcher-Burman正常组织并发症概率（NTCP）指标进行评估，并与两种深度学习模型进行比较。在测试队列中，DoseBridge的平均绝对误差为4.170 Gy，峰值信噪比为23.06 dB，结构相似性指数为0.798，在这些指标上均优于两种对比模型。临床靶区D95与参考剂量的差异为0.62 ± 1.6 Gy；危及器官的符号化平均剂量差异范围为-0.32至0.24 Gy，急性食管炎和放射性肺炎的NTCP差异分别为-0.40 ± 2.2和0.52 ± 3.4个百分点。仅改变射束掩膜即可重新分配预测的低剂量入射区域，同时保留高剂量靶区。据我们所知，DoseBridge是首个用于放疗剂量预测的去噪扩散桥模型。这些结果支持其作为肺癌IMPT中具有射束感知能力的先验计划的可行性，有待在更大规模的外部队列中进一步验证。"
+    },
+    {
+        "title": "myMediWhisper: Construction of Burmese Medical Speech Corpus and Whisper Fine-Tuning for Clinical Dialogue ASR",
+        "summary": "Although Whisper models benefit from large-scale multilingual pre-training, their performance on Burmese medical speech remains limited. This work presents a Burmese medical speech recognition framework built on a high-quality 28-hour corpus recorded and validated by native speakers. We fine-tune Whisper models using full fine-tuning (FFT) and parameter-efficient fine-tuning (PEFT) with LoRA. To evaluate robustness, we apply waveform- and spectrogram-level data augmentation under controlled noise and simulated room acoustics. While augmentation reduces performance on clean speech, it significantly improves robustness in noisy and reverberant environments across FFT and PEFT settings. Our best-performing system, fully fine-tuned myMediWhisper-Medium without augmentation, achieves a state-of-the-art Word Error Rate (WER) of 23.44%, outperforming much larger general-domain fine-tuned models. Dataset and other resources can be found at the Huggingface repository: https://huggingface.co/datasets/LULab/mediTalk-mm-rdy.",
+        "url": "http://arxiv.org/abs/2608.11036v1",
+        "published_date": "2026-08-11T15:12:42+00:00",
+        "updated_date": "2026-08-11T15:12:42+00:00",
+        "categories": [
+            "cs.CL"
+        ],
+        "authors": [
+            "Ye Kyaw Thu",
+            "Ye Bhone Lin",
+            "Thura Aung",
+            "Htet Arkar",
+            "Myat Oo Swe",
+            "Thet Htet San",
+            "Min Thiha Tun",
+            "Thazin Myint Oo",
+            "Thepchai Supnithi"
+        ],
+        "tldr": "This paper constructs a 28-hour Burmese medical speech corpus and fine-tunes Whisper models using full fine-tuning and LoRA, achieving 23.44% WER on clean speech and improved robustness with augmentation. The work is specific to Burmese medical ASR.",
+        "tldr_zh": "本文构建了一个28小时的缅甸语医疗语音语料库，并使用全微调和LoRA方法微调Whisper模型，在干净语音上达到23.44%的词错误率，并通过数据增强提升了鲁棒性。该工作专注于缅甸语医疗语音识别。",
+        "relevance_score": 1,
+        "novelty_claim_score": 4,
+        "clarity_score": 8,
+        "potential_impact_score": 3,
+        "overall_priority_score": 2,
+        "summary_zh": "尽管Whisper模型受益于大规模多语言预训练，但它们在缅甸语医疗语音上的性能仍然有限。本工作提出了一个基于由母语者录制并验证的高质量28小时语料库的缅甸语医疗语音识别框架。我们使用全微调（FFT）和基于LoRA的参数高效微调（PEFT）对Whisper模型进行微调。为评估鲁棒性，我们在受控噪声和模拟房间声学条件下应用了波形级和频谱图级数据增强。虽然数据增强降低了在干净语音上的性能，但在FFT和PEFT设置下，它显著提高了在噪声和混响环境中的鲁棒性。我们性能最佳的模型是未使用增强的全微调myMediWhisper-Medium，其词错误率（WER）达到了最先进的23.44%，优于规模更大的通用领域微调模型。数据集和其他资源可在Huggingface仓库中找到：https://huggingface.co/datasets/LULab/mediTalk-mm-rdy。"
+    }
+]
