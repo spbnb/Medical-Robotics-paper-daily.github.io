@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - August 17, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>August 17, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">From Generalist to Specialist: A Context-Fusion Framework for Endoscopic Polyp Reporting with a Frozen VLM</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Reliable endoscopic polyp reporting requires integrating quantitative lesion sizing, standardized Paris classification, and clinically meaningful morphological description within a single record. General-purpose vision-language models (VLMs) offer a unified interface for image understanding and report generation. Existing specialization strategies, however, typically rely on task-specific models or model-weight adaptation, leaving unresolved how to introduce reliable specialist knowledge while preserving both this unified interface and the VLM's pretrained capabilities. We introduce a context-fusion framework that specializes a frozen general-purpose VLM through both implicit instruction context and explicit transduction context without modifying its pretrained weights. Specifically, a self-supervised polyp encoder retrieves related image-report pairs as explicit, query-specific evidence, while learned continuous specialist tokens provide implicit instruction context shared across cases. Experiments were conducted on 2,056 expert-annotated public endoscopic images. We compared the framework with general-purpose VLMs, task-specific predictors, and weight-adaptation methods to assess specialist performance, unified reporting, and adaptation efficiency. Across numerical, categorical, and report-generation metrics, the proposed framework substantially improved direct frozen-VLM inference and achieved the strongest overall performance among the evaluated methods. It added trainable parameters equal to only 0.006% of the frozen VLM's parameter count. When the top-1 retrieved case carried the correct target category, our framework corrected 70.5% of the errors made by a weight-adaptation baseline. These findings support the context-fusion framework as a lightweight and effective strategy for specialist adaptation of a frozen VLM.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 可靠的 endoscopic 息肉报告需要将定量的病灶测量、标准化的巴黎分型以及具有临床意义的形态描述整合到单一记录中。通用型视觉语言模型（VLM）为图像理解与报告生成提供了统一接口。然而，现有的专业化策略通常依赖于任务特定模型或模型权重调整，未能解决如何在保留统一接口及 VLM 预训练能力的同时引入可靠的专业知识。我们提出一种上下文融合框架，该框架通过隐式指令上下文与显式转导上下文，在不修改预训练权重的前提下对冻结的通用 VLM 进行专业化处理。具体而言，一个自监督的息肉编码器检索相关的图像-报告对作为显式、查询特定的证据，而学习得到的连续专业令牌则提供跨病例共享的隐式指令上下文。实验在 2,056 张经专家标注的公开内窥镜图像上进行。我们将该框架与通用 VLM、任务特定预测器及权重适应方法进行了比较，以评估其专业性能、统一报告能力及适应效率。在数值、分类及报告生成指标上，所提出的框架显著优于直接使用冻结 VLM 的推理结果，并在所有评估方法中取得了最强的整体性能。其新增可训练参数仅占冻结 VLM 参数量的 0.006%。当检索到的 top-1 病例包含正确的目标类别时，我们的框架纠正了权重适应基线方法 70.5% 的错误。这些结果支持上下文融合框架作为一种轻量且有效的策略，用于对冻结 VLM 进行专业适应。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes a context-fusion framework that specializes a frozen general-purpose vision-language model for endoscopic polyp reporting by integrating implicit instruction tokens and explicit retrieved evidence, achieving strong performance with only 0.006% added parameters.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种上下文融合框架，通过结合隐式指令令牌和显式检索证据，在不修改预训练权重的情况下将冻结的通用视觉语言模型专业化用于内窥镜息肉报告，仅增加0.006%的参数就取得了优异性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2608.15580v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ruijie Yang, Yan Zhu, Peiyao Fu, Siyuan Li, Te Luo, Zhihua Wang, Quanlin Li, Pinghong Zhou, Xian Yang, Shuo Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Reliable Piezoresistive Strain Sensing Through Physical Limits and Uncertainty Monitoring</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Soft piezoresistive strain sensors are one of the most common sensing solutions for wearable and soft robotic applications due to their flexibility and compliance. However, their resistance response is nonlinear and hysteretic, and a sensor can be pushed past its calibrated workspace or misbehave inside it, carrying that error into a decision or control loop. Probabilistic regressors track confidence but ignore those limits. A predictive mean can look unremarkable even when the reading comes from a sensor outside its admissible range or already failing internally, so a confident-looking estimate is not the same as a trustworthy one. This paper proposes a reliability framework pairing a physics-informed probabilistic inverse model, built on physics-guided input features, with a risk factor fusing uncertainty with strain and strain-rate limits into a three-state monitor. Tests on a Nitinol wire and a silver-coated polyamide thread with a Gaussian Process raised fit scores to 0.90-0.95 (RMSE 0.26%-0.15%) and a 96% empirical coverage against the 95% target. The monitor caught 95% of out-of-range and 100% of abnormal conditions while staying reliable under nominal operation. A sensor that reports confidence alongside its estimate lets a system withhold action instead, since it needs no labeled failure examples, which are hard to collect for soft materials.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 软压阻应变传感器因其柔顺性与贴合性，成为可穿戴设备和软体机器人应用中最常见的传感方案之一。然而，其电阻响应具有非线性和迟滞特性，传感器可能会超出校准工作范围，或在该范围内出现异常行为，并将此类误差引入决策或控制回路。概率回归模型虽能追踪置信度，却忽略了这些边界限制。当读数来自超出允许范围的传感器或已在内部失效时，预测均值可能看似正常，因此置信度高的估计并不等同于可信赖的估计。本文提出了一种可靠性框架：将基于物理引导输入特征的物理信息概率逆模型，与融合不确定性和应变及应变速率限制的风险因子相结合，构建三态监测器。在镍钛诺线和镀银聚酰胺线上采用高斯过程进行测试，拟合优度提升至0.90-0.95（RMSE为0.26%-0.15%），以95%目标覆盖率实现了96%的经验覆盖。该监测器可捕获95%的超出范围情况和100%的异常状态，同时在标称运行条件下保持可靠性。传感器在输出估计值的同时报告置信度，使系统能够选择暂停动作——因其无需依赖难以从软材料中收集的标记失效样本。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a reliability framework for soft piezoresistive strain sensors that combines a physics-informed probabilistic inverse model with a risk factor monitoring three states (nominal, out-of-range, abnormal), achieving high accuracy and catching 95-100% of failures without needing labeled failure examples.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一种针对软压阻应变传感器的可靠性框架，将物理信息驱动的概率逆模型与风险因子（融合应变和应变率界限）结合，形成三状态监控器，实现了高精度并捕获95-100%的故障，无需标记故障样本。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2608.15784v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Carmen Ballester, Víctor Muñoz, Dorin Copaci, Dolores Blanco</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Grounding Healthcare LLMs in a Causal Knowledge Graph: Framework, Metrics, and a Cardiovascular Pilot</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Large language models (LLMs) are increasingly proposed for healthcare decision support, but their evaluations still reward single-answer accuracy rather than reasoning about interventions, mechanisms, harms, evidence, and uncertainty. We propose a reproducible, graph-centered evaluation framework for intervention-oriented LLM behavior in healthcare and stress-test it in a cardiovascular pilot. The framework has four components: (i) a domain causal knowledge graph in which assertions are first-class, provenance-preserving nodes with stable identifiers; (ii) a scenario-conditioned subgraph extraction step that, given any clinical scenario, retrieves the relevant reified-assertion subgraph; (iii) four controlled grounding conditions that vary how the retrieved subgraph is composed into the model's context (ungrounded C1, knowledge-graph C2, causal-graph C3, integrated C4); and (iv) an automated scoring pipeline, anchored on assertion identifiers, that computes intervention accuracy, and other evaluation measures on a single pass. To test the framework, we built a category-balanced scenario generator across eight reasoning failure modes and instantiated it on a cardiovascular graph. The metric panel discriminates conditions along interpretable, non-redundant axes: C4 obtains the strongest causal edge F1 (0.838), adverse-effect F1 (0.833), evidence accuracy (0.738), and unsupported claim rate (0.114), while C1 obtains the highest raw intervention accuracy (0.948) with no measurable causal or evidential grounding.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 大语言模型（LLMs）越来越多地被用于医疗决策支持，但对其评估仍侧重于单一答案的准确性，而非针对干预措施、作用机制、风险、证据及不确定性的推理。我们提出了一种可复现、以图为中心的评估框架，用于衡量医疗领域中面向干预任务的LLM行为，并在心血管领域试点中对其进行了压力测试。该框架包含四个部分：（i）一个领域因果知识图谱，其中断言是带有稳定标识符的一等节点且保留出处信息；（ii）一个场景条件子图提取步骤，针对任意临床场景检索相关具体化断言子图；（iii）四种受控的上下文注入条件，通过不同方式将检索到的子图组合到模型上下文中（无上下文注入C1、知识图谱C2、因果图C3、集成C4）；（iv）一个基于断言标识符的自动化评分流水线，可一次性计算干预准确性及其他评估指标。为测试该框架，我们针对八种推理失败模式构建了一个类别平衡的场景生成器，并在一个心血管图谱上进行了实例化。该指标面板沿可解释、非冗余的轴对条件进行区分：C4获得了最强的因果边F1值（0.838）、不良反应F1值（0.833）、证据准确性（0.738）和最低的无依据主张率（0.114），而C1获得了最高的原始干预准确性（0.948），但无可测量的因果或证据基础。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a reproducible, graph-centered evaluation framework for intervention-oriented LLM behavior in healthcare, using a causal knowledge graph and controlled grounding conditions, tested on a cardiovascular pilot. It introduces metrics like intervention accuracy, causal edge F1, and evidence accuracy.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种可复现的、基于图的评估框架，用于医疗保健中面向干预的LLM行为，使用因果知识图谱和受控的接地条件，并在心血管试点中进行了测试。引入了干预准确性、因果边F1和证据准确性等指标。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2608.15382v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ummara Mumtaz, Aimen Noor, Awais Ahmed</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-08-18 02:57:27 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
