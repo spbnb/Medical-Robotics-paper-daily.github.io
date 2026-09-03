@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - September 02, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>September 02, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">GazeRefine: Expert Gaze as a Test-Time Prompt for Training-Free Medical Image Segmentation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Medical image segmentation remains difficult to scale because high-performing methods typically rely on dense expert annotations and task-specific training. We introduce GazeRefine, a training-free framework that uses gaze as an inference-time prompt for zero-shot medical image segmentation. Sparse, duration-weighted fixations are converted into foreground and background priors that initialize semantic prototypes in frozen DINOv3 feature space. These prototypes are iteratively refined through foreground-background discrimination, feature-space affinity propagation, and anchoring to the initial gaze guidance, allowing segmentation to extend beyond directly fixated regions while limiting semantic drift. GazeRefine requires no segmentation masks, fine-tuning, adapters, prompt encoders, or gradient updates. We evaluate the method on gaze-annotated polyp segmentation and prostate MRI segmentation. The results show strong performance on colonoscopy images and competitive performance on prostate MRI, supporting gaze-guided prototype refinement as a promising approach for segmentation-label-efficient, human-in-the-loop medical image segmentation. Our tools and code can be found in the following repository: https://github.com/MohammedOussamaBEN/GazeRefine.git</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：  
+医学图像分割的可扩展性仍然面临挑战，因为高性能方法通常依赖于密集的专家标注和特定任务的训练。我们提出GazeRefine——一种无需训练的框架，利用注视作为推理时提示实现零样本医学图像分割。将稀疏的、按持续时间加权的注视点转换为前景和背景先验，在冻结的DINOv3特征空间中初始化语义原型。这些原型通过前景-背景判别、特征空间亲和传播以及锚定到初始注视引导进行迭代优化，使得分割能够扩展到直接注视区域之外，同时限制语义漂移。GazeRefine不需要分割掩膜、微调、适配器、提示编码器或梯度更新。我们在带有注视标注的息肉分割和前列腺MRI分割上评估了该方法。结果表明，该方法在结肠镜图像上表现强劲，在前列腺MRI上具有竞争力，支持将注视引导的原型精炼作为实现分割标签高效、人在回路的医学图像分割的一种有前景的方法。我们的工具和代码可在以下仓库获取：https://github.com/MohammedOussamaBEN/GazeRefine.git</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: GazeRefine uses expert gaze fixations as test-time prompts to perform zero-shot medical image segmentation without any training, leveraging frozen DINOv3 features and iterative prototype refinement.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: GazeRefine利用专家注视点作为测试时提示，在不进行任何训练的情况下实现零样本医学图像分割，基于冻结的DINOv3特征和迭代原型细化。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.01310v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mohammed Oussama Benyahia, Marouane Tliba, Mohamed Amine Kerkouri, Taifour Yousra, Bin Wang, Max Bengtsson, Gorkem Durak, Elif Keles, Zuheng Ming, Marek Penhaker, Azeddine Beghdadi, Ulas Bagci, Aladine Chetouani</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">NSIDDx: A Design Framework for Neuro-Symbolic, Practitioner-First Differential Diagnosis in Low-Resource Settings</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> LLM-based diagnostic systems achieve high semantic accuracy on benchmarks, but open-ended evaluation on clinically uncommon presentations reveals a systematic gap between headline accuracy and verifiable clinical reliability. We evaluate an LLM+rare-disease-RAG pipeline across two cohorts and show that the paradigm produces confident outputs that are frequently unverifiable and systematically resistant to clinician interrogation. We present NSIDDx (Neuro-Symbolic Integrated Differential Diagnosis System), a design framework arguing that DDx systems in low-resource settings must treat the clinician as an active reasoning agent. We instantiate this through a neuro-symbolic pipeline with ternary symptom encoding, contradiction detection, audit strings, and practitioner override - running offline on consumer hardware. We distill five design principles for clinician-in-the-loop clinical NLP and invite the prospective studies needed to validate the claim at scale.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 基于大语言模型的诊断系统在基准测试中取得了较高的语义准确度，但对临床上罕见表现进行开放式评估后发现，其总体准确度与可验证的临床可靠性之间存在系统性差距。我们在两个队列中对一个“大语言模型+罕见病检索增强生成”流程进行了评估，结果表明该范式生成的输出看似可信，但往往无法验证，并且系统地抵制临床医生的质疑。我们提出了NSIDDx（神经符号集成鉴别诊断系统），这一设计框架主张，在资源匮乏的环境下，鉴别诊断系统必须将临床医生视为主动推理主体。我们通过一个神经符号流程实例化这一理念，该流程包含三元症状编码、矛盾检测、审计字符串以及临床医生覆盖功能，且可在消费级硬件上离线运行。我们提炼出五项面向临床医生在环的临床自然语言处理设计原则，并呼吁开展必要的前瞻性研究，以大规模验证这一主张。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: NSIDDx proposes a neuro-symbolic design framework for differential diagnosis in low-resource settings, addressing LLM reliability gaps through ternary symptom encoding, contradiction detection, audit strings, and practitioner override, with five design principles for clinician-in-the-loop NLP.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: NSIDDx提出了一种面向低资源环境的神经符号鉴别诊断设计框架，通过三元症状编码、矛盾检测、审计字符串和医生覆盖来解决LLM可靠性问题，并提炼出五个临床医生参与式NLP的设计原则。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.00256v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Aarav Singh</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Candidate-Expanding Routing with Permutation-Stabilized Experts for Mixed-Format Medical VQA</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Mixed-format medical visual question answering (VQA) requires stable option selection and machine-readable free-text output. The two formats fail differently: multiple-choice predictions can change with option symbols or positions, while clinically plausible open answers can fail automated evaluation when serialization is malformed. We address both challenges with an answer-text memory, a permutation-stabilized vision--language expert, and a sparse candidate- expanding router. The cyclic schedule follows prior work; our contribution is to make expert top-2 a routable candidate alongside memory and expert top-1. On a 1,403-case retrospective internal analysis, this expansion improves a matched binary router from 88.95% to 91.73% (+2.78 percentage points; 95% CI 1.57--3.99), with 56 rescued errors and 17 regressions. Oracle coverage rises from 90.31% to 96.15%, and the final submitted configuration reaches 92.23% on the same retrospective split. For open questions, strict generation and deterministic guards produce 475/475 schema- valid participant-facing outputs without repair, retry, or hard-gate failure. Visual ablations reveal substantial textual dependence. Candidate expansion supplies the principal controlled routing gain; open-path evidence establishes output-contract validity rather than clinical correctness in medical use or deployment.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 混合格式医学视觉问答要求稳定的选项选择与机器可读的自由文本输出。两种格式的失败模式不同：多项选择预测可能随选项符号或位置变化，而临床合理的开放式答案在序列化格式异常时可能无法通过自动化评估。我们通过答案文本记忆、置换稳定的视觉-语言专家以及稀疏候选扩展路由器来应对这两项挑战。循环调度遵循先前工作；我们的贡献在于将专家前二候选与记忆及专家前一候选共同纳入可路由候选集。基于1,403例回顾性内部分析，该扩展将匹配二元路由器的准确率从88.95%提升至91.73%（+2.78个百分点；95%置信区间1.57–3.99），修复56个错误并出现17个倒退。预言机覆盖率从90.31%上升至96.15%，最终提交的配置在相同回顾性划分上达到92.23%。对于开放式问题，严格生成与确定性防护使得面向参与者的475/475个输出均符合模式标准，无需修复、重试或硬门控失败。视觉消融实验揭示了显著的文本依赖。候选扩展提供了主要受控路由增益；开放路径证据确立了输出合同有效性，而非医学使用或部署中的临床正确性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a candidate-expanding routing method with permutation-stabilized experts to improve both multiple-choice stability and open-ended generation validity in mixed-format medical VQA, achieving significant accuracy gains on a retrospective dataset.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种带有排列稳定专家的候选扩展路由方法，用于改进混合格式医学视觉问答中的多项选择稳定性和开放式生成有效性，在回顾性数据集上取得了显著的准确率提升。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.00959v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Hai-Dang Nguyen, Huy-Hieu Pham</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">A multicenter benchmark and clinically structured metric for coronary CTA report generation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Reliable evaluation of automated coronary computed tomography angiography (CCTA) report generation requires standardized multicentre benchmarks and clinically structured metrics. We established a four-centre benchmark comprising 3,021 CCTA series from 818 patient-report pairs to evaluate seven open-source three-dimensional vision-language models. We developed CSM$_{\text{CCTA}}$, a clinically structured metric for CCTA report evaluation, with patient-, vessel-, and segment-level variables defined according to clinical guidelines. Report pairs are compared at the finest shared anatomical level, and the contributions of different clinical components are weighted based on expert assessments. We estimated these weights using 70 expert-scored cases and evaluated clinical alignment in a non-overlapping set of 30 cases. CSM$_{\text{CCTA}}$ showed a strong correlation with radiologist scores (Pearson's $r=0.97$, $p<0.001$), exceeding the next-best metric, FORTE ($r=0.70$), by 0.27, and agreed with expert preferences in 115 of 160 pairwise comparisons (71.9\%). Under controlled perturbations, CSM$_{\text{CCTA}}$ remained stable to clinically equivalent wording and decreased monotonically with progressive information omission. In the multicenter benchmark, the CCTA-trained C2RG model achieved the highest CSM$_{\text{CCTA}}$ scores across all four hospitals, although its performance remained far from optimal. In contrast, CCTA-irrelevant reports accounted for up to 98.7\% of the outputs from generalist models. Together, the benchmark provides a standardized setting for model comparison, while CSM$_{\text{CCTA}}$ enables clinically structured evaluation of finding agreement and anatomical specificity. These results support a more clinically aligned and anatomically resolved approach to evaluating CCTA report generation. Code is available at https://openi.pcl.ac.cn/OpenMedIA/CSM_CCTA.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：  
+自动化冠状动脉CT血管造影（CCTA）报告生成的可靠评估需要标准化的多中心基准和临床结构化指标。我们建立了一个四中心基准，包含来自818对患者-报告的3,021个CCTA序列，用于评估七个开源三维视觉语言模型。我们开发了CSM$_{\text{CCTA}}$，一个用于CCTA报告评估的临床结构化指标，根据临床指南定义了患者级、血管级和节段级变量。报告对在最精细的共同解剖层级进行比较，不同临床组成部分的贡献基于专家评估进行加权。我们利用70个专家评分病例估计了这些权重，并在30个非重叠病例中评估了临床一致性。CSM$_{\text{CCTA}}$与放射科医生评分高度相关（皮尔逊相关系数$r=0.97$，$p<0.001$），超过次优指标FORTE（$r=0.70$）达0.27，并在160个成对比较中有115个（71.9%）与专家偏好一致。在受控扰动下，CSM$_{\text{CCTA}}$对临床等效措辞保持稳定，并随信息逐步缺失而单调下降。在多中心基准中，经CCTA训练的C2RG模型在所有四家医院均取得最高CSM$_{\text{CCTA}}$得分，但其性能仍远非最优。相比之下，通用模型输出中与CCTA无关的报告占比高达98.7%。综上，该基准为模型比较提供了标准化环境，而CSM$_{\text{CCTA}}$则实现了对发现一致性和解剖特异性的临床结构化评估。这些结果支持采用更贴近临床且解剖分辨率更高的方法来评估CCTA报告生成。代码见 https://openi.pcl.ac.cn/OpenMedIA/CSM_CCTA。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a multicenter benchmark of 3,021 CCTA series and a clinically structured metric (CSM_CCTA) for evaluating automated CCTA report generation, demonstrating strong correlation with radiologist scores and outperforming existing metrics.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一个包含3021个CCTA系列的多中心基准测试和一个临床结构化指标（CSM_CCTA），用于评估自动化CCTA报告生成，显示出与放射科医生评分的高度相关性，并优于现有指标。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.00909v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhiyu Ye, Yue Sun, Limiao Zou, Cheng Xu, Keting Xu, Tong Hu, Yue Yu, Hairong Zheng, Yining Wang, Tong Zhang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PyDoseRT Photon: Physics-Guided Pencil-Beam Dose Calculation with Neural Priors and Residual Correction for CT and MRI</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We present a hybrid, physics-based analytical pencil-beam (PB) dose engine, augmented by two small frozen neural physics priors, followed by a 3-D convolutional residual-correction network (U-Net).
+  We address the DoseRAD2026 (https://doserad2026.grand-challenge.org/) photon dose-prediction task with PyDoseRT Photon, a GPU PB engine implemented in PyTorch and corrected toward Monte Carlo (MC) accuracy in three learned stages of decreasing physical specificity. The engine reproduces the challenge's head-less MC source exactly where it can and models the patient with a beam-quality-indexed pencil kernel evaluated at the field's fluence-weighted radiological depth, and TERMA source scaling at the interaction site. Two tiny neural priors are trained through the frozen engine and then frozen themselves: a 39k-parameter 2-D fluence correction and a 48-parameter lateral heterogeneity correction mixing mass-conserving Gaussian redistribution operators. A compact 3-D U-Net (1.36M parameters) with a sequential refinement branch then predicts, per control point (CP) in the beam's-eye-view (BEV) frame, a bounded multiplicative gain and additive residual from seven channels. All learned stages are zero-initialized, so training starts from the analytical solution. For MRI, an nnU-Net regression model synthesizes a CT that enters the identical pipeline, with consecutively, the same trained corrector as the CT track. Design choices were driven by the challenge ranking, in which runtime carries double weight. The submitted method evaluated on our local CT and MR validation dataset achieved CP MAE 0.0086 and 0.0098, IDD distance 0.0011 and 0.0013, plan MAE 0.0024 and 0.0047, gamma pass rate (1%/1mm) 99.12% and 96.95%, with runtimes of 46s and 49s, respectively.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出了一种混合式、基于物理分析笔形束（PB）剂量引擎，该引擎由两个小型冻结神经物理先验增强，随后接入一个三维卷积残差校正网络（U-Net）。我们利用PyDoseRT Photon——一个在PyTorch中实现的GPU PB引擎——应对DoseRAD2026（https://doserad2026.grand-challenge.org/）光子剂量预测任务，并通过三个物理特异性递减的学习阶段将其校正至蒙特卡罗（MC）精度。该引擎精确重现挑战任务中无头MC源在可复现部分的行为，并利用基于射束质量索引的笔形核（在射野注量加权辐射深度处评估）以及相互作用位点的TERMA源缩放对患者进行建模。两个小型神经先验通过冻结引擎进行训练，随后自身也被冻结：一个39k参数的二维注量校正器，以及一个48参数的横向异质性校正器（混合了质量守恒高斯重分配算子）。一个紧凑的三维U-Net（1.36M参数）配有序贯精化分支，随后在射束视角（BEV）坐标系中每个控制点（CP）处，从七个通道预测有界乘性增益和加性残差。所有学习阶段均初始化为零，因此训练从解析解开始。对于MRI，一个nnU-Net回归模型合成CT图像，该图像进入相同流程，并连续使用与CT路径相同的已训练校正器。设计选择由挑战排名驱动，其中运行时间权重加倍。提交的方法在我们本地CT和MR验证数据集上评估，达到CP MAE 0.0086和0.0098，IDD距离0.0011和0.0013，计划MAE 0.0024和0.0047，伽马通过率（1%/1mm）99.12%和96.95%，运行时间分别为46秒和49秒。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents PyDoseRT Photon, a hybrid physics-based pencil-beam dose engine augmented with neural priors and a 3D U-Net residual correction, achieving Monte Carlo accuracy for photon dose prediction in CT and MRI with fast runtime.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出PyDoseRT Photon，一种结合物理铅笔束引擎与神经先验和3D U-Net残差校正的混合方法，在CT和MRI光子剂量预测中实现蒙特卡洛精度并具有快速运行时间。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.01085v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Attila Simkó, Lukas Zimmermann, Hermann Fuchs, Gerd Heilemann</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-09-03 07:01:58 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
