@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - September 07, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>September 07, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">An Integrated Video-AI Platform for Action-Level Microanastomosis Training and Performance Feedback</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Developing microanastomosis skill requires repeated practice with timely, action-specific feedback, yet expert review of lengthy microscope videos does not scale to frequent or distributed training. We present an integrated video-AI platform that turns a complete simulated procedure into inspectable, interactive feedback through three connected modules. First, a proposed transformer segments the video into six surgical actions. Second, object detection and tracking localize instrument tips within each action; the resulting kinematic features and action statistics drive supervised classification of five NOMAT-aligned performance dimensions. Third, a grounded large language model (LLM) uses these structured outputs to answer user questions about the current scene, actions, motion, and predicted performance through a unified interface. In a two-site study, 17 participants completed 72 procedures comprising 576 suture placements. The action-segmentation module achieved 87.66\% accuracy and 82.86\% F1, increasing to 93.62\% and 88.32\% after workflow-aware refinement. The five performance classifiers achieved 76.0\% mean accuracy, with Cohen's $κ$ from 0.63 to 0.93. Although the language interface and educational benefit require prospective evaluation, these results establish the technical basis for an expert-supervised platform that can shorten review, expose the evidence behind performance estimates, and support scalable formative microsurgical training.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 发展显微吻合技能需要反复练习，并辅以及时、针对具体动作的反馈，但专家对冗长显微镜视频的审阅难以扩展到高频或分散式训练中。我们提出一个集成视频-人工智能平台，通过三个相连模块将完整的模拟手术流程转化为可检查、可交互的反馈。首先，一个提出的Transformer将视频分割为六种手术动作。其次，目标检测与跟踪在每个动作中定位器械尖端；由此产生的运动学特征和动作统计驱动对五个符合NOMAT标准的性能维度进行有监督分类。第三，一个基于大语言模型（LLM）的坚实基础利用这些结构化输出，通过统一界面回答用户关于当前场景、动作、运动及预测性能的问题。在一项双中心研究中，17名参与者完成了72次手术流程，包含576次缝合操作。动作分割模块达到87.66%的准确率和82.86%的F1值，经工作流感知优化后提升至93.62%和88.32%。五个性能分类器平均准确率为76.0%，科恩κ系数在0.63至0.93之间。尽管语言界面及其教育效益需要前瞻性评估，但这些结果为专家监督平台奠定了技术基础——该平台可缩短审阅时间、揭示性能评估背后的证据，并支持可扩展的形成性显微外科训练。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents an integrated video-AI platform for microanastomosis training that combines transformer-based action segmentation, object tracking, performance classification, and a grounded LLM interface, achieving high accuracy in a two-site study.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种集成视频-人工智能平台，用于微血管吻合训练，结合了基于变换器的动作分割、物体跟踪、性能分类和接地大语言模型界面，在两地点研究中实现了高精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.06380v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yan Meng, Daniel A. Donoho</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Uni-Light: An Ultra-Lightweight Framework via Uncertainty-Aware Knowledge Distillation for Brain Tumour Segmentation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Accurate 3D brain tumour segmentation from multi-modal Magnetic Resonance Imaging (MRI) is essential for clinical diagnosis and treatment planning. Existing brain tumour segmentation methods often suffer from heavy computational demands, while current lightweight architectures frequently lack the capacity to maintain segmentation fidelity in complex tumour regions. To address these issues, we propose a novel ultra-lightweight framework (Uni-Light) that achieves high-fidelity segmentation with substantially reduced computational overhead. It combines multi-scale convolutions with an uncertainty-aware knowledge distillation scheme that directs the student model toward hard-to-classify regions, complemented by a Signed Distance Field boundary loss for geometric constraints. Experimental results on BraTS2023-GLI and MSD-BTS datasets demonstrate that Uni-Light reduces parameters by 97.56%, floating-point operations (FLOPs) by 73.03%, and inference memory footprint by 81.58%, while surpassing the state-of-the-art model by an average of 1.47% in Dice score, offering a highly competitive trade-off between segmentation accuracy and computational efficiency in resource-constrained clinical settings. This work also advances data engineering for medical imaging by demonstrating that teacher model uncertainty can be exploited as a data-driven supervisory signal, re-prioritising the training data distribution without requiring additional annotation.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 利用多模态磁共振成像（MRI）实现精确的三维脑肿瘤分割对于临床诊断和治疗规划至关重要。现有脑肿瘤分割方法通常面临计算负担沉重的问题，而当前的轻量级架构往往难以在复杂肿瘤区域保持分割保真度。为解决这些问题，我们提出了一种新型超轻量级框架（Uni-Light），该框架在显著降低计算开销的同时实现了高保真度分割。它结合了多尺度卷积与不确定性感知知识蒸馏方案，引导学生模型聚焦于难分类区域，并辅以符号距离场边界损失以施加几何约束。在BraTS2023-GLI和MSD-BTS数据集上的实验结果表明，Uni-Light将参数量减少了97.56%，浮点运算次数（FLOPs）减少了73.03%，推理内存占用减少了81.58%，同时Dice分数平均超过当前最优模型1.47%，在资源受限的临床环境中为分割精度与计算效率之间提供了极具竞争力的平衡。本研究还推动了医学影像数据工程的发展，证明了教师模型的不确定性可作为数据驱动的监督信号，在无需额外标注的情况下重新调整训练数据分布。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Proposes Uni-Light, an ultra-lightweight 3D brain tumour segmentation framework that uses uncertainty-aware knowledge distillation and a signed distance field boundary loss to achieve high accuracy with 97.56% fewer parameters and 73.03% fewer FLOPs, outperforming SOTA on BraTS2023 and MSD-BTS datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出了Uni-Light，一种超轻量级3D脑肿瘤分割框架，采用不确定性感知知识蒸馏和符号距离场边界损失，在参数减少97.56%、FLOPs减少73.03%的情况下仍取得更高精度，在BraTS2023和MSD-BTS数据集上超越现有最优方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.06729v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Libing Kuang, Soren Salehi, Ziling Wu, Ahmad P. Tafti, Armaghan Moemeni</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Beyond the Flag: Clinical Framing Closes the Moderation Gap in Suicide Risk Measurement</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Moderation APIs are built to flag policy-violating content, not to measure graded clinical risk. But a platform's duty does not end at detection: the response owed to passive distress differs sharply from the response owed to active planning with means access, and emerging regulation (e.g., California Senate Bill 243) is turning that distinction into a compliance requirement. We therefore ask how well deployed safety signals recover clinically meaningful severity. We release a benchmark of 516 r/SuicideWatch posts rated by a licensed psychiatrist on a four-level ordinal schema (Indicator, Ideation, Behavior, Attempt) grounded in the Columbia Suicide Severity Rating Scale, and evaluate moderation APIs, prompted LLMs, and supervised baselines under seven ordinal-aware metrics. Three findings. Vendor moderation APIs separate low- from high-severity posts well (0.860 high-risk F1) but measure severity poorly (0.395 macro F1), systematically over-predicting the most severe category. Clinically grounded zero-shot prompting recovers much of that gap (0.562 macro F1), and expert-authored framing (not fine-tuning, added reasoning, or naive multi-agent aggregation) is the effective lever. The value of reasoning depends on register: it hurts on long, noisy Reddit posts and helps on short, clinician-authored statements. We argue graded severity, not a binary flag, is what a proportionate duty of care requires, and release our evaluation framework to support that measurement.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 审核API旨在标记违反政策的内容，而非测量分级临床风险。但平台的责任并非止于检测：对被动痛苦应有的回应与对具备手段获取的主动计划应有的回应截然不同，而新兴法规（例如加州参议院第243号法案）正将这一区别转化为合规要求。因此，我们探究已部署的安全信号在多大程度上能还原具有临床意义的严重程度。我们发布了一个基准数据集，包含516篇r/SuicideWatch版块的帖子，由执业精神病学家基于哥伦比亚自杀严重程度评定量表，按照四级有序分类（指标、意念、行为、尝试）进行评级，并在七种考虑有序性的指标下评估了审核API、提示式大语言模型以及有监督基线方法。三项发现。供应商审核API能很好地区分低严重性和高严重性帖子（高风险F1得分为0.860），但在测量严重程度方面表现不佳（宏F1得分为0.395），且系统性地过度预测最严重的类别。基于临床知识的零样本提示弥补了很大一部分差距（宏F1得分为0.562），而专家撰写的框架（非微调、附加推理或简单的多智能体聚合）是有效的杠杆。推理的价值取决于语域：在冗长、嘈杂的Reddit帖子上它反而有害，而在简短、临床医生撰写的陈述上则有所帮助。我们认为，相称的注意义务要求的是分级严重程度，而非二元标记，并发布我们的评估框架以支持该测量。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper evaluates how well existing moderation APIs and LLMs measure graded clinical suicide severity (from indicator to attempt) on a new benchmark of Reddit posts, finding that clinically grounded zero-shot prompting, not fine-tuning, significantly improves severity measurement over binary flags.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文评估了现有审核API和LLM在衡量临床自杀严重程度（从指标到尝试）方面的能力，使用新的Reddit帖子基准，发现临床导向的零样本提示（而非微调）能显著改善严重程度测量，优于二元标记。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.06263v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Shreyas Krishnan, Gun Ahn, Jungjin Kim</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-09-09 07:35:09 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
