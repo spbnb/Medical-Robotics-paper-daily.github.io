@@ -1,0 +1,272 @@
+[
+    {
+        "title": "From Few-Shot Segmentation to Clinician-in-the-Loop Medical Image Analysis",
+        "summary": "Few-shot medical image segmentation (FSMIS) seeks to delineate unseen structures from a small support set, but its standard formulation fixes task-defining evidence before inference. This assumption is fragile under acquisition shift, atypical pathology, ambiguous boundaries, and poor image quality. Adding clinician interaction and rapid adaptation is not sufficient: the binding constraint is deciding when asking or changing is warranted. We therefore reframe FSMIS as a three-layer sequential decision problem. First, decidable self-assessment separates errors that a bounded intervention can repair from those that no admissible intervention can reach. We formalize this distinction through a correctable set defined by the update operator and remaining interaction budget. Second, selective interaction allocates a distinct expert-attention budget by response-conditioned net expected value of information, yielding explicit accept, query, and defer actions. Third, bounded adaptation emphasizes reversibility and independent safety reassessment rather than speed. A complementary cross-case memory stores reproducible correction priors over failure modes instead of disease-specific mask priors. This structure links sparse support representation, cross-domain robustness, multi-level risk estimation, clinician feedback, and governed experience transfer. We state six hypotheses with an explicit dependency order and propose a minimal pilot that can falsify the foundational self-assessment claim before a clinician study. The central claim is not that interaction resolves domain shift, but that scarce expert attention should be used only when a bounded intervention is expected to reach a clinically better outcome.",
+        "url": "http://arxiv.org/abs/2609.10001v2",
+        "published_date": "2026-09-09T10:26:51+00:00",
+        "updated_date": "2026-09-10T09:08:45+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Yazhou Zhu"
+        ],
+        "tldr": "This paper reframes few-shot medical image segmentation as a three-layer sequential decision problem that incorporates clinician interaction, self-assessment of correctability, selective expert attention allocation, and bounded adaptation with cross-case memory, aiming to use scarce expert attention only when a bounded intervention is expected to improve clinical outcomes.",
+        "tldr_zh": "本文将少样本医学图像分割重新构建为一个三层顺序决策问题，融入临床医生交互、可纠正性自我评估、选择性专家注意力分配以及带有跨病例记忆的有界适应，旨在仅在预期有界干预能改善临床结果时使用稀缺的专家注意力。",
+        "relevance_score": 7,
+        "novelty_claim_score": 8,
+        "clarity_score": 7,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "少样本医学图像分割旨在从少量支持集中勾勒出未见结构，但其标准范式在推理前便固定了任务定义依据。这一假设在采集条件变化、非典型病理、边界模糊及图像质量低劣等情况下极为脆弱。引入临床医生交互与快速自适应仍不足以解决问题：根本约束在于判断何时需要询问或改变。为此，我们将少样本医学图像分割重构为三层序贯决策问题。首先，可判定自我评估将有限干预可修正的错误与任何可行干预均无法触及的错误区分开来。我们通过更新算子与剩余交互预算定义的可纠正集形式化这一区分标准。其次，选择性交互依据响应条件化的信息净期望值分配专属专家注意力预算，从而产生明确的接受、询问与暂缓操作。第三，有界适应性强调可逆性与独立安全重评估而非速度。互补的跨病例记忆机制存储基于失败模式的可复现修正先验，而非疾病特异性掩膜先验。该结构串联起稀疏支持表征、跨域鲁棒性、多层级风险估计、临床医生反馈及受控经验迁移。我们提出六项具有显式依赖顺序的假设，并设计可在临床研究前证伪基础自我评估主张的最小化预实验。核心主张并非交互能解决域偏移，而在于仅当有限干预预期能达成更优临床结局时，才应使用稀缺的专家注意力。"
+    },
+    {
+        "title": "Learning to Adapt and Calibrate: Score Distribution Alignment for Few-Shot Uncertainty Prediction in Medical VLMs",
+        "summary": "Uncertainty estimation for medical vision--language models (VLMs) using conformal prediction has gained increasing attention due to its distribution-free coverage guarantees. However, standard conformal prediction relies on exchangeability between calibration and test data and typically requires a sufficiently large calibration set to obtain reliable coverage. These assumptions are difficult to satisfy in few-shot transfer settings, where only a small labeled support set is available to adapt a pretrained VLM to a new medical task, while an unlabeled query set is used for evaluation. Supervised fine-tuning on the support set changes the model parameters and consequently shifts the nonconformity score distribution, breaking exchangeability between calibration and query samples and leading to unreliable coverage under distribution shift. Existing transductive conformal adaptation methods often preserve validity by avoiding supervised updates. While this helps maintain conformal assumptions, it underutilizes the scarce labeled support data and limits task adaptation, which is the primary objective in few-shot learning. In this setting, conformal prediction should serve as an uncertainty estimation layer that supports the adapted model, rather than preventing adaptation itself. To this end, we propose AlignCP, a framework that reconciles supervised few-shot adaptation with conformal uncertainty estimation under non-exchangeability. AlignCP learns a reweighted calibration distribution that reduces the score-level discrepancy between the labeled support set and the unlabeled query set. By aligning the one-dimensional nonconformity score distributions, AlignCP aims to close the coverage gap induced by adaptation without requiring query labels.",
+        "url": "http://arxiv.org/abs/2609.10333v1",
+        "published_date": "2026-09-09T15:32:01+00:00",
+        "updated_date": "2026-09-09T15:32:01+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Xuan Cuong Ngo",
+            "Ngan Le"
+        ],
+        "tldr": "Proposes AlignCP, a framework that reconciles supervised few-shot adaptation with conformal uncertainty estimation in medical VLMs by learning a reweighted calibration distribution to align nonconformity score distributions between support and query sets, addressing exchangeability violations.",
+        "tldr_zh": "提出AlignCP框架，通过学习重加权校准分布来对齐支持集和查询集的非一致性得分分布，从而在医学视觉-语言模型（VLM）中兼顾监督式小样本适应与共形不确定性估计，解决可交换性被破坏的问题。",
+        "relevance_score": 6,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：  \n利用共形预测进行医学视觉-语言模型（VLM）的不确定性估计因其无分布假设的覆盖保证而日益受到关注。然而，标准共形预测依赖于校准数据与测试数据之间的可交换性，且通常需要足够大的校准集才能获得可靠的覆盖。在少样本迁移场景中，这些假设难以满足：此时仅有一个小型标注支持集可用于将预训练VLM适配至新的医学任务，而一个无标注查询集用于评估。对支持集进行有监督微调会改变模型参数，进而导致非一致性分数分布发生偏移，破坏了校准样本与查询样本之间的可交换性，并在分布偏移下产生不可靠的覆盖。现有直推式共形自适应方法通常通过避免有监督更新来保持有效性。这种做法虽有助于维持共形假设，但未能充分利用稀缺的标注支持数据，并限制了任务适配——而这正是少样本学习的主要目标。在此设定下，共形预测应作为支持适配模型的不确定性估计层，而非阻碍适配本身。为此，我们提出AlignCP框架，该框架在非可交换性条件下调和了有监督少样本适配与共形不确定性估计。AlignCP学习一个重加权校准分布，以减少标注支持集与无标注查询集之间的分数级差异。通过对齐一维非一致性分数分布，AlignCP旨在无需查询标签的情况下缩小由适配导致的覆盖缺口。"
+    },
+    {
+        "title": "Auditable Emergency Triage for Maternal and Newborn Care in India",
+        "summary": "At Noora Health, our nurses answer more than 50,000 medical queries per month on our WhatsApp-based service that provides caregivers with on-demand support. Their most time-critical task is emergency triage: deciding which queries need immediate in-person attention. To support them, we built a system that uses a large language model (LLM) to classify whether a message is an emergency and provide a rationale for interpretability. But the system was opaque: analyzing mistakes meant reading reasoning chains for each message, which is infeasible at our scale. Prompt changes meant re-running a full evaluation to prevent regressions, which was both costly and operationally challenging. Clinicians follow a decision tree to make this call, but it was never documented or passed to the model, which relied on a flat list of danger signs. To address these issues, we decomposed triage into two steps: an LLM extracts canonical symptoms and patient context from the query using a clinician-authored vocabulary, and a deterministic rule engine captures the scenarios that indicate an emergency. We show that the new system raised recall from 0.565 to 0.810 and F1 from 0.606 to 0.702, with structured rules driving most of the accuracy gains while the decomposition provides auditability: clinical experts can inspect each stage of the new system to see whether the query was mistranslated, symptoms were incorrectly extracted, patient context was wrongly inferred, or the necessary rules were missing. They can add new rules independently without causing regressions and avoid running costly evaluations. Since deployment, the new system has triaged 152,421 patient queries and flagged 28,535 (18.7%) as emergencies. The over-escalation rate has been 17.8%, without any increase in missed emergencies. Clinicians have also added 48 new rules since deployment, evidence of the faster correction loop we set out to build.",
+        "url": "http://arxiv.org/abs/2609.09356v1",
+        "published_date": "2026-09-08T18:45:01+00:00",
+        "updated_date": "2026-09-08T18:45:01+00:00",
+        "categories": [
+            "cs.CL",
+            "cs.AI",
+            "cs.CY"
+        ],
+        "authors": [
+            "Shobhit Jagga",
+            "Aman Dalmia",
+            "Niharika Priyadarshini",
+            "Neelima Devadas",
+            "Amrita K Prasen",
+            "Nikhil Nalin",
+            "Santhosh SJ",
+            "Sreeram Nurani Ramasubramanian",
+            "Muhammed Afeer K",
+            "Anubhav Arora"
+        ],
+        "tldr": "The paper presents a hybrid system combining LLM-based symptom extraction with a deterministic rule engine for auditable emergency triage of maternal and newborn care queries, achieving improved recall and F1 while enabling clinicians to inspect and add rules independently.",
+        "tldr_zh": "本文提出了一种结合大语言模型症状提取与确定性规则引擎的混合系统，用于母婴护理紧急分诊的可审计性，提升了召回率和F1分数，并允许临床医生独立检查和添加规则。",
+        "relevance_score": 5,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6,
+        "summary_zh": "在Noora Health，我们的护理人员每月通过基于WhatsApp的服务处理超过5万条医疗咨询，为照护者提供即时支持。其中最具时效性的任务是紧急分诊：判断哪些咨询需要立即获得面对面诊疗。为辅助这一工作，我们构建了一个系统，利用大语言模型（LLM）对信息是否为紧急情况进行分类，并提供可解释性依据。但该系统存在不透明问题：分析错误意味着需要阅读每条信息的推理链，这在我们的规模下不可行；修改提示词则需要重新运行完整评估以防止性能回退，既成本高昂又具有操作挑战。临床医生遵循决策树进行判断，但该决策树从未被记录或传递给模型，模型仅依赖一份扁平的警示症状清单。为解决这些问题，我们将分诊拆解为两个步骤：LLM按照临床医生编写的词汇表，从咨询中提取标准症状和患者背景信息；随后由确定性规则引擎捕捉指示紧急情况的场景。研究表明，新系统将召回率从0.565提升至0.810，F1分数从0.606提升至0.702，其中结构化规则带来了大部分准确率提升，而分解架构提供了可审计性：临床专家可检查新系统的每个阶段，以确定咨询是否被错误翻译、症状提取错误、患者背景推断有误或缺少必要规则。他们可独立添加新规则而不会引发回退，并避免运行昂贵评估。自部署以来，新系统已完成152,421条患者咨询的分诊，标记出28,535条（18.7%）为紧急情况。过度升级率为17.8%，且未出现任何遗漏紧急情况。自部署后，临床医生已新增48条规则，这证明了我们旨在构建的更快修正循环已实现。"
+    },
+    {
+        "title": "3rd Place Solution to Human Motion Challenges in Real-World and Clinical Settings (MoCha) @ECCV2026: Language-Aligned Motion Representations for Domain-Generalizable UPDRS-Gait Severity Estimation",
+        "summary": "In this work, we introduce language-aligned motion representations for domain-generalizable UPDRS-Gait severity estimation, aiming to learn semantically structured motion features that generalize across heterogeneous clinical domains. We first learn motion representations using a Bi-GRU backbone that captures the temporal dynamics of SMPL sequences. Prior to model training, motion captions are generated offline using Qwen2.5-7B-Instruct. The backbone is then trained with both classification and text-alignment objectives to learn discriminative and semantically structured motion representations while accounting for the class imbalance present in the training data. We subsequently adapt the learned backbone independently to each source domain so that the model can capture domain-specific motion characteristics. The resulting source-specific models are then merged at the parameter level to consolidate complementary knowledge across source domains into a single domain-generalized model. To further mitigate class imbalance, we perform GPT-5.5-based pseudo labeling, and our final merged models for each site do not use any class-prior correction during inference. The resulting model is evaluated under the unseen-site setting of the MoCha Challenge, using Macro F1 as the primary evaluation metric. Our method achieves a macro-F1 of 0.57 on the hidden test set with only 637K active parameters at inference, ranking 3rd among 58 leaderboard entries in the MoCha 2026 Challenge. The challenge attracted 1,669 submissions from 112 participants and offered monetary prizes sponsored by Machine Medicine Technologies.",
+        "url": "http://arxiv.org/abs/2609.10187v2",
+        "published_date": "2026-09-09T13:54:46+00:00",
+        "updated_date": "2026-09-10T05:44:19+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Soojie Kim",
+            "Muhammad Munsif",
+            "Minkyung Kim",
+            "Seungryul Baek"
+        ],
+        "tldr": "This paper presents a domain-generalizable UPDRS-Gait severity estimation method using Bi-GRU and language-aligned motion representations, with offline caption generation, multi-objective training, source-specific adaptation, and parameter merging, achieving 3rd place in the MoCha 2026 Challenge with only 637K parameters.",
+        "tldr_zh": "本文提出了一种跨域泛化的UPDRS步态严重程度估计方法，利用Bi-GRU和语言对齐的运动表示，结合离线字幕生成、多目标训练、源域适配和参数合并，仅用637K参数在MoCha 2026挑战赛中获得第三名。",
+        "relevance_score": 5,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6,
+        "summary_zh": "摘要：  \n本文提出了一种面向领域泛化的UPDRS步态严重程度估计的语言对齐运动表示方法，旨在学习具有语义结构的运动特征，使其能够泛化至异构临床领域。我们首先利用双门控循环单元（Bi-GRU）主干网络，从SMPL序列中捕获时间动态信息以学习运动表示。在模型训练前，使用Qwen2.5-7B-Instruct离线生成运动描述文本。随后，通过分类目标与文本对齐目标联合训练主干网络，使其学习具有判别性和语义结构的运动表示，同时处理训练数据中的类别不平衡问题。接着，我们将训练好的主干网络独立适配至每个源领域，使模型能够捕获领域特定的运动特征。最终，在参数层面融合各源领域模型，将跨领域的互补知识整合为单一领域泛化模型。为进一步缓解类别不平衡，我们采用基于GPT-5.5的伪标签方法；最终针对各站点生成的融合模型在推理时不使用任何类别先验校正。该模型在MoCha挑战赛的未见站点设置下进行评估，以宏F1作为主要评价指标。我们的方法在隐式测试集上取得了0.57的宏F1分数，推理时仅有637K活跃参数，在MoCha 2026挑战赛排行榜的58支参赛队伍中位列第三。该挑战赛吸引了112名参赛者提交了1669份方案，并由Machine Medicine Technologies提供奖金赞助。"
+    },
+    {
+        "title": "Morphological Decoupling-Based Skeletal Classification for Clinical Assessment of Malocclusion",
+        "summary": "Malocclusion skeletal grading is a fundamental task in orthodontics, critical for diagnosis and treatment planning. Traditionally, cone-beam computed tomography (CBCT) is used for visual measurement, and the reconstructed lateral cephalograms are handed over to expert dentists for diagnosis. However, manual review is time-consuming, labor-intensive, and subject to inter-operator variability. Therefore, an automatic CBCT-based system is needed for reliable malocclusion skeletal grading. In this case, we develop TeethGNN, a novel graph-based framework designed to combine CBCT image features with morphological information for accurate and efficient malocclusion grading. TeethGNN utilizes a decoupled learnable decoder to directly predict key morphological indicators from CBCT images, eliminating the need for manual measurements. These morphological features are then fused with image features using a graph neural network (GNN), which effectively models the relationships between the modalities. To further enhance robustness and calibration, we introduce a collaborative calibration strategy. This strategy combines multi-scale graph adversarial perturbation for explicit calibration and nonlinear topological graph calibration for implicit confidence adjustment. Extensive experiments and ablation studies on our collected clinical dataset demonstrate that our malocclusion measurement system achieves 77.08\\% in accuracy and 89.61\\% in AUC, outperforming the compared state-of-the-art methods. These results validate the effectiveness of graph-based multimodal fusion and collaborative calibration in improving malocclusion grading performance. Our system shows strong potential for advancing computer-aided orthodontic diagnosis, providing an accurate and reliable solution for vision-based clinical measurement and diagnosis.",
+        "url": "http://arxiv.org/abs/2609.09801v1",
+        "published_date": "2026-09-09T06:52:56+00:00",
+        "updated_date": "2026-09-09T06:52:56+00:00",
+        "categories": [
+            "eess.IV",
+            "cs.CV"
+        ],
+        "authors": [
+            "Zhichun Jin",
+            "Zhicheng He",
+            "Hao Xu",
+            "Dongyang Li",
+            "Lin Wang",
+            "Hongliang Ren",
+            "Long Bai"
+        ],
+        "tldr": "TeethGNN is a graph-based framework that combines CBCT image features with morphological indicators via a decoupled decoder and collaborative calibration for automated malocclusion skeletal grading, achieving 77.08% accuracy and 89.61% AUC.",
+        "tldr_zh": "TeethGNN是一种基于图的框架，通过解耦解码器和协作校准策略，将CBCT图像特征与形态学指标相结合，实现自动化的错颌骨骼分级，准确率达77.08%，AUC达89.61%。",
+        "relevance_score": 3,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 4,
+        "summary_zh": "错颌骨骼分级是正畸学中的基础任务，对诊断和治疗规划至关重要。传统上，锥形束计算机断层扫描（CBCT）用于视觉测量，而重建的侧位头影图则交由专业牙医进行诊断。然而，人工审阅耗时费力且存在操作者间差异。因此，需要一种基于CBCT的自动化系统以实现可靠的错颌骨骼分级。为此，我们开发了TeethGNN——一种新颖的基于图的框架，旨在结合CBCT图像特征与形态学信息，实现准确高效的错颌分级。TeethGNN利用解耦的可学习解码器，直接从CBCT图像中预测关键形态学指标，无需人工测量。随后，这些形态学特征通过图神经网络（GNN）与图像特征融合，有效建模了模态间的关系。为进一步增强鲁棒性和校准性，我们引入了一种协作校准策略。该策略结合了多尺度图对抗扰动用于显式校准，以及非线性拓扑图校准用于隐式置信度调整。在我们收集的临床数据集上进行的大量实验和消融研究表明，我们的错颌测量系统在准确率上达到77.08%，AUC达到89.61%，优于对比的最先进方法。这些结果验证了基于图的多模态融合与协作校准在提升错颌分级性能方面的有效性。我们的系统在推进计算机辅助正畸诊断方面展现出巨大潜力，为基于视觉的临床测量和诊断提供了准确可靠的解决方案。"
+    },
+    {
+        "title": "Multi-Robot Scanner for Automated Full-Body Dermoscopic Imaging",
+        "summary": "This paper outlines the specifications and design approach used to construct a full body imaging scanner capable of capturing skin lesions at a dermatoscopic level using cameras mounted on the end-effectors of four UR10 manipulators. The system possesses a view-planning algorithm capable of appropriately selecting the best camera position to acquire images of moles, a high-level controller to allow the manipulators to work simultaneously and a collision-detector that halts the manipulators when they make contact with an object or a person. We evaluate the system through real-patient full-body scans, comparing acquired images against contact dermoscopy and an existing total-body photography system (Vectra) across clinically relevant lesion features, and quantify true optical resolving power using a USAF 1951 resolution target, yielding a smallest resolvable feature size of 22.1 microns for our scanner compared to 8.8 microns for contact dermoscopy. Results show the scanner consistently outperforms Vectra across most clinically relevant features and achieves comparable performance to contact dermoscopy for the majority of features assessed. By acquiring dermatoscopic-quality images automatically and without contact, and without requiring a separate manual dermoscopic examination, the scanner closes part of the gap between total-body photography and handheld dermoscopy, suggesting potential for future integration into screening workflows.",
+        "url": "http://arxiv.org/abs/2609.10169v2",
+        "published_date": "2026-09-09T13:41:37+00:00",
+        "updated_date": "2026-09-10T13:04:16+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Valerio Franchi",
+            "Rafael Garcia",
+            "Nuno Gracias",
+            "Ricard Campos",
+            "Josep Quintana",
+            "Sandra González-Villà",
+            "Mark Ventura",
+            "Nuria Ferrera",
+            "Clément Lenoir",
+            "Josep Malvehy"
+        ],
+        "tldr": "This paper presents a multi-robot scanner system using four UR10 manipulators with cameras for automated full-body dermoscopic imaging, achieving near-contact dermoscopy quality without physical contact.",
+        "tldr_zh": "本文介绍了一种使用四台UR10机械臂搭载摄像头的多机器人扫描系统，用于自动全身皮肤镜成像，无需接触即可达到接近接触式皮肤镜的图像质量。",
+        "relevance_score": 2,
+        "novelty_claim_score": 5,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 3,
+        "summary_zh": "本文介绍了用于构建全身成像扫描仪的规格与设计方法，该扫描仪能够通过安装在四台UR10机械臂末端执行器上的摄像头，以皮肤镜级别捕获皮肤病变图像。该系统配备了一种视角规划算法，可适当选择最佳摄像头位置以获取痣的图像；一个高层控制器，使机械臂能够协同工作；以及一个碰撞检测器，在机械臂接触物体或人员时将其停止。我们通过真实患者的全身扫描对系统进行了评估，将获取的图像与接触式皮肤镜以及现有全身摄影系统（Vectra）在临床相关病变特征上进行比较，并使用USAF 1951分辨率靶标量化了真实光学分辨率，结果显示我们的扫描仪最小可分辨特征尺寸为22.1微米，而接触式皮肤镜为8.8微米。结果表明，该扫描仪在大多数临床相关特征上始终优于Vectra，并在评估的大多数特征上达到了与接触式皮肤镜相当的性能。通过自动、非接触地获取皮肤镜质量图像，且无需单独的手动皮肤镜检查，该扫描仪填补了全身摄影与手持皮肤镜之间的部分差距，显示出未来整合到筛查工作流程中的潜力。"
+    },
+    {
+        "title": "OmniMed-FL: A Robust Multimodal Federated Learning Framework for Clinical Diagnosis",
+        "summary": "Simultaneous assessment of medical imaging and patient records is often required in clinical diagnosis. However, standard machine learning algorithms cannot analyze these data types together. Meanwhile, compliance with HIPAA and GDPR can constrain centralized aggregation of sensitive patient data. This leaves a crucial void of secure fusion of visual and textual context across distant networks. Thus, we present OmniMed-FL, a controlled systems study of multimodal federated learning for five-class clinical condition classification (Normal, Pneumonia, COVID-19, Pleural Effusion, Cardiomegaly). Our proxy corpus pairs 3,000 public chest radiographs with 3,000 class-conditioned synthetic notes, matched by class, not by patient. The framework benchmarks eight fusion strategies, three initializations, four missing-text imputation rules, and matched federated baselines under non-IID Dirichlet partitioning across 3 to 20 hospital clients. As all notes are synthetic and pairing is not patient-level, these are descriptive proxy comparisons, not estimates of diagnostic performance or deployment readiness. Within those limits with clients ($K=5$) and severe skew ($α=0.1$), local-only training achieves a macro-F1 score of 0.297, FedAvg achieves $0.662\\pm0.074$, FedProx $0.737\\pm0.085$, a matched FedMME-style one-shot ensemble $0.647\\pm0.080$, and our SCAFFOLD-AdamW adaptation $0.070\\pm0.015$, the 0.075 FedProx-FedAvg gap falling inside the wider of the two two-seed standard deviations. Over a $4\\times3$ grid, label skew costs up to 0.27 F1 whereas a near-sevenfold client increase costs at most 0.10, while bidirectional volume grows linearly to 183.5 GiB at $K=20$. Multimodal fusion leads on both corpora, scoring 0.956 against 0.934 for text and 0.664 for images on the synthetic corpus and 0.906 against 0.880 and 0.737 on the radiograph corpus, for $2.3\\times$ the model state of text alone.",
+        "url": "http://arxiv.org/abs/2609.10364v1",
+        "published_date": "2026-09-09T15:56:26+00:00",
+        "updated_date": "2026-09-09T15:56:26+00:00",
+        "categories": [
+            "cs.LG",
+            "cs.AI"
+        ],
+        "authors": [
+            "Ayush Debnath",
+            "Ruelia Saha",
+            "Sudip Misra"
+        ],
+        "tldr": "OmniMed-FL is a benchmark study of multimodal federated learning for clinical diagnosis using chest radiographs and synthetic notes, evaluating eight fusion strategies and several federated algorithms under non-IID data across multiple hospital clients. The results show that multimodal fusion outperforms unimodal approaches, but the use of synthetic data limits real-world applicability.",
+        "tldr_zh": "OmniMed-FL 是一项针对临床诊断的多模态联邦学习基准研究，使用胸部X光片和合成笔记，在非独立同分布数据下评估了八种融合策略和多种联邦学习算法。结果表明多模态融合优于单模态方法，但合成数据的使用限制了其实际应用。",
+        "relevance_score": 2,
+        "novelty_claim_score": 5,
+        "clarity_score": 8,
+        "potential_impact_score": 4,
+        "overall_priority_score": 3,
+        "summary_zh": "摘要：  \n临床诊断通常需要同时评估医学影像和患者病历记录。然而，标准机器学习算法无法联合分析这些数据类型。同时，遵守HIPAA和GDPR法规会限制敏感患者数据的集中聚合。这导致在跨远程网络环境下，视觉与文本上下文的融合存在关键空白。为此，我们提出OmniMed-FL：一个针对五类临床病症分类（正常、肺炎、COVID-19、胸腔积液、心脏增大）的多模态联邦学习受控系统研究。我们的代理语料库将3000张公开胸部X光片与3000份基于类别条件生成的合成病历记录配对，配对依据为类别而非患者个体。该框架在3至20个医院客户端的非独立同分布狄利克雷分区下，对八种融合策略、三种初始化方法、四种缺失文本插补规则以及匹配的联邦基线进行了基准测试。由于所有病历记录均为合成数据且配对不基于患者个体，这些描述性代理比较并非针对诊断性能或部署就绪性的评估。在此限定条件下（客户端数K=5，严重偏斜α=0.1），仅使用本地训练获得的宏F1分数为0.297，FedAvg为0.662±0.074，FedProx为0.737±0.085，匹配的FedMME式单次集成方法为0.647±0.080，而我们的SCAFFOLD-AdamW自适应方法为0.070±0.015。FedProx与FedAvg之间0.075的差距落在两者双随机种子标准差中较宽的范围内。在4×3网格实验中，标签偏斜最多造成0.27的F1损失，而客户端数量增加近七倍最多造成0.10的损失，同时双向通信量随K=20线性增长至183.5 GiB。多模态融合在两个语料库上均表现最优：在合成语料库上得分为0.956（对比文本模态0.934和图像模态0.664），在X光片语料库上得分为0.906（对比0.880和0.737），模型状态量为纯文本模态的2.3倍。"
+    },
+    {
+        "title": "SA-Profile: Automated Sulcus Angle Profiling from Super-Resolution MRI",
+        "summary": "Trochlear dysplasia (TD) is an abnormality of the femoral trochlea associated with anterior knee pain and patellar instability. The sulcus angle (SA) is used to assess trochlear morphology, but it is typically measured on a single axial MR slice with no clear guidance on which to select, making it sensitive to slice selection and landmark placement. We propose an automatic framework for continuous SA profiling from super-resolved MR volumes. Clinically acquired axial, coronal, and sagittal MR scans are combined using implicit neural representations to reconstruct a high-resolution volume. SA measurements are computed across the trochlear region using two landmark detection U-Net models. The approach was evaluated on the public fastMRI dataset and a small in-house cohort of patients with TD. Compared with conventional manual single-slice SA measurements, the proposed automated method yielded a mean absolute error of 11.6$^\\circ$ while providing continuous characterization of trochlear morphology. Population-level analysis demonstrated distinct mean SA profiles between the public cohort and the in-house TD cohort, highlighting the potential of profile-based assessment to characterize TD. By reducing reliance on a single manually selected axial slice, the proposed framework extends conventional SA assessment to a continuous profile-based description of trochlear morphology without additional imaging, while remaining conceptually linked to current clinical assessment. Further validation is required. The code is available: https://github.com/wehrlimi/SA_Profile.",
+        "url": "http://arxiv.org/abs/2609.10125v1",
+        "published_date": "2026-09-09T13:01:59+00:00",
+        "updated_date": "2026-09-09T13:01:59+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.AI"
+        ],
+        "authors": [
+            "Michael Wehrli",
+            "Leo Widmer",
+            "Edwin Li",
+            "Noel Fiechter",
+            "Lorenzo Pettinari",
+            "Sidaty El Hadramy",
+            "Carol C. Hasler",
+            "Philippe C. Cattin"
+        ],
+        "tldr": "This paper proposes an automated framework for continuous sulcus angle profiling from super-resolved MRI volumes using implicit neural representations and U-Net landmark detection, aiming to reduce reliance on single-slice manual measurement for trochlear dysplasia assessment.",
+        "tldr_zh": "本文提出了一种自动化的连续滑车沟角测量框架，利用隐式神经表示和U-Net landmark检测从超分辨率MRI体积中获取连续轮廓，旨在减少对单层手动测量的依赖，用于评估滑车发育不良。",
+        "relevance_score": 2,
+        "novelty_claim_score": 5,
+        "clarity_score": 7,
+        "potential_impact_score": 5,
+        "overall_priority_score": 3,
+        "summary_zh": "滑车发育不良（TD）是股骨滑车的一种异常，与前膝痛和髌骨不稳定相关。滑车沟角（SA）用于评估滑车形态，但通常是在单个轴向MR切片上测量，而选择哪个切片缺乏明确指导，因此对切片选择和标志点放置敏感。我们提出了一种自动框架，用于从超分辨率MR体积中连续生成SA轮廓。通过隐式神经表示，将临床采集的轴向、冠状面和矢状面MR扫描联合重建为高分辨率体积。使用两个标志点检测U-Net模型计算滑车区域的SA测量值。该方法在公开的fastMRI数据集和一个小型内部TD患者队列上进行了评估。与传统的单切片SA手动测量相比，所提出的自动方法平均绝对误差为11.6°，同时提供了滑车形态的连续表征。人群水平分析显示，公开队列与内部TD队列的平均SA轮廓存在显著差异，突显了基于轮廓的评估在表征TD方面的潜力。通过减少对单个手动选择的轴向切片的依赖，所提出的框架将传统的SA评估扩展为基于连续轮廓的滑车形态描述，且无需额外成像，同时在概念上与现行临床评估保持关联。尚需进一步验证。代码已公开：https://github.com/wehrlimi/SA_Profile"
+    },
+    {
+        "title": "Emergency Department Revisit Quality Review Screening: Exploring Human Decision-Making and Artificial Intelligence Support",
+        "summary": "Background: Emergency Department (ED) return visits are commonly reviewed for quality assurance, but are often limited (e.g., to revisits within 48-72 hours) to increase actionable finding yield while minimizing chart review burden. Those limitations may lead to missed quality improvement opportunities.\n  Methods: We conducted an exploratory, retrospective study of randomly selected ED visits to a multihospital health system having an ED revisit within 1-14 days to the same health system. Given only each visit's primary diagnosis, raters (2-3 clinicians and GPT-4 large language model [LLM]) assessed characteristics of the diagnosis pairs, including the \"target\": whether a pair warranted further assessment. Informed by rater response analyses, an algorithm leveraging an LLM-populated knowledge graph (\"KGA\") was created to automatically screen for potentially concerning pairs, then preliminarily assessed.\n  Results: 99 diagnosis pairs were included. GPT-4 responses poorly correlated to clinician raters, rating nearly all (94%) pairs as warranting follow-up (4.4-13.3 times more than clinicians). However, prompt engineering was minimal. Among clinician raters, revisit medical gravity was consistently significantly associated with the target, while a differential diagnosis/complication composite was significantly associated on unadjusted, but not adjusted (though less powered) analysis. The KGA achieved 83-100% positive predictive value for at least one clinician rater determining further assessment was warranted based on the diagnosis pair.\n  Conclusion: These results can inform next steps for improving screening with LLMs like ChatGPT. Further research is warranted to validate this preliminary work's finding that the KGA may enable enhancing the scope and yield of screening without substantially increasing reviewer workload.",
+        "url": "http://arxiv.org/abs/2609.10421v1",
+        "published_date": "2026-09-09T16:37:35+00:00",
+        "updated_date": "2026-09-09T16:37:35+00:00",
+        "categories": [
+            "cs.CY",
+            "cs.AI"
+        ],
+        "authors": [
+            "Jonathan A. Handler",
+            "Marlene I. Robles-Granda",
+            "Jacob E. Mefford",
+            "Jeremy S. McGarvey",
+            "Gregory S. Podolej",
+            "Colleen J. Klein",
+            "Matthew D. Dalstrom",
+            "William F. Bond"
+        ],
+        "tldr": "This exploratory study evaluates the use of GPT-4 and a knowledge graph algorithm (KGA) to screen emergency department revisit diagnosis pairs for quality assurance, finding that GPT-4 over-flagged cases while KGA achieved high positive predictive value, suggesting potential for broader screening without increasing workload.",
+        "tldr_zh": "这项探索性研究评估了使用GPT-4和知识图谱算法（KGA）筛查急诊科回访诊断对的质量保证效果，发现GPT-4过度标记病例，而KGA达到了较高的阳性预测值，表明有可能在不增加工作量的情况下扩大筛查范围和效果。",
+        "relevance_score": 1,
+        "novelty_claim_score": 4,
+        "clarity_score": 7,
+        "potential_impact_score": 3,
+        "overall_priority_score": 2,
+        "summary_zh": "背景：急诊科（ED）回访通常被纳入质量保证审查，但往往受到限制（例如仅关注48-72小时内的回访），以提高可采取措施的检出率，同时尽量减少病历审查负担。这些局限性可能导致错失质量改进机会。  \n方法：我们开展了一项探索性、回顾性研究，随机选取来自多医院医疗系统中、在首次就诊后1-14天内返回同一医疗系统的急诊科就诊病例。仅基于每次就诊的主要诊断，评估者（2-3名临床医生及GPT-4大型语言模型[LLM]）对诊断配对的特征进行评价，包括一个\"目标\"：该配对是否需要进一步评估。根据评估者响应分析，我们构建了一种算法，该算法利用LLM填充的知识图谱（\"KGA\"），自动筛选可能令人担忧的配对，并进行初步评估。  \n结果：共纳入99个诊断配对。GPT-4的响应与临床医生评估者的相关性较差，其将几乎所有（94%）配对评为需要随访（是临床医生的4.4-13.3倍）。然而，提示工程的优化程度较低。在临床医生评估者中，回访的医学严重程度始终与目标显著相关，而鉴别诊断/并发症复合指标在未校正分析中显著相关，但在校正分析中不显著（尽管统计效能较低）。KGA对至少一名临床医生评估者认为基于诊断配对需进一步评估的情况，达到了83-100%的阳性预测值。  \n结论：这些结果可为后续改进使用如ChatGPT等LLM进行筛查提供参考。需要进一步研究以验证这一初步工作的发现，即KGA可能有助于在不显著增加审查者工作量的前提下，提高筛查的范围和检出率。"
+    },
+    {
+        "title": "Myocardial Strain Drift Correction in Deep Learning Based Ultrasound Tracking",
+        "summary": "Myocardial strain from echocardiography is a key biomarker for cardiac function. Recent deep learning methods show strong performance for myocardial motion tracking but often lack physiological constraints, leading to temporal drift across the cardiac cycle. Consequently, tracked points may not return to their relative initial positions at the end of each cardiac cycle, producing inaccurate strain estimates and even divergence in some cases. We propose a deep learning framework that compensates for drift during myocardial tracking. We extend a state-of-the-art echocardiographic tracking method (TAS-Net) with persistent memory tokens that share information across sliding windows over full cardiac cycles. A teacher-student fine-tuning strategy on real echocardiographic data then enforces physiologically consistent cyclic motion while preserving tracking accuracy. Experiments show reduced global and regional strain drift, improved agreement with clinical references, and better test-retest reproducibility, supporting more reliable myocardial strain estimation in clinical practice.",
+        "url": "http://arxiv.org/abs/2609.09577v1",
+        "published_date": "2026-09-09T00:58:08+00:00",
+        "updated_date": "2026-09-09T00:58:08+00:00",
+        "categories": [
+            "eess.IV",
+            "cs.AI",
+            "cs.CV"
+        ],
+        "authors": [
+            "Thierry Judge",
+            "Nicolas Duchateau",
+            "Andreas Østvik",
+            "Havard Dalen",
+            "Bjørnar Grenne",
+            "Pierre-Yves Courand",
+            "Lasse Lovstakken",
+            "Pierre-Marc Jodoin",
+            "Olivier Bernard"
+        ],
+        "tldr": "This paper proposes a deep learning framework for correcting temporal drift in myocardial strain tracking from echocardiography, using persistent memory tokens and a teacher-student fine-tuning strategy to enforce cyclic consistency.",
+        "tldr_zh": "该论文提出了一种深度学习框架，用于校正超声心动图中心肌应变跟踪的时间漂移，利用持久记忆令牌和教师-学生微调策略来强制循环一致性。",
+        "relevance_score": 1,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 5,
+        "overall_priority_score": 2,
+        "summary_zh": "超声心动图的心肌应变是评估心脏功能的关键生物标志物。现有的深度学习方法在心肌运动追踪方面表现优异，但通常缺乏生理约束，导致整个心动周期中出现时间漂移。因此，追踪点可能无法在每个心动周期结束时返回其相对初始位置，从而产生不准确的应变估计，甚至在某些情况下出现发散。我们提出了一种深度学习框架，用于补偿心肌追踪中的漂移。我们扩展了最先进的超声心动图追踪方法（TAS-Net），通过持久记忆令牌在全心动周期的滑动窗口之间共享信息。随后，在真实超声心动图数据上采用教师-学生微调策略，在保持追踪精度的同时强制执行生理一致的循环运动。实验表明，该方法减少了全局和区域应变的漂移，提高了与临床参考的一致性，并改善了测试-再测试重复性，从而支持在临床实践中实现更可靠的心肌应变估计。"
+    }
+]
