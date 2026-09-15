@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - September 13, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>September 13, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">TotalSynth: Robust Whole-Body Synthetic CT from MRI and CBCT</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Purpose: To develop and evaluate TotalSynth, a reusable pretrained framework for whole-body synthetic CT (sCT) generation from MRI and cone-beam CT (CBCT) images. Materials and Methods: In this retrospective technical study, the dataset was assembled between 2020 and 2026 from SynthRAD challenge data, four prostate cohorts, and BIC-MAC. After registration quality control, 1450 of 1800 public challenge pairs were retained; 350 were excluded for insufficient registration quality or major source/CT mismatch. The corpus also included 84 additional prostate MRI/CT and 60 external BIC-MAC MRI/CT cases. Three 5-fold model families were evaluated with image-domain, anatomy-aware, registration-based, and uncertainty metrics. Age and sex were not consistently available across public datasets. Results: The released MRI-to-CT model achieved an overall MAE of 67.49 HU, SSIM of 0.920, and PSNR of 29.28 dB. The CBCT-to-CT model achieved an overall MAE of 53.55 HU, SSIM of 0.939, and PSNR of 32.09 dB. The unified model maintained similar performance on MRI inputs (MAE, 67.68 HU) and CBCT inputs (MAE, 54.22 HU). On external BIC-MAC data, MRI-to-CT MAE was 100.91 HU without fine-tuning and 62.21 HU after fine-tuning. Conclusion: TotalSynth provides reusable MRI- and CBCT-based CT synthesis models with broad anatomical coverage, while external evaluation highlights the need for local validation and optional fine-tuning under domain shift.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：目的：开发并评估TotalSynth，一个可复用的预训练框架，用于从MRI和锥形束CT（CBCT）图像生成全身合成CT（sCT）。材料与方法：在这项回顾性技术研究中，数据集于2020年至2026年间收集，来源包括SynthRAD挑战赛数据、四个前列腺队列以及BIC-MAC。经过配准质量控制后，1800对公共挑战数据中保留了1450对；350对因配准质量不足或源图像/CT严重不匹配而被排除。语料库还包括84对额外的前列腺MRI/CT和60对外部BIC-MAC MRI/CT病例。评估了三个5折模型家族，采用图像域、解剖感知、基于配准和不确定性指标。年龄和性别在公共数据集中并非始终可得。结果：发布的MRI到CT模型实现了总体MAE为67.49 HU，SSIM为0.920，PSNR为29.28 dB。CBCT到CT模型实现了总体MAE为53.55 HU，SSIM为0.939，PSNR为32.09 dB。统一模型在MRI输入（MAE，67.68 HU）和CBCT输入（MAE，54.22 HU）上保持了相似的性能。在外部BIC-MAC数据上，未经微调的MRI到CT MAE为100.91 HU，经微调后为62.21 HU。结论：TotalSynth提供了基于MRI和CBCT的可复用CT合成模型，具有广泛的解剖覆盖范围，同时外部评估强调了在域偏移情况下进行本地验证和可选微调的必要性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: TotalSynth is a pretrained framework for generating whole-body synthetic CT from MRI and CBCT, achieving high accuracy and robustness across multiple datasets, with optional fine-tuning for domain shifts.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: TotalSynth是一个预训练框架，能从MRI和CBCT生成全身合成CT，在多个数据集上实现了高精度和鲁棒性，并支持针对领域偏移的可选微调。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.13838v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Valentin Boussot, Cedric Hemon, Anais Barateau, Caroline Lafond, Jean-Claude Nunes, Jean-Louis Dillenseger</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">CirrGuide: A Deep Cascaded Framework for Liver Cirrhosis Segmentation and Severity Classification from T2-Weighted MRI</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> We present CirrGuide, a deep cascaded framework for cirrhotic liver segmentation and severity classification. Cirrhosis causes progressive structural changes in the liver and can lead to serious clinical complications, making severity assessment important for disease monitoring and treatment planning. However, severity classification is challenging because imaging patterns are often subtle, spatially variable, and similar across adjacent stages. CirrGuide addresses this by explicitly linking localization with classification. A ResNet50 encoder with an Attention U-Net decoder first predicts a soft cirrhotic liver mask, which is then used as an anatomical prior in a ResNet50-based classification branch. This branch combines global multi-scale features with mask-guided attention-pooled regional features to classify Mild, Moderate, and Severe cirrhosis. On the official CirrMRI600+ T2-weighted (T2W) 2D split, CirrGuide achieves 89.83% Dice and 84.14% mIoU for segmentation, 69.58% accuracy and 61.55% macro F1-score for severity classification. Compared with segmentation-only, classification-only, and multi-task baselines, CirrGuide improves both localization and severity classification, demonstrating the benefit of using predicted cirrhotic liver masks as anatomical priors for cirrhosis analysis.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 我们提出CirrGuide，一个用于肝硬化肝脏分割和严重程度分类的深度级联框架。肝硬化导致肝脏进行性结构改变，并可能引发严重临床并发症，因此严重程度评估对于疾病监测和治疗计划至关重要。然而，严重程度分类具有挑战性，因为影像表现通常细微、空间变异大，且相邻阶段之间相似。CirrGuide通过明确关联定位与分类来解决这一问题。一个带有Attention U-Net解码器的ResNet50编码器首先预测软性肝硬化肝脏掩膜，随后该掩膜作为解剖先验输入基于ResNet50的分类分支。该分支将全局多尺度特征与掩膜引导的注意力池化区域特征相结合，以对轻度、中度和重度肝硬化进行分类。在官方CirrMRI600+ T2加权（T2W）2D划分上，CirrGuide在分割任务中达到89.83%的Dice系数和84.14%的mIoU，在严重程度分类中达到69.58%的准确率和61.55%的宏F1分数。与仅分割、仅分类和多任务基线相比，CirrGuide同时提升了定位和严重程度分类性能，证明了将预测的肝硬化肝脏掩膜作为解剖先验用于肝硬化分析的优势。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: CirrGuide proposes a cascaded deep learning framework that first segments the cirrhotic liver on T2-weighted MRI and then uses the predicted mask as an anatomical prior to guide multi-scale, attention-pooled severity classification. It reports improved segmentation and mild/moderate/severe classification performance over several baselines on CirrMRI600+.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: CirrGuide 提出一种级联深度学习框架，先在 T2 加权 MRI 上分割硬化肝脏，再将预测掩膜作为解剖先验引导多尺度、注意力池化的严重程度分类。在 CirrMRI600+ 上相比多个基线提升了分割与轻/中/重度分类性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.14010v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Muntaqim Ahmed Raju, Ruizhe Ma</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-09-15 09:33:38 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
