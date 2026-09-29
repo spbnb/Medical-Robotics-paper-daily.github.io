@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - September 28, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>September 28, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SurgFlow: 3D Object-Centric Contact Flow for Surgical Robot Manipulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Paired video-action demonstrations enable autonomous surgical behavior, but such data is scarce: robots perform roughly 1% of surgeries, while video-only data is abundant. Learning 3D object flow offers an embodiment-agnostic way to utilize video data, but flow alone specifies how an object should move, not where and when the tool should engage it, a distinction that is critical in surgery. We introduce SurgFlow, a framework that learns 3D Object-Centric Contact Flow from stereo surgical video without action labels. For each object point, it predicts a future 3D trajectory and contact scores. We extract targets via 3D tracking and tool-object proximity, train a flow matching generator to predict them, and use predicted contact to trigger grasp and release while optimizing end effector motion from flow. On the da Vinci Research Kit (dVRK), SurgFlow succeeds in 37 of 39 stage evaluations across tissue retraction, bimanual reveal, needle pickup, and handover, outperforming baselines trained on equal data with or without action labels. Zero-shot transfer to a humanoid-based laparoscopic robot achieves 85% and 70% average success under similar and novel camera viewpoints, respectively.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+配对的视频-动作示范能够实现自主手术行为，但此类数据稀缺：机器人仅执行约1%的手术，而纯视频数据则十分丰富。学习三维物体流提供了一种不受具体本体限制的利用视频数据的方式，但仅靠物体流只能指定物体应如何移动，而不能指定工具应在何时何地与其接触，这一区别在外科手术中至关重要。我们提出了SurgFlow，一个无需动作标签即可从立体手术视频中学习三维物体中心接触流的框架。对于每个物体点，它预测未来的三维轨迹和接触得分。我们通过三维跟踪和工具-物体邻近度提取目标，训练流匹配生成器进行预测，并使用预测的接触来触发抓取和释放，同时根据物体流优化末端执行器的运动。在达芬奇研究套件（dVRK）上，SurgFlow在组织牵拉、双手显露、拾针和交接等39项阶段评估中成功完成37项，优于使用相同数据训练、无论是否带有动作标签的基线方法。零样本迁移至基于人形机器人的腹腔镜手术机器人，在相似和新型相机视角下分别达到85%和70%的平均成功率。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SurgFlow learns 3D object-centric contact flow from stereo surgical video without action labels, predicting future object trajectories and contact scores to guide surgical robot grasp, release, and end-effector motion. It achieves strong performance on the da Vinci Research Kit and zero-shot transfers to a humanoid laparoscopic robot.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SurgFlow 从立体手术视频中无需动作标签学习3D物体中心接触流，预测物体未来轨迹和接触分数，以指导手术机器人的抓取、释放和末端运动。在达芬奇研究套件上表现优异，并零样本迁移至人形腹腔镜机器人。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33237v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Changwei Chen, Xiao Liang, Yinuo Yang, Nicole Shen, Peihan Zhang, Sara Wickenhiser, Zekai Liang, Soofiyan Atar, Michael Yip</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Humanoids for Robot-Assisted Surgery: Bimanual Base Placement and Tool-Mount Optimization via Capability Maps</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Rapid advances in humanoid robotics have motivated growing interest in the application of humanoids for healthcare and clinical tasks. However, it remains unclear how close contemporary humanoids are to meeting the kinematic demands of robot-assisted laparoscopic surgery. In this work, we address the question of optimal robot positioning through a quantitative analysis of workspace and robot setup configurations. We present a capability-map-based robot setup framework that optimizes humanoid base placement and tool mounting orientation to maximize bimanual humanoid reachability while accounting for tool-tip kinematics and remote-center-of-motion (RCM) constraints. We evaluate three humanoid platforms spanning different body dimensions and kinematic redundancy on workspace reachability for three representative general surgery procedures: cholecystectomy, inguinal hernia repair, and sleeve gastrectomy. The proposed joint optimization of base placement and tool mounting consistently outperforms base-only optimization and heuristic baselines. For cholecystectomy and inguinal hernia repair, which are characterized by relatively small and minimally overlapping workspaces, humanoid reachability approached 90%. For the larger, overlapping multi-port arm workspace of sleeve gastrectomy, humanoids yield substantially lower coverage. These results quantify the near-term promise of humanoids for selected laparoscopic procedures and clarify key limitations that must be addressed for broader deployment.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+人形机器人的快速发展激发了人们对其在医疗保健和临床任务中应用的日益关注。然而，当代人形机器人在多大程度上能够满足机器人辅助腹腔镜手术的运动学需求，仍不清楚。本研究通过工作空间和机器人设置配置的定量分析，探讨了最优机器人定位的问题。我们提出了一种基于能力图谱的机器人设置框架，该框架优化了人形机器人基座放置和工具安装方向，以在考虑工具末端运动学和远程运动中心（RCM）约束的同时，最大化人形机器人双臂可达性。我们评估了三款具有不同身体尺寸和运动学冗余度的人形机器人平台，针对三种代表性普外科手术（胆囊切除术、腹股沟疝修补术和袖状胃切除术）的工作空间可达性进行了评价。所提出的基座放置与工具安装联合优化方法始终优于仅基座优化和启发式基线方法。对于胆囊切除术和腹股沟疝修补术（其特点为工作空间相对较小且重叠最少），人形机器人的可达性接近90%。对于袖状胃切除术中较大且重叠的多端口机械臂工作空间，人形机器人的覆盖率则显著较低。这些结果量化了人形机器人在近期内应用于特定腹腔镜手术的潜力，并明确了为实现更广泛部署必须解决的关键局限性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents a capability-map-based optimization framework for humanoid robot base placement and tool-mount orientation in laparoscopic surgery, maximizing bimanual reachability under RCM constraints and evaluating three humanoid platforms on three surgical procedures.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出了一种基于能力图优化的框架，用于人形机器人手术辅助中的基座放置与工具安装方向优化，在远程运动中心约束下最大化双臂可达性，并在三种手术中评估了三款人形平台。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33096v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Peihan Zhang, Zekai Liang, Florian Richter, Nikita Thareja, Ryan Broderick, Shanglei Liu, Michael Yip</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Learning Geometry-Aware Virtual Fixtures From Sparse Demonstrations</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> In many teleoperation applications, collecting a large number of demonstrations as required for traditional probabilistic learning from demonstration (LfD) approaches may not be feasible. To still give operators the ability to intuitively create trajectories as Virtual Fixtures (VFs), we propose to leverage a motion prior in the learning process. Particularly, by using Linear Quadratic Tracking (LQT), users are able to define guiding trajectories from the demonstration of just a few via points. To account for orientation guidance, we further reformulate classical LQT on Riemannian manifolds, introducing an additional geometric prior. Through a probabilistic interpretation of the LQT solution, we derive a covariance estimate at each trajectory point which we use to modulate the stiffness of the resulting fixture, resulting in strong guidance around the via points and softer guidance when far away. The covariance information is also used to define a validity region of the fixture, allowing the operator to leave its influence area and conduct unmodeled tasks. We evaluate the proposed Riemannian LQT formulation in a set of toy examples and the full framework on a cutting task requiring high precision in a minimally invasive surgery setting on the da Vinci Research Kit (dVRK).</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在许多遥操作应用中，收集传统基于概率的示范学习（LfD）方法所需的大量示范可能并不可行。为了让操作者仍然能够直观地创建轨迹作为虚拟夹具（VFs），我们提出在学习过程中利用运动先验。具体而言，通过使用线性二次跟踪（LQT），用户只需示范少量途经点即可定义引导轨迹。为了考虑方向引导，我们进一步在黎曼流形上重新表述经典LQT，并引入额外的几何先验。通过对LQT解的概率解释，我们在每个轨迹点处得到协方差估计，并利用该估计调节所得夹具的刚度，从而在途经点附近提供强引导，而在远离时提供较柔和的引导。协方差信息还用于定义夹具的有效区域，使操作者能够离开其影响区域并执行未建模的任务。我们在多个简单示例中评估所提出的黎曼LQT公式，并在达芬奇研究套件（dVRK）上进行的一项需要高精度的微创手术切割任务中评估完整框架。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Proposes a Riemannian Linear Quadratic Tracking framework for learning virtual fixtures from sparse via-point demonstrations in teleoperation, using covariance estimates to modulate guidance stiffness and define validity regions; validated on a high-precision cutting task with the da Vinci Research Kit.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出基于黎曼线性二次跟踪的虚拟夹具生成方法，利用稀疏路径点示范学习引导轨迹，并通过协方差调节引导刚度与有效区域，在达芬奇研究套件上验证了高精度切割任务。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.32958v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Maximilian Mühlbauer, Marcella Piacentino, Raffaella Mancino, Paolino De Risi, Bernhard Weber, Margarida Campos, Thomas Hulin, Sylvain Calinon, Freek Stulp, Alin Albu-Schäffer, Julian Klodmann, Fanny Ficuciello, João Silvério</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Scanning While Imagining: A Scene-Graph World Model for Robotic Ultrasound Navigation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Ultrasound (US) acquisition depends on the operator's ability to interpret anatomy and anticipate how the view will change with probe motion. Many robotic US navigation methods select actions without explicitly predicting these anatomical changes. We propose SonoGraph-WM, an action- and goal-conditioned world model for anticipatory probe navigation. The model represents anatomy as scene graphs (SGs), capturing visible structures, their geometry, and spatial relationships without synthesizing US images. Given a history of SGs and probe poses, a unified Transformer jointly predicts future SGs and poses. A receding-horizon planner recursively imagines candidate trajectories, selects the shortest predicted path reaching a goal graph, and follows it over a short execution horizon before replanning from new observations. To reduce reliance on tracked and anatomically annotated US sequences, we generate aligned SG--pose training data from computed tomography (CT) label maps along surface-constrained probe trajectories. On four held-out CT cases, spatial relation F1 remains above 93% over 20 prediction steps, and closed-loop navigation achieves 77.50% and 75.00% success for the gallbladder and pancreas, respectively, using annotation-derived SGs. In robot--phantom navigation experiments with label-map-derived SGs, the planner reached the target view in 73.7% of trials. These findings support CT-supervised anatomical world modeling for probe planning and highlight the importance of frequent observation updates for reliable navigation. Project Page: https://noseefood.github.io/us-sonograph-wm/</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 超声（US）采集依赖于操作者解读解剖结构并预判探头移动时视图变化的能力。许多机器人超声导航方法在选择动作时并未显式预测这些解剖变化。我们提出SonoGraph-WM，一种用于预期性探头导航的动作与目标条件世界模型。该模型将解剖结构表示为场景图（SGs），捕捉可见结构、其几何形状及空间关系，而无需合成超声图像。给定历史场景图与探头位姿序列，一个统一的Transformer联合预测未来的场景图与位姿。采用滚动时域规划器递归地想象候选轨迹，选择能够到达目标图的最短预测路径，并在短暂执行周期内沿路径行进，随后基于新观测重新规划。为减少对带追踪且含解剖标注的超声序列的依赖，我们沿表面约束的探头轨迹，从计算机断层扫描（CT）标签图生成对齐的场景图—位姿训练数据。在四个留出CT病例中，空间关系F1在20个预测步骤内保持在93%以上；使用基于标注的场景图，闭环导航对胆囊和胰腺的成功率分别达到77.50%和75.00%。在基于标签图场景图的机器人—体模导航实验中，规划器在73.7%的试验中到达目标视图。这些发现支持CT监督的解剖世界模型用于探头规划，并凸显了频繁的观测更新对可靠导航的重要性。项目页面：https://noseefood.github.io/us-sonograph-wm/</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Proposes SonoGraph-WM, a scene-graph world model that predicts future ultrasound scene graphs and probe poses, enabling closed-loop robotic ultrasound navigation via receding-horizon planning. Trained with CT label maps and evaluated on CT and phantom, it achieves high relation F1 and navigation success.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出SonoGraph-WM，一种以场景图为核心的世界模型，预测未来超声场景图与探头位姿，并通过滚动时域规划实现闭环机器人超声导航。利用CT标签图训练，在CT与体模实验中取得较高关系F1与导航成功率。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.32837v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xuesong Li, Shuai Chen, Feng Li, Zhongliang Jiang, Nassir Navab, Yuan Bi</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ReVision3D: Attribution-Guided Recursive Self-Improvement for 3D Medical Perception</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Recursive self-improvement (RSI) offers a promising path for overcoming the limited visual capability of current medical imaging agents. Yet applying RSI to volumetric imaging remains difficult: failures can arise from acquisition, perception, training recipe, or downstream inference, while self-generated feedback and logged trajectories provide little guidance on which component should change. We introduce ReVision3D, an RSI system that leverages 3D volumes with spatially grounded annotations to determine where visual evidence is lost and recursively improve the corresponding visual capability. A frozen language-model designer proposes revisions to acquisition, perception, training, or inference, while the verifier and system-level objective remain fixed. Our key insight is that an annotated volume forms an exact replay world for view rendering and spatial verification: unvisited views can be rendered on demand, and localized predictions can be checked directly against reference masks. This grounded feedback directs targeted revision, while only changes that improve beyond measured seed noise are retained. Each accepted change triggers renewed attribution, allowing the dominant bottleneck to shift across rounds. On abdominal CT, attribution identifies perception as the dominant remaining limitation. Revising that level enables ReVision3D to achieve 79% liver recall and 83% kidney recall at under 0.4 false positives per patient, outperforming the evaluated frozen multimodal foundation models, with the largest gains on small lesions.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+递归自我改进（RSI）为克服当前医学影像代理在视觉能力上的局限提供了一条有前景的路径。然而，将RSI应用于三维容积成像仍面临困难：失败可能源于采集、感知、训练方案或下游推理，而自我生成的反馈和记录的轨迹几乎无法为“应更改哪个组件”提供指导。我们提出了ReVision3D，一种RSI系统，它利用带空间定位标注的三维容积来确定视觉证据丢失的位置，并递归改进相应的视觉能力。冻结的语言模型设计器负责提出针对采集、感知、训练或推理的修改建议，而验证器和系统级目标保持不变。我们的关键洞察在于：带标注的容积构成了一个精确的回放世界，可用于视图渲染和空间验证——未访问的视图可按需渲染，局部预测可直接与参考掩膜核对。这种基于空间定位的反馈引导了有针对性的修改，且只有那些改进幅度超出所测得种子噪声的变更才会被保留。每个被接受的变更都会触发重新归因，使主要瓶颈在不同轮次之间发生转移。在腹部CT上，归因分析识别出感知能力是当前的主要限制。针对该层面进行修改后，ReVision3D在每名患者少于0.4个假阳性的条件下实现了79%的肝脏召回率和83%的肾脏召回率，优于所评估的冻结多模态基础模型，其中在微小病变上的提升最为显著。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ReVision3D is a recursive self-improvement system for 3D medical perception that uses annotated volumes as an exact replay world to attribute failures to specific processing stages, then lets a frozen language-model designer propose targeted revisions to acquisition, perception, training, or inference. On abdominal CT, it improves liver and kidney lesion recall over frozen multimodal foundation models, especially for small lesions.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ReVision3D 是一种面向三维医学感知的递归自我改进系统，利用带标注的体数据作为精确回放环境，将失败归因到特定处理阶段，并由冻结的语言模型设计器提出针对采集、感知、训练或推理的改进方案。在腹部CT上，它相比冻结的多模态基础模型提升了肝脏和肾脏病变召回率，尤其对小病灶效果显著。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.32984v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ho Hin Lee, Yuyin Zhou, Yannan Yu, Shi Gu, Yifan Wu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">MedRouter: Demystifying Knowledge Differences Across Medical LLMs for Routing-Based Reasoning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Medical question answering spans diverse specialties and modalities, and individual medical large language models (LLMs) exhibit distinct strengths across tasks and domains. This heterogeneity suggests that combining specialists may enable broader coverage of medical questions than relying on any single model. However, existing LLM routing methods primarily seek to balance answer quality and inference cost, leaving open how to exploit differences in specialist competence to improve medical reasoning. In this paper, we introduce MedRouter, an agentic system that uses an embedding-based multi-label router to select and query specialist LLMs, then passes their responses to a generator to produce the final answer. We further propose SCALE (Specialist Competence-Aware Learning), a two-stage training framework that first trains the Router with specialist correctness supervision and then optimizes its selections through reinforcement learning. The second stage uses a Performance Gain Reward (PGR) that measures how specialist information affects the generator's answer correctness relative to answering without that information. Experiments on eight text-based and multimodal medical QA benchmarks show that MedRouter outperforms the strongest routing baseline by 8% in average accuracy. Our analysis of specialist outputs further reveals distinct strengths and complementary question-level coverage, motivating learned routing to combine these capabilities for more comprehensive medical reasoning.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+医学问答涉及不同专业领域和多种模态，单个医学大型语言模型在不同任务和领域中展现出各异优势。这种异质性表明，相较于依赖任何单一模型，组合多个专家模型或许能覆盖更广泛的医学问题。然而，现有的LLM路由方法主要致力于平衡答案质量与推理成本，尚未利用专家能力的差异来提升医学推理效果。在本文中，我们提出MedRouter，一种基于嵌入的多标签路由器来选择并查询专家大语言模型，随后将其响应传递给生成器以产生最终答案的智能体系统。我们进一步提出SCALE（专家能力感知学习），一种两阶段训练框架，首先使用专家正确性监督训练路由器，然后通过强化学习优化其选择策略。第二阶段采用性能增益奖励（PGR），用于衡量专家信息相对于在无该信息条件下回答时对生成器答案正确性的影响。在八个基于文本和多模态医学问答基准上的实验表明，MedRouter在平均准确率上比最强的路由基线高出8%。对专家输出的分析进一步揭示了它们各自的优势和互补的问题级覆盖范围，这启发我们通过学习路由来整合这些能力，以实现更全面的医学推理。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: MedRouter is an agentic system that routes medical questions to specialist LLMs using an embedding-based multi-label router trained with SCALE and reinforcement learning, then aggregates responses via a generator to improve medical QA accuracy across text and multimodal benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: MedRouter 是一个智能体系统，通过基于嵌入的多标签路由器选择并调用专科大语言模型，再用生成器整合答案；其提出的 SCALE 两阶段训练和 PGR 奖励使系统在多项医学问答基准上平均准确率提升超过最强路由基线 8%。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7.5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33119v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Lang Cao, Binghang Lu, Yuhao Shen, Yue Guo</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Observability-Informed Optimal Sensor Placement for Soft Robots</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> This paper presents the application and experimental evaluation of a systematic method for optimal sensor placement in soft robots. Existing methods either lack generalizability across different soft robot morphologies or do not account for system dynamics. The applied method uses convex optimization to find the optimal sensor configuration that maximizes an observability Gramian-based metric. The framework is experimentally evaluated using position and strain measurements on a soft continuum arm. Kalman filter state estimates using optimal sensor placements yield lower reconstruction error than a baseline across all sinusoidal input trials, with improvements on the order of millimeters. This case study shows that linear control theory tools can guide optimal sensor placement in soft robots, suggesting an interpretable approach to sensor placement that may extend to other morphologies.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 本文介绍了一种用于软体机器人最优传感器布置的系统方法的应用与实验评估。现有方法要么缺乏跨不同软体机器人形态的通用性，要么未考虑系统动力学。所应用的方法采用凸优化来求解最优传感器配置，该配置可使基于可观性格拉姆矩阵的度量指标最大化。该框架通过软体连续臂上的位置和应变测量进行了实验评估。在所有正弦输入试验中，使用最优传感器布置的卡尔曼滤波器状态估计产生的重建误差均低于基线，误差改善幅度达毫米量级。本案例研究表明，线性控制理论工具能够指导软体机器人的最优传感器布置，为传感器布置提供了一种可解释的方法，并可能推广至其他形态。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper applies convex optimization to select sensor placements in soft robots by maximizing an observability Gramian-based metric, and experimentally validates the approach on a soft continuum arm using Kalman filtering with position and strain measurements, achieving lower reconstruction errors than a baseline.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出并实验验证了一种基于凸优化的软体机器人传感器布置方法，通过最大化可观性格拉姆矩阵指标来优化传感器位置，并在软体连续臂上结合卡尔曼滤波与位置/应变测量，实现了优于基线的状态重构精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33681v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Samuel Smocot, James Richard Forbes, Audrey Sedal</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ECG-Scroll: A Long-Horizon, Streaming Benchmark and Agent Environment for Interpretation of Ambulatory Electrocardiograms</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Multimodal large language models (MLLMs) can now interpret a standard ten-second, twelve-lead electrocardiogram (ECG) with clinically grounded, reward-verified reasoning. Real cardiac monitoring is different. Ambulatory (Holter) and telemetry recordings span hours to days and are read as they stream in, and their clinically decisive findings are paroxysmal, brief episodes buried in an otherwise unremarkable trace. Such a recording cannot be held in one context at diagnostic resolution, and its future has not yet happened, so a reader must work online, deciding what to measure now, committing evidence to memory as it passes, and reporting events as they occur. We recast long-duration ECG interpretation as a long-horizon, online (streaming, causal) sequential decision process and introduce ECG-Scroll. As a benchmark, long ambulatory recordings are streamed to an agent chunk by chunk, and it must localize, quantify, and promptly flag paroxysmal events without access to future signal; because the underlying signal is retained, every answer is checkable against objective ground truth, giving rule-based rather than judge-based rewards, and the streaming formulation adds a metric batch evaluation cannot express, the detection latency between an event's onset and the moment the agent records it. As an agent environment, it is a fixed, gym-style interaction layer that exercises three competencies single-glance ECG models never touch: Memory, Tool use through signal-grounded measurement rather than reading pixels, and Planning of what to measure now and when to commit. We release 390 whole-recording instances spanning 2,536 hours of two-lead ambulatory ECG and evaluate a signal-threshold rule agent alongside off-the-shelf LLM agents online, characterizing how they use memory, tools, and planning and where the benchmark's head-room lies.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 多模态大语言模型（MLLMs）现已能够以临床依据充分、奖励校验可追溯的推理方式解读标准的十秒十二导联心电图（ECG）。然而，真实的心脏监测并非如此。动态（Holter）心电图和遥测记录可持续数小时至数天，并以流式方式被实时判读，其临床决定性发现往往是阵发性的、短暂的发作事件，深埋于一段原本平淡无奇的轨迹之中。这样的记录无法在诊断分辨率下完整容纳于单一上下文窗口，且其未来数据尚未发生，因此判读者必须在线工作，决定当下要测量什么，将经过的证据及时记入记忆，并在事件发生时立即报告。我们将长时程心电图解读重新定义为一种长视界、在线（流式、因果）的序列决策过程，并提出了ECG-Scroll。作为基准，长时程动态心电图记录被逐块流式传输给智能体，智能体必须在无法获取未来信号的情况下定位、量化并及时标记阵发性事件；由于底层信号被完整保留，每个答案都可对照客观金标准进行核查，从而提供基于规则而非基于评判者的奖励；同时，流式设定还引入了批量评估无法表达的指标——即事件起始与智能体记录该事件之间的检测延迟。作为智能体环境，它是一个固定的、类似gym的交互层，锻炼了单次判读式心电图模型从未触及的三项能力：记忆、基于信号接地测量而非读取像素的工具使用，以及规划——规划当下测量什么以及何时提交结果。我们发布了包含390个完整记录实例、总计2,536小时双导联动态心电图的数据集，并在线评估了一个信号阈值规则智能体以及多个现成的大语言模型智能体，刻画了它们如何使用记忆、工具与规划，并指出了该基准的剩余提升空间。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ECG-Scroll is a streaming benchmark and gym-style agent environment for long-duration ambulatory ECG interpretation. It requires agents to process ECG chunks online, detect/quantify paroxysmal events without future context, and uses rule-based rewards plus a novel detection-latency metric; it releases 390 whole-recording instances totaling 2,536 hours and evaluates threshold-rule and LLM agents.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ECG-Scroll是一个面向长时间动态心电图流式解读的基准测试与智能体环境：智能体需逐块在线处理心电数据，在无未来信号的情况下定位/量化阵发性事件，并采用基于规则的奖励和检测延迟指标。论文发布390条共2536小时的双导联动态心电记录，并评估了阈值规则智能体与现成LLM智能体。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33117v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Haitao Li, Chenglin Li, Zhengyao Ding, Ziyu Li, Yiheng Mao, Zhengxing Huang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.4, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Feedback-Robust AI for Patient Knowledge Graphs</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Patient knowledge graphs from bedside monitoring should type their relations and state whether the data support their signs. In anesthesia and intensive care, clinicians titrate drugs and ventilation in response to the physiology, so temporal relations mix the patient's response with the clinician's policy. We introduce ClosedLoopBench: 29 relations with signs fixed by physics, pharmacology or clinical practice, on 3,442 VitalDB surgical cases (12,653 h) with negative-control action streams. When each patient's actions are replaced by another patient's, six of 12 estimators declare on average 11-18 of their 19-29 distinct relation estimates significant without calibration, and after calibration cross-correlation and Granger tests still assign ventilator rate -> end-tidal CO2 the sign of the clinician's policy. We propose feedback-robust patient graphs that combine concept nodes with evidence pointers, typed relations admitted against negative controls, and beat-level couplings. On VitalDB under null streams, our graphs contain 0.06-0.10 false concept-level relation instances per graph, versus 10-12 for correlational construction. Patient-specific estimates of 11 slow drug and ventilator responses predict later data no better than population estimates, whereas the pulse-arrival-time-systolic-pressure slope is negative in 94.3% of 2,884 cases and patient-specific (early-late correlation 0.67 [0.63, 0.70]).</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+来自床旁监测的患者知识图谱应对其关系进行类型化，并说明数据是否支持其体征。在麻醉和重症监护中，临床医生根据生理反应调整药物和通气设置，因此时间关系混合了患者反应与临床医生策略。我们引入了ClosedLoopBench：包含29种由物理学、药理学或临床实践固定体征的关系，基于3,442例VitalDB外科手术病例（12,653小时），并配有阴性对照动作流。当每位患者的动作被替换为另一名患者的动作时，12种估计器中有6种在未校准情况下平均宣称其19-29个不同关系估计中的11-18个具有显著性；而经过校准后，互相关和格兰杰检验仍将呼吸机频率→呼气末二氧化碳赋予临床医生策略的体征。我们提出了反馈鲁棒的患者图谱，该图谱结合了概念节点与证据指针、针对阴性对照验证的类型化关系以及心搏级耦合。在零假设流下，基于VitalDB数据的图谱中，每个图谱的虚假概念级关系实例为0.06-0.10个，而基于相关性的构建方法为10-12个。对11种缓慢药物和呼吸机反应的个体患者估计对后续数据的预测效果并不优于群体估计，而脉冲到达时间-收缩压斜率在2,884例病例中的94.3%中为负值，且具有患者特异性（早期-晚期相关性为0.67 [0.63, 0.70]）。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents ClosedLoopBench and feedback-robust patient knowledge graphs: by validating typed relations against negative-control action streams and using beat-level couplings, they largely eliminate false causal edges induced by clinician feedback loops in anesthesia/ICU data. On 3,442 VitalDB cases, false concept-level relation instances drop from 10-12 to 0.06-0.10 per graph, though most patient-specific response estimates remain no better than population estimates.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出ClosedLoopBench和反馈鲁棒的患者知识图谱：通过基于阴性对照动作流验证类型化关系并使用心跳级耦合，大幅消除了麻醉/ICU数据中由临床医生反馈回路引起的虚假因果边。在VitalDB的3,442例病例上，每张图的错误概念级关系实例从10-12降至0.06-0.10，但大多数患者特异性反应估计仍不优于群体估计。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2609.33248v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mohammed Sameer Syed</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-09-29 08:04:43 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
