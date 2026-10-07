@@ -1,0 +1,313 @@
+[
+    {
+        "title": "Recon2Servo: Robotic Ultrasound Visual Servoing via Learned Image-to-Motion Inference",
+        "summary": "Ultrasound visual servoing is essential for autonomous robotic ultrasound, yet 6-DoF probe control from 2D B-mode images remains challenging due to limited and ambiguous out-of-plane motion cues. Existing methods typically rely on anatomical priors or handcrafted visual features, limiting their generalizability across imaging targets. Inspired by trackerless 3D ultrasound reconstruction, we propose Recon2Servo, a visual servoing framework that learns image-to-motion inference directly from B-mode images for 6-DoF probe control. A DINOv3 encoder with low-rank adaptation and a bidirectional relation module estimate the relative probe pose between current and target images to guide iterative closed-loop target-view alignment. The framework combines supervised relative-pose learning, reconstruction-guided closed-loop adaptation, and bounded residual pose correction to improve motion inference during servoing. Evaluations on a public dataset and an in-house dataset collected from 12 healthy volunteers using different ultrasound systems demonstrate its effectiveness in reconstructed-volume servoing. Additional real-robot demonstrations of target-view alignment and dynamic tracking on a human forearm are provided in the supplementary video: https://youtu.be/qwsOdI-GMYk.",
+        "url": "http://arxiv.org/abs/2610.06010v1",
+        "published_date": "2026-10-05T09:07:48+00:00",
+        "updated_date": "2026-10-05T09:07:48+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Yameng Zhang",
+            "Pei Liu",
+            "Dianye Huang",
+            "Yizhao Qian",
+            "Zhongyu Chen",
+            "Xiangyu Chu",
+            "K. W. Samuel Au",
+            "Zhongliang Jiang"
+        ],
+        "tldr": "Proposes Recon2Servo, a 6-DoF robotic ultrasound visual servoing framework that learns relative probe pose directly from 2D B-mode images using a DINOv3-LoRA encoder and bidirectional relation module, with reconstruction-guided closed-loop adaptation and bounded residual correction; validated on public/in-house datasets and real-robot forearm scans.",
+        "tldr_zh": "提出Recon2Servo，一种通过从2D B-mode图像直接学习相对探头位姿实现6自由度机器人超声视觉伺服的方法，结合DINOv3-LoRA编码器、双向关系模块、重建引导闭环自适应和有界残差校正；在公开/内部数据集及真实机器人前臂扫查中验证。",
+        "relevance_score": 8,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "超声视觉伺服对于自主机器人超声检查至关重要，然而从二维B模式图像进行六自由度探头控制仍具挑战性，因为平面外运动线索有限且存在歧义。现有方法通常依赖解剖先验或手工设计的视觉特征，限制了其在不同成像目标间的泛化能力。受无追踪器三维超声重建启发，我们提出Recon2Servo，一种直接从B模式图像学习图像到运动推理的视觉伺服框架，用于六自由度探头控制。采用带低秩适配的DINOv3编码器和双向关系模块，估计当前图像与目标图像之间的相对探头位姿，以引导迭代闭环目标视图对齐。该框架结合了监督式相对位姿学习、重建引导的闭环自适应以及有界残差位姿校正，以改善伺服过程中的运动推理。在公开数据集及使用不同超声系统从12名健康志愿者采集的内部数据集上的评估，证明了其在重建体积伺服中的有效性。补充视频中提供了前臂目标视图对齐和动态跟踪的额外真实机器人演示：https://youtu.be/qwsOdI-GMYk。"
+    },
+    {
+        "title": "Robust Surgical Robotic Instrument Tracking via Sequential Multi-Cue Fusion and Sim-to-Real Self-Training",
+        "summary": "Efficient and robust tracking of surgical robotic instruments is important for robot-assisted minimally invasive surgery, yet remains challenging due to the complexity of surgical scenes and the unconventional geometry of surgical instruments. Keypoint-based approaches are efficient, but their performance depends on reliable feature detection. Improving these detectors with real-world supervision is difficult because accurate real-world annotations are costly to obtain at scale. To address this limitation, we introduce a tracker-guided self-training framework that adapts a model pretrained on synthetic images to unlabeled real-world videos. Given measured robot joint states, an uncertainty-aware EKF recursively corrects the instrument pose and the observable joint angles by comparing projected model features with detected keypoints, shaft boundaries, and mask-derived cues. An RTS smoother subsequently refines the resulting trajectory, which is projected into pseudo-labels for fine-tuning the feature detector without laborious pose annotations. Experiments on real-world videos demonstrate consistent improvements from self-training across all evaluated keypoint metrics, and the resulting model outperforms prior approaches in both accuracy and runtime. The code and data will be released upon publication.",
+        "url": "http://arxiv.org/abs/2610.05491v1",
+        "published_date": "2026-10-04T19:59:24+00:00",
+        "updated_date": "2026-10-04T19:59:24+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.CV"
+        ],
+        "authors": [
+            "Hanyang Hu",
+            "Zekai Liang",
+            "Florian Richter",
+            "Michael C. Yip"
+        ],
+        "tldr": "The paper proposes a sim-to-real self-training framework for surgical robotic instrument tracking, using an uncertainty-aware EKF to fuse keypoints, shaft boundaries, and mask cues, and an RTS smoother to generate pseudo-labels for fine-tuning keypoint detectors without expensive real-world annotations.",
+        "tldr_zh": "该论文提出一种面向手术机器人器械跟踪的仿真到真实自训练框架，利用不确定性感知EKF融合关键点、器械杆边界和掩膜线索，并通过RTS平滑器生成伪标签来微调关键点检测器，避免昂贵的人工标注。",
+        "relevance_score": 9,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 8,
+        "summary_zh": "摘要：手术机器人器械的高效鲁棒跟踪对于机器人辅助微创手术至关重要，但由于手术场景的复杂性和手术器械的非传统几何形状，这一任务仍然充满挑战。基于关键点的方法效率较高，但其性能依赖于可靠的特征检测。通过真实世界监督来改进这些检测器较为困难，因为大规模获取准确的真实世界标注成本高昂。为解决这一局限，我们引入了一种基于跟踪器引导的自训练框架，可将从合成图像预训练的模型适应到无标注的真实世界视频。在给定实测机器人关节状态的情况下，一种不确定性感知的扩展卡尔曼滤波器通过将投影模型特征与检测到的关键点、轴边界及掩膜衍生线索进行比较，递归地修正器械位姿和可观测关节角。随后，RTS平滑器对所得轨迹进行精化，并将其投影为伪标签，用于微调特征检测器，而无需繁琐的位姿标注。在真实世界视频上的实验表明，自训练在所有评估的关键点指标上均带来了一致的改进，且所得模型在准确性和运行时间上均优于先前方法。代码和数据将在发表后公开。"
+    },
+    {
+        "title": "HuatuoGPT-3: RL-Only Domain Adaptation from Base Models",
+        "summary": "Domain adaptation aims to turn a general-purpose large language model (LLM) into an expert for a target domain. While the dominant SFT+RL pipeline offers a convenient cold start, it may reduce exploration diversity and introduces additional complexity through multi-stage optimization. These limitations motivate RL-only adaptation. However, pure on-policy RL suffers from a cold-start problem, while mixed-policy RL still falls short: informative tokens in teacher outputs are learned too slowly in early training, and stale teacher outputs can hinder later improvement. We identify these two failure modes as Gradient Starvation and Teacher-Distribution Anchoring. To address them, we propose One-stage Policy Optimization (OnePO), which treats teacher outputs as transient guidance for policy improvement. OnePO combines Adaptive Objective Evolution to strengthen learning on informative low-probability teacher tokens and Teacher Retirement to discard teacher outputs once the current policy can surpass them. On medical adaptation, OnePO achieves 67.2 on HealthBench (Total) with only 20K training samples, outperforming SFT+RL and pure RL by 2.7 and 7.4 points, respectively. We further scale OnePO to produce HuatuoGPT-3, an open-source medical LLM series whose 27B variant reaches 70.1 on HealthBench (Total) and 71.4 on HealthBench Professional, surpassing frontier models such as GPT-6 Astra. Models and code are available at https://github.com/FreedomIntelligence/HuatuoGPT-3.",
+        "url": "http://arxiv.org/abs/2610.05966v1",
+        "published_date": "2026-10-05T08:16:36+00:00",
+        "updated_date": "2026-10-05T08:16:36+00:00",
+        "categories": [
+            "cs.CL",
+            "cs.AI"
+        ],
+        "authors": [
+            "Junying Chen",
+            "Xinyuan Xie",
+            "Ziniu Li",
+            "Wenyuan Gu",
+            "Jianquan Li",
+            "Xiang Wan",
+            "Guangjun Yu",
+            "Ruoyu Sun",
+            "Haizhou Li",
+            "Benyou Wang"
+        ],
+        "tldr": "HuatuoGPT-3 introduces OnePO, a single-stage RL-only domain adaptation method for LLMs that overcomes gradient starvation and teacher-distribution anchoring via adaptive objective evolution and teacher retirement, achieving strong medical benchmark results with only 20K training samples.",
+        "tldr_zh": "HuatuoGPT-3 提出 OnePO，一种仅依赖强化学习（RL）的单阶段领域适配方法，通过自适应目标演化和教师退休机制解决梯度饥饿与教师分布锚定问题；仅用 20K 训练样本即在医学基准上取得领先结果。",
+        "relevance_score": 7,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "领域适应旨在将通用大语言模型（LLM）转变为目标领域的专家。尽管主流的SFT+RL流水线提供了便捷的冷启动方式，但它可能降低探索多样性，并通过多阶段优化引入额外复杂性。这些局限性促使研究者转向纯RL适应。然而，纯在线策略RL面临冷启动问题，而混合策略RL仍存在不足：教师输出中的信息性标记在训练早期学习过慢，而过时的教师输出可能阻碍后期的改进。我们将这两种失败模式分别识别为梯度饥饿和教师分布锚定。为解决这些问题，我们提出单阶段策略优化（OnePO），将教师输出视为策略改进的瞬时指导。OnePO结合了自适应目标演化（增强对信息性低概率教师标记的学习）和教师退出机制（当当前策略能超越教师输出时即丢弃教师输出）。在医学适应任务上，OnePO仅用20K训练样本即在HealthBench（总计）上达到67.2分，分别超过SFT+RL和纯RL方法2.7分和7.4分。我们进一步扩展OnePO，开发了开源医学大模型系列HuatuoGPT-3，其中27B版本在HealthBench（总计）上达到70.1分，在HealthBench专业领域达到71.4分，超越了GPT-6 Astra等前沿模型。模型和代码可在 https://github.com/FreedomIntelligence/HuatuoGPT-3 获取。"
+    },
+    {
+        "title": "Ultrasound Operator Guidance Using World Modeling and Retrieval Based Action Planning",
+        "summary": "Ultrasound is widely used, but acquisition quality is heavily dependent on the operator's knowledge and expertise. With demand for examinations outpacing the supply of trained sonographers, operator-guidance systems aim to close this gap by instructing a less trained user how to move the probe toward a target view. In this paper, we propose a retrieval-induced latent transition model for ultrasound acquisition dynamics, formulating ultrasound operator guidance as multi-step planning and retrieval in a world model. Using a V-JEPA 2.1 backbone, observations are first encoded into a latent space where anatomically related views lie close together. We then retrieve similar views from a reference database containing encoded latent states and corresponding probe positions and orientations. Rather than learning a parametric transition function, we directly use physically executed transitions from the database to establish our nonparametric, retrieval-induced transition model that supports receding-horizon planning. At deployment, guidance is generated from the live ultrasound image feed alone, without any probe tracking hardware. Applied to carotid ultrasound, the proposed planner reaches the target view in 86% of retrospective closed-loop episodes, versus 52% and 43% for representative baselines, outperforming both on every target view, including the challenging longitudinal internal and external carotid artery views. A prospective feasibility study on unseen volunteers, run in real time on a CPU using distillation, reaches 83% target-view reachability. Because planning is driven by proximity to any encodable goal latent, the same world model can navigate back to any previously acquired, patient-specific frame, supporting reproducible longitudinal imaging for e.g. perioperative or follow-up monitoring.",
+        "url": "http://arxiv.org/abs/2610.06008v1",
+        "published_date": "2026-10-05T09:05:30+00:00",
+        "updated_date": "2026-10-05T09:05:30+00:00",
+        "categories": [
+            "cs.LG",
+            "cs.CV"
+        ],
+        "authors": [
+            "Noortje I. P. Schueler",
+            "Hans van Gorp",
+            "Ruud J. G. van Sloun"
+        ],
+        "tldr": "This paper proposes a retrieval-based world model for ultrasound operator guidance that encodes live ultrasound frames into a latent space and uses a nonparametric transition model from a reference database for receding-horizon planning. It achieves high target-view reachability on carotid ultrasound without probe tracking hardware, including real-time CPU deployment via distillation.",
+        "tldr_zh": "本文提出了一种基于检索的世界模型用于超声操作者引导：将实时超声图像编码到潜空间，并利用参考数据库中的非参数转移模型进行滚动时域规划。该方法无需探头跟踪硬件即可在颈动脉超声中实现高目标视图可达率，并支持蒸馏后的CPU实时部署。",
+        "relevance_score": 8,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "摘要：  \n超声检查应用广泛，但其采集质量高度依赖于操作者的知识水平和专业技能。由于检查需求增长快于受过训练的超声技师供给，操作者引导系统旨在通过指导经验较少的用户如何移动探头以到达目标视图，从而弥合这一差距。本文提出一种基于检索诱导的潜在转移模型，用于超声采集动态过程，将超声操作者引导形式化为世界模型中的多步规划与检索。利用V-JEPA 2.1骨干网络，先将观测值编码到潜在空间中，使解剖相关的视图在空间中彼此接近。随后从包含编码潜在状态及对应探头位置和方向的参考数据库中检索相似视图。我们不学习参数化转移函数，而是直接使用数据库中物理执行的转移来构建非参数化的、检索诱导的转移模型，并支持滚动时域规划。在实际部署时，仅依靠实时超声图像输入即可生成引导信息，无需任何探头追踪硬件。在颈动脉超声应用上，所提出规划器在回顾性闭环试验中有86%的回合能够到达目标视图，而代表性基线的成功率分别为52%和43%；在所有目标视图上均优于基线，包括具有挑战性的颈内动脉和颈外动脉纵向视图。一项针对未见志愿者、通过蒸馏在CPU上实时运行的前瞻性可行性研究实现了83%的目标视图可达率。由于规划由与任何可编码目标潜在的接近程度驱动，同一世界模型可导航回任意先前获取的个体特定帧，从而支持可重复的纵向成像，例如用于围手术期或随访监测。"
+    },
+    {
+        "title": "Dual-Rate Force-Image Control with Model-Based Orientation Limits for Robotic Ultrasound",
+        "summary": "Robotic ultrasound couples a high-rate contact-force loop with slower, delayed image feedback, so image-guided ultrasound probe rotation can perturb contact force before the resulting image response is observed. We derive a closed-form orientation-rate limit that bounds the modeled rotation-induced estimated-force excursion over a finite horizon while accounting for disturbance rejection by the fast force loop. The limit depends on local contact stiffness, force-loop gains, a conservative rotation-to-force gain bound, the excursion budget, and the prediction horizon. We implement this model in a dual-rate controller with timestamp-based delay reconstruction and joint-torque-based force estimation, and evaluate it on a curved gelatin phantom using paired controller comparisons and component ablations. Relative to unconstrained image guidance, the proposed rate-limited controller reduced first-second root-mean-square (RMS) estimated-force error by 0.40 N while increasing cue-convergence time by 0.94 s. A fixed rate cap near the analytically predicted ceiling produced no resolvable difference in force error and converged 0.32 s faster, indicating that the principal practical value of the model is the rate-design rule rather than online prediction. Delay reconstruction had no resolvable effect at the tested latency. A single-subject popliteal scan demonstrated feasibility, although the image cue was noise-limited on heterogeneous tissue.",
+        "url": "http://arxiv.org/abs/2610.05839v1",
+        "published_date": "2026-10-05T05:46:49+00:00",
+        "updated_date": "2026-10-05T05:46:49+00:00",
+        "categories": [
+            "cs.RO",
+            "cs.CV",
+            "eess.SY"
+        ],
+        "authors": [
+            "Tyler Foster",
+            "Qiang Zhang",
+            "A B M Tahidul Haque",
+            "Anh Thu Nguyen"
+        ],
+        "tldr": "Presents a dual-rate force-image controller for robotic ultrasound that computes a closed-form orientation-rate limit to prevent image-guided rotations from perturbing contact force; phantom and single-subject tests show reduced force error but modestly slower convergence, with the main value being the analytic rate-design rule.",
+        "tldr_zh": "针对机器人超声中高速力控与慢速图像反馈的双速率问题，提出基于模型的姿态角速度限制方法，以降低图像引导旋转引起的接触力扰动；体模和单例腘窝扫描结果显示力误差降低但收敛稍慢，主要价值在于提供速率设计规则。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：\n机器人超声将高速接触力回路与较慢的、存在延迟的图像反馈相结合，因此在观察到图像响应之前，图像引导的超声探头旋转就可能扰动接触力。我们推导出一个闭式转角速率极限，该极限在有限时间范围内约束建模的由旋转引起的估计力偏移，同时考虑快速力回路的扰动抑制能力。该极限取决于局部接触刚度、力回路增益、保守的旋转-力增益界限、偏移预算和预测时域。我们在一个双速率控制器中实现了该模型，该控制器采用基于时间戳的延迟重建和基于关节力矩的力估计，并在弯曲明胶体模上通过配对控制器比较和组件消融实验进行了评估。相对于无约束的图像引导，所提出的速率受限控制器将第一秒的均方根（RMS）估计力误差降低了0.40 N，同时将提示收敛时间增加了0.94 s。接近解析预测上限的固定速率限制在力误差上无可分辨差异，且收敛速度快0.32 s，表明该模型的主要实用价值在于速率设计规则而非在线预测。在测试的延迟条件下，延迟重建无可分辨的影响。单受试者腘窝扫描证明了可行性，尽管图像提示在异质组织上受噪声限制。"
+    },
+    {
+        "title": "Aligning Multimodal Patient Evidence with Biomedical Knowledge Graphs for Clinical LLMs",
+        "summary": "Clinical questions often depend on linking a patient's multimodal evidence to external biomedical knowledge, yet existing predictive systems rarely represent such links explicitly, so they can neither be traced to their evidence sources nor removed to measure their contributions. We present MM-KG (Multimodal Knowledge Graph), which represents heterogeneous, multimodal patient observations and biomedical concepts as separate layers in one typed graph, joined by explicit alignment edges. First, modality-specific harmonizers convert EHR text, imaging, genomic, and biospecimen data into typed observations mapped to UMLS concepts, which a route-prioritized aligner links to a biomedical knowledge graph. Query-conditioned retrieval then selects a compact subgraph for downstream use by a large language model or a graph neural network. We build MM-KGs for MIMIC-IV and ADNI, and evaluate them with a 2x2 design that separates patient evidence, biomedical knowledge, and their interaction. On questions that require both sources, neither source alone performs far above chance, whereas their combination yields a drug-controlled AUROC interaction of +0.194 on MIMIC and +0.299 on ADNI. On held-out five-candidate ranking, MM-KG outperforms MindMap by +0.131 Hits@1 and leads an adapted GraphCare on the items that require consulting the patient, and deleting the single answer-bearing relation from the retrieved packet returns Hits@1 to the no-knowledge baseline. Finally, query-conditioned retrieval reaches 0.731 AUROC with 6.8x less context than the strongest generic policy, whereas static knowledge graph context gives no consistent gain on ordinary outcome prediction. Knowledge graphs thus benefit clinical LLMs not as background context but as explicit links between multimodal patient evidence and the relation a question requires, and MM-KG makes these links retrievable, traceable, and testable.",
+        "url": "http://arxiv.org/abs/2610.06685v1",
+        "published_date": "2026-10-05T16:51:11+00:00",
+        "updated_date": "2026-10-05T16:51:11+00:00",
+        "categories": [
+            "cs.LG",
+            "cs.CL"
+        ],
+        "authors": [
+            "Jiawen Du",
+            "Arshan Ali Khan",
+            "Chenhao Zhang",
+            "Zachary Plotkin",
+            "Li Shen",
+            "Qi Long",
+            "Yun Li",
+            "Can Chen",
+            "Tianlong Chen",
+            "Nicholas Konz"
+        ],
+        "tldr": "This paper introduces MM-KG, a typed multimodal knowledge graph that explicitly aligns patient observations (EHR, imaging, genomics, biospecimen) with biomedical knowledge graph concepts using alignment edges, then performs query-conditioned retrieval to feed compact subgraphs to clinical LLMs or GNNs. Experiments on MIMIC-IV and ADNI show that combining patient evidence with knowledge graph context yields significant AUROC gains, and the explicit links make contributions traceable and testable.",
+        "tldr_zh": "本文提出了MM-KG，一种将多模态患者观测（EHR、影像、基因组、生物样本）与生物医学知识图谱概念通过显式对齐边连接起来的分层知识图谱，并通过查询条件检索为临床LLM或GNN提供紧凑子图。在MIMIC-IV和ADNI上的实验表明，患者证据与知识图谱结合可显著提升AUROC，且显式链接使贡献可追溯、可测试。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "临床问题通常依赖于将患者的多模态证据与外部生物医学知识相关联，然而现有的预测系统很少显式地表示这种关联，因此既无法追溯其证据来源，也无法通过移除这些关联来衡量其贡献。我们提出了MM-KG（多模态知识图谱），它将异质的、多模态的患者观察数据和生物医学概念表示为单个类型化图中的不同层，并通过显式的对齐边将它们连接起来。首先，特定模态的协调器将电子健康记录文本、影像、基因组和生物样本数据转换为映射到UMLS概念的类型化观察结果，然后由路由优先对齐器将这些观察结果链接到生物医学知识图谱。接着，查询条件检索选择一个紧凑的子图，供下游的大语言模型或图神经网络使用。我们为MIMIC-IV和ADNI构建了MM-KG，并采用2x2设计对其进行评估，该设计将患者证据、生物医学知识及其交互作用分离开来。在需要两种来源的问题上，单独使用任何一种来源的表现都远未显著高于随机水平，而两者的结合在MIMIC上产生了药物对照的AUROC交互效应+0.194，在ADNI上为+0.299。在留出的五候选排序中，MM-KG在Hits@1上比MindMap高出+0.131，并在需要查阅患者信息的项目上优于改编后的GraphCare，而从检索到的数据包中删除唯一包含答案的关系后，Hits@1会回落到无知识基线水平。最后，查询条件检索达到了0.731的AUROC，且比最强的通用策略少使用6.8倍的上下文，而静态知识图谱上下文在普通结果预测上没有带来一致的增益。因此，知识图谱对临床大语言模型的益处不在于作为背景上下文，而在于作为多模态患者证据与问题所需关系之间的显式链接，MM-KG使这些链接变得可检索、可追溯和可测试。"
+    },
+    {
+        "title": "Cross-dataset harmonization for robust endoscopic image analysis",
+        "summary": "A significant problem in endoscopic image analysis is that the machine learning (ML) models used for this purpose usually underperform when applied on images acquired from endoscopes that are different from those used to acquire the images of their training set. The main difference of the images originating from different endoscopes is their color distributions, which depend both on the image sensors and the light sources used. Although previous studies have highlighted this challenge, to the best of our knowledge it has not been previously explicitly tackled. This study focuses on this problem and proposes very simple but impactful method. It implements a reference-based image harmonization that reduces global appearance differences between endoscopic datasets. Specifically, it extracts global color statistics from a chosen reference dataset in the CIE-Lab color space and applies a statistical channel-wise transformation to map each target image toward the appearance of the images of the reference dataset. The method is evaluated in the context of polyp detection in both flexible colonoscopy and capsule endoscopy datasets using a dataset-level cross validation protocol. The results indicate that the proposed harmonization consistently improves cross-dataset performance up to 30.7%, outperforming relevant baseline and state-of-the-art methods. The results indicate that a substantial part of the generalization gap is driven by low-level appearance variation that can be mitigated without retraining.",
+        "url": "http://arxiv.org/abs/2610.06663v1",
+        "published_date": "2026-10-05T16:39:45+00:00",
+        "updated_date": "2026-10-05T16:39:45+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Romil Imtiaz",
+            "Dimitris K. Iakovidis"
+        ],
+        "tldr": "Proposes a simple reference-based color harmonization method in CIE-Lab space to reduce global appearance differences across endoscopic datasets, improving cross-dataset polyp detection by up to 30.7% without retraining.",
+        "tldr_zh": "提出一种基于参考图像在CIE-Lab颜色空间进行全局颜色统计匹配的简单方法，以减小内镜数据集间的外观差异，在跨数据集息肉检测中性能提升最高达30.7%，且无需重新训练。",
+        "relevance_score": 7,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 7,
+        "summary_zh": "内窥镜图像分析中的一个重要问题是，用于此目的的机器学习（ML）模型在应用于来自不同内窥镜的图像时，其性能通常会低于在训练集图像上的表现，而这些不同内窥镜与采集训练集图像所使用的内窥镜不同。来自不同内窥镜的图像的主要差异在于其颜色分布，这既取决于图像传感器，也取决于所使用的光源。尽管以往研究已强调这一挑战，但据我们所知，此前尚未有研究明确针对该问题进行解决。本研究聚焦于这一问题，并提出了一种非常简单但有效的方法。该方法实现了基于参考的图像协调，以减少内窥镜数据集之间的整体外观差异。具体而言，它在CIE-Lab颜色空间中从选定的参考数据集中提取全局颜色统计信息，并应用统计性的逐通道变换，将每幅目标图像映射到参考数据集图像的外观。该方法在灵活结肠镜和胶囊内镜数据集上的息肉检测场景中，采用数据集级别的交叉验证协议进行了评估。结果表明，所提出的协调方法 consistently 将跨数据集性能提升了最高达30.7%，优于相关的基线方法和现有最优方法。结果还表明，泛化差距的很大一部分源于低层次外观变化，而这种变化可以在不重新训练的情况下得到缓解。"
+    },
+    {
+        "title": "Anatomy-preserving unpaired cone-beam CT refinement for image-guided radiotherapy using pseudo-label guided diffusion",
+        "summary": "Cone-beam computed tomography (CBCT) is widely used in image-guided radiotherapy, but scatter, beam hardening, noise, truncation, and other artifacts limit image quality and CT number accuracy. Paired CBCT and CT data are difficult to obtain clinically because of motion, anatomical changes, and acquisition mismatch. We present RefineCBCT, an unpaired CBCT refinement framework that uses pseudo-label guidance and short-step diffusion to reduce artifacts while preserving patient-specific anatomy. RefineCBCT was trained and evaluated on unpaired CBCT and planning CT data from public LUNG TCIA and PELVIC TCIA datasets and compared with representative GAN and diffusion based methods. On LUNG TCIA, it achieved the best results across all metrics, with MAE 19.411, RMSE 62.758, PSNR 30.845 dB, and SSIM 0.931. On PELVIC TCIA, it achieved the best MAE, PSNR, and SSIM, with values of 14.905, 36.671 dB, and 0.876. The refined images showed fewer streaking and shading artifacts, clearer anatomical boundaries, and improved soft tissue uniformity, with line profile and ROI analyses showing closer agreement with planning CT. These results suggest that RefineCBCT provides efficient and effective CBCT refinement under clinically realistic unpaired training conditions and may support more reliable CBCT use in image-guided radiotherapy workflows. Code is publicly available on GitHub, and the evaluated datasets are available from The Cancer Imaging Archive.",
+        "url": "http://arxiv.org/abs/2610.06094v1",
+        "published_date": "2026-10-05T10:27:57+00:00",
+        "updated_date": "2026-10-05T10:27:57+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Qi Lai",
+            "Yutong He"
+        ],
+        "tldr": "RefineCBCT uses pseudo-label guidance and short-step diffusion to refine unpaired CBCT images, reducing artifacts while preserving patient-specific anatomy; it outperforms GAN and diffusion baselines on public lung and pelvic datasets.",
+        "tldr_zh": "RefineCBCT 采用伪标签引导和短步扩散，对非配对的锥形束CT（CBCT）图像进行细化，在保留患者解剖结构的同时减少伪影；在公开的肺部和盆腔数据集上优于GAN和扩散基线方法。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "锥形束计算机断层扫描（CBCT）广泛应用于图像引导放射治疗，但散射、束硬化、噪声、截断及其他伪影限制了图像质量和CT值准确性。由于运动、解剖结构变化和采集不匹配，临床上难以获得配对的CBCT和CT数据。我们提出了RefineCBCT，一种非配对的CBCT修正框架，利用伪标签引导和短步扩散来减少伪影，同时保留患者特异性解剖结构。RefineCBCT在来自公共LUNG TCIA和PELVIC TCIA数据集的非配对CBCT和计划CT数据上进行了训练和评估，并与具有代表性的基于GAN和扩散的方法进行了比较。在LUNG TCIA上，它在所有指标上均取得了最佳结果，MAE为19.411，RMSE为62.758，PSNR为30.845 dB，SSIM为0.931。在PELVIC TCIA上，它取得了最佳的MAE、PSNR和SSIM，数值分别为14.905、36.671 dB和0.876。修正后的图像显示出更少的条纹和阴影伪影、更清晰的解剖边界以及更优的软组织均匀性，线剖面和感兴趣区域分析显示其与计划CT的一致性更高。这些结果表明，RefineCBECT在临床现实中的非配对训练条件下能够提供高效且有效的CBCT修正，并可能支持CBCT在图像引导放射治疗工作流程中更可靠的应用。代码已在GitHub上公开，评估所用数据集可从癌症影像档案库获取。"
+    },
+    {
+        "title": "MedPrune: Topology-Efficient Multimodal Multi-Agent Communication Evolution for Medical VQA Tasks",
+        "summary": "While medical multimodal large language models (Med-MLLMs) advance medical visual question answering (VQA), existing clinical workflow-inspired multi-agent frameworks suffer from interaction patterns and excessive computational overhead caused by redundant communication topologies. In this paper, we propose MedPrune, an efficient medical multimodal multi-agent collaboration framework that dynamically prunes both nodes and edges from the communication topology to enhance reasoning ability and token efficiency. Specifically, we first formulate the diagnostic process as a heterogeneous communication graph, where nodes represent specialist agents from various departments and edges capture intra- and inter-departmental interactions. Building on this graph, we introduce two sparsification mechanisms to enable adaptive collaborative evolution: (1) Heterogeneous Node Sparsification, which eliminates task-irrelevant specialist agents irrelevant to the current multimodal question via reinforcement learning-driven topological optimization, and (2) Heterogeneous Edge Sparsification, which selectively retains only the most diagnostically salient intra- and inter-departmental connections by jointly optimizing task performance and topological complexity. Extensive medical VQA experiments under full-set and few-shot training settings prove MedPrune surpasses multi-agent baselines and boosts token efficiency with strong adversarial robustness.",
+        "url": "http://arxiv.org/abs/2610.06695v1",
+        "published_date": "2026-10-05T16:55:58+00:00",
+        "updated_date": "2026-10-05T16:55:58+00:00",
+        "categories": [
+            "cs.CL"
+        ],
+        "authors": [
+            "Jiuheng Wan",
+            "Runze Li",
+            "Chen Chen",
+            "Tingyuan Hu",
+            "Daiyang Yu",
+            "Yimin Jing",
+            "Taolin Zhang",
+            "Richang Hong"
+        ],
+        "tldr": "MedPrune is a medical multimodal multi-agent framework that dynamically prunes both redundant specialist agents and their communication edges via reinforcement-learning-driven graph sparsification, improving medical VQA reasoning and token efficiency while maintaining robustness.",
+        "tldr_zh": "MedPrune 提出一种医学多模态多智能体协作框架，通过强化学习驱动的图稀疏化动态剪除冗余专家智能体及其通信边，在医学视觉问答中提升推理能力与 Token 效率，并保持较强的鲁棒性。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 7,
+        "summary_zh": "虽然医学多模态大语言模型（Med-MLLMs）推动了医学视觉问答（VQA）的发展，但现有受临床工作流启发的多智能体框架存在交互模式问题，以及由冗余通信拓扑导致的过高计算开销。本文提出了MedPrune，一种高效的医学多模态多智能体协作框架，它通过动态剪除通信拓扑中的节点和边来增强推理能力并提升令牌效率。具体而言，我们首先将诊断过程建模为异质通信图，其中节点代表来自不同科室的专科智能体，边则捕捉科室内部及科室之间的交互。在此图基础上，我们引入两种稀疏化机制以实现自适应协作演化：（1）异质节点稀疏化，通过强化学习驱动的拓扑优化，消除与当前多模态问题无关的科室专科智能体；（2）异质边稀疏化，通过联合优化任务性能与拓扑复杂度，仅保留最具诊断显著性的科室内部及科室间连接。在全样本和少样本训练设置下的大量医学VQA实验证明，MedPrune超越了多智能体基线，并在强对抗鲁棒性下提升了令牌效率。"
+    },
+    {
+        "title": "End-to-End Autonomous Recursive Arborescence Deformable Flow and Non-Linear Hemodynamics for Patient-Specific Coronary Centerline Extraction",
+        "summary": "Extracting patient-specific vascular trees from volumetric medical images is fundamental to computational angiography and non-invasive hemodynamic assessment. Conventional voxel segmentation models often sever delicate bifurcations, while heuristic Euclidean Minimum Spanning Trees introduce non-anatomical shortcuts. Moreover, linear Poiseuille flow neglects quadratic kinetic dissipation across arterial narrowings, underestimating ischemia. We formulate an end-to-end framework decoupling continuous geometric arborescence generation from non-linear hemodynamics. First, an autonomous 3D Ostium Landmark Localization Head with dual-sinus query channels and spherical-gated refinement eliminates centerline seeding dependency, achieving cohort mean localization error of 7.63 mm (7.43 mm LCA, 7.83 mm RCA; 71.4% <= 8.0 mm) from raw contrast context. Second, a Spatially-Grounded Deformable Step Flow Architecture queries continuous 3D feature pyramids via trilinear sampling, sequentially generating trajectories with anchor boundary enforcement (X(0) = P_start). Third, a Top-Down Recursive Arborescence State Machine detects bifurcation peaks via Tree-NMS and parameterizes predecessor parent pointers (p_k < k), guaranteeing single connected acyclic tree topology (beta_0 = 1, beta_1 = 0) with differentiable step termination. Fourth, an iterative Picard non-linear Kirchhoff solver with Young-Tsai / Gould quadratic dissipation enforces machine-precision mass conservation (residual 5.82e-11 mL/s). Across 14 development patients under standardized in-silico stenosis stress testing (Q_0 = 4.0 mL/s), linear Poiseuille flow misclassifies 75% diameter lesions as non-ischemic (FFR > 0.80) in 14/14 cases, whereas our non-linear solver captures functional ischemia (FFR = 0.5864, lesion disparity 32.89 mmHg, p = 6.10e-5) with 3.66x collateral shunting. Test set firewall isolation was maintained.",
+        "url": "http://arxiv.org/abs/2610.05900v1",
+        "published_date": "2026-10-05T07:20:05+00:00",
+        "updated_date": "2026-10-05T07:20:05+00:00",
+        "categories": [
+            "cs.CV",
+            "q-bio.TO"
+        ],
+        "authors": [
+            "Zeyu Jia",
+            "Xin Ming"
+        ],
+        "tldr": "Presents an end-to-end framework for coronary artery centerline and tree extraction from 3D images, combining landmark detection, deformable sequential centerline generation, recursive topology enforcement, and nonlinear hemodynamic modeling for FFR; the nonlinear solver improves ischemia detection compared to linear Poiseuille flow.",
+        "tldr_zh": "提出一种端到端冠脉中心线/血管树提取框架，融合自动起点定位、可变形序列生成、递归拓扑约束和非线性血流动力学求解，用于计算FFR；相比线性Poiseuille模型能更准确识别缺血。",
+        "relevance_score": 5,
+        "novelty_claim_score": 8,
+        "clarity_score": 7,
+        "potential_impact_score": 8,
+        "overall_priority_score": 6.5,
+        "summary_zh": "从体积医学图像中提取患者特异性血管树是计算血管造影和无创血流动力学评估的基础。传统体素分割模型往往切断细微分叉，而启发式欧几里得最小生成树则会引入非解剖学捷径。此外，线性泊肃叶流动忽略了动脉狭窄处的二次动能耗散，从而低估了缺血程度。我们构建了一个端到端框架，将连续几何树状结构生成与非线性血流动力学解耦。首先，自主三维血管口标志定位头（Ostium Landmark Localization Head）采用双窦查询通道和球门控细化，消除了中心线种子点依赖，在原始对比剂背景下实现了队列平均定位误差7.63 mm（左冠状动脉7.43 mm，右冠状动脉7.83 mm；71.4%病例误差≤8.0 mm）。其次，空间接地可变形步进流架构（Spatially-Grounded Deformable Step Flow Architecture）通过三线性采样查询连续三维特征金字塔，在锚点边界约束（X(0) = P_start）下顺序生成轨迹。第三，自顶向下递归树状状态机（Top-Down Recursive Arborescence State Machine）通过树非极大值抑制（Tree-NMS）检测分叉峰，并将前驱父指针参数化（p_k < k），保证单一连通无环树拓扑（β_0 = 1，β_1 = 0）且支持可微步进终止。第四，采用带Young-Tsai/Gould二次耗散的迭代Picard非线性基尔霍夫求解器，实现机器精度质量守恒（残差5.82e-11 mL/s）。在14例开发患者中，经标准化体外狭窄压力测试（Q_0 = 4.0 mL/s），线性泊肃叶流动在14/14例中将75%直径病变错误分类为非缺血性（FFR > 0.80），而我们的非线性求解器捕获了功能性缺血（FFR = 0.5864，病变压差32.89 mmHg，p = 6.10e-5），并伴随3.66倍侧支分流。测试集防火墙隔离得以保持。"
+    },
+    {
+        "title": "STC-MPM: Coupled Deformation, Progressive Damage, and Cut Formation in Soft-Tissue Cutting",
+        "summary": "Cutting is a recurring operation in robotic au tomation, from food preparation to surgical tissue resection. For highly compliant targets, blade motion may deform or displace the material rather than advance the intended cut, while progressive failure changes load transfer and subsequent tool tissue interaction. A computational description must therefore connect cut formation to the evolving mechanical response, rather than specifying the incision independently of material failure. We present STC-MPM (Soft Tissue Cutting with the Material Point Method), a framework that couples finite-strain deformation, history-driven continuum damage, and configurable post-failure treatment. Damage initiates only when a tensile strain history exceeds a material threshold within the blade process zone. Progressive degradation changes stress transmission before the post-failure policy is applied, while the remaining tissue continues to deform, move, and interact with the tool. Numerical scalpel studies using delayed particle deactivation follow this response through insertion and withdrawal. Under identical blade motion, reducing the damage-rate limit leaves the first recorded damage time unchanged but delays and increases peak reaction force, delays particle deactivation, and increases the fixed-cohort displacement statistic at maximum insertion. The matched comparison illustrates how post-initiation failure evolution alters subsequent tool loading and recorded material motion. STC-MPM thus supports joint analysis of cut formation and accompanying tissue response without a pre-inserted cutting interface.",
+        "url": "http://arxiv.org/abs/2610.06198v1",
+        "published_date": "2026-10-05T12:12:57+00:00",
+        "updated_date": "2026-10-05T12:12:57+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Kewei Zuo",
+            "Jiahe Chen",
+            "Ziao Kuang",
+            "Junsheng Zhu",
+            "Etsuko Kobayashi"
+        ],
+        "tldr": "STC-MPM is a Material Point Method framework for simulating soft-tissue cutting that couples finite-strain deformation, history-driven damage, and post-failure behavior, enabling cut formation to emerge naturally without a pre-inserted cutting interface.",
+        "tldr_zh": "STC-MPM 是一种基于物质点法的软组织切割仿真框架，将有限应变变形、历史驱动的损伤演化与破坏后行为耦合在一起，使得切割形成无需预设切口界面即可自然产生。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 7,
+        "potential_impact_score": 6,
+        "overall_priority_score": 6,
+        "summary_zh": "切割是机器人自动化中的常见操作，从食品制备到手术组织切除均有所涉及。对于高度柔顺的目标对象，刀片运动可能导致材料变形或移位，而非推进预期的切口，同时渐进式失效会改变载荷传递及后续刀具-组织交互。因此，计算描述必须将切口形成与不断演变的力学响应联系起来，而非独立于材料失效来指定切口。我们提出了STC-MPM（基于物质点法的软组织切割框架），该框架耦合了有限应变变形、历史驱动的连续损伤以及可配置的失效后处理。只有当刀片过程区内的拉伸应变历史超过材料阈值时，损伤才开始萌生。在应用失效后策略之前，渐进退化会改变应力传递，而剩余组织则继续变形、移动并与刀具交互。使用延迟粒子停用的数值手术刀研究追踪了插入和拔出过程中的上述响应。在相同的刀片运动下，降低损伤速率极限不会改变首次记录损伤的时间，但会延迟并增大峰值反作用力，延迟粒子停用，并增加最大插入深度处固定队列位移统计量。匹配对比表明，失效起始后的演化过程会改变后续刀具载荷和记录的材料运动。因此，STC-MPM无需预先插入切割界面即可支持切口形成及伴随组织响应的联合分析。"
+    },
+    {
+        "title": "Topology-Informed Prompt-Conditioned Universal Segmentation of Uterine Structures from Ultrasound and MRI",
+        "summary": "Multi-structure segmentation of the uterus is important for computer-assisted screening, diagnosis, and treatment planning of uterine diseases, where ultrasound and MRI provide complementary clinical information. However, developing a unified model across these modalities is challenging due to their substantially different image appearances, anatomical contexts, spatial resolutions, and label spaces. Moreover, existing datasets often define different segmentation targets, making joint learning challenging and potentially leading to negative transfer across heterogeneous tasks. To this end, we propose a Topology-informed Prompt-conditioned Universal Segmentation (TPUS) framework for segmenting multiple uterine structures across ultrasound and MRI. TPUS introduces a graph-based multi-dataset backbone comprising modality-specific stems and a modality-shared graph-based encoder-decoder to support modality-sensitive input adaptation, structural feature reasoning, and joint representation learning across heterogeneous uterine segmentation tasks. In addition, TPUS uses task-aware class prompts to condition the segmentation process for different datasets and label spaces, a dynamic convolutional adaptation module to generate task-specific output responses, and a topology-informed loss to encourage anatomically consistent predictions. Experiments on a uterine ultrasound dataset and a T2-weighted uterine myoma MRI dataset demonstrate that TPUS achieves Dice scores of 0.898 and 0.693 on the two held-out test sets, respectively, outperforming several generic and universal segmentation baselines. Source code can be accessed at https://github.com/YonghengSun1997/TPUS.",
+        "url": "http://arxiv.org/abs/2610.06494v1",
+        "published_date": "2026-10-05T15:15:21+00:00",
+        "updated_date": "2026-10-05T15:15:21+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.AI"
+        ],
+        "authors": [
+            "Yongheng Sun",
+            "Yuexi Gu",
+            "Jingwen Sun",
+            "Maureen Kohi",
+            "Mingxia Liu"
+        ],
+        "tldr": "The paper proposes TPUS, a universal segmentation framework for multiple uterine structures across ultrasound and MRI, using modality-specific stems, a shared graph-based encoder-decoder, task-aware class prompts, dynamic convolutional adaptation, and a topology-informed loss. Experiments show improved Dice scores over generic and universal segmentation baselines on two held-out datasets.",
+        "tldr_zh": "该论文提出TPUS，一种跨超声和MRI的子宫多结构通用分割框架，结合模态特定茎、共享图编码器-解码器、任务感知类别提示、动态卷积自适应和拓扑感知损失。在两个数据集上取得了优于通用分割基线的Dice分数。",
+        "relevance_score": 5,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 6,
+        "summary_zh": "多结构子宫分割对于子宫疾病的计算机辅助筛查、诊断和治疗规划具有重要意义，其中超声和MRI提供了互补的临床信息。然而，由于这些模态在图像外观、解剖背景、空间分辨率和标签空间上存在显著差异，开发一个跨模态的统一模型具有挑战性。此外，现有数据集通常定义不同的分割目标，使得联合学习面临困难，并可能在异构任务间导致负迁移。为此，我们提出了一种拓扑信息提示条件的通用分割（TPUS）框架，用于在超声和MRI中分割多个子宫结构。TPUS引入了一个基于图的多数据集主干，包含模态特定的输入茎和模态共享的图编解码器，以支持模态敏感的输入适应、结构特征推理以及跨异构子宫分割任务的联合表示学习。此外，TPUS使用任务感知的类别提示来调节不同数据集和标签空间的分割过程，使用动态卷积适应模块生成任务特定的输出响应，并使用拓扑信息损失函数来鼓励解剖上一致的预测。在一个子宫超声数据集和一个T2加权子宫肌瘤MRI数据集上的实验表明，TPUS在两个留出测试集上分别取得了0.898和0.693的Dice分数，优于多个通用和通用分割基线。源代码可在https://github.com/YonghengSun1997/TPUS获取。"
+    }
+]
