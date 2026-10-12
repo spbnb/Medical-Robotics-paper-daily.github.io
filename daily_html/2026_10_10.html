@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 10, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 10, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">EndoRSI: Physical-Evidence-Driven Recursive Improvement of Endoscopic Robot Policies</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Artificial intelligence is beginning to automate scientific discovery, yet physical robot-policy research still relies on scientists and engineers to interpret experimental failures and decide how controllers should be revised. We present EndoRSI (Endoscopic Recursive Self-Improvement), a human-governed, self-improving robotic research system in which the embedded EndoForge coding agent iteratively develops and refines endoscopic robot policies using evidence from physical experiments. Physical execution remains isolated within a safety-constrained runtime under human authorisation. In motorised endoscopy, validation evidence first caused the agent to reject an initial action representation, while subsequent physical experiments falsified an offline-supported insertion strategy by revealing hazardous closed-loop behaviour absent from the source data. Failed physical rollouts were then incorporated into policy revision; insertion success subsequently increased from 2/21 in the first generation to 17/21 in the fourth. The frozen final policy retained competence across visual and hardware shifts and was the best performing autonomous policy across six independent ex-vivo porcine specimens. These results show that physical robot interaction can serve as experimental evidence for agent-driven robot policy research.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 人工智能正开始自动化科学发现，然而物理机器人策略研究仍依赖于科学家和工程师来解读实验失败并决定如何修订控制器。我们提出了EndoRSI（内窥镜递归自我改进），这是一个由人类主导、可自我改进的机器人研究系统，其中嵌入的EndoForge编码智能体利用物理实验中的证据，迭代地开发和改进内窥镜机器人策略。物理执行始终隔离在人类授权下的安全约束运行时环境中。在电动内窥镜检查中，验证证据首先导致智能体拒绝初始的动作表示，随后物理实验通过揭示源数据中不存在的危险闭环行为，否定了离线支持的操作策略。失败的物理试运行随后被纳入策略修订；插入成功率从第一代的2/21提升至第四代的17/21。最终冻结的策略在视觉和硬件变化中保持能力，并在六个独立的离体猪标本中成为表现最佳的自主策略。这些结果表明，物理机器人交互可以作为智能体驱动的机器人策略研究的实验证据。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: EndoRSI introduces a human-governed, self-improving system where an AI coding agent iteratively develops and refines endoscopic robot policies using evidence from physical experiments; insertion success improved from 2/21 to 17/21 across generations, and the final policy remained robust across visual and hardware shifts.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: EndoRSI 提出一种人类监督的自我改进机器人研究系统，通过嵌入式 AI 智能体利用物理实验证据迭代开发与优化内镜机器人策略；插入成功率从第一代的 2/21 提升至第四代的 17/21，并在视觉和硬件变化下保持鲁棒性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.13376v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Chi Kit Ng, Yidong Zhang, Tianchun Wu, Siu Hing Lui, Hanlin Zhao, Huxin Gao, Hongliang Ren</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Multimodal Image-based Robotic Assistance and Guidance Environment (MIRAGE): A Novel Unified Framework for Surgical Navigation and Visualization</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> This paper presents the computational architecture and quantitative preclinical evaluation of MIRAGE, a multimodal image-guided robotic surgery framework for real-time visualization and navigation. It integrates stereovision scene reconstruction, augmented-reality (AR) video overlay, quantified heads-up display (HUD) navigation, and intraoperative ultrasound within the da Vinci console's TilePro display (Intuitive Surgical). Additional modules include optical/electromagnetic tracker registration, stereo calibration, fiducial rigid registration with RMSE feedback, and 3D point-cloud reconstruction. Video I/O and rendering run in a C++ backend, while a Python GUI coordinates calibration, registration, reconstruction, visualization, and user interaction through an in-process zero-copy binding layer. The framework formalizes spatial transforms, module states, and synchronization of heterogeneous video and tracking streams. Preoperative calibration uses synchronized checkerboard image pairs and optimization, with estimated intrinsics, extrinsics, and rectification reused intraoperatively. MIRAGE was validated in phantom experiments across da Vinci S, Si, Xi, and SP platforms. Across clinically relevant working distances, mean 3D reprojection error was 0.6mm, with best 0.1mm RMSE at 100mm on Xi. Results support MIRAGE as a preclinical technical-validation platform for accurate, responsive, and extensible multimodal surgical guidance.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 本文介绍了MIRAGE的计算架构与定量临床前评估——一个用于实时可视化和导航的多模态图像引导机器人手术框架。该框架在达芬奇控制台的TilePro显示系统（Intuitive Surgical）中集成了立体视觉场景重建、增强现实（AR）视频叠加、量化平视显示（HUD）导航以及术中超声。其他模块包括光学/电磁跟踪器配准、立体标定、带RMSE反馈的基准刚性配准和三维点云重建。视频输入/输出与渲染在C++后端运行，而Python GUI通过进程内零拷贝绑定层协调标定、配准、重建、可视化及用户交互。该框架形式化了空间变换、模块状态以及异构视频和跟踪流的同步。术前标定使用同步棋盘格图像对和优化方法，并将估计的内参、外参和校正参数在术中复用。MIRAGE在达芬奇S、Si、Xi和SP平台上进行了体模实验验证。在临床相关工作距离内，平均三维重投影误差为0.6mm，在Xi平台上100mm距离处最佳RMSE为0.1mm。结果表明，MIRAGE可作为准确、响应迅速且可扩展的多模态手术引导的临床前技术验证平台。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: MIRAGE is a unified multimodal image-guided robotic surgery framework for da Vinci consoles, integrating stereo reconstruction, AR overlay, HUD navigation, and intraoperative ultrasound with calibration/registration, validated in phantoms with sub-millimeter reprojection errors.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: MIRAGE 是一个面向达芬奇手术机器人的统一多模态图像引导框架，集成立体重建、增强现实叠加、HUD 导航和术中超声，并在体模实验中实现亚毫米级重投影误差。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.12780v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ehsan Nasiri, Yi Zheng, Michael A. Kokko, Xiaoyao Fan, William R. Warner, Keith D. Paulsen, Ryan J. Halter</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Image-Based Path-Planning for Navigation of Soft-Growing Robots in the Spinal Sub-Arachnoid Space</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Recently, soft robotic procedures are being developed aiming at achieving targeted minimally invasive operations or drug administration in specific locations in the human body. Accordingly, specialized path-planning algorithms need to be investigated for the estimation of efficient paths that would protect the delicate tissue structures and simultaneously satisfy a set of requirements for the efficient navigation of the robot. In this context, we propose an image-based 3D pathplanning algorithm, which is an extension of the A* algorithm, for the navigation of a soft-growing robot inside the spinal subarachnoid space (SSS). The proposed algorithm is capable of estimating a safe pathway towards the goal location, while ensuring the establishment of anchor points that facilitate the efficient steering of the soft robot. The algorithm is evaluated using a highly detailed model of the SSS with respect to its capacity to satisfy the robot movement requirements and path efficiency.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 近年来，为实现人体特定部位的精准微创手术或药物递送，软体机器人技术正被广泛研发。相应地，需要研究专门的路径规划算法，以估计能够保护脆弱组织结构、同时满足机器人高效导航要求的有效路径。在此背景下，我们提出了一种基于图像的3D路径规划算法，该算法是A*算法的扩展，用于软体生长机器人在脊髓蛛网膜下腔（SSS）内的导航。所提算法能够估计通往目标位置的安全路径，同时确保建立有助于软体机器人高效转向的锚点。该算法利用SSS的高度精细化模型进行评估，以考察其满足机器人运动需求和路径效率的能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents an image-based 3D path-planning algorithm extending A* to navigate soft-growing robots safely through the spinal subarachnoid space, supporting anchor points for steering and evaluating path efficiency on a detailed anatomical model.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出一种基于图像的3D路径规划算法，扩展A*算法，用于软体生长机器人在脊髓蛛网膜下腔内的安全导航，并考虑锚点辅助转向，在精细解剖模型上评估。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.12631v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: George Dimas, Panagiotis G. Kalozoumis, Panagiotis Vartholomeos, Dimitris K. Iakovidis</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-10-12 08:50:34 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
