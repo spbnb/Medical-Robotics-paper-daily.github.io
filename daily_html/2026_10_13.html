@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 13, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 13, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ProCARE: Real-World Study Automation via Profile-Grounded Evidence Contracts</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Real-world studies (RWS) analyze routinely collected healthcare data, such as electronic health records and insurance claims, to estimate treatment effects, monitor safety, and identify risk factors outside randomized trials. Automating RWS with large language model agents is appealing but brittle: valid analyses depend on dataset-specific clinical semantics, including index dates, follow-up windows, patient/event-level units, and outcome boundaries that are often implicit in observational data. This leads to schema mismatches, temporal errors, inconsistent analytical granularity, and unsupported clinical claims. We present ProCARE, a profile-grounded framework that reformulates RWS automation as constrained compilation. ProCARE converts heterogeneous data profiles into Evidence Contracts specifying available variables, temporal attributes, distributions, and evidentiary limits, and compiles study objectives into RWS-IR, a strongly typed intermediate representation for variables, time relations, analysis units, and statistical tasks. Deterministic validation and localized repair then check and revise generated workflows across schema mapping, cohort construction, variable derivation, analysis, and interpretation. On 36 EHR-based benchmark tasks, ProCARE outperforms strong LLM-agent baselines in code executability, semantic consistency, and conclusion traceability, with automated violation diagnoses showing moderate-to-substantial agreement with blinded expert review.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+真实世界研究（RWS）利用常规收集的医疗健康数据（如电子健康记录和保险索赔数据）来评估治疗效果、监测安全性，并识别随机试验之外的危险因素。使用大语言模型智能体来自动化真实世界研究颇具吸引力，但也很脆弱：有效的分析依赖于数据集特定的临床语义，包括索引日期、随访窗口、患者/事件层面的分析单位以及结局界定——这些在观察性数据中往往是隐含的。这会导致模式不匹配、时间错误、分析粒度不一致以及缺乏支持的临床论断。我们提出了ProCARE，一个基于数据画像的框架，将真实世界研究自动化重新构建为约束编译问题。ProCARE将异构数据画像转换为证据契约（Evidence Contracts），明确指定可用变量、时间属性、分布及证据限度，并将研究目标编译为RWS-IR——一种针对变量、时间关系、分析单位和统计任务的强类型中间表示。随后，确定性验证与局部修复机制对生成的工作流进行跨模式映射、队列构建、变量衍生、分析和解释等环节的检查与修订。在36项基于电子健康记录的基准任务上，ProCARE在代码可执行性、语义一致性和结论可溯源性方面均优于强基线大语言模型智能体方法，其自动化违规诊断与盲法专家评审结果具有中等至较高程度的一致性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ProCARE is a profile-grounded framework for automating real-world clinical studies from EHR/claims data; it converts heterogeneous data profiles into Evidence Contracts and compiles study objectives into a typed intermediate representation (RWS-IR) with deterministic validation and repair, outperforming LLM-agent baselines on 36 benchmark tasks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ProCARE 是一个基于数据画像约束的框架，用于从电子健康记录/保险理赔数据自动生成真实世界研究；它将异构数据画像转化为证据契约，并将研究目标编译为强类型中间表示，通过确定性验证与局部修复提升代码可执行性、语义一致性和结论可追溯性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16175v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhaoyu Fan, Bowen Han, Jincheng Ou, Yanwei Ren, Zehua He, Kaiyu Huang, Pengcheng He, Shanshan Ni, Chengchen Gong, Shuai Xue, Qingjiang Shi</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">X-Ragent: Tool-Augmented Reinforcement Learning for Evidence-Grounded Chest X-Ray Reasoning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Chest X-ray (CXR) interpretation often requires integrating visual findings with task-specific evidence rather than relying on direct visual recognition alone. While tool-augmented medical agents can supply such evidence via external modules, they often lack explicit mechanisms for learning when auxiliary evidence is needed and for preventing inapplicable quantitative evidence from entering diagnostic reasoning. To address this, we propose X-Ragent, a post-training framework for tool-augmented reinforcement learning that decouples learned auxiliary-evidence seeking from validity-gated quantitative measurement acquisition for evidence-grounded CXR reasoning. We construct Rad-CoT, a 7.7K-sample corpus combining causally ordered tool-augmented trajectories with report-style diagnostic reasoning, and use it to initialize Qwen3-VL-8B via agentic supervised fine-tuning (SFT). We then optimize the policy with Group Relative Policy Optimization (GRPO) using an accuracy-gated reward that applies process-level terms for measurement consistency and auxiliary-tool cost only to correct trajectories, preventing plausible process behavior from compensating for an incorrect diagnosis. Across three CXR benchmarks, X-Ragent achieves the strongest results, including an 8.6-point improvement on the fully held-out ChestAgentBench. By seeking evidence selectively and admitting only valid measurements, X-Ragent supports more faithful and evidence-grounded CXR reasoning.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 胸部X光片（CXR）判读通常需要将视觉发现与特定任务证据相结合，而非仅依赖直接视觉识别。尽管工具增强的医学智能体能够通过外部模块提供此类证据，但它们往往缺乏明确机制来学习何时需要辅助证据，并防止不适用的定量证据进入诊断推理过程。为解决这一问题，我们提出了X-Ragent，一个面向工具增强强化学习的后训练框架，该框架将习得的辅助证据寻求与基于有效性门控的定量测量获取相解耦，以实现证据支撑的CXR推理。我们构建了Rad-CoT，一个包含7.7K样本的语料库，将因果排序的工具增强轨迹与报告式诊断推理相结合，并通过智能体监督微调（SFT）将其用于初始化Qwen3-VL-8B。随后，我们使用基于精度门控的奖励函数，通过组相对策略优化（GRPO）对策略进行优化，该奖励函数仅对正确轨迹应用测量一致性和辅助工具成本的过程级惩罚项，从而防止看似合理的过程行为掩盖错误诊断。在三个CXR基准测试中，X-Ragent取得了最强结果，包括在完全留出的ChestAgentBench上提升了8.6个百分点。通过选择性寻求证据并仅接受有效测量，X-Ragent支持更忠实且更具证据基础的CXR推理。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: X-Ragent is a post-training framework that combines tool-augmented reinforcement learning with validity-gated quantitative measurement acquisition for evidence-grounded chest X-ray reasoning, using a new Rad-CoT corpus and GRPO to achieve state-of-the-art results across three CXR benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: X-Ragent 是一个基于工具增强强化学习的后训练框架，通过有效性门控的定量测量获取和新增的 Rad-CoT 语料库，实现基于证据的胸片推理，并在三个 CXR 基准上取得最优结果。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16811v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yi Wang, Zhenlong Yuan, Yuchan Guo, Maolei Huang, Zijian Song, Dapeng Zhang, Rongbin Tan, Jiyuan Wang, Zhiyuan Wang, Fangfang Lin, Shuhan Song, Huawei Cao</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PathPilot: An Adaptive Question-Conditioned Multi-Magnification Navigation Agent for Whole-Slide Image Analysis</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The diagnostic capability of WSI agents relies on effective slide navigation to identify diagnostically relevant regions and efficiently integrate evidence across the slide. While in clinical practice, pathologists dynamically examine slides across multiple scales, integrating global and cellular evidence in a sequential manner, existing AI navigation approaches mostly operate at a single fixed magnification or rely on predefined magnification traversal. This mismatch prevents existing methods from modeling cross-magnification interactions and adaptive magnification selection inherent to real diagnostic workflows. We propose PathPilot, a clinically consistent multi-magnification WSI navigation agent that explicitly models cross-magnification localization and evidence-adaptive exploration. Specifically, we introduce a CrossMagLoc that learns magnification-specific diagnostic localization from pathologist viewing behavior and integrates information from adjacent magnifications to identify the diagnostically most relevant region within the current ROI, thereby providing a diagnostically informed starting point for subsequent question-conditioned exploration. We further introduce an EviRegionSearch that starts question-conditioned exploration from this region, progressively accumulating question-relevant evidence and adaptively determining the next navigation action according to the remaining evidence requirement. Their iterative interaction enables PathPilot to sequentially explore across ROIs and magnifications until sufficient evidence is acquired. Extensive QA evaluations across five cohorts demonstrate consistent superiority over competing SOTA methods on inter/external cohorts, respectively, validating question-conditioned evidence acquisition across regions and magnifications that mirrors the sequential, knowledge-driven navigation of pathologists.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：WSI智能体的诊断能力依赖于有效的切片导航，以识别诊断相关区域并高效整合整个切片中的证据。在临床实践中，病理学家会跨多个尺度动态检查切片，以顺序方式整合全局和细胞层面的证据，而现有的AI导航方法大多在单一固定放大倍率下运行，或依赖于预定义的放大倍率遍历。这一不匹配使得现有方法无法建模真实诊断流程中固有的跨放大倍率交互和自适应放大倍率选择。我们提出PathPilot，一个临床一致的、多放大倍率WSI导航智能体，它显式建模了跨放大倍率定位和证据自适应探索。具体而言，我们引入了CrossMagLoc，它从病理学家的观察行为中学习特定放大倍率的诊断定位，并整合相邻放大倍率的信息来识别当前感兴趣区域（ROI）内诊断最相关的区域，从而为后续的基于问题的探索提供具有诊断依据的起点。我们进一步引入了EviRegionSearch，它从该区域开始基于问题的探索，逐步积累问题相关证据，并根据剩余证据需求自适应地决定下一个导航动作。两者的迭代交互使PathPilot能够在ROI和放大倍率之间顺序探索，直至收集到足够的证据。在五个队列上的广泛问答评估表明，该方法在内部/外部队列上均持续优于现有最先进方法，验证了跨区域和跨放大倍率的基于问题的证据采集，再现了病理学家顺序的、知识驱动的导航方式。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PathPilot is a whole-slide image analysis agent that models pathologist-like cross-magnification navigation, using question-conditioned evidence exploration to adaptively locate diagnostically relevant regions and achieve state-of-the-art QA performance across multiple cohorts.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PathPilot 是一种全切片图像分析智能体，通过跨倍率定位和基于问题的证据自适应探索来模拟病理医生的阅片导航过程，并在多个队列的问答评测上取得最优结果。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16734v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhengyang Xu, Han Li, Jingsong Liu, Ayako Ura, Shihui Zu, Shaohua Kevin Zhou, Nassir Navab, Peter Schüffler</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Dense Endoluminal Mapping and Localisation from Monocular Bronchoscopy</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Bronchoscopy inserts a camera through the airways to diagnose endoluminal disease. Locating the camera along the airway usually requires additional equipment, such as an electromagnetic tracker and a preoperative CT scan. In this paper, we investigate the use of the monocular camera stream to localise the bronchoscope without requiring additional sensing. We introduce a monocular SLAM system that localises the tip of a bronchoscope and reconstructs the airway surface around it from RGB video alone. A Depth Anything 3 backbone, fine-tuned on over a million photorealistic airway renderings, returns metric per-pixel depth and is the system's only source of scale. DINOv3 features routed through a custom cross-attention matcher supply sub-pixel correspondences on mucosa where classical descriptors fail. Both enter a factor graph alongside a dense constraint from projective iterative closest point (ICP) registration against the system's own running reconstruction, so surface evidence stabilises the directions the visual factors leave weakly observable. On six airways rendered from patient CT scans, the system reaches 26.1 mm mean absolute trajectory error and 77.5% mean surface F-score. Its mean surface accuracy exceeds that of five recent monocular SLAM and feed-forward baselines. MASt3R-SLAM, which fits a free scale to the ground truth, has a lower mean trajectory error (22.0 mm). ORB-SLAM3 completes only two of the six airways, whereas our system completes all six and also reconstructs two ex vivo specimens.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：支气管镜检查通过气道插入摄像头以诊断腔内疾病。沿气道定位摄像头通常需要额外设备，例如电磁跟踪器和术前CT扫描。本文研究了如何利用单目摄像头视频流定位支气管镜，而无需额外传感。我们提出了一种单目SLAM系统，仅凭RGB视频即可定位支气管镜尖端并重建其周围的气道表面。一个经过超百万张逼真气道渲染图微调的Depth Anything 3主干网络，返回度量级逐像素深度，是该系统唯一的尺度来源。通过定制交叉注意力匹配器路由的DINOv3特征，在经典描述子失效的黏膜上提供亚像素对应关系。两者连同来自系统自身运行重建的投影迭代最近点（ICP）配准的密集约束一起进入因子图，从而表面证据稳定了视觉因子留下弱可观测的方向。在由患者CT扫描渲染的六个气道中，该系统达到26.1毫米的平均绝对轨迹误差和77.5%的平均表面F1分数。其平均表面精度超过了五个最新的单目SLAM和前馈基线方法。对真值拟合自由尺度的MASt3R-SLAM具有较低的平均轨迹误差（22.0毫米）。ORB-SLAM3仅完成六个气道中的两个，而我们的系统完成了全部六个，并重建了两个离体标本。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents a monocular bronchoscopy SLAM system that localizes the bronchoscope and reconstructs airway surfaces using a fine-tuned Depth Anything 3 for metric depth, DINOv3-based cross-attention matching, and dense ICP constraints in a factor graph, demonstrating improved robustness over baselines on CT-derived airway renderings and ex vivo specimens.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出一种单目支气管镜SLAM系统，仅用RGB视频实现支气管镜定位与气道表面重建；利用微调的Depth Anything 3提供度量深度、DINOv3跨注意力匹配提供亚像素对应，并通过因子图和稠密ICP约束增强鲁棒性，在患者CT渲染气道和离体标本上优于多个基线。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16570v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Salvatore Esposito, Matias Mattamala, Daniel Rebain, Liang Zhao, Kev Dhaliwal, Mohsen Khadem, Subramanian Ramamoorthy</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">GUIDE: Computationally Augmented Consensus for Trustworthy Clinical Practice Guidelines</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Maintaining up-to-date clinical practice guidelines (CPGs) is essential for evidence-based medicine, but rapid evidence growth and complex expert consensus formation limit timely updates. We developed GUIDE, a multi-agent copilot system for human-AI collaborative guideline generation and updating. GUIDE delegates labor-intensive tasks to specialized AI agents while preserving expert judgment and final arbitration. In 12 NICE ophthalmology datasets, GUIDE achieved 88.85% literature recall, 86.06% alignment in certainty-of-evidence ratings, and 91.67% recommendation agreement, requiring 162.17 minutes per dataset on average (28.68% human intervention). Performance remained stable across 20 additional datasets from cardiology, endocrinology, gastroenterology, and respiratory medicine. Ablation analysis showed that removing expert intervention reduced performance in judgment-intensive steps such as Risk-of-Bias assessment. In six post-cutoff datasets, GUIDE maintained robust end-to-end performance on unseen evidence. Prospective real-world validation showed that GUIDE reduced expert workload and produced more clinically acceptable recommendations than the original decade-old guideline (mean score, 3.73 vs. 1.53; agreement, 66.7% vs. 13.3%), with outcomes comparable to human-only updating (P = 0.588) but substantially less time and effort. GUIDE offers a practical framework for timely, trustworthy, expert-centric guideline development and validates computationally augmented consensus.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 保持最新的临床实践指南（CPGs）对于循证医学至关重要，但证据的快速涌现和复杂的专家共识形成过程限制了指南的及时更新。我们开发了GUIDE，一个用于人机协同指南制定与更新的多智能体副驾驶系统。GUIDE将劳动密集型任务委派给专门的AI智能体，同时保留专家判断和最终仲裁权。在12个NICE眼科数据集中，GUIDE实现了88.85%的文献召回率、86.06%的证据确定性评级一致性，以及91.67%的推荐意见一致性，每个数据集平均耗时162.17分钟（其中人工干预占28.68%）。在来自心脏病学、内分泌学、胃肠病学和呼吸病学的额外20个数据集中，性能保持稳定。消融分析显示，移除专家干预会降低判断密集型步骤（如偏倚风险评估）的性能。在六个截止日期之后的数据集中，GUIDE在未见证据上保持了稳健的端到端性能。前瞻性真实世界验证表明，GUIDE减少了专家工作量，并产生了比原始十年之久的指南更具临床可接受性的推荐意见（平均评分3.73对1.53；一致性66.7%对13.3%），其结局与纯人工更新相当（P = 0.588），但所需时间和精力大幅减少。GUIDE为及时、可信、以专家为中心的指南制定提供了一个实用框架，并验证了计算增强共识的有效性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: GUIDE is a multi-agent copilot system that assists human experts in generating and updating clinical practice guidelines by automating evidence retrieval, literature review, and evidence appraisal while retaining expert judgment and final arbitration. Evaluations on NICE and cross-specialty datasets show high recall, strong agreement with expert ratings, reduced expert workload, and outcomes comparable to human-only updating in much less time.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: GUIDE 是一个面向临床实践指南生成与更新的多智能体（multi-agent）协驾系统，在保留专家最终裁决的同时自动化文献检索、证据评估等耗时任务。多项评测显示其能提高指南更新效率、降低专家负担，并以更少时间达到接近纯人工更新的效果。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7.5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16108v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yuanfan Lin, Jie Di, Xujin He, Zhenzhe Lin, Jialing Chen, Ruiyang Li, Changyu Zheng, Yuanrui Shang, Weiqin Peng, Jingxi Qin, Xiong Wang, Dongxin Ye, Yining Huang, Guoqiang Li, Andi Xu, Sijia Yu, Ruixin Wang, Yahan Yang, Xiaohang Wu, Duoru Lin, Jingjing Chen, Zhenzhen Liu, Wenben Chen, Haotian Lin</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">REFLEX: A Learned On-Board Reflex for Robust Autonomous Collision Recovery of Soft Quadrotors</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Collision-resilient airframes allow quadrotors to survive impacts, but do not ensure autonomous post-collision recovery. Innovation gating in stock onboard estimators often rejects valid external velocity measurements after high-speed impacts, compromising recovery. We present REFLEX, a collision-recovery flight mode that runs entirely on the flight controller, requiring neither contact sensors nor a companion computer. Its proprioceptive recurrent policy stabilizes the vehicle without position, velocity, heading, or altitude estimates. The translational estimate is reinitialized while REFLEX is active, and a trust gate checks estimator consistency before returning control to the stock autopilot. The policy is trained in simulation using proximal policy optimization, with episodes initialized from post-impact states measured in 47 real collisions. In hardware experiments, REFLEX recovered 19 of 22 wall impacts at 5.03 $\pm$ 0.09 m/s, compared with 1 of 14 for the matched stock autopilot. These included 15 consecutive recoveries in a single flight. A separate exploratory flight demonstrated two additional recoveries at 6.02 and 6.05 m/s within the same flight, exceeding the previously reported velocity for autonomous wall-collision recovery by 64%.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：抗碰撞机身使四旋翼飞行器能够在碰撞中幸存，但并不能确保碰撞后自主恢复。现成机载估计器中的创新门控（innovation gating）常会在高速碰撞后拒绝有效的外部速度测量，从而影响恢复。我们提出REFLEX，一种完全在飞行控制器上运行的碰撞恢复飞行模式，既不需要接触传感器，也不需要伴侣计算机。其本体感受循环策略无需位置、速度、航向或高度估计即可稳定飞行器。当REFLEX激活时，平移估计被重新初始化，并且一个信任门控在将控制权交还给原厂自动驾驶仪之前检查估计器的一致性。该策略使用近端策略优化（PPO）在仿真中训练，训练回合以47次真实碰撞中测得的影响后状态作为初始状态。在硬件实验中，REFLEX以5.03±0.09 m/s的速度成功恢复了22次墙壁碰撞中的19次，而匹配的原厂自动驾驶仪仅恢复了14次中的1次。其中包括单次飞行中连续15次成功恢复。另一次探索性飞行展示了在同一飞行中额外两次分别以6.02和6.05 m/s速度的成功恢复，比先前报道的自主墙壁碰撞恢复速度高出64%。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: REFLEX introduces a collision-recovery flight mode for soft quadrotors that runs entirely on the flight controller. A recurrent policy trained with PPO stabilizes the vehicle using only onboard proprioception, and a trust gate reinitializes estimates before returning control; hardware tests show 19/22 recoveries at about 5 m/s versus 1/14 for the stock autopilot.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: REFLEX 为软体四旋翼提出一种完全在飞行控制器上运行的碰撞恢复模式：使用 PPO 训练的循环策略仅依赖本体感觉稳定飞行器，并通过信任门重新初始化估计后再交还控制；硬件实验中在约 5 m/s 撞击下恢复 19/22 次，而原厂自驾仪仅为 1/14。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.15867v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jakob Hermeler, Luca Girardi, Gabriel Maquignaz, Stefan Leutenegger, Stefano Mintchev</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PatientWM: Towards Generalizable Clinical World Models via Unified Patient States</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Clinical decisions depend on anticipating how a patient's condition will evolve as treatment is adjusted and new evidence becomes available. Existing medical world models capture patient-state evolution, but often define the evolving state around a particular modality or task, limiting reuse as inputs or prediction targets change. These models also retain history through observation sequences or recurrent or latent summaries rather than exposing preceding patient states and clinical actions as an ordered transition context. This distinction matters because similar current measurements may follow different recent changes, treatment exposures, and observed responses. To tackle these limitations, we propose PatientWM, a clinical world-model framework built around a unified patient state and sequential latent history. Availability-aware encoders integrate observations available at each decision time into the patient state, while typed decoders produce task-specific clinical readouts without defining the state around any single target. PatientWM further conditions each next-state prediction on the current state and supplied action together with a bounded, ordered history of preceding latent patient states and clinical actions, preserving recent treatment and response context. Experiments across MIMIC-III, MIMIC-IV, and three external clinical datasets show superior performance in clinical prediction, multi-step forecasting, and action-planning evaluation. Transfer experiments further demonstrate the generalizability of PatientWM's patient state. Together, these results establish its ability to forecast clinical evolution and support planning.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 临床决策依赖于预测患者病情在治疗调整和新证据出现时如何演变。现有的医学世界模型能够捕捉患者状态演变，但通常将演变状态定义在特定模态或任务之上，限制了其在输入或预测目标变化时的复用性。这些模型还通过观测序列或循环或潜在摘要来保留历史信息，而非将先前的患者状态和临床行为作为有序的转换上下文暴露出来。这一差异至关重要，因为相似的当前测量值可能遵循不同的近期变化、治疗暴露和观测反应。为解决这些局限性，我们提出了PatientWM，一个基于统一患者状态和顺序潜在历史的临床世界模型框架。可用性感知编码器将每个决策时刻可获得的观测信息整合到患者状态中，而类型化解码器产生特定任务的临床读出，无需围绕单一目标定义状态。PatientWM进一步将每个下一状态预测条件化为当前状态和所提供的行为，以及有界、有序的先前潜在患者状态和临床行为历史，从而保留近期治疗和反应上下文。在MIMIC-III、MIMIC-IV以及三个外部临床数据集上的实验表明，PatientWM在临床预测、多步预测和行动计划评估方面均表现出优越性能。迁移实验进一步证明了PatientWM患者状态的泛化能力。这些结果共同确立了其预测临床演变和支持规划的能力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PatientWM is a clinical world-model framework that uses a unified patient state and ordered latent history to predict next states conditioned on current state and clinical actions, showing strong performance across MIMIC and external datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PatientWM 提出一种临床世界模型框架，通过统一患者状态与有序潜在历史来根据当前状态和临床动作预测下一状态，并在 MIMIC 及外部数据集上取得较好性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.17059v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ziwen Kan, Jie Peng, Bo Yan, Davis Hobley, Zheng Zhang, Yu Tian, Tianlong Chen, Song Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Hybrid Context Forests and Bilateral Viterbi Matching for 3D Rib Centerline Tracing in CT</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Automatic extraction and anatomical numbering (R01-R12, L01-L12) of all 24 rib centerlines in thoracic CT is essential for unfolded rib visualization, fracture detection, and surgical navigation, but remains challenging due to adjacent-bone confluence, calcified costal cartilage bridges, kyphotic pose variation, and partial visibility of terminal ribs. We present ribline, an open-source three-stage framework combining: (1) an automatically detected lung-apex and vertebral-midline coordinate frame with a kyphosis-aware azimuthal angle for point ordering along each rib; (2) a hybrid voxel detector fusing an anatomically anchored Semantic Context Forest (SCF) with a lightweight 3D U-Net; and (3) a global stage that decomposes the probability skeleton into candidate curves, assigns rib indices via a bilateral Viterbi dynamic program coupled across both hemithoraces, and refines curves via template recovery and normal-plane centering (RibSnake). On the Siemens Corporate Research 2 mm thoracic CT benchmark (47 training and 12 evaluation scans), our pipeline achieves a labeled Chamfer distance of 2.05 mm, labeled clDice of 0.886 (3 mm) and 0.945 (4 mm), 97.2% labeling accuracy (278/286 ribs), and zero false-positive curves on the evaluation split, and 3.64 mm (median 2.39 mm) with 91.8% labeling accuracy across all 59 annotated scans (1,402 ribs) in 5-fold cross-validation.
+  Code: https://github.com/wq2012/ribline
+  Pretrained Models: https://huggingface.co/collections/wq2012/ribline</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 胸部CT中全部24根肋骨中心线的自动提取与解剖学编号（R01-R12, L01-L12）对于肋骨展开可视化、骨折检测和手术导航至关重要，但由于邻近骨骼融合、钙化肋软骨桥、脊柱后凸姿势变化以及终末肋骨部分可见等因素，该任务仍具挑战性。我们提出ribline，一个开源的三阶段框架，包括：（1）自动检测的肺尖和椎体中线坐标系，以及考虑后凸的方位角，用于沿每根肋骨进行点排序；（2）一种混合体素检测器，融合了解剖锚定的语义上下文森林（SCF）与轻量级3D U-Net；（3）全局阶段，将概率骨架分解为候选曲线，通过跨越两侧半胸的耦合双边维特比动态规划分配肋骨索引，并通过模板恢复和法平面居中（RibSnake）细化曲线。在Siemens Corporate Research 2 mm胸部CT基准（47例训练扫描和12例评估扫描）上，我们的流程在评估集上实现了2.05 mm的标记Chamfer距离，0.886（3 mm）和0.945（4 mm）的标记clDice，97.2%的标记准确率（278/286根肋骨），零假阳性曲线；在5折交叉验证中，所有59例标注扫描（1,402根肋骨）上的标记距离为3.64 mm（中位数2.39 mm），标记准确率为91.8%。
+代码：https://github.com/wq2012/ribline
+预训练模型：https://huggingface.co/collections/wq2012/ribline</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper presents ribline, an open-source three-stage framework for automatic extraction and numbering of all 24 rib centerlines in thoracic CT, combining a kyphosis-aware coordinate frame, a hybrid voxel detector (Semantic Context Forest + lightweight 3D U-Net), and a bilateral Viterbi dynamic program for global rib assignment and refinement. It reports strong accuracy on a Siemens thoracic CT benchmark, with 97.2% labeling accuracy and low Chamfer distance.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了 ribline，一个开源的胸部 CT 肋骨中心线自动提取与编号（R01-R12, L01-L12）三阶段框架，结合了基于后凸的坐标系、混合体素检测器（语义上下文森林 + 轻量级 3D U-Net），以及跨双侧胸腔的双边 Viterbi 动态规划全局匹配与曲线细化。在西门子胸部 CT 基准上取得了较高的标注准确率和较低的距离误差。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16047v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Quan Wang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.4, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">More Reasoning Is Not Always Better: Executing Clinical Guidelines with LLMs and Rules</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Large language models (LLMs) have shown considerable promise in clinical decision support. However, existing approaches often rely on multi-step reasoning or multi-agent collaboration to execute clinical guidelines, introducing substantial computational overhead without reliably preventing decision errors. To address these limitations, we propose a framework for Medical Decision Execution (MedDEx) that integrates structured patient states with deterministic rule execution to support guideline-based treatment planning. MedDEx separates clinical record interpretation from guideline execution, leveraging LLMs to extract patient information and generate treatment plans while assigning guideline-defined decision logic to a rule executor. Experiments across multiple clinical guideline benchmarks demonstrate that MedDEx improves decision accuracy while reducing inference costs. Further analyses highlight the critical roles of structured patient representations and deterministic rule execution, suggesting that additional LLM reasoning does not necessarily translate into better guideline adherence.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 大型语言模型（LLMs）在临床决策支持方面展现了相当大的潜力。然而，现有方法通常依赖多步推理或多智能体协作来执行临床指南，这引入了大量计算开销，且无法可靠地防止决策错误。为解决这些局限，我们提出了一个医学决策执行框架（MedDEx），该框架将结构化患者状态与确定性规则执行相结合，以支持基于指南的治疗规划。MedDEx将临床记录解析与指南执行分离，利用LLM提取患者信息并生成治疗计划，同时将指南定义的决策逻辑分配给规则执行器。在多个临床指南基准上的实验表明，MedDEx在降低推理成本的同时提高了决策准确性。进一步分析凸显了结构化患者表征和确定性规则执行的关键作用，表明额外的LLM推理并不必然转化为更好的指南依从性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes MedDEx, a framework that combines LLM-based clinical record interpretation with deterministic rule execution for guideline-based treatment planning, showing improved accuracy and reduced inference costs compared to pure multi-step LLM reasoning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出MedDEx框架，将基于LLM的临床记录解释与确定性规则执行相结合，用于基于指南的治疗规划，在提高决策准确性的同时降低推理成本。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.15912v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xiaoqian Lu, Guangfu Guo, Long Cheng, Kunpeng Liu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.45, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">FEM-Validated Real-Time Modelling of Soft Tactile Deformation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Accurate modelling of soft tactile sensors remains difficult because finite element methods (FEM) are computa- tionally expensive, while real-time simulators often lack fidelity for hyperelastic deformation. Large physical datasets are also impractical to collect because repeated testing can damage fragile sensors. We present a data-efficient framework that combines limited real-world validation, high-fidelity FEM, and graph neural networks (GNNs) for accurate real-time prediction of two-dimensional tactile deformation in a planar soft tactile structure. The key idea is to decouple validation from training: 82 camera-tracked contact configurations are used only to tune and validate an ANSYS FEM model, which then generates 768 synthetic contact scenarios for GNN training. We evaluate both forward prediction from marker deformation to contact localisation and inverse inference from contact configuration to marker deformation. The validated FEM achieves sub-0.5 mm error in more than 90% of validation cases, while the learned GNN surrogate reaches a mean absolute error of 0.32 mm with millisecond-scale inference, compared with minute-scale FEM simulation. Models trained entirely on synthetic FEM data retain sub-millimetre accuracy on real measurements from the 2D tactile structure, demonstrating strong sim-to-real transfer within the tested planar setting. We further integrate the learned model into a real-time visualisation pipeline, enabling rapid deformation prediction for virtual prototyping and simulator-based design exploration without extensive physical testing.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 准确建模软触觉传感器仍然面临挑战，因为有限元方法（FEM）计算成本高昂，而实时仿真器对超弹性变形的保真度往往不足。同时，由于重复测试可能损坏脆弱传感器，收集大规模物理数据集也不切实际。我们提出了一种数据高效的框架，结合有限的真实世界验证、高保真有限元模型和图神经网络（GNN），实现对平面软触觉结构中二维触觉变形的精确实时预测。核心思想是将验证与训练解耦：仅使用82个由相机跟踪的接触构型来调节并验证ANSYS有限元模型，随后该模型生成768个合成接触场景用于GNN训练。我们同时评估了从标记点变形到接触定位的正向预测，以及从接触构型到标记点变形的逆向推断。验证后的有限元模型在超过90%的验证案例中误差低于0.5毫米，而学习得到的GNN替代模型的平均绝对误差为0.32毫米，推理时间达到毫秒级，相比之下有限元仿真需要分钟级时间。完全在合成有限元数据上训练的模型，在二维触觉结构的真实测量数据上仍保持亚毫米精度，表明在所测试的平面设置中具有较强的仿真到现实迁移能力。我们进一步将学习模型集成到实时可视化流程中，能够在无需大量物理测试的情况下，快速预测变形，用于虚拟原型设计和基于仿真器的设计探索。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents a data-efficient framework combining ANSYS FEM validation and a GNN surrogate to predict 2D soft tactile deformation in real time, achieving sub-millimetre accuracy and strong sim-to-real transfer.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出一种将ANSYS有限元验证与图神经网络代理模型相结合的数据高效框架，用于实时预测二维软体触觉形变，在亚毫米精度和仿真到真实迁移上取得良好效果。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16667v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Silvia Terrile, Kaichen Shi, Taejun Kwon, Jiseok Lee, Nathan Lepora, Yeejin Lee, Saekwang Nam, Efi Psomopoulou</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.5, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">FOCUS: A Subspecialty Foundation Model for Intraoperative Central Nervous System Pathology</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Intraoperative frozen-section diagnosis of central nervous system (CNS) lesions guides surgical decisions but is challenged by artefacts, diagnostic complexity and time constraints. Most pathology foundation models have limited exposure to CNS frozen tissue. Here we present FOCUS, a subspecialty foundation model pretrained on 27,930 frozen-sections enriched for CNS tissue. FOCUS led 11 internal diagnostic and 12 biomarker-prediction tasks, with mean AUCs of 0.969 and 0.877, respectively, retaining leading performance in temporal and external cohorts. To provide more comprehensive diagnostic information, we further organized ten diagnostic tasks into a WHO-aligned diagnostic hierarchy and separately evaluated FOCUS for lymphoma detection, a critical task for intraoperative surgical decision-making. In reader assessments by six neuropathologists, FOCUS assistance enabled junior readers to approach or exceed unassisted senior readers in hierarchical diagnosis and raised junior readers' lymphoma sensitivity from 81.6% to 94.7%. FOCUS could improve diagnostic accuracy and granularity, inform lymphoma-related resection decisions and provide provisional molecular information. Such capabilities highlight the potential of FOCUS to provide robust, clinically actionable support for intraoperative CNS pathology.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 术中冷冻切片诊断中枢神经系统（CNS）病变可指导手术决策，但常受伪影、诊断复杂性和时间限制等因素挑战。大多数病理学基础模型对CNS冷冻组织的接触有限。在此，我们提出FOCUS，一个以27,930张富含CNS组织的冷冻切片为预训练数据的亚专科基础模型。FOCUS主导了11项内部诊断任务和12项生物标志物预测任务，平均AUC分别达到0.969和0.877，并在时间队列和外部队列中保持领先性能。为提供更全面的诊断信息，我们进一步将十项诊断任务组织为符合WHO分类的诊断层级，并单独评估了FOCUS在淋巴瘤检测中的表现，该任务对术中手术决策至关重要。在六位神经病理学家的阅片评估中，FOCUS辅助使初级阅片者在层级诊断中接近或超过无辅助的资深阅片者，并将初级阅片者对淋巴瘤的敏感度从81.6%提升至94.7%。FOCUS能够提高诊断准确性和精细度，为淋巴瘤相关的切除决策提供信息，并提供暂定的分子信息。这些能力凸显了FOCUS为术中CNS病理提供稳健、临床可操作支持的潜力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: FOCUS is a CNS pathology foundation model pretrained on 27,930 frozen sections; it shows strong performance across diagnostic and biomarker tasks, improves neuropathologists' intraoperative diagnosis, and provides molecular predictions.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: FOCUS是一个基于27,930张冰冻切片预训练的CNS病理基础模型，在多项诊断和生物标志物预测任务上表现优异，并能提升神经病理医师的术中诊断能力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16914v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xing Liu, Yifan Guo, Hongtai Lv, Lei Lou, Yuyi Tan, Jiang Du, Xijia Zhang, Ming Zhang, Chao Pang, Minglei Li, Wei Liu, Xiaobo Zhu, Song Zhang, Rong Yu, Hanlin Shu, Wenzhuo Xu, Tao Jiang, Cheng Lu, Jie Tian, Qing Chang, Zhenyu Liu</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.55, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Sequence Composition in EHR Foundation Model Pretraining</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Autoregressive electronic health record (EHR) foundation models predict the next event token in patient trajectories: sequences of structured medical events. A typical pretraining strategy is to concatenate all trajectories into a global stream and sample token windows from it. This gives patients with longer sequences more training exposure and allows tokens to attend across patient boundaries. We argue that these choices create a misalignment between pretraining and downstream clinical tasks. To explore this, we investigate how the composition of pretraining sequences affects clinical prediction performance. Using the global-stream approach as a baseline, we propose alternative sequence composition methods that control how patient trajectories contribute to pretraining sequences. Across four MIMIC-IV v2.2 tasks, our best method improves macro AUROC, AUPRC, F1, and balanced accuracy, with relative gains of 9.3% in F1 and 2.7% in AUPRC under a fixed training recipe. We find that these gains generalize across four additional evaluation settings, including the INSPIRE and eICU-CRD datasets, with improvements in macro AUROC, AUPRC, and F1 score. Our results show that simply changing how EHR data are presented to the model during pretraining can improve downstream performance, without changing the model or collecting additional data.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 自回归电子健康记录（EHR）基础模型预测患者轨迹中的下一个事件令牌：一系列结构化的医疗事件序列。典型的预训练策略是将所有轨迹拼接成一个全局数据流，并从中采样令牌窗口。这使得序列较长的患者获得更多的训练曝光，并允许令牌跨患者边界进行注意力计算。我们认为这些选择会导致预训练与下游临床任务之间产生错位。为探究这一问题，我们研究了预训练序列的组成如何影响临床预测性能。以全局流方法为基线，我们提出了替代性的序列组成方法，用于控制患者轨迹对预训练序列的贡献方式。在四个MIMIC-IV v2.2任务上，我们最优的方法在固定训练方案下提升了宏AUROC、AUPRC、F1和平衡准确率，其中F1相对提升9.3%，AUPRC相对提升2.7%。我们发现这些提升能够推广到另外四种评估设置中，包括INSPIRE和eICU-CRD数据集，并在宏AUROC、AUPRC和F1分数上均有所改善。我们的结果表明，仅改变预训练期间EHR数据呈现给模型的方式，即可在不改变模型或收集额外数据的情况下提升下游性能。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper investigates how the composition of patient sequences during EHR foundation model pretraining affects downstream clinical prediction, proposing alternative sequence composition strategies that outperform the standard global-stream concatenation across multiple tasks and datasets.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文研究了电子健康记录基础模型预训练中患者序列的组成方式如何影响下游临床预测，提出替代性的序列组合策略，在多个任务和数据集上优于标准的全局流拼接方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.16878v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Joshua Placidi, Inigo Stibbe, Alfred J. Balston, Marek Rei, A. Aldo Faisal</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-10-14 07:18:35 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
