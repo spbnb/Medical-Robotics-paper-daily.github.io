@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 19, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 19, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">ClinSDT: LLM-Encoded Clinical Semantic Guidance for Sepsis Treatment via Decision Transformer</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Offline sepsis treatment aims to learn treatment policies from retrospective ICU trajectories. Decision Transformer-based methods provide a natural sequence modeling framework for this task, but they mainly rely on raw physiological states and historical clinician actions. Such raw trajectory tokens may not explicitly capture clinical semantics that clinicians use in practice, such as patient severity, recent treatment response, and current risk priorities. To address this limitation, we propose ClinSDT, an LLM-assisted Decision Transformer framework for offline sepsis treatment. ClinSDT uses a frozen LLM as a semantic bridge rather than a treatment decision maker. It constructs three clinical semantic views from ICU trajectories, namely Profile, Context, and Advisory, and inserts their encoded representations as independent tokens into a Decision Transformer policy. To support policy refinement and rollout, ClinSDT further trains a Treatment-Response Forecaster to estimate the next physiological state, SAPS-II change, and predictive uncertainty from state-action inputs. In the second training stage, the forecaster screens local counterfactual treatment candidates, and only low-uncertainty candidates with lower predicted SAPS-II increase are distilled into the policy after semantic regeneration. During inference, ClinSDT performs closed-loop treatment rollout by refreshing semantic inputs from the currently available patient state. Experiments on MIMIC-III and MIMIC-IV show that ClinSDT achieves consistent relative improvements over representative imitation learning, offline reinforcement learning, and Decision Transformer baselines under the same rollout protocol. Code and data are available at https://github.com/KAG778/ClinSDT.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 离线脓毒症治疗旨在从回顾性ICU轨迹中学习治疗策略。基于决策Transformer的方法为这一任务提供了自然的序列建模框架，但它们主要依赖原始生理状态和历史临床医生动作。此类原始轨迹标记可能无法显式捕捉临床医生在实践中使用的临床语义，例如患者严重程度、近期治疗反应和当前风险优先级。为解决这一局限，我们提出ClinSDT，一种用于离线脓毒症治疗的LLM辅助决策Transformer框架。ClinSDT使用冻结的LLM作为语义桥梁而非治疗决策者。它从ICU轨迹中构建三种临床语义视图，即Profile、Context和Advisory，并将其编码表示作为独立标记插入决策Transformer策略中。为支持策略细化和 rollout，ClinSDT进一步训练一个治疗反应预测器，以从状态-动作输入估计下一生理状态、SAPS-II变化和预测不确定性。在第二阶段训练中，预测器筛选局部反事实治疗候选，并且仅将低不确定性且预测SAPS-II增幅较低的候选在语义重新生成后蒸馏到策略中。在推理期间，ClinSDT通过从当前可用的患者状态刷新语义输入来执行闭环治疗 rollout。在MIMIC-III和MIMIC-IV上的实验表明，在相同 rollout 协议下，ClinSDT相对于代表性的模仿学习、离线强化学习和决策Transformer基线取得了一致的相对改进。代码和数据可在 https://github.com/KAG778/ClinSDT 获取。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: ClinSDT uses a frozen LLM to generate clinical semantic tokens (Profile, Context, Advisory) that guide a Decision Transformer for offline sepsis treatment, and adds a Treatment-Response Forecaster for counterfactual policy refinement and closed-loop rollout, achieving consistent improvements on MIMIC-III and MIMIC-IV.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: ClinSDT 利用冻结的 LLM 生成临床语义令牌（Profile、Context、Advisory），以引导用于离线脓毒症治疗的 Decision Transformer，并通过 Treatment-Response Forecaster 进行反事实策略精化和闭环 rollout，在 MIMIC-III 和 MIMIC-IV 上取得了一致的性能提升。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.25121v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yanyan Wu, Guanyu Zhu, Changbin Zhao, Jin Zhang, Dexu Yu, Tianmin Sun, Jining Luan, Chunxiao Li, Hanwen Du, Youhua Li</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">CasePlay: Self-Play Reinforcement Learning from Case Reports for Medical Reasoning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Reinforcement learning (RL) is a promising way to improve the clinical reasoning abilities of large language models (LLMs), but current pipelines often rely on expert-labeled questions or costly synthetic-data generation. Meanwhile, the medical literature offers a wealth of high-quality unlabeled documents, including clinical case reports that trace the full clinical course from initial presentation to final treatment decisions. We study whether document-grounded self-play can convert these reports into effective RL training signals. We identify two challenges that limit existing self-play methods in this setting: knowledge-point fixation}, where the proposer repeatedly asks about a narrow set of salient clues in a source report, and difficulty-quality mismatch, where appropriately difficult questions may still be poorly formed or shallow, limiting their value for reasoner training. To address these challenges, we propose CasePlay, a self-play framework with two key components: (a) a Knowledge-Conditioned Proposer, which anchors question generation to case-specific knowledge points so that questions draw on a broader range of evidence from the source report; and (b) a Rubric-Judge Reasoner, which augments answer-accuracy feedback with rubric-based quality feedback on clue integration, reasoning depth, and option quality, guiding the proposer toward reasoning-intensive questions that better support reasoner training. Extensive experiments across seven medically related benchmarks demonstrate that CasePlay outperforms existing self-play baselines and improves the SFT warm-start model by 3.1 points on average, highlighted by a 6.3-point gain on LiveClin. This approach offers an effective path toward continually improving medical reasoning ability through self-play RL.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 强化学习（RL）是提升大语言模型（LLMs）临床推理能力的一种有前景的方法，但当前的流程通常依赖专家标注的问题或成本高昂的合成数据生成。与此同时，医学文献提供了大量高质量的无标注文档，包括从初始表现到最终治疗决策的完整临床过程的病例报告。我们研究文档驱动的自博弈能否将这些报告转化为有效的强化学习训练信号。我们识别出两种限制现有自博弈方法在此场景下应用的挑战：**知识点固定**——提问者反复询问源报告中少数显著线索；以及**难度-质量不匹配**——难度适当的问题仍可能构造不佳或流于表面，从而限制了其对推理者训练的价值。为应对这些挑战，我们提出 **CasePlay**，一种包含两个关键组件的自博弈框架：(a) **知识条件化提问者（Knowledge-Conditioned Proposer）**，将问题生成锚定到案例特定知识点上，使问题能够从源报告中更广泛的证据中取材；(b) **量规评判推理者（Rubric-Judge Reasoner）**，在答案准确性反馈的基础上，增加基于量规的线索整合、推理深度和选项质量反馈，引导提问者生成更具推理强度的问题，从而更好地支持推理者训练。在七个医学相关基准上的大量实验表明，CasePlay 优于现有自博弈基线，并使监督微调热启动模型平均提升 3.1 分，其中在 LiveClin 上获得 6.3 分的显著提升。该方法提供了一条通过自博弈强化学习持续提升医学推理能力的有效途径。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: CasePlay introduces a self-play RL framework that turns clinical case reports into training signals for medical reasoning LLMs, addressing knowledge-point fixation and difficulty-quality mismatch with a knowledge-conditioned proposer and a rubric-judge reasoner, and improves performance across seven medical benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: CasePlay 提出一种基于临床病例报告的自对弈强化学习框架，用于提升大模型医学推理能力；通过知识条件化出题器和 rubric 评判推理器，缓解知识点固着与难度-质量不匹配问题，在七个医学基准上取得提升。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7.5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.24952v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Hao Wang, Zihan Wang, Kai Wu, Jian Yao, Yiwen Ye, Yongcan Luo, Dapeng Wu, Jiale Chen, Haihua Yang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">SurGPT: A Multi-Task Foundation Model for Robotic Surgical Skills Assessment and Gesture Recognition</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> The assessment of surgical skills in robotic surgery training has traditionally relied on subjective evaluations by human experts, creating bottlenecks in surgical education and limiting scalability. We present a novel foundation model that automatically analyzes robotic surgical videos to provide comprehensive skill assessment and gesture understanding. Combining a visual encoder with a transformer architecture, the model performs three key tasks simultaneously: 1) surgical task classification (knot tying, needle passing, suturing), 2) skill level assessment on a standardized scale, and 3) natural language generation of surgical gesture descriptions. The model processes video sequences from the da Vinci surgical robot and generates human-readable text descriptions of surgical actions, similar to how language models generate text from prompts, using a multi-task learning framework with adaptive uncertainty weighting to optimize performance across all objectives. Our transformer-based architecture incorporates positional encoding for temporal understanding and attention mechanisms for spatiotemporal feature integration. Evaluated on the da Vinci Skills Simulator dataset, the proposed framework demonstrates state-of-the-art performance in surgical task recognition and provides interpretable skill assessments that correlate with expert evaluations, with the model's ability to generate natural language descriptions of surgical gestures opening new possibilities for automated surgical education, real-time feedback systems, and objective skill assessment in surgical training and certification programs.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：
+机器人手术培训中的手术技能评估传统上依赖人类专家的主观评价，这造成了外科教育的瓶颈并限制了其可扩展性。我们提出了一种新颖的基础模型，能够自动分析机器人手术视频，提供全面的技能评估和手势理解。该模型结合视觉编码器与Transformer架构，同时执行三项关键任务：1）手术任务分类（打结、穿针、缝合），2）基于标准化量表的技能水平评估，以及3）手术手势描述的自然语言生成。该模型处理达芬奇手术机器人的视频序列，并生成手术动作的人类可读文本描述，其方式类似于语言模型从提示词生成文本，采用具有自适应不确定性加权的多任务学习框架以优化所有目标的性能。我们的基于Transformer的架构结合了用于时间理解的位置编码和用于时空特征整合的注意力机制。在达芬奇技能模拟器数据集上进行的评估表明，所提出的框架在手术任务识别方面达到了最先进的性能，并提供了与专家评估相关的可解释技能评估，同时该模型生成手术手势自然语言描述的能力为自动化手术教育、实时反馈系统以及手术培训和认证计划中的客观技能评估开辟了新的可能性。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SurGPT is a multi-task foundation model for robotic surgery that analyzes da Vinci surgical videos to simultaneously classify surgical tasks, assess skill levels, and generate natural-language descriptions of surgical gestures, demonstrating state-of-the-art performance on the da Vinci Skills Simulator dataset.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SurGPT 是一个面向机器人手术的多任务基础模型，通过分析达芬奇手术视频，同时完成手术任务分类、技能水平评估和手术手势自然语言描述生成，在达芬奇技能模拟器数据集上取得了先进性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.25426v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Parham M. Kebria, Saeid Nahavandi, Mehrdad Saif, Fernando Bello</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">NeuroAct: Advancing EEG Analysis and Decoding via Dual-Loop Autonomous Research</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> EEG analysis and decoding underpin brain-computer interfaces, cognitive assessment, and sleep monitoring. Fixed pipelines and reward-driven search do not explicitly determine how signal structure, representations, predictor behavior, and training dynamics contribute to performance or generalization gaps, leaving intervention choice underdetermined. We introduce NeuroAct, an autonomous research agent framework for EEG analysis and decoding. NeuroAct implements dual-loop autonomous research across EEG foundation models, task-specific predictors, and model combinations. In an inner loop, research, development, and review roles use evidence on signal structure, representations, predictor behavior, and training dynamics to test hypotheses, select analyses or interventions, and refine candidates using performance, stability, and cost feedback. An outer loop distills outcomes into conditional, testable recommendations with task and model conditions, then validates and revises them on subsequent tasks.We evaluate four settings: (A) EEG General Analysis, (B) Cross-task Model Optimization, (C) Single-task Open Research, and (D) Collaborative Prediction. In Setting A, NeuroAct's 80.88 macro-average exceeds BrainAgent's 63.13 by 17.75 points. In Setting B, NeuroAct raises EEGPT's mean balanced accuracy (BA) by 7.34 points and HBN Pearson's (r) from 0.6894 to 0.7362; in Setting C, it improves ADFTD BA by 16.33 points; and in Setting D, it raises Workload BA from 79.69% to 85.02%. Experience reuse raises BCIC-IV-2a BA from 34.66% to 50.81% while reducing LLM tokens by 64.02%, indicating recommendations improve cross-task performance. NeuroAct enables evidence-guided EEG research improved by cross-task experience.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 脑电图分析与解码是脑机接口、认知评估和睡眠监测的基础。固定流程和奖励驱动的搜索无法明确确定信号结构、表征、预测器行为以及训练动态如何影响性能或泛化差距，导致干预选择缺乏充分依据。我们提出了NeuroAct，一个用于脑电图分析与解码的自主研究智能体框架。NeuroAct在脑电图基础模型、任务特定预测器和模型组合上实现了双循环自主研究。在内循环中，研究、开发和评审角色利用关于信号结构、表征、预测器行为和训练动态的证据来检验假设、选择分析或干预措施，并根据性能、稳定性和成本反馈优化候选方案。外循环将结果提炼为带有任务和模型条件的可操作建议，并在后续任务中验证和修订这些建议。我们评估了四种设置：(A) 脑电图一般分析，(B) 跨任务模型优化，(C) 单任务开放研究，以及 (D) 协作预测。在设置A中，NeuroAct的80.88宏平均值比BrainAgent的63.13高出17.75个百分点。在设置B中，NeuroAct将EEGPT的平均平衡准确率（BA）提高了7.34个百分点，并将HBN Pearson相关系数（r）从0.6894提升至0.7362；在设置C中，它将ADFTD的BA提高了16.33个百分点；在设置D中，它将Workload的BA从79.69%提升至85.02%。经验复用将BCIC-IV-2a的BA从34.66%提升至50.81%，同时将LLM令牌消耗减少64.02%，表明这些建议能改善跨任务性能。NeuroAct实现了由证据引导的脑电图研究，并可通过跨任务经验加以改进。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: NeuroAct is an autonomous dual-loop research agent framework for EEG analysis and decoding, using evidence-guided hypothesis testing and cross-task experience reuse to outperform existing pipelines across multiple EEG benchmarks.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: NeuroAct 是一种面向脑电（EEG）分析与解码的自主双循环研究智能体框架，通过证据引导的假设检验与跨任务经验复用，在多个 EEG 基准上显著提升性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.25211v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Wei Xiong, Jiangtong Li, Han Zhao, Linxiao Yang, Jie Li, Changjun Jiang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Persistent Representational Misalignment Induces Vision-Language Model Failures</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Vision-language models (VLMs) fail at some tasks that are simple for humans---but why? We hypothesize that many such failures stem from VLMs' difficulties translating between vision and language representations, a misalignment the Platonic Representation Hypothesis predicts should disappear with scale. This paper is composed of two parts: in the first, we show that existing vision and language representations are linearly unalignable. This misalignment is an inherent property of the data and hence expected to persist regardless of either scale or the alignment's complexity. In the second, we demonstrate how this misalignment both leads to a predictably induced generalization failure and correlates with existing failure modes, where more representationally aligned VLM backbones accordingly exhibit fewer failures. Overall, these results imply representations will not become aligned simply given sufficient scale, providing evidence against a strong version of the Platonic Representation Hypothesis.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 视觉-语言模型（VLMs）在一些对人类而言十分简单的任务上会失败——但原因何在？我们假设，许多此类失败源于VLM在视觉与语言表征之间转换的困难，这种错位按柏拉图表征假说的预测应随规模增大而消失。本文由两部分组成：第一部分，我们表明现有的视觉与语言表征在线性意义上不可对齐。这种错位是数据本身的固有属性，因此无论规模大小或对齐复杂度如何，预计都会持续存在。第二部分，我们展示了这种错位如何既导致可预测的归纳泛化失败，又与现有的失败模式相关联，其中表征对齐程度更高的VLM骨干网络相应地表现出更少的失败。总体而言，这些结果表明，仅靠足够的规模并不能使表征变得对齐，这为反对强版本的柏拉图表征假说提供了证据。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Argues that vision-language model failures persist because visual and language representations are inherently linearly unalignable, contradicting the strong Platonic Representation Hypothesis; the resulting misalignment predicts generalization failures, and more aligned VLM backbones exhibit fewer failures.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 认为视觉语言模型的失败源于视觉与语言表征本质上无法线性对齐，且这种不对齐是数据固有属性，不会随规模增大而消失；实验表明该不对齐可预测泛化失败，且表征更对齐的模型失败更少。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.25252v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yonatan Gideoni, Yoav Gelberg, Tim G. J. Rudner, Yarin Gal</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-10-20 07:08:03 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
