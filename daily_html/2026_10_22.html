@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 22, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 22, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">An Evidence-Driven Multi-Agent Compound AI System for Head and Neck Proton Radiotherapy Planning</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Radiation treatment planning requires balancing competing objectives to satisfy clinical criteria while accommodating physicians' preferences. This study aims to develop an evidence-driven, multi-agent compound AI system that integrates DRL-based automated treatment planning with LLM-based conversational plan refinement for proton PBS therapy. A policy network trained using PPO first generates multiple plans without human intervention, from which one is selected as the target plan and the others serve as references for subsequent refinements. For challenging cases requiring further adjustments, an LLM-based multi-agent system enables plan refinement through natural language interactions. The system comprises a planning agent that recommends evidence-supported adjustments, a chatbot providing a unified conversational interface, and an evaluation agent that retrieves clinical metrics and identifies constraint violations. To enhance domain-specific reasoning, the planning agent based on Qwen3-14B is designed to justify its recommendations using evidence from previously generated plans and post-trained on task-specific data using SFT and GRPO. The framework was trained and evaluated using 21 patients with H&N cancers, with 5 PPO-generated plans per patient. Of these, 50 plans were selected for instruction-guided refinement. Compared with the base LLM, the post-trained Qwen3-14B demonstrated improved instruction-following, information retrieval and domain-specific reasoning capabilities. The resulting adjustments more effectively improved user-prioritized objectives while limiting deterioration in competing objectives, yielding more clinically appropriate trade-offs in patient-specific plan refinement. The proposed compound AI system provides a user-friendly planning platform, offering a promising approach to personalized proton PBS treatment planning.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 放射治疗计划需要在满足临床标准的同时兼顾医生的偏好，平衡相互竞争的目标。本研究旨在开发一种证据驱动、多智能体复合AI系统，将基于深度强化学习（DRL）的自动治疗计划与基于大语言模型（LLM）的对话式计划优化相结合，用于质子笔束扫描（PBS）治疗。首先，使用近端策略优化（PPO）训练的策略网络无需人工干预即可生成多份计划，从中选择一份作为目标计划，其余计划作为后续优化的参考。对于需要进一步调整的疑难病例，基于LLM的多智能体系统能够通过自然语言交互实现计划优化。该系统由三部分组成：一个推荐基于证据调整方案的规划智能体、一个提供统一对话界面的聊天机器人，以及一个检索临床指标并识别约束违规的评估智能体。为了增强领域特定推理能力，基于Qwen3-14B的规划智能体被设计为利用先前生成的计划作为证据来论证其建议，并通过SFT和GRPO在任务特定数据上进行后训练。该框架使用21例头颈部（H&N）癌症患者数据进行训练和评估，每例患者生成5份PPO计划，其中50份计划被选作指令引导优化。与基础LLM相比，后训练的Qwen3-14B在指令遵循、信息检索和领域特定推理能力方面均有提升。由此产生的调整能更有效地改善用户优先目标，同时限制竞争目标的恶化，在患者特异性计划优化中产生更符合临床需求的权衡。所提出的复合AI系统提供了一个用户友好的计划平台，为个性化质子PBS治疗计划提供了一种有前景的方法。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a multi-agent compound AI system for head-and-neck proton radiotherapy planning that combines PPO-trained DRL plan generation with LLM-based conversational refinement, using a post-trained Qwen3-14B planning agent (SFT+GRPO) to make evidence-supported adjustments. In evaluations with 21 patients, the system improved user-prioritized objectives while limiting trade-off deterioration, showing promise for personalized proton therapy planning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种证据驱动的多智能体复合AI系统，用于头颈质子放疗计划：先由PPO训练的深度强化学习生成候选计划，再由基于Qwen3-14B的LLM多智能体系统通过自然语言交互进行证据支持的调整，并用SFT和GRPO增强领域推理。在21例头颈癌患者评估中，该系统能在改善用户优先目标的同时控制其他目标的劣化，展示了个性化质子放疗规划的潜力。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.29010v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Qingqing Wang, Liqiang Xiao, Chang Chang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Complexity-Aware Surgical Video Reasoning Segmentation with Digital Twin and Context Memory</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Conventional surgical segmentation relies on closed-set categories or explicit text queries, which cannot resolve implicit queries that require reasoning about workflows, instrument functions, and temporal relationships. To address these limitations, we propose SurgReasonSeg, a complexity-aware method that brings reasoning segmentation over digital twin (DT) representations to surgical video. Specifically, SurgReasonSeg constructs DT representations from surgical foundation models and trains two low-rank adapters (LoRA) of one large language model with reinforcement learning (RL), each specialized for a different query complexity. A lightweight router, also trained with RL, selects between the two adapters to balance latency against accuracy. SurgReasonSeg also sets the temporal context with an adaptive sliding window conditioned on query complexity and workflow phase, and retrieves relevant historical cases from a surgical context memory by workflow similarity and procedural relevance. We further introduce EndoVis-ReasonSeg, a surgical reasoning segmentation benchmark with 1,460 training and 961 test samples across semantic, spatial, and temporal categories. On EndoVis-ReasonSeg, SurgReasonSeg improves J&F over the strongest baseline, ReSurgSAM2, by 0.178, 0.237, and 0.297 on semantic, spatial, and temporal queries, and it also achieves the best results on the Ref-EndoVis17 and Ref-EndoVis18 referring segmentation benchmarks. A backbone-matched attribution protocol separates the contribution of the upstream segmenter from that of the reasoning modules. Our method runs at 18.8 FPS averaged over the query distribution, enabling real-time reasoning segmentation in surgical videos.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 常规手术分割依赖于封闭类别或显式文本查询，无法解决需要对手术流程、器械功能和时序关系进行推理的隐式查询。为解决这些局限性，我们提出SurgReasonSeg，一种复杂度感知方法，将推理分割引入手术视频的数字孪生（DT）表示。具体而言，SurgReasonSeg从手术基础模型构建DT表示，并通过强化学习（RL）训练一个大语言模型的两个低秩适配器（LoRA），每个适配器专门处理不同复杂度的查询。一个同样经过RL训练的轻量级路由器在两个适配器之间进行选择，以在延迟与准确性之间取得平衡。SurgReasonSeg还利用基于查询复杂度和手术阶段的自适应滑动窗口设置时序上下文，并通过手术流程相似性和程序相关性从手术上下文记忆中检索相关历史病例。我们进一步引入EndoVis-ReasonSeg，一个手术推理分割基准，包含1,460个训练样本和961个测试样本，涵盖语义、空间和时间类别。在EndoVis-ReasonSeg上，SurgReasonSeg在语义、空间和时间查询上的J&F分别比最强基线ReSurgSAM2提高0.178、0.237和0.297，并且在Ref-EndoVis17和Ref-EndoVis18指代分割基准上同样取得最佳结果。一个骨干匹配的归因协议将上游分割器的贡献与推理模块的贡献分离开来。我们的方法在查询分布上平均运行速度为18.8 FPS，能够实现手术视频中的实时推理分割。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: SurgReasonSeg introduces a complexity-aware surgical video reasoning segmentation method that uses digital twin representations, RL-trained dual LoRA adapters, an adaptive sliding window, and surgical context memory to handle implicit semantic, spatial, and temporal queries in real time, with a new benchmark EndoVis-ReasonSeg.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: SurgReasonSeg 提出了一种面向手术视频的复杂度感知推理分割方法，利用数字孪生表示、强化学习训练的双 LoRA 适配器、自适应滑窗和手术上下文记忆来处理隐式语义、空间与时间查询，并发布了新基准 EndoVis-ReasonSeg。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.28776v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yiqing Shen, Mathias Unberath</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">TernScope: Model-Hardware Co-Design for Efficient Ternary Endoscopic Segmentation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Edge medical segmentation must reconcile small model size, high accuracy, and fast inference. TernScope addresses this tradeoff through model--hardware co-design, learning a compact segmentation network whose low-bit operators also simplify hardware execution. Split-channel large-kernel blocks preserve spatial context with limited computation, while branch fusion removes redundant inference paths. Ternary Progressive Quantization-aware Training (TPQ) then adapts the fused network from deep to shallow layers, through the decoder, and finally to the input and prediction layers. All 25 convolutions use ternary weights and 8-bit activations, enabling packed storage and multiplier-free computation. The resulting model uses 0.2483 M parameters and 0.0949 GMACs while retaining competitive segmentation accuracy on in-domain and external datasets. Under the same 45 nm technology, TernScope reduces compute-array area by 88.46% compared with the original Gemmini, a systolic-array accelerator with 8-bit $\times$ 8-bit multipliers. These results demonstrate a path from accurate lightweight medical segmentation to compact low-bit hardware.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 边缘医学分割必须在模型尺寸小、准确度高和推理速度快之间取得平衡。TernScope通过模型-硬件协同设计来应对这一挑战，学习一个紧凑的分割网络，其低比特算子同时简化了硬件执行。拆分通道的大卷积核模块在有限计算量下保留空间上下文，而分支融合则消除冗余推理路径。随后，三值渐进量化感知训练（TPQ）将融合后的网络从深层到浅层、经过解码器、最终到输入层和预测层逐层适配。全部25个卷积均采用三值权重和8位激活，从而实现打包存储和无乘法器计算。所得模型参数量为0.2483 M，计算量为0.0949 GMACs，同时在域内和外部数据集上保持有竞争力的分割精度。在相同的45 nm工艺下，与原始Gemmini（一种采用8位×8位乘法器的脉动阵列加速器）相比，TernScope将计算阵列面积减少了88.46%。这些结果展示了一条从精确轻量级医学分割到紧凑低比特硬件的实现路径。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: TernScope is a model-hardware co-design method for efficient endoscopic image segmentation, using ternary-weight/8-bit-activation networks, split-channel large-kernel blocks, branch fusion, and ternary progressive quantization-aware training to achieve small model size, low computation, and compact hardware acceleration.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: TernScope 提出了一种面向内窥镜图像分割的模型-硬件协同设计方法，通过三元权重/8位激活、分裂通道大核模块、分支融合和渐进式三元量化感知训练，在保持分割精度的同时显著降低模型规模、计算量和硬件面积。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.29617v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhuoyu Wu, Wenhui Ou, Qiawei Zheng, Xuhong Qiu, Wenqi Fang, Raphaël C. -W. Phan</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Real PMIDs, Wrong Papers: Harness Design for Biomedical Claim-Verification Agents</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Literature-searching language agents are becoming a standard component of scientific assistants for the life sciences, yet there is little controlled evidence on which parts of their harness matter. We run a controlled ablation on biomedical claim verification (SciFact) with the live PubMed API as the only tool. Holding the backbone and output format fixed, we compare four harnesses: closed-book answering, single-shot retrieval using the claim as the query, a ReAct-style agent that writes its own PubMed queries, and an oracle given the gold abstracts, each with two efficient frontier backbones. Naive single-shot retrieval finds the gold paper for only 6% of claims and turns overconfident errors into abstentions without improving accuracy. Letting the model formulate its own queries triples gold recall and yields the best verdicts (62% accuracy vs. 49-59% for the other realistic harnesses), although these differences are not significant at our sample size and agents use fewer than half of their search budget. With gold abstracts, the same models reach 79-86% accuracy, a significant 17-24 point gap showing that retrieval, not reasoning, is the main bottleneck. Finally, a citation audit shows that closed-book models cite PubMed IDs that almost always exist (327/335) but are almost never relevant: a cross-family LLM judge rates only 3 of 327 existing citations as relevant to the claim, versus 67% for citations produced by the search agent. Existence checks are therefore insufficient safeguards for scientific agents. We release code, prompts, and all cached tool calls at https://github.com/saqlain2204/real-pmids-wrong-papers.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 文献检索语言代理正成为生命科学领域科学助手的标准组件，但关于其框架中哪些部分真正起关键作用，目前仍缺乏受控实验证据。我们以实时PubMed API为唯一工具，对生物医学声明验证任务（SciFact）进行了受控消融实验。在固定主干模型和输出格式不变的情况下，我们比较了四种框架：封闭式作答、以声明为查询进行单次检索、由模型自行编写PubMed查询的ReAct式智能体，以及输入黄金摘要的基准设置；每种框架均搭配两个高效前沿主干模型。朴素单次检索仅能对6%的声明找到原始论文，并将过度自信的错误转化为弃权，但未能提升准确率。让模型自行构造查询可将黄金论文召回率提高两倍，并获得最佳判断结果（准确率62%，而其他可行框架为49%-59%），尽管在现有样本量下这些差异并不显著，且智能体使用的搜索预算不到一半。在输入黄金摘要时，相同模型达到79%-86%的准确率，与其余设置之间存在17-24个百分点的显著差距，表明检索而非推理才是主要瓶颈。最后，引用审计显示，封闭式模型引用的PubMed ID几乎总是真实存在的（327/335），但几乎从不相关：一个跨家族大语言模型评判者判定327条现有引用中仅3条与声明相关，而搜索智能体生成的引用中相关比例达67%。因此，仅检查引用是否存在不足以作为科学智能体的安全防护措施。我们已在https://github.com/saqlain2204/real-pmids-wrong-papers开源代码、提示词及全部缓存的工具调用记录。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: A controlled ablation of biomedical claim-verification agents using the live PubMed API shows that letting the model write its own queries improves gold-paper recall and verdict accuracy, but retrieval remains the main bottleneck; closed-book models tend to cite real but irrelevant PMIDs, so mere existence checks are insufficient.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 对使用 PubMed API 的生物医学声明验证智能体进行受控消融实验：让模型自己编写查询能提升金标准文献召回和判断准确率，但检索仍是主要瓶颈；封闭式模型引用的 PMID 虽真实存在但大多不相关，仅检查文献存在性不足以保障可靠性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.29812v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mohammed Saqlain</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Reliability-Aware Probabilistic Fusion for Multimodal Learning with Incomplete Evidence</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Multimodal inputs may be missing or degraded, raising distinct questions of evidence availability and trust. We introduce a reliability-aware Gaussian Product-of-Experts (PoE) in which an input-dependent reliability weight tempers each modality's latent precision, while missing experts are omitted. We characterize how reliability and availability affect posterior information and expert influence. Across two clinical multimodal tasks, the full framework remains competitive with complete inputs and achieves its clearest mean-AUROC advantage under modality absence, particularly on HAIM-MIMIC-MM. Ablations show a substantial gain from missing-aware training and an additional HAIM improvement from reliability weighting under matched PoE, missing-aware, and consistency training. Unseen test-time corruptions are used diagnostically and reveal modality-dependent reliability-weight and latent-uncertainty responses, including failure under severe degradation. Thus, reliability weighting provides an explicit evidence-control mechanism, while learning dependable quality signals remains an open challenge.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 多模态输入可能缺失或退化，这引发了关于证据可用性和可信度的不同问题。我们提出了一种可靠性感知的高斯专家乘积模型（PoE），其中与输入相关的可靠性权重会调整每个模态的潜在精度，同时缺失的专家会被省略。我们刻画了可靠性和可用性如何影响后验信息与专家影响力。在两个临床多模态任务中，完整框架在输入完整时保持竞争力，并在模态缺失情况下取得最明显的平均AUC优势，尤其是在HAIM-MIMIC-MM上。消融实验表明，缺失感知训练带来了显著增益，而在匹配的PoE、缺失感知和一致性训练下，可靠性权重进一步提升了HAIM性能。测试时未见过的损坏被用于诊断性分析，揭示了模态依赖的可靠性权重与潜在不确定性响应，包括在严重退化下的失效情况。因此，可靠性权重提供了一种显式的证据控制机制，而学习可靠的质量信号仍然是一个开放的挑战。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a reliability-aware Gaussian Product-of-Experts fusion method for multimodal learning that handles missing or unreliable modalities by input-dependent precision tempering and omission of missing experts, showing gains on clinical benchmarks under modality absence.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种可靠性感知的高斯专家乘积融合方法，通过输入依赖的可靠性权重调节各模态精度，并在模态缺失时省略对应专家，用于不完整证据下的多模态学习；在临床多模态任务中显示在模态缺失下的优势。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.29621v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Patitapaban Palo, Abhisek Tiwari, Mattia Carletti, Anshul Thakur, Xiao Gu, David A. Clifton</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Linear Twisting Sidewinding Gaits for Twistable Snake Robot Motion Planning on Complex Terrains</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Sidewinding is an efficient gait for snake robots to locomote on various terrains, by undulating the backbone curve and shifting the contact segments along it. However, relying solely on undulatory motion limits the locomotive capability of snake robots, and combining it with twisting motion can improve their speed and robustness. This hypothesis has recently been verified by the rolling vector approach, which locomotes the robot like a differential-drive car. Yet its twisting is concentrated in a short buffer segment, imposing most of the workload on the two twist joints in the middle, which can often overburden the motors and limit its locomotion. With that in mind, this paper develops a new family of twisting sidewinding gaits that distribute the workload over the entire body with our proposed linear twisting function. Under matched turning speed and total output power, our gaits reduce the peak output power of a single twist joint by 42%. Real-robot experiments show that, with the reduced workload, our new gaits can locomote the robot in various terrains that the existing rolling vector approach cannot. Besides, our new gaits can move up to 49% faster than conventional sidewinding without twisting.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 侧行是蛇形机器人通过在脊柱曲线上波动并沿其移动接触节段，从而在各种地形上高效运动的一种步态。然而，仅依赖波动运动会限制蛇形机器人的移动能力，而将其与扭转运动相结合则可提升其速度和鲁棒性。这一假设近期已通过滚动向量方法得到验证，该方法使机器人像差动驱动车辆一样运动。但其扭转集中在一个较短的缓冲节段，将大部分工作量施加于中间的两个扭转关节上，这常常会使电机过载并限制其运动。鉴于此，本文开发了一类新的扭转侧行步态，通过我们提出的线性扭转函数将工作量分布在整条机体上。在匹配的转向速度和总输出功率下，我们的步态使单个扭转关节的峰值输出功率降低了42%。真实机器人实验表明，在降低工作量的情况下，我们的新步态能够使机器人在现有滚动向量方法无法实现的各种地形上运动。此外，我们的新步态比无扭转的传统侧行步态速度最多可提高49%。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes a new family of twisting sidewinding gaits for snake robots that distributes twisting workload across the entire body using a linear twisting function, reducing peak joint power by 42% and enabling faster locomotion on complex terrains compared to prior rolling-vector and conventional sidewinding approaches.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了一类新的扭转侧向蜿蜒步态，通过线性扭转函数将扭转负载分布到蛇形机器人全身，使单个扭转关节峰值功率降低42%，并在复杂地形上比现有滚动向量方法和传统侧向蜿蜒运动更快。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(3/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.29461v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Qingling Fan, Zhongqiang Ren</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-10-23 08:00:08 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
