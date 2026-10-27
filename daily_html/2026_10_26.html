@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 26, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 26, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">From Presence Labels to Bounding Boxes: Can Multimodal Large Language Models Scale Surgical Instrument Localization?</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Spatial localization of surgical instruments through bounding-box annotations is a foundational component of surgical scene understanding, supporting detection, tracking, interaction analysis, and grounded vision-language applications. Yet existing annotations often cover selected frames, video subsets, or dataset variants rather than complete procedures. Manual extension is time-consuming and expert-dependent. Additionally, weakly supervised and detector-based pseudo-labels require task-specific training and may be imprecise. In this study, we design a scalable MLLM-based annotation framework that converts surgical frames and existing instrument-presence labels into accurate bounding boxes, and systematically analyze its reliability, cost, and design sensitivity. We instantiate the framework using six MLLMs and a multi-call configuration on laparoscopic cholecystectomy in Cholec80. Using a carefully designed stratification scheme, two annotators independently label 1,000 frames, and an expert surgeon reviews one annotation set to establish the reference. Results show that instrument-set F1 ranges from 88.2 to 92.7,whereas mIoU ranges from 0.180 to 0.735, showing that comparable recognition can conceal large localization differences. A structured multi-stage annotation pipeline achieves 0.784 mIoU, compared with 0.735 for the best single-call baseline and 0.814 human-human agreement. Using the best accuracy pipeline, we create and publicly release a spatial extension of Cholec80 comprising 285,977 bounding boxes across all 184,498 annotated frames from the 80 videos. The annotations and human references are made available on GitHub</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：通过边界框标注实现手术器械的空间定位，是手术场景理解的基础组成部分，支持检测、跟踪、交互分析以及基于视觉与语言的应用。然而，现有标注往往覆盖部分帧、视频子集或数据集变体，而非完整手术流程。人工扩展标注既耗时又依赖专家经验。此外，弱监督方法和基于检测器的伪标签需要针对特定任务进行训练，且可能不够精确。在本研究中，我们设计了一个可扩展的基于多模态大语言模型（MLLM）的标注框架，将手术帧和已有的器械存在标签转换为准确的边界框，并系统分析了其可靠性、成本和设计敏感性。我们使用六种MLLM以及在Cholec80数据集上对腹腔镜胆囊切除术的多调用配置实例化了该框架。通过精心设计的分层方案，两名标注者独立标注了1,000帧，并由一名专家外科医生对其中一套标注进行审查以建立参考标准。结果表明，器械集F1分数在88.2至92.7之间，而mIoU在0.180至0.735之间，显示出相近的识别能力可能掩盖较大的定位差异。一种结构化的多阶段标注流程达到了0.784的mIoU，相比之下，最佳单次调用基线为0.735，人工标注者间一致性为0.814。使用精度最高的流程，我们创建并公开发布了Cholec80的空间扩展，包含来自80段视频全部184,498个标注帧的285,977个边界框。标注和人工参考已发布于GitHub。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper proposes a scalable multimodal large language model (MLLM)-based framework that converts surgical frames and existing instrument-presence labels into bounding-box annotations, systematically evaluating six MLLMs on Cholec80 and releasing a large-scale spatial annotation extension with 285,977 boxes.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一种基于多模态大语言模型（MLLM）的可扩展标注框架，将手术帧和已有的器械存在标签转换为边界框标注，在Cholec80上系统评估了六种MLLM，并发布了包含285,977个边界框的大规模空间标注扩展数据集。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.34218v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mohamed Hamdy, Muraam Abdel-Ghani, Fatmaelzahraa Ahmed, Sifna Nasar, Mariam Ahmed, Khalid Al-Jalham, Abdulaziz Al-Ali, Shidin Balakrishnan</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">MIS-VQA: An Annotation-Driven Surgical Vision-Language Dataset for Complex Surgical Understanding</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Modern surgical AI increasingly requires multimodal understanding rather than isolated perception, yet existing datasets remain largely limited to single-task supervision such as recognition or templated question answering. Current medical VQA resources often rely on synthetic templates, lack natural descriptive supervision, or provide sparse annotations that hinder reasoning about spatial relations and procedural context. We introduce MIS-VQA, a surgical vision-language dataset generated through an annotation-driven pipeline that converts heterogeneous surgical annotations into structured textual scene representations. Using EndoVis18 and CholecT50, we transform phase, instrument, interaction, triplet, and segmentation labels into unified contexts that guide large language models to generate clinically coherent question-answer pairs. MIS-VQA supports four response types-concise and detailed descriptions, perception-level grounding, and multi-step reasoning-enabling hierarchical evaluation from atomic visual grounding to compositional reasoning. To address annotation sparsity, we incorporate confidence-filtered segmentation and cross-annotation consistency checks, enabling spatially grounded supervision at scale. MIS-VQA establishes a unified benchmark for surgical vision-language understanding with spatial supervision and multi-tier reasoning evaluation. To demonstrate its utility, we introduce LLaVA-SurgXpert, a family of surgical vision-language models with visual encoders to analyze how visual representations influence multimodal reasoning. Experiments show consistent improvements over existing surgical VQA baselines while revealing capability gaps between perceptual grounding and higher-level reasoning hidden in prior benchmarks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 现代外科人工智能日益需要多模态理解而非孤立的感知，然而现有数据集大多局限于单一任务监督，例如识别或模板化问答。当前的医学视觉问答资源往往依赖合成模板，缺乏自然的描述性监督，或提供的标注稀疏，难以支撑对空间关系和手术流程上下文的推理。我们提出了MIS-VQA，一个通过标注驱动流程生成的外科视觉-语言数据集，该流程将异构的外科标注转换为结构化的文本场景表示。利用EndoVis18和CholecT50，我们将阶段、器械、交互、三元组和分割标签统一为上下文，引导大语言模型生成临床连贯的问答对。MIS-VQA支持四种回答类型——简洁描述、详细描述、感知级定位和多步推理——从而实现从原子视觉定位到组合推理的层级化评估。为解决标注稀疏问题，我们引入了置信度过滤的分割和跨标注一致性检查，从而在规模化条件下实现空间定位监督。MIS-VQA为外科视觉-语言理解建立了统一基准，具备空间监督和多层级推理评估。为展示其实用性，我们提出了LLaVA-SurgXpert，一个配备视觉编码器的外科视觉-语言模型系列，用以分析视觉表示如何影响多模态推理。实验表明，该模型相较于现有外科视觉问答基线取得了一致改进，同时揭示了先前基准中隐藏的感知定位与高层推理之间的能力差距。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper introduces MIS-VQA, a surgical vision-language dataset built by converting existing surgical annotations into structured textual contexts to generate diverse QA pairs, and demonstrates LLaVA-SurgXpert models that improve surgical VQA while exposing gaps between perception and reasoning.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出了MIS-VQA，一个通过将现有手术注释转换为结构化文本上下文来生成多样化问答对的手术视觉-语言数据集，并展示了LLaVA-SurgXpert模型，在提升手术VQA性能的同时揭示了感知与推理之间的能力差距。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.34210v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Mohamed Hamdy, Iheb Zouari, Fatmaelzahraa Ahmed, Muraam Abdel-Ghani, Muhammed Arsalan, Ponnuthurai Suganthan, Khalid Al-Jalham, Abdulaziz Al-Ali, Shidin Balakrishnan</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Semantic-Coupled Perception Framework for Autonomous Laparoscope Control</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> In minimally invasive surgery (MIS), maintaining an appropriate field of view (FoV) is essential for surgical safety and efficiency. However, conventional autonomous laparoscope control methods often treat visual tracking and surgical phase recognition independently, limiting robustness under occlusion, entity overlap, and camera motion. This paper proposes a closed-loop autonomous laparoscope control framework that couples real-time surgical phase recognition with camera-motion-compensated visual perception. By exploiting phase-dependent relationships among surgical entities, the framework improves target state estimation under challenging visual conditions, supporting task-aware autonomous FoV control. Experiments on benchmark datasets evaluate the proposed framework in surgical phase recognition and target tracking, including scenarios involving occlusion and entity overlap. Phantom experiments further demonstrate the feasibility of autonomous FoV control, showing improved target visibility and task execution performance compared with fixed-FoV control. These results highlight the potential of incorporating task-level semantics into visual state estimation for autonomous laparoscope guidance.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 在微创手术中，维持合适的视野对于手术安全与效率至关重要。然而，传统的自主腹腔镜控制方法通常将视觉跟踪与手术阶段识别独立处理，导致在遮挡、实体重叠及相机运动情况下的鲁棒性受限。本文提出了一种闭环自主腹腔镜控制框架，将实时手术阶段识别与相机运动补偿的视觉感知相结合。该框架利用手术实体之间的阶段相关关系，在具有挑战性的视觉条件下改进目标状态估计，支持任务感知的自主视野控制。在基准数据集上的实验评估了所提框架在手术阶段识别与目标跟踪方面的性能，涵盖遮挡及实体重叠场景。体模实验进一步验证了自主视野控制的可行性，表明与固定视野控制相比，其目标可见性与任务执行表现均有提升。这些结果凸显了将任务级语义融入视觉状态估计以用于自主腹腔镜引导的潜力。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes a closed-loop autonomous laparoscope control framework that couples real-time surgical phase recognition with camera-motion-compensated visual perception to improve target tracking and task-aware field-of-view control under occlusion, overlap, and camera motion.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种闭环自主腹腔镜控制框架，将实时手术阶段识别与相机运动补偿的视觉感知相结合，以在遮挡、重叠和相机运动等条件下改进目标跟踪与任务感知视野控制。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.34128v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Enduo Zhao, Fangzhou Li, Yujie Zhu, Sicheng Lu, Fang Chen, Longfei Ma, Hongen Liao</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">HerHealthGPT: An Evidence-Grounded Conversational AI System for Women's Reproductive Health Copy title</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> "Why is my period late?" Sometimes, the most useful response begins with another question. Yet conversational AI systems may respond to incomplete health queries without seeking essential context or grounding their guidance in verifiable evidence. This paper introduces HerHealthGPT, an evidence-grounded conversational AI system designed to address these challenges in women's reproductive health. HerHealthGPT integrates retrieval-augmented generation (RAG), context-aware clarification, and source validation within an interactive web interface. Rather than responding immediately to incomplete queries, the system maintains conversational context, asks targeted follow-up questions, checks for premature conclusions, and grounds its responses in retrieved evidence. We evaluate the AI components using 540 English messages derived from 90 reproductive-health cases and conduct a prototype questionnaire study with 30 adults. Evidence retrieval improves concern-category accuracy from 54.1% to 59.3% compared with fine-tuning alone. The clarification router achieves 85.6% recall and 86.2% specificity on constructed targets. In the user study, 83.3% of participants preferred the retrieval-enabled configuration, while 25 of 30 considered its follow-up questions relevant. These findings suggest that integrating evidence retrieval with interactive clarification offers a promising approach to more transparent, context-aware reproductive-health information systems, while further clinical validation remains necessary.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> “为什么我的月经推迟了？”有时，最有用的回应始于另一个问题。然而，对话式AI系统在应对不完整的健康咨询时，可能不会寻求必要的背景信息，也不会将其指导建立在可验证的证据之上。本文介绍了HerHealthGPT，一个基于证据的对话式AI系统，旨在解决女性生殖健康领域中的这些挑战。HerHealthGPT在交互式网页界面中集成了检索增强生成（RAG）、上下文感知澄清和来源验证。该系统不会立即回应不完整的查询，而是维持对话上下文、提出有针对性的后续问题、检查过早结论，并将其回应建立在检索到的证据之上。我们使用源自90个生殖健康案例的540条英文消息评估了AI组件，并开展了一项包含30名成年人的原型问卷研究。与仅微调相比，证据检索将关注类别准确率从54.1%提升至59.3%。澄清路由在构建目标上达到了85.6%的召回率和86.2%的特异度。在用户研究中，83.3%的参与者更偏好启用检索的配置，而30人中有25人认为其后续问题具有相关性。这些发现表明，将证据检索与交互式澄清相结合，为构建更透明、更具上下文感知能力的生殖健康信息系统提供了一种有前景的方法，但仍需进一步的临床验证。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents HerHealthGPT, an evidence-grounded conversational AI for women's reproductive health that combines RAG, targeted follow-up clarification, and source validation; evaluation shows improved category accuracy and user preference over fine-tuning alone.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出了 HerHealthGPT，一个面向女性生殖健康的基于证据的对话式AI系统，结合RAG、上下文澄清和来源验证；评估显示在分类准确率和用户偏好上优于仅微调方法。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.33931v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Hassan Saeed Hassan Albattra, Mazen Mohammed Bahgat, Rahatara Ferdousi, Hana Essam Sayed Ahmed Amrya, Mariam Mousa</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Doppler-aided Position-Velocity Tracking of Hidden Objects using mmWave Radar</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Safe indoor operation requires autonomous tracking of objects that are not directly visible to the robot. Optical non-line-of-sight (NLoS) methods depend on ambient lighting and scene geometry or on weak multi-bounce returns that need long acquisitions. Millimeter-wave (mmWave) radar offers an attractive alternative: walls act as reflectors for mmWave signals, and frequency-modulated continuous-wave (FMCW) radars enable fast, practical measurement of range, angle, and velocity. However, the low resolution of these radars leads to spatially ambiguous observations. The Doppler information, although particularly sensitive to target motion, remains underexplored in indoor NLoS localization: existing methods emphasize spatial representations and either collapse or discard the Doppler dimension before learning. To leverage the complete Range-Azimuth-Doppler (RAD) information, we acquire the first indoor NLoS radar dataset that pairs sequential RAD measurements with synchronized position and velocity ground truth under controlled variations in motion: 576 sequences totaling 720,856 frames across 12 trajectories of a mobile robot moving along varying speeds, starting positions, and material configurations. We then formulate NLoS tracking as sequential position-velocity estimation rather than frame-wise localization: a shared 3-D encoder processes the full RAD representation of consecutive frames, separate recurrent branches estimate position and velocity, and post-inference refinement combines the two into a motion-consistent trajectory. Our method achieves 8.95cm position and 1.75cm/s velocity errors on held-out trajectories and generalizes to unseen scenarios involving a moving human target. Together, our dataset and tracker establish a benchmark for tracking hidden moving targets with a low-cost radar.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 安全室内操作要求对机器人不可直接看见的物体进行自主跟踪。光学非视距（NLoS）方法依赖于环境光照和场景几何，或依赖于需要长时间采集的微弱多跳返回信号。毫米波（mmWave）雷达提供了一种有吸引力的替代方案：墙壁可作为毫米波信号的反射体，而调频连续波（FMCW）雷达能够快速、实用地测量距离、角度和速度。然而，此类雷达的低分辨率会导致观测在空间上存在模糊性。多普勒信息虽然对目标运动特别敏感，但在室内非视距定位中仍未得到充分探索：现有方法强调空间表示，并在学习之前对多普勒维度进行压缩或丢弃。为充分利用完整的距离-方位-多普勒（RAD）信息，我们采集了首个室内非视距雷达数据集，该数据集在受控的运动变化条件下，将顺序RAD测量值与同步的位置和速度真值配对：共包含576个序列，总计720，856帧，覆盖一台移动机器人在不同速度、起始位置和材料配置下沿12条轨迹的运动。随后，我们将非视距跟踪表述为顺序的位置-速度估计，而非逐帧定位：一个共享的3D编码器处理连续帧的完整RAD表示，独立循环分支分别估计位置和速度，推理后细化模块将两者结合为运动一致的轨迹。我们的方法在保留轨迹上实现了8.95厘米的位置误差和1.75厘米/秒的速度误差，并能泛化到涉及移动人体目标的未见场景中。综合来看，我们的数据集和跟踪器为使用低成本雷达跟踪隐藏移动目标建立了基准。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Presents a Doppler-aided mmWave radar approach for tracking hidden objects in non-line-of-sight, with a new dataset of RAD frames and position/velocity ground truth, and a recurrent encoder/refinement method achieving cm-level tracking.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出利用毫米波雷达的完整距离-方位-多普勒信息进行非视距目标跟踪，并发布首个包含位置/速度真值的室内NLoS雷达数据集；方法采用共享3D编码器和循环分支估计位置与速度，在隐藏移动目标跟踪上达到厘米级精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.34085v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Yerin Cheon, Kush Garg, Akshat Dave</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Enabling Motion-Induced WiFi-CSI Sensing in Multi-Robot Systems: A Simulation Framework</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> WiFi Channel State Information (CSI) enables fine-grained sensing of spatial relationships between wireless devices. The WiFi Sensor for Robotics (WSR) toolbox demonstrated that WiFi-CSI measurements collected during robot motion, combined with odometry, can be used to synthesize virtual antenna arrays, enabling motion-induced bearing estimation in multi-robot experiments. However, deploying the WSR approach has remained challenging due to its limited integration with standard robotics tools and reliance on deprecated WiFi-CSI acquisition hardware. This work presents an open-source simulation framework that integrates the WSR sensing pipeline within the robotic simulator Gazebo. The framework generates synthetic WiFi-CSI measurements with realistic physical signal properties and leverages realistic robot motion required for motion-induced sensing and downstream localization. It further supports processing both simulated and real WiFi-CSI data for direct comparison and validation. Our aim is to make WSR-style sensing accessible as a modular sensing modality for robotic research. We validate our framework by comparing simulated and real-world experiments using TurtleBot3 robots, and demonstrate its use for bearing estimation and robot localization. This work lowers the barrier to entry for WiFi-CSI-based sensing in multi-robot systems and provides a foundation for integrating WiFi-CSI sensing with multi-modal perception for localization and coordination. All code and experimental details are publicly available at https://github.com/baharhaghighat/DARS_2026_Dijkstra_et_al</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> WiFi信道状态信息（CSI）能够实现无线设备之间空间关系的细粒度感知。WiFi机器人传感器（WSR）工具箱表明，在机器人运动过程中采集的WiFi-CSI测量数据与里程计信息相结合，可用于合成虚拟天线阵列，从而在多机器人实验中实现基于运动的到达角估计。然而，由于WSR方法与标准机器人工具的集成有限，且依赖已弃用的WiFi-CSI采集硬件，其部署仍具挑战性。本工作提出一种开源仿真框架，将WSR感知流程集成到机器人仿真器Gazebo中。该框架生成具有真实物理信号特性的合成WiFi-CSI测量数据，并利用运动诱导感知及下游定位所需的真实机器人运动。它进一步支持处理仿真和真实WiFi-CSI数据，以便直接比较和验证。我们的目标是使WSR式感知成为一种模块化感知模态，可供机器人研究使用。我们通过使用TurtleBot3机器人进行仿真与真实世界实验的对比来验证该框架，并展示其在到达角估计和机器人定位中的应用。本工作降低了多机器人系统中基于WiFi-CSI感知的入门门槛，并为将WiFi-CSI感知与多模态感知相结合以支持定位与协同提供了基础。所有代码和实验细节均公开于https://github.com/baharhaghighat/DARS_2026_Dijkstra_et_al。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents an open-source Gazebo-based simulation framework that integrates the WiFi-CSI sensing pipeline originally developed in the WSR toolbox, enabling realistic synthetic WiFi-CSI generation for motion-induced bearing estimation and localization in multi-robot systems.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出了一个基于Gazebo的开源仿真框架，将WSR工具箱中的WiFi-CSI感知流程集成进来，可生成具有真实物理特性的合成WiFi-CSI数据，用于多机器人系统中的运动诱发测向与定位研究。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(1/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.34034v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Brendan Dijkstra, Ninad Jadhav, Maurice Stoffijn, Stephanie Gil, Bahar Haghighat</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Compressive microendoscopy in the presence of noise and misalignment: the translational correlation advantage of graded-index fibers</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Multimode fibers (MMFs) offer a minimally invasive platform for deep-tissue and multisite in vivo optical sensing. Computational microendoscopy methods extend them into the high-resolution imaging domain, but are quite sensitive to experimental errors. This study investigates the robustness of microendoscopy based on compressive sensing (CS) by comparing step-index (SI) MMFs with graded-index (GRIN) fibers. Mode-expansion-based simulations are used to assess the accuracy of image reconstruction in the presence of fundamental photon noise and lateral fiber shifts. We show that both fiber types exhibit comparable noise sensitivity, but GRIN fibers are significantly more robust to lateral misalignment errors. These results establish GRIN MMFs as an alignment-tolerant platform for robust computational microendoscopy.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 多模光纤（MMF）为深层组织和多位点在体光学传感提供了一种微创平台。计算微内窥镜方法将其扩展到高分辨率成像领域，但对实验误差相当敏感。本研究通过比较阶跃折射率（SI）多模光纤与渐变折射率（GRIN）光纤，探讨了基于压缩感知（CS）的微内窥镜的鲁棒性。采用基于模式展开的仿真来评估在存在基本光子噪声和横向光纤偏移时图像重建的精度。结果表明，两种光纤类型表现出相当的噪声敏感性，但GRIN光纤对横向对准误差显著更具鲁棒性。这些结果确立了GRIN多模光纤作为耐对准误差平台，可用于鲁棒的计算微内窥镜成像。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper compares compressive microendoscopy using step-index and graded-index multimode fibers under photon noise and lateral misalignment, showing through simulations that GRIN fibers are significantly more robust to fiber misalignment while having similar noise sensitivity.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文通过仿真比较了阶跃折射率与渐变折射率多模光纤在压缩感知微内窥成像中对光子噪声和横向错位的鲁棒性，发现渐变折射率光纤对错位更鲁棒，而噪声敏感性相近。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(2/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.33933v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: M. S. Pochechuev, T. I. Rajib, A. Dharmasiri, A. M. Zheltikov</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-10-27 07:26:22 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
