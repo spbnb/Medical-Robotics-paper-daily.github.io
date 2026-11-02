@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv FBG + Surgical Robotics Papers (FBG/Surgical Navigation/Bronchoscopy/Soft Robotics/VLA) - October 31, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.dev.js"></script>
+    <!-- Example using Font Awesome (replace with your preferred icon library if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            /* New Palette: Light, Clean, Futuristic with Tsinghua Purple accents */
+            --bg-color: #f8fafc; /* Tailwind slate-50 (Very Light Gray) */
+            --card-bg-color: #ffffff; /* White */
+            --text-color: #1e293b; /* Tailwind slate-800 (Dark Gray-Blue) */
+            --text-muted-color: #64748b; /* Tailwind slate-500 (Medium Gray-Blue) */
+            --header-color: #0f172a; /* Tailwind slate-900 (Very Dark Blue) */
+            --highlight-primary: #7B2C9F; /* Tsinghua Purple */
+            --highlight-secondary: #B794D3; /* Light Tsinghua Purple */
+            --border-color: #e2e8f0; /* Tailwind slate-200 (Light Gray) */
+            --shadow-color: rgba(15, 23, 42, 0.08); /* Subtle shadow based on slate-900 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            line-height: 1.6;
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 1.5rem; /* Tailwind gap-6 */
+            grid-template-columns: 1fr; /* Force single column */
+            padding-bottom: 4rem; /* Add padding at the bottom */
+        }
+
+        .bento-item {
+            /* Apply semi-transparent white background and blur */
+            background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+            border-radius: 1rem; /* Slightly larger radius */
+            padding: 1.75rem; /* Slightly more padding */
+            border: 1px solid rgba(226, 232, 240, 0.5); /* Lighter border with transparency */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            position: relative; /* For potential pseudo-elements */
+        }
+
+        /* Removed ::before pseudo-element for a cleaner look */
+
+
+        .bento-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 4px 8px rgba(15, 23, 42, 0.06); /* Adjusted hover shadow */
+        }
+
+        .paper-title {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            color: var(--highlight-primary); /* Use new primary highlight */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+            line-height: 1.4;
+        }
+
+        .paper-summary {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: var(--text-muted-color);
+            margin-bottom: 1.25rem; /* Tailwind mb-5 */
+            line-height: 1.6;
+        }
+
+        .paper-link {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: 600;
+            color: var(--highlight-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add padding */
+            border-radius: 0.5rem; /* Slightly rounder */
+            background-color: rgba(123, 44, 159, 0.08); /* Subtle purple background */
+            border: 1px solid rgba(123, 44, 159, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .paper-link i {
+            margin-right: 0.5rem; /* Tailwind mr-2 */
+            transition: transform 0.3s ease;
+        }
+
+        .paper-link:hover {
+            background-color: rgba(123, 44, 159, 0.15);
+            color: #6B1F8F; /* Darker purple on hover */
+            transform: translateY(-1px);
+        }
+        .paper-link:hover i {
+             transform: translateX(2px);
+        }
+
+        .paper-authors {
+            font-size: 0.75rem; /* Tailwind text-xs */
+            color: var(--text-muted-color);
+            margin-top: 1rem; /* Tailwind mt-4 */
+            font-style: italic;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            padding-top: 3rem; /* Tailwind pt-12 */
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* Tailwind text-4xl or 5xl */
+            font-weight: 700; /* Tailwind font-bold */
+            color: var(--header-color);
+            letter-spacing: -0.025em; /* Tailwind tracking-tight */
+            margin-bottom: 0.5rem;
+            /* Optional: Add a subtle text gradient (Tsinghua Purple) */
+            /* background: linear-gradient(90deg, var(--highlight-primary), var(--highlight-secondary)); */
+            /* -webkit-background-clip: text; */
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .header p {
+            font-size: 1.125rem; /* Tailwind text-lg */
+            color: var(--text-muted-color);
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted-color);
+            font-size: 0.875rem; /* Tailwind text-sm */
+            padding-top: 2rem;
+            padding-bottom: 2rem; /* Tailwind py-8 */
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Simple line graphic element (optional) */
+        .line-graphic {
+            height: 1px; /* Thinner line */
+            background: linear-gradient(90deg, rgba(123, 44, 159, 0), var(--highlight-primary), rgba(123, 44, 159, 0));
+            opacity: 0.6;
+            margin: 1.5rem 0; /* Adjust margin */
+        }
+
+        /* Framer Motion requires the script, styles enhance appearance */
+        [data-motion-element] {
+             /* Base styles for elements animated by Framer Motion */
+        }
+
+        .paper-tldr {
+            font-size: 0.95rem; /* Slightly bigger than summary */
+            color: #475569; /* Changed to Tailwind slate-600 (slightly darker than summary) */
+            margin-top: 0.75rem; /* Tailwind mt-3 */
+            margin-bottom: 0.75rem; /* Tailwind mb-2 */
+            /* font-style: italic; */
+            font-weight: bold;
+        }
+
+        .paper-rating {
+            margin-top: 1rem; /* Tailwind mt-4 */
+            margin-bottom: 1rem; /* Tailwind mb-4 */
+            color: #f59e0b; /* Tailwind amber-500 */
+        }
+
+        .paper-rating i {
+            margin-right: 0.125rem; /* Tailwind mr-0.5 */
+        }
+
+        /* Apply consistent star color to sub-ratings */
+        .paper-sub-ratings .rating-item i {
+            color: #f59e0b; /* Match overall rating star color (amber-500) */
+            margin-right: 0.125rem; /* Consistent spacing */
+        }
+
+    </style>
+</head>
+<body class="container mx-auto px-4 antialiased">
+
+    <motion.div
+        initial="{ opacity: 0, y: -30 }"
+        animate="{ opacity: 1, y: 0 }"
+        transition="{ duration: 0.6, ease: 'easeOut' }"
+        class="header"
+        data-motion-element
+    >
+        <h1>FBG + Surgical Robotics Daily Papers</h1>
+        <p>Daily papers on FBG sensing algorithms, surgical robotics/navigation, bronchoscopy navigation, soft robotics, and VLA-based methods</p>
+        <p>October 31, 2026</p>
+        <div class="line-graphic mt-4 mb-8 mx-auto w-1/4"></div> <!-- Added line graphic -->
+    </motion.div>
+
+    <div class="bento-grid" id="paper-grid">
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.0, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Language-Conditioned Behavioral Cloning for Autonomous Endoscope Guidance</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Automated endoscope guidance reduces the need for continuous manual camera control during minimally invasive surgery. However, the desired camera motion depends on the surgeon's immediate intentions and cannot always be inferred from the visual operative scene alone. We propose to automate the task using language-conditioned behavioral cloning; we define 6 clinically relevant guidance behaviors and collect 235 subtask demonstrations. In preliminary phantom experiments, our policy achieves 100% success on focus, overview, and stop, 80% on search-tip and follow-tip behaviors, and 50% on horizon leveling. These results demonstrate the feasibility of learning heterogeneous surgeon-requested camera behaviors with a single visuomotor policy, while the observed failure modes motivate future work on adding temporal context for more demanding guidance tasks.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 摘要：自动化内窥镜引导减少了微创手术中对持续手动相机控制的需求。然而，期望的相机运动取决于外科医生的即时意图，并不能总是仅从视觉手术场景中推断出来。我们提出使用语言条件行为克隆来自动化该任务；我们定义了6种临床相关的引导行为，并收集了235个子任务演示。在初步体模实验中，我们的策略在聚焦、概览和停止上达到100%的成功率，在搜索尖端和跟随尖端行为上达到80%，在水平校准上达到50%。这些结果证明了使用单一视觉运动策略学习外科医生请求的异构相机行为的可行性，而观察到的失败模式为未来在更高要求的引导任务中加入时间上下文提供了动机。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper proposes language-conditioned behavioral cloning to automate endoscope guidance by learning six clinically relevant camera behaviors from 235 demonstrations, achieving high success on simple behaviors in phantom experiments but lower success on more demanding ones.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 该论文提出使用语言条件行为克隆来自动化内窥镜引导，基于235个演示学习6种临床相关相机行为；在体模实验中简单行为成功率高，但更复杂行为成功率较低。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41978v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Ariel Rodriguez, Lorenzo Mazza, Ortrun Hellig, Alejandra Toscano, Rayan Younis, Stefanie Speidel</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Physically Constrained Kinematic Calibration for High-Precision Robotic Needle Guidance</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Percutaneous needle insertion is a common practice in minimally invasive procedures whose clinical success depends on accurate needle placement. However, achieving the necessary precision is a challenge for manual operators. Robotic assistance can improve targeting accuracy and reduce operator dependence, but residual millimeter-scale errors persist because nominal kinematic models do not fully represent the physical manipulator. This paper presents a robust bound-constrained kinematic calibration method designed to improve positional accuracy for a 6-Degree-of-Freedom (6-DoF) robotic needle-guidance manipulator. The approach uses physically plausible parameter ranges to regularize a compact 19-parameter geometric identification model. By treating these bounds as active optimization constraints rather than mere numerical safeguards, the framework effectively mitigates parameter coupling and overfitting, ensuring highly stable parameter identification. In simulation, the proposed method reduced end-effector Root Mean Square Error (RMSE) from 3.422 mm to 0.690 mm (a 79.8% improvement). In benchtop hardware experiments, the calibrated model achieved sub-millimeter validation accuracy, including 0.865 mm RMSE in experimental trajectory validation and 0.610 mm RMSE in a coordinate-lattice verification task. These results demonstrate that physically constrained kinematic calibration can enhance robotic needle-targeting accuracy, establishing a high-precision foundation for future clinical applications.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 经皮穿刺针插入是微创手术中的常见操作，其临床成功取决于针尖定位的准确性。然而，对于手动操作者而言，实现所需的精度是一项挑战。机器人辅助可以提高靶向精度并减少对操作者的依赖，但由于名义运动学模型不能完全表征物理机械臂，残余的毫米级误差仍然存在。本文提出了一种鲁棒的带界约束运动学标定方法，旨在提高六自由度（6-DoF）机器人穿刺引导机械臂的位置精度。该方法利用物理上合理的参数范围来正则化一个紧凑的19参数几何辨识模型。通过将这些界视为主动优化约束，而不仅仅是数值保护措施，该框架有效缓解了参数耦合和过拟合问题，确保了高度稳定的参数辨识。在仿真中，所提方法将末端执行器均方根误差（RMSE）从3.422 mm降低至0.690 mm（提升79.8%）。在台架硬件实验中，标定模型达到了亚毫米级的验证精度，其中实验轨迹验证的RMSE为0.865 mm，坐标栅格验证任务的RMSE为0.610 mm。这些结果表明，物理约束的运动学标定能够提升机器人穿刺靶向精度，为未来的临床应用奠定了高精度基础。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: This paper presents a bound-constrained kinematic calibration method for a 6-DoF robotic needle-guidance manipulator, using physically plausible parameter ranges as active optimization constraints to reduce positioning errors and achieve sub-millimeter accuracy in hardware validation.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出一种面向六自由度机器人穿刺引导操作臂的有界约束运动学标定方法，将物理合理的参数范围作为主动优化约束，以降低定位误差，并在硬件实验中实现亚毫米级精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41429v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Prabhu Nithin Gollapudi, Andreas Maier, Franziska Mathis-Ullrich, Water Zhao, Jia Wang, Siming Bayer</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.1, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">RECITE: Revising Eligibility Criteria Incorporating Textual Evidence</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Overly restrictive eligibility criteria contribute to widespread enrollment failure in clinical trials, yet published recommendations for how specific criteria should be broadened remain disconnected from trial design at scale. We introduce RECITE (Revising Eligibility Criteria Incorporating Textual Evidence), a framework for automated discovery, extraction, and implementation of evidence-based eligibility criteria revisions. RECITE uses protocol amendment documents from ClinicalTrials.gov to construct a dataset of 11,913 curated instances across 5,735 trials, each pairing original criteria with documentary evidence and target revisions. We benchmark fifteen LLM configurations under truncated-to-context-window and retrieval-augmented generation conditions, on a 3,116-instance sample under an LLM-as-judge protocol validated against ten domain experts (judge vs. human quadratic-weighted Cohen's $κ_{qw} = 0.694 \pm 0.096$). The best open-weight model, Gemma 2 9B, achieves $κ_{qw}$-aligned ordinal score $3.0 \pm 0.9$ on a 0--4 scale (normalized 0.742) and the best closed-weight model, GPT-4o, reaches $3.0 \pm 0.8$ (normalized 0.745). Using an agentic literature discovery system, we then identified 44 paper--trial matches across five publications providing trial-design and EC-modification evidence. Our findings suggest that existing clinical knowledge can be operationalized into actionable trial design recommendations.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 过于严格的入组标准导致临床试验中普遍的入组失败，然而关于如何放宽具体标准的已发表建议仍与大规模试验设计脱节。我们提出了RECITE（基于文本证据修订入组标准），一个用于自动化发现、提取和实施循证入组标准修订的框架。RECITE利用ClinicalTrials.gov上的方案修订文件构建了一个包含5735项试验中11913条精选实例的数据集，每条实例将原始标准与文档证据和目标修订配对。我们在截断至上下文窗口和检索增强生成条件下，对十五种LLM配置进行了基准测试，测试样本为3116条实例，采用经十位领域专家验证的LLM-as-judge协议（judge与人类二次加权Cohen's $κ_{qw} = 0.694 \pm 0.096$）。最佳开源权重模型Gemma 2 9B在0--4量表上达到了与$κ_{qw}$对齐的序数得分$3.0 \pm 0.9$（标准化0.742），最佳闭源权重模型GPT-4o达到了$3.0 \pm 0.8$（标准化0.745）。利用一个智能体文献发现系统，我们随后在五篇出版物中识别出44个论文-试验匹配对，提供了试验设计和EC修改证据。我们的研究结果表明，现有的临床知识可以转化为可操作的试验设计建议。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: RECITE is a framework that automatically mines clinical trial protocol amendments to learn and propose evidence-based revisions of eligibility criteria, building a large dataset and benchmarking LLMs under retrieval-augmented and context-limited settings; it also uses agentic literature search to link published evidence to trial-design changes.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: RECITE 是一个自动化框架，从临床试验方案修正文档中挖掘并生成基于证据的入排标准修订建议，构建了大型数据集，并在多种LLM配置下进行评测，同时利用智能体文献检索将已发表证据与试验设计变更相关联。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41368v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Russell Ro, Reza Abbasi-Asl</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.15000000000000002, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">MATS: A Multi-Agent Framework for Controllable and Reflective Tumor Synthesis</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Synthesizing realistic tumors on medical images helps address data scarcity for clinical AI. Existing diffusion-based methods, however, lack fine-grained attribute-level controllability, closed-loop quality verification, and awareness of which morphological patterns are underrepresented in the target distribution. We present MATS, a multi-agent framework for text-controllable, cross-organ tumor synthesis. Given a target disease, MATS first profiles its morphological distribution over a fine-grained attribute space covering tumor geometry and appearance, and constructs a generation plan that amplifies underrepresented subtypes while keeping common ones dominant. It then localizes the target organ, proposes anatomically valid placement, and executes two-stage diffusion to produce the tumor mask and render texture, each conditioned on the corresponding attributes. A closed-loop reflective mechanism verifies attribute alignment at three checkpoints throughout synthesis and provides targeted feedback to guide re-generation when misalignment is detected. Trained exclusively on a single-source pancreatic neuroendocrine tumor dataset, MATS consistently improves downstream segmentation both in-domain and across LiTS, KiTS, and MSD-Pancreas benchmarks, whereas most prior generative augmentation methods fall below real-only training.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 合成逼真的肿瘤医学图像有助于缓解临床AI的数据稀缺问题。然而，现有的基于扩散的方法缺乏细粒度的属性级可控性、闭环质量验证，并且无法感知目标分布中哪些形态模式代表性不足。我们提出MATS，一个用于文本可控、跨器官肿瘤合成的多智能体框架。针对目标疾病，MATS首先在涵盖肿瘤几何形态与外观的细粒度属性空间中刻画其形态分布，并构建生成计划：增强代表性不足的亚型，同时保持常见亚型的主导地位。随后，它定位目标器官，提出解剖学上合理的放置位置，并执行两阶段扩散以生成肿瘤掩膜和渲染纹理，每一步分别以相应属性为条件。闭环反思机制在合成过程中的三个检查点验证属性对齐，并在检测到未对齐时提供针对性反馈以引导重新生成。仅在单一来源的胰腺神经内分泌肿瘤数据集上训练，MATS在域内以及LiTS、KiTS和MSD-Pancreas基准上均持续提升下游分割性能，而大多数先前的生成式增强方法的效果均不如仅使用真实数据的训练。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: MATS is a multi-agent framework for text-controllable, cross-organ tumor synthesis that profiles morphological distributions, amplifies underrepresented tumor subtypes, and uses two-stage diffusion with closed-loop reflective verification to improve downstream segmentation, even when trained only on a single pancreatic tumor dataset.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: MATS 是一个面向文本可控、跨器官肿瘤合成的多智能体框架：它对肿瘤形态分布进行分析、增强少见的亚型，并通过两阶段扩散生成与闭环反思校验，在仅使用单一胰腺肿瘤数据集训练的情况下，仍能提升多个下游分割任务性能。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7.5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41159v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Zhongnan Shi, Keyang Zhou, Siyi Li, Qichao Ying, Xinchen Ma, Shuyi Gong, Wei Tang, Sheng Li, Zhenxing Qian</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.2, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Can Personal Requirements Become Supervision for Planning?</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Managing multiple chronic conditions through diet requires satisfying disease- and medication-specific requirements jointly across meals and days while preserving established eating habits. These requirements are public in clinical guidelines and drug labels, yet turning them into a feasible plan for one person remains difficult for language-model agents. In our dietitian-approved weekly planning evaluation built from NHANES, thirteen models, from medically fine-tuned 8B models to GPT-6.1 Sol, pass fewer than 3% of complete plans through direct generation. Explicit rules, higher reasoning effort, or model-directed tools leave GPT-6.1 Sol at no more than 8%. We present Noura, which pairs LLM planning with executable personal specifications instantiated from public clinical guidance and individual health and dietary profiles. During planning, the specification grounds foods, optimizes portions, checks the complete multi-day plan, and guides revision. Our key insight is that a specification that rejects a plan can also determine what to learn from it. Noura turns executed plans and contextually credited revisions into supervision for compact models, recovering targets even from trajectories that never achieve complete success. The same specification supplies supervised targets, preferences, and rewards for post-training. On 4,993 held-out participants, Noura-SFT raises Qwen3-14B's complete-plan pass rate from 24.0% to 72.5% within the same execution loop, cuts rule violations by 97.5% with no observed critical failures, and improves dietary quality. The locally hosted 14B planner incurs fewer rule violations than its GPT-6 Luna teacher. A matched comparison shows that executed targets reduce rule violations by 41% over model-written proposals. Across four Qwen, Phi, and Llama backbones, self-training alone reduces rule violations by 41-61% on a 1,249-person population subset.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 管理多种慢性疾病的饮食，需要同时满足跨餐食和跨天数的疾病特异性及药物特异性要求，同时保持既有的饮食习惯。这些要求公开于临床指南和药品标签中，但对于语言模型智能体而言，将其转化为个人可行的计划仍然困难。在我们基于NHANES构建的、经营养师批准的周计划评估中，从医学微调的8B模型到GPT-6.1 Sol在内的十三种模型，通过直接生成方式通过完整计划的比例不足3%。即使加入显式规则、更高推理强度或模型导向工具，GPT-6.1 Sol的通过率也不超过8%。我们提出Noura，它将LLM规划与可执行的个人规范相结合，这些规范从公开临床指南及个人健康和饮食档案中实例化。在规划过程中，该规范对食物进行约束、优化份量、检查完整的多日计划，并引导修订。我们的关键洞见是：一个拒绝计划的规范也能决定从中学习什么。Noura将已执行的计划和情境化归因的修订转化为紧凑模型的监督信号，即使从从未完全成功的轨迹中也能恢复目标。同一规范为后训练提供监督目标、偏好和奖励。在4,993名留出参与者上，Noura-SFT将Qwen3-14B在相同执行循环内的完整计划通过率从24.0%提升至72.5%，规则违规减少97.5%，且未观察到严重失败，并改善了饮食质量。本地托管的14B规划器比其教师模型GPT-6 Luna产生的规则违规更少。一项匹配比较显示，与模型自行编写的方案相比，执行目标将规则违规减少41%。在四个Qwen、Phi和Llama骨干模型上，仅靠自我训练就在1,249人的人群子集中将规则违规减少了41-61%。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: Introduces Noura, an LLM planning system for multi-condition diet planning that instantiates public clinical guidelines and personal health profiles into an executable specification. The specification is used both to check/reject plans and to generate supervision for post-training compact models, dramatically improving plan pass rates and reducing rule violations.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 提出Noura，一个面向多种慢性病饮食规划的LLM规划系统，将公开临床指南和个人健康档案实例化为可执行规范；该规范既用于检查/拒绝计划，也用于为小型模型生成训练监督信号，显著提高计划通过率并减少违规。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.40992v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Junwei Wu, Runze Yan, Yuzhang Xie, Hanqi Luo, Ziwei Dong, Jiaying Lu, Xiao Hu, Carl Yang</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.25, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">A prospective randomized study of patient-centered AI for clinical visit preparation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Patients often arrive at brief, time-constrained clinical visits unsure of what to expect or ask, and millions of adults now turn to general-purpose AI chatbots to prepare beforehand. Yet whether conversational AI improves visit readiness remains unclear. We designed a large language model (LLM)-based visit preparation agent to guide patients before an appointment by gathering clinical context, setting visit expectations, providing relevant health information, building a prioritized list of questions for their clinician, and generating a summary. In a prospective consented randomized study in the Google Health app, 802 U.S. adults held 866 health-related conversations with the visit preparation agent (standard or concise variant) or a minimally prompted control chatbot built on the same LLM. The visit preparation agent significantly outperformed the control across blinded clinician evaluations and patient self-reports. In clinician reviews of completed sessions (n = 272), the agent achieved a 16.6% higher rate of comprehensive preparation (67.2% vs. 50.6%; P < 0.05) and an 8.5% higher rate of alignment with patients' health context (98.9% vs. 90.4%; P < 0.01), while maintaining high medical safety and appropriateness across all study arms. Patient post-surveys (n = 460) showed 16.8% higher visit preparedness (73.8% vs. 57.0%; P < 0.01), 14.3% higher confidence in knowing what to ask (81.4% vs. 67.1%; P < 0.01), and 12.0% higher overall satisfaction (74.0% vs. 62.0%; P < 0.05). Clinician and participant metrics were not significantly correlated, indicating that expert review and patient self-assessment capture complementary dimensions of patient-facing AI. These findings suggest that LLM chatbots can safely help patients prepare for clinical visits, with greater benefit when following a structured workflow, and motivate future studies on in-visit communication and clinical outcomes.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 患者往往在短暂、时间有限的临床就诊中抵达时，不确定该期待什么或该问什么，如今数百万成年人转向通用型AI聊天机器人提前做准备。然而，对话式AI能否提升就诊准备程度仍不清楚。我们设计了一种基于大语言模型（LLM）的就诊准备代理，在就诊前通过收集临床背景、设定就诊预期、提供相关健康信息、为患者构建一份向临床医生提问的优先级清单，并生成摘要来引导患者。在Google健康应用中进行的一项前瞻性、知情同意的随机研究中，802名美国成年人与该就诊准备代理（标准版或精简版）或基于同一LLM构建的、仅进行最小化提示的对照聊天机器人进行了866次健康相关对话。在盲法临床医生评估和患者自我报告中，该就诊准备代理均显著优于对照组。在对已完成会话的临床医生审查中（n = 272），该代理的全面准备率达到67.2%，比对照组的50.6%高出16.6个百分点（P < 0.05）；与患者健康背景的匹配率达到98.9%，比对照组的90.4%高出8.5个百分点（P < 0.01），同时在所有研究组中均保持了较高的医疗安全性和适当性。患者事后调查（n = 460）显示，就诊准备程度为73.8%，比对照组的57.0%高出16.8个百分点（P < 0.01）；知道该问什么的信心为81.4%，比对照组的67.1%高出14.3个百分点（P < 0.01）；总体满意度为74.0%，比对照组的62.0%高出12.0个百分点（P < 0.05）。临床医生评价与参与者指标之间无显著相关性，表明专家审查和患者自我评估捕捉了面向患者的AI的不同维度。这些发现表明，LLM聊天机器人可以安全地帮助患者为临床就诊做准备，且在遵循结构化工作流程时获益更大，并为未来关于就诊中沟通和临床结局的研究提供了动机。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: A randomized study in the Google Health app tested an LLM-based visit preparation agent against a control chatbot; the structured agent improved clinician-rated comprehensive preparation and context alignment, as well as patient-reported preparedness, confidence, and satisfaction.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 一项在 Google Health 应用中开展的随机研究评估了基于 LLM 的就诊准备智能体；结构化智能体在临床医生盲评和患者自评中均优于对照，提升了就诊准备度、提问信心和满意度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-xs text-gray-500 ml-1">(9/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41437v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Xincheng Tan, Matthew Thompson, Xiang Ji, Angelica Willis, Will Vaughan, Roma Ruparel, Michael A. Sanchez, Sean Chang, Joseph Xu, Bhavna Daryani, Preeti Singh, Pinal Bavishi, Kejia Chen, Fan Zhang, Priya Gupta, Ernest Lim, Christina Chen, Bob Lou, Dimitrios Antos, Zach Wasson, Ray Luo, Fadi Yousif, Florence Thng, Mark Malhotra, Joseph Breda, Daniel McDuff, Kavi Goel, Katherine Chou, Dale R. Webster, Avinatan Hassidim, Yossi Matias, Po-Hsuan Cameron Chen, Yun Liu, Mike Schaekermann, Quang Duong, Jackie M. Barr</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.30000000000000004, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">Suspended-Fabric Robotic Manipulation Surfaces: Modelling, Design Space, and Multimodular Extensio</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> Robotic Manipulation Surfaces (RMS) reposition objects by deforming the surface on which they rest. A recent class of RMS suspends a continuous fabric sheet from a sparse grid of vertical linear actuators lowering the actuator density of such surfaces but how to design such surfaces so that objects can be controlled everywhere on it, and how to extend it beyond a single module so that objects can pass between modules and achieve parallel, remain open. This paper presents a separable catenary model of the suspended sheet that is fast to compute and provides both the surface shape for given actuator heights and the actuator heights for a desired local slope. The closed form inverse lets a simple PID controller position objects on the sheet, and the model relates fabric length, module span and actuator stroke to the reachable workspace, yielding a minimum fabric length bound and design charts for these surfaces. The approach is then extended to a multimodular platform in which neighbouring modules share actuators. On a $2 \times 2$ prototype, we demonstrate that centimetre-scale objects are transferred between modules and positioned within 0.03 m over a $1 m^2$ workspace with only nine actuators, enabling multi-object manipulation and opening the way to parallel manipulation.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 机器人操作表面（RMS）通过使物体所依靠的表面变形来重新定位物体。近期一类RMS将连续织物片悬挂在稀疏的垂直线性执行器网格上，降低了此类表面的执行器密度，但如何设计此类表面以使物体能在其上任意位置受控，以及如何将其扩展到单模块之外以使物体能在模块间传递并实现并行操作，仍是未解问题。本文提出一种可分离的悬链线模型，该模型计算快速，既能根据给定执行器高度给出表面形状，也能根据期望的局部斜率给出执行器高度。闭式逆模型使简单的PID控制器能够在织物片上定位物体，同时该模型将织物长度、模块跨度和执行器行程与可达工作空间相关联，为此类表面提供了最小织物长度界和设计图表。该方法随后扩展到多模块平台，其中相邻模块共享执行器。在一个\(2 \times 2\)原型上，我们演示了厘米级物体在模块间转移，并在仅使用九个执行器的情况下，于\(1 m^2\)工作空间内实现0.03米内的定位，从而支持多物体操作，为并行操作开辟了道路。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: The paper models suspended-fabric robotic manipulation surfaces using a separable catenary model with closed-form inverse kinematics, enabling PID object positioning and design charts. It extends the surface to a multimodular platform with shared actuators, demonstrating object transfer and positioning within 0.03 m over 1 m² using nine actuators on a 2×2 prototype.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: 本文提出悬吊织物机器人操作表面的可分离悬链线模型，包含闭式逆运动学，支持PID物体定位与设计空间分析。进一步扩展为共享执行器的多模块平台，2×2原型仅用9个执行器在1平方米工作空间内实现跨模块物体传输与0.03米定位精度。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(8/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41982v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Pratik Ingle, Jørn Lambertsen, Kasper Støy, Andres Faiña</p>
+            
+        </motion.div>
+        
+        <motion.div
+            initial="{ opacity: 0, y: 50, scale: 0.9 }"
+            whileInView="{ opacity: 1, y: 0, scale: 1 }"
+            viewport="{ once: true, amount: 0.2 }" /* Trigger when 20% is visible */
+            transition="{ duration: 0.5, delay: 0.35000000000000003, ease: 'easeOut' }"  
+            class="bento-item"
+            data-motion-element
+        >
+            <h2 class="paper-title">PsyInterviewee: Informational Invariance and Relational Adaptivity in Mental Health Interview Simulation</h2>
+            <p class="paper-summary"><strong>Abstract (English):</strong> LLM-based simulated interviewees support interviewer training and the evaluation of mental health interviewing systems. Existing studies have primarily focused on improving human-likeness through richer patient profiles and behavioral modeling. However, human-likeness alone does not establish their reliability. Reliable simulation requires preserving profile-grounded clinical facts (informational invariance) while adapting disclosure and interaction behavior to the interview (relational adaptivity). To this end, we introduce PsyInterviewee, which separates a protected truth channel from a dynamic interaction channel and verifies generated clinical claims against the profile. Specifically, asymmetric write permissions allow dialogue context to update disclosure and behavioral states without authorizing new clinical facts; these states guide what profile-supported information is revealed and how it is expressed. In an automated evaluation of interactions between LLM-based interviewers and interviewees, PsyInterviewee achieves higher scores than four representative baselines on most metrics across both axes, as assessed by two LLM judges. Ablations suggest that the two channels contribute to clinical grounding and response modulation, respectively.</p>
+            
+            <p class="paper-summary" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(226, 232, 240, 0.5);"><strong>摘要（中文）:</strong> 基于大语言模型的模拟面试者能够支持面试官培训以及心理健康面试系统的评估。现有研究主要侧重于通过更丰富的患者档案和行为建模来提升拟人化程度。然而，仅凭拟人化并不能确立其可靠性。可靠的模拟要求在根据面试调整信息披露和互动行为（关系适应性）的同时，保持基于档案的临床事实（信息不变性）。为此，我们提出了PsyInterviewee，它将受保护的真实信息通道与动态互动通道相分离，并对照档案验证生成的临床陈述。具体而言，不对称写入权限允许对话上下文更新披露和行为状态，而不会授权新的临床事实；这些状态指导揭示哪些档案支持的信息以及如何表达这些信息。在基于大语言模型的面试者与面试者之间互动的自动化评估中，PsyInterviewee在由两个LLM评判的大多数指标上均高于四个代表性基线。消融研究表明，这两个通道分别有助于临床依据和反应调节。</p>
+            
+            
+            <p class="paper-tldr"><strong>TLDR</strong>: PsyInterviewee is an LLM-based simulated mental health patient that separates a protected truth channel from a dynamic interaction channel to preserve profile-grounded clinical facts while adapting disclosure and behavior during interviews, improving reliability beyond human-likeness.</p>
+            
+            
+            <p class="paper-tldr"><strong>简要说明</strong>: PsyInterviewee 是一种基于大语言模型的心理健康访谈模拟病人，通过分离受保护的事实通道与动态交互通道，在保持档案临床事实一致性的同时调整访谈中的披露与行为，从而提升模拟的可靠性。</p>
+            
+
+            
+            
+            <div class="paper-sub-ratings" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5px; font-size: 0.8em;">
+                
+                <div class="rating-item">
+                    <span class="rating-label">Relevance:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(4/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Novelty:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Clarity:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(7/10)</span>
+                </div>
+                
+                
+                <div class="rating-item">
+                    <span class="rating-label">Potential Impact:</span>
+                    
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                    <span class="text-xs text-gray-500 ml-1">(6/10)</span>
+                </div>
+                
+            </div>
+            
+            
+
+            
+            <div class="paper-rating">
+                <span class="rating-label" style="color: #000; font-weight: bold;">Overall:</span>
+                
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star"></i>
+                    
+                
+                    
+                        <i class="fas fa-star-half-alt"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                    
+                        <i class="far fa-star"></i>
+                    
+                
+                <span class="text-xs text-gray-500 ml-1">(5/10)</span>
+            </div>
+            
+
+            <a href="http://arxiv.org/abs/2610.41289v1" target="_blank" class="paper-link">
+                <i class="fas fa-file-pdf mr-1"></i> Read Paper (PDF)
+            </a>
+            
+            <p class="paper-authors">Authors: Jiawei Zhang, Huachuan Qiu, Ruocheng Guo, Zijun Shi</p>
+            
+        </motion.div>
+        
+    </div>
+
+    <footer class="footer">
+        Generated on 2026-11-02 09:18:26 UTC. Powered by <a href="https://github.com/scpsyl" target="_blank">scpsyl</a>.
+    </footer>
+
+</body>
+</html>
