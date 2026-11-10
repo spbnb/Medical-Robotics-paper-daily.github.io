@@ -1,0 +1,197 @@
+[
+    {
+        "title": "SurgWorld: Learning Surgical Representations Beyond Observation via Latent Prediction",
+        "summary": "Surgical procedures are inherently partially observable, requiring surgeons to continuously infer evolving anatomical dynamics and future surgical states beyond the current observation. However, existing self-supervised learning methods primarily learn from observed surgical videos through masked reconstruction or predicting representations within the camera's current field of view, lacking the capability to explicitly model the out-of-sight surgical dynamics. Inspired by latent predictive world models, we introduce SurgWorld, a video-native, self-supervised framework for surgical representation learning, which treats a specified spatial or temporal shift as a pseudo-action and learns to predict the target latent representation from a partial observation. Specifically, we propose Out-of-Sight Dynamics Modeling (OSDM) as the pretraining objective for predicting representations conditioned on relative spatio-temporal shifts. We further regularize the learned latent dynamics from OSDM with a Geometric Visual Similarity (GVS) objective by aligning patch-level relational structures between predicted and target representations, preserving spatial geometry and local visual coherence for dense perception. These two objectives are integrated through an agglomerative training framework that consolidates complementary supervisory signals from multiple teachers to learn a unified latent representation of surgical dynamics and visual geometry. Extensive transfer learning experiments on 17 surgical benchmarks show that SurgWorld consistently outperforms existing vision foundation models across surgical workflow recognition, fine-grained action understanding, and dense visual perception. We further conduct tailored qualitative and quantitative analyses, demonstrating that SurgWorld effectively captures surgical dynamics beyond the directly observed context through latent prediction.",
+        "url": "http://arxiv.org/abs/2611.11140v1",
+        "published_date": "2026-11-08T05:15:27+00:00",
+        "updated_date": "2026-11-08T05:15:27+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Jingkun Yue",
+            "Pengxiang Wang",
+            "Siqi Zhang",
+            "Zinan Jia",
+            "Yiyao Zhang",
+            "Huihuan Xu",
+            "Yichang Hao",
+            "Xiaohong Liu",
+            "Zongbo Han",
+            "Guangyu Wang"
+        ],
+        "tldr": "SurgWorld is a self-supervised surgical video representation learning framework that predicts latent states under spatial or temporal shifts, explicitly modeling out-of-sight surgical dynamics and preserving geometric visual coherence. It outperforms existing vision foundation models on 17 surgical benchmarks across workflow recognition, action understanding, and dense perception.",
+        "tldr_zh": "SurgWorld 是一种面向手术视频的自监督表示学习框架，通过预测空间或时间偏移下的潜在状态，显式建模视野之外的手术动态，并保持几何视觉一致性。在17个手术基准上，它在工作流识别、细粒度动作理解和密集感知任务上超越了现有视觉基础模型。",
+        "relevance_score": 8,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "外科手术本质上具有部分可观测性，要求外科医生在持续推断不断演变的解剖动力学以及超出当前观测范围的未来手术状态。然而，现有的自监督学习方法主要通过掩码重建或在摄像机当前视野内预测表示来从观测到的手术视频中学习，缺乏显式建模视野外手术动态的能力。受潜在预测世界模型的启发，我们提出了SurgWorld，一个面向视频的原生自监督手术表示学习框架，它将特定的空间或时间偏移视为伪动作，并从部分观测中学习预测目标潜在表示。具体而言，我们提出视野外动态建模（OSDM）作为预训练目标，用于预测以相对时空偏移为条件的表示。我们进一步通过几何视觉相似性（GVS）目标对OSDM学习到的潜在动态进行正则化，通过对齐预测表示与目标表示之间补丁级的关系结构，保留空间几何和局部视觉一致性，以支持密集感知。这两个目标通过一个聚合训练框架整合，该框架融合来自多个教师的互补监督信号，以学习手术动态与视觉几何的统一潜在表示。在17个手术基准上的广泛迁移学习实验表明，SurgWorld在手术工作流识别、细粒度动作理解和密集视觉感知方面 consistently 优于现有视觉基础模型。我们进一步进行了针对性的定性和定量分析，证明SurgWorld通过潜在预测有效捕获了直接观测情境之外的手术动态。"
+    },
+    {
+        "title": "Remembering to Reason: Structured Memory for Scene and Workflow Understanding in Robot-Assisted Surgery",
+        "summary": "Surgical video understanding is an important foundation for intelligent assistance in robot-assisted surgery. Similar surgical views can reflect different actions or procedural stages. Interpreting these views requires access to earlier observations, yet frame-centric prompting leaves this history unavailable. We introduce MemSurg, a framework that remembers surgical observations before reasoning over them. Its structured memory graph stores timestamped entity categories, locations, motion cues, and interaction summaries. Chronological links preserve recent context, while entity-associated links connect recurring observations across the procedure. Task-adaptive retrieval then supplies evidence-grounded prompts for scene and workflow reasoning, supporting both frozen inference and memory-conditioned supervised fine-tuning. Evaluation on robot-assisted prostatectomy and two complementary surgical benchmarks shows a 10.43-percentage-point gain over SurgRAW with GPT-4o. Memory conditioning adds 6.52 points under matched Qwen3-VL-8B fine-tuning, and an inference-time plug-in adds 7.04 points to EndoChat. These results support structured memory as a reusable source of procedural evidence for surgical video understanding. Our code will be publicly released.",
+        "url": "http://arxiv.org/abs/2611.10917v1",
+        "published_date": "2026-11-07T19:13:21+00:00",
+        "updated_date": "2026-11-07T19:13:21+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Zhiran Zhang",
+            "Hu Wang",
+            "Yichen Wu",
+            "Yutong Xie"
+        ],
+        "tldr": "MemSurg introduces a structured memory graph for robot-assisted surgical video understanding, storing timestamped entities, locations, motion cues, and interaction summaries to support evidence-grounded scene and workflow reasoning. It consistently improves performance over strong baselines, including GPT-4o-based SurgRAW and fine-tuned Qwen3-VL-8B.",
+        "tldr_zh": "MemSurg 提出了一种用于机器人辅助手术视频理解的结构化记忆图，存储带时间戳的实体、位置、运动线索和交互摘要，以支持基于证据的场景与手术流程推理。该方法在多个基准上持续优于现有强基线，包括基于GPT-4o的SurgRAW和微调后的Qwen3-VL-8B。",
+        "relevance_score": 8,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 8,
+        "summary_zh": "摘要：手术视频理解是机器人辅助手术中智能辅助的重要基础。相似的手术视图可能反映不同的操作或手术阶段。解读这些视图需要访问更早的观察信息，然而以帧为中心的提示方式使这些历史信息无法获取。我们提出了MemSurg，一个在推理之前先记忆手术观察结果的框架。其结构化记忆图存储带时间戳的实体类别、位置、运动线索和交互摘要。时间顺序链接保留近期上下文，而实体关联链接连接手术过程中重复出现的观察结果。任务自适应检索随后提供基于证据的提示，用于场景和工作流推理，同时支持冻结推理和记忆条件化的监督微调。在机器人辅助前列腺切除术和两个互补的手术基准上的评估显示，相比采用GPT-4o的SurgRAW，性能提升了10.43个百分点。在匹配的Qwen3-VL-8B微调条件下，记忆条件化额外增加了6.52个百分点，而推理时插件为EndoChat增加了7.04个百分点。这些结果支持将结构化记忆作为手术视频理解中可复用的程序性证据来源。我们的代码将公开发布。"
+    },
+    {
+        "title": "DeepSoMo: Deformable Object Motion Estimation under Proprioceptive Partial Observability via Predictive Latent Dynamics",
+        "summary": "Estimating the motion of deformable bodies in soft robotics from proprioceptive sensing is challenging due to partial observability, as internal observations provide only indirect access to global motion, contact, and shape evolution. In such settings, instantaneous observations are insufficient, and accurate estimation requires temporally consistent latent representations. This paper studies deformable motion estimation under proprioceptive partial observability from a latent dynamics perspective. We argue that a key requirement for long-horizon estimation is latent temporal consistency, where latent states remain predictive of future observations. To this end, we present DeepSoMo, a learning-based framework that enforces predictive structure in latent dynamics through a self-supervised latent prediction constraint. We evaluate the approach in a canonical deformable dynamics setting using high-fidelity finite-element simulation as a controlled source of ground truth. Results demonstrate consistent improvements in trajectory estimation, orientation recovery, shape reconstruction, and contact inference over architecture-matched recurrent baselines.",
+        "url": "http://arxiv.org/abs/2611.11242v1",
+        "published_date": "2026-11-08T08:59:12+00:00",
+        "updated_date": "2026-11-08T08:59:12+00:00",
+        "categories": [
+            "cs.RO"
+        ],
+        "authors": [
+            "Hanwen Zhao",
+            "Weicheng Dai",
+            "Luoyao Chen",
+            "Chen Feng"
+        ],
+        "tldr": "DeepSoMo is a learning-based framework that estimates deformable body motion from partial proprioceptive observations by enforcing predictive latent dynamics, and demonstrates consistent improvements over recurrent baselines in high-fidelity finite-element simulations.",
+        "tldr_zh": "DeepSoMo 是一种基于学习的框架，通过强制学习具有预测性的潜在动态，在部分本体感觉观测下估计可变形体的运动，并在高保真有限元模拟中相较于循环基线持续改进。",
+        "relevance_score": 7,
+        "novelty_claim_score": 6,
+        "clarity_score": 8,
+        "potential_impact_score": 6,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：从本体感觉估计软体机器人中可变形体的运动具有挑战性，原因在于部分可观测性——内部观测仅能间接提供全局运动、接触和形状演化的信息。在此类场景中，瞬时的观测信息不足，准确估计需要时间上一致的潜在表示。本文从潜在动力学视角研究本体感觉部分可观测条件下的可变形运动估计。我们认为，长时程估计的一个关键要求是潜在时间一致性，即潜在状态能够持续预测未来的观测。为此，我们提出了DeepSoMo，一种基于学习的框架，通过自监督潜在预测约束在潜在动力学中强制预测结构。我们在一个典型的可变形动力学设置中评估该方法，使用高保真有限元模拟作为受控的真值来源。结果表明，在与架构匹配的循环基线相比，该方法在轨迹估计、姿态恢复、形状重建和接触推断方面均取得了一致的改进。"
+    },
+    {
+        "title": "How to \"train\" a surgeon? Benchmarking generalist agents in surgical scene understanding",
+        "summary": "Evaluating general-purpose multimodal large language models (MLLMs) for surgical scene understanding remains limited due to scarce surgical data and fragmented evaluation protocols. We address these challenges through a two-stage evaluation framework for surgical scene understanding. In Stage I, we introduce SurgKnowBench, a diagnostic benchmark that harmonizes public surgical datasets across procedures and tasks and evaluates proprietary and open-source MLLMs to map the boundary of pretrained surgical competence. SurgKnowBench reveals that current models retain partial visual priors but remain weak on relational and procedural understanding and workflow assessment. Building on this failure frontier and motivated by the scaffolded nature of surgical training, we introduce SurgAgentGym, an agentic environment where general-purpose MLLM agents can use bounded knowledge search over SurgWiki and general-purpose visual grounding for surgical tasks. SurgAgentGym evaluates whether generalist agents can improve surgical understanding at inference time through tool-mediated evidence use, without additional surgical training. Our results show that agentic inference narrows the gap mainly for perception-heavy tasks, while fine-grained localization and expert-style assessment remain persistent bottlenecks. This opens a path toward future studies of agentic surgical understanding.",
+        "url": "http://arxiv.org/abs/2611.11437v1",
+        "published_date": "2026-11-08T15:00:44+00:00",
+        "updated_date": "2026-11-08T15:00:44+00:00",
+        "categories": [
+            "cs.CV",
+            "cs.AI"
+        ],
+        "authors": [
+            "Gengyuan Zhang",
+            "Xiao Han",
+            "Shijie Zhou",
+            "Abdullah Koukash",
+            "Jingpei Wu",
+            "Jindong Gu",
+            "Yuqicheng Zhu",
+            "Nassir Navab",
+            "Volker Tresp",
+            "Ghazal Ghazaei"
+        ],
+        "tldr": "This paper proposes a two-stage framework for evaluating and improving general-purpose multimodal large language models in surgical scene understanding: SurgKnowBench benchmarks existing MLLMs, and SurgAgentGym lets agents use external knowledge and visual grounding to improve performance, especially on perception-heavy tasks.",
+        "tldr_zh": "本文提出一个两阶段框架，用于评估和提升通用多模态大语言模型在外科场景理解中的能力：SurgKnowBench 对现有 MLLM 进行基准测试，SurgAgentGym 则让智能体通过外部知识检索和视觉基础工具在推理时改善表现，尤其在感知密集型任务上效果明显。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "摘要：\n由于手术数据稀缺且评估协议不统一，针对手术场景理解的通用多模态大语言模型（MLLMs）评估仍然十分有限。我们通过一个两阶段评估框架来应对这些挑战，用于手术场景理解。在第一阶段，我们引入了SurgKnowBench，这是一个诊断性基准，它统一了跨术式和任务的公开手术数据集，并评估了专有和开源MLLMs，以描绘预训练手术能力的边界。SurgKnowBench揭示，当前模型保留了部分视觉先验，但在关系理解、程序理解和工作流评估方面仍然薄弱。基于这一失败前沿，并受手术训练脚手架式特点的启发，我们提出了SurgAgentGym，这是一个智能体环境，其中通用MLLM智能体可以利用对SurgWiki的有界知识搜索以及面向手术任务的通用视觉定位能力。SurgAgentGym评估了通用型智能体是否能够在推理时通过工具介导的证据使用来提升手术理解，而无需额外的手术训练。我们的结果表明，智能体推理主要缩小了感知密集型任务上的差距，而细粒度定位和专家式评估仍然是持续的瓶颈。这为未来智能体手术理解的研究开辟了道路。"
+    },
+    {
+        "title": "AgentCT: A Vision-Language Agent for Universal CT Imaging",
+        "summary": "Computed tomography (CT) restoration methods often use a single network for low-dose CT (LDCT), sparse-view CT (SVCT), and metal artifact reduction (MAR), despite the distinct physics of these degradations. We propose AgentCT, a vision-language agent that identifies the degradation and routes images to task-specific restoration models. A LoRA-adapted Qwen3-VL-4B controller predicts degradation type and severity, selects a specialist, and reassesses the restored image. The LDCT specialist uses an image-domain diffusion model, whereas the SVCT and MAR specialists combine projection-domain correction, data consistency, differentiable filtered back-projection, and image refinement. We evaluated the controller and specialists separately on patient-disjoint Mayo 2020 abdominal CT data across three severity levels for each degradation. The controller achieved 95.7% accuracy for degradation type and 93.9% for severity, with a 100% JSON parse rate. Using ground-truth degradation labels for routing, AgentCT achieved an overall PSNR/SSIM of 46.18 dB/0.984, compared with 44.93 dB/0.976 for AMIR and 44.29 dB/0.979 for TAMP, and attained the highest PSNR in all nine settings. For SVCT, its dual-domain specialist achieved 46.04 dB with 4.2 million parameters, compared with 44.43 dB for single-task AMIR and 43.57 dB for all-in-one AMIR with 23.5 million parameters. These results support degradation-specific CT restoration with controller-based model selection; evaluation under automatic routing and on independent clinical data remains necessary. Code is available at https://github.com/hao1635/AgentCT.",
+        "url": "http://arxiv.org/abs/2611.11503v1",
+        "published_date": "2026-11-08T17:11:45+00:00",
+        "updated_date": "2026-11-08T17:11:45+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Zhihao Chen",
+            "Qi Gao",
+            "Chuang Niu",
+            "Qiegen Liu",
+            "Yi Zhang",
+            "Hongming Shan"
+        ],
+        "tldr": "AgentCT is a vision-language-agent framework for CT restoration that uses a LoRA-adapted VLM controller to identify degradation type and severity, route each case to task-specific LDCT/SVCT/MAR specialists, and reassess outputs, achieving higher PSNR/SSIM than all-in-one baselines on Mayo 2020 data.",
+        "tldr_zh": "AgentCT 是一个面向CT影像恢复的视觉语言智能体框架，通过LoRA微调的VLM控制器识别退化类型与严重程度，并将病例路由到专用的低剂量CT、稀疏视图CT和金属伪影消除模型；在Mayo 2020数据上取得较高路由准确率和优于统一模型的PSNR/SSIM。",
+        "relevance_score": 7,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 7,
+        "summary_zh": "计算机断层扫描（CT）恢复方法通常使用单一网络处理低剂量CT（LDCT）、稀疏视图CT（SVCT）和金属伪影消除（MAR），尽管这些退化的物理机制截然不同。我们提出AgentCT，一种视觉语言智能体，它识别退化类型并将图像路由到特定任务恢复模型。一个经LoRA适配的Qwen3-VL-4B控制器预测退化类型和严重程度，选择专家模型，并重新评估恢复后的图像。LDCT专家使用图像域扩散模型，而SVCT和MAR专家结合投影域校正、数据一致性、可微滤波反投影和图像细化。我们在患者独立的Mayo 2020腹部CT数据上分别评估了控制器和专家模型，涵盖每种退化的三个严重程度级别。控制器在退化类型上的准确率为95.7%，在严重程度上的准确率为93.9%，JSON解析成功率为100%。使用真实退化标签进行路由时，AgentCT的整体PSNR/SSIM达到46.18 dB/0.984，而AMIR为44.93 dB/0.976，TAMP为44.29 dB/0.979，并在全部九种设置中取得最高PSNR。对于SVCT，其双域专家以420万参数达到46.04 dB，而单任务AMIR为44.43 dB，全合一AMIR为43.57 dB（参数2350万）。这些结果支持基于控制器模型选择的退化特定CT恢复；在自动路由和独立临床数据上的评估仍有必要。代码可在https://github.com/hao1635/AgentCT获取。"
+    },
+    {
+        "title": "Task-adaptive anonymisation enables privacy-preserving sharing of clinical speech data",
+        "summary": "Clinical speech is increasingly used for disease screening and clinical assessment, but directly distributing speech recordings poses privacy risks because they contain both speaker-identifying voiceprints and sensitive spoken content. Existing speech anonymisation approaches are primarily developed for general speech applications or task-specific clinical speech and overlook that different clinical tasks rely on distinct speech characteristics, necessitating task-adaptive anonymisation strategies to protect patient privacy while preserving clinical utility. Here we introduce CASA, a clinically adaptive speech anonymisation agent that transforms anonymisation from a fixed processing procedure into a task-guided optimisation process, dynamically tailoring voiceprint and content anonymisation to task-specific privacy and clinical utility requirements. Through recursive self-improvement (RSI), CASA iteratively evaluates and refines anonymisation strategies against task-specific privacy and clinical utility requirements, while learning from these outcomes to guide more efficient planning in subsequent clinical tasks. CASA is validated across 14 clinical tasks encompassing five languages, diverse elicitation paradigms, and mental health, cognitive and voice disorders. CASA preserved disease-related classification performance while meeting speaker-anonymisation requirements across all clinical tasks, versus only 8/14 for the strongest fixed method. Assessments of resistance to speaker re-identification by external attackers and identification and redaction of sensitive personal information in clinical speech further demonstrated CASA's dual protection of speaker identity and sensitive spoken content. Clinical expert assessments further supported the preservation of clinically relevant information and the acceptability of anonymised speech for controlled research sharing.",
+        "url": "http://arxiv.org/abs/2611.11273v1",
+        "published_date": "2026-11-08T09:57:19+00:00",
+        "updated_date": "2026-11-08T09:57:19+00:00",
+        "categories": [
+            "eess.AS",
+            "cs.CL"
+        ],
+        "authors": [
+            "Ziyun Cui",
+            "Haoyu Niu",
+            "Wen Wu",
+            "Hao Sun",
+            "Sihan Zhang",
+            "Chang Lei",
+            "Yun Zhang",
+            "Chunyun Sun",
+            "Yang Luo",
+            "Liangliang Cao",
+            "Ji Wu",
+            "Runsen Chen",
+            "Lian Zhou",
+            "Yongsheng Tong",
+            "Chao Zhang"
+        ],
+        "tldr": "This paper introduces CASA, a clinically adaptive speech anonymisation agent that uses task-guided optimisation and recursive self-improvement to dynamically balance speaker privacy and clinical utility across diverse clinical speech tasks, outperforming fixed anonymisation methods.",
+        "tldr_zh": "本文提出了CASA，一种临床自适应语音匿名化智能体，通过任务引导优化和递归自我改进，在不同临床语音任务中动态平衡说话者隐私与临床效用，并优于固定匿名化方法。",
+        "relevance_score": 6,
+        "novelty_claim_score": 8,
+        "clarity_score": 8,
+        "potential_impact_score": 8,
+        "overall_priority_score": 7,
+        "summary_zh": "临床语音日益用于疾病筛查和临床评估，但直接分发语音记录存在隐私风险，因为其中既包含说话人身份特征的声纹，也包含敏感的口语内容。现有的语音匿名化方法主要针对通用语音应用或特定任务的临床语音开发，未能考虑到不同临床任务依赖不同的语音特征，因此需要任务自适应的匿名化策略，在保护患者隐私的同时保持临床实用性。本文提出了CASA，一种临床自适应语音匿名化智能体，它将匿名化从固定的处理流程转变为任务引导的优化过程，动态调整声纹和内容的匿名化，以满足特定任务的隐私和临床实用性要求。通过递归自我改进（RSI），CASA针对特定任务的隐私和临床实用性要求迭代评估并优化匿名化策略，同时从这些结果中学习，以指导后续临床任务中更高效的规划。CASA在涵盖五种语言、多种诱导范式以及心理健康、认知和语音障碍的14项临床任务中进行了验证。CASA在所有临床任务中保持了与疾病相关的分类性能，同时满足说话人匿名化要求，而最强的固定方法仅在14项任务中的8项上达标。对外部攻击者说话人重识别抵抗力的评估，以及对临床语音中敏感个人信息识别和删除的评估，进一步证明了CASA对说话人身份和敏感口语内容的双重保护。临床专家评估进一步支持了临床相关信息的保留以及匿名化语音用于受控研究分享的可接受性。"
+    },
+    {
+        "title": "Conditional Diffusion-Based Proxy Representation Recovery for BCVA Prediction with Missing SLO Modality",
+        "summary": "Preoperative prediction of postoperative best-corrected visual acuity (BCVA) can support prognosis assessment and individualized decision-making in cataract surgery. Multimodal learning can integrate preoperative optical coherence tomography (OCT) images, scanning laser ophthalmoscopy (SLO) images, and clinical text to characterize patient status. However, SLO images are often missing in real-world clinical data due to acquisition or data-management issues, resulting in incomplete multimodal inputs. To address this problem, this paper proposes a conditional diffusion-based method for SLO proxy representation recovery and fusion prediction. Instead of reconstructing raw SLO images, the proposed method formulates SLO missingness as proxy representation recovery in the latent feature space. Specifically, OCT image features and clinical text features are first fused to construct an OCT-text conditional representation, which guides the reverse denoising process of the diffusion model to estimate sample-specific SLO proxy representations. The recovered SLO proxy representation is then used as a substitute for the unavailable SLO modality and incorporated into the downstream multimodal fusion prediction network for postoperative BCVA prediction. Experiments were conducted on 2,141 preoperative multimodal cataract samples, with an SLO missing rate of 58.80%. The proposed method achieved an accuracy of 0.9714 under the criterion of an absolute prediction error within 0.1 LogMAR and a mean absolute error of 0.0423, outperforming representative postoperative visual acuity prediction and missing-modality learning methods. These results indicate that representation-level proxy recovery can alleviate the impact of SLO modality missingness on postoperative BCVA prediction.",
+        "url": "http://arxiv.org/abs/2611.11326v1",
+        "published_date": "2026-11-08T12:00:56+00:00",
+        "updated_date": "2026-11-08T12:00:56+00:00",
+        "categories": [
+            "cs.CV"
+        ],
+        "authors": [
+            "Chuyi He",
+            "Hua Zou",
+            "Fei Luo",
+            "Zixian Yang"
+        ],
+        "tldr": "This paper proposes a conditional diffusion-based method that recovers missing SLO modality in the latent feature space as proxy representations, guided by fused OCT and clinical text features, for postoperative BCVA prediction in cataract surgery. Experiments on 2,141 multimodal samples with a 58.80% SLO missing rate show improved prediction accuracy over existing missing-modality methods.",
+        "tldr_zh": "本文提出一种基于条件扩散的方法，在潜在特征空间中恢复缺失的SLO模态代理表示，并由OCT图像与临床文本特征联合引导，用于白内障术后BCVA预测。在2141例样本（SLO缺失率58.80%）上取得了优于已有缺失模态学习方法的预测精度。",
+        "relevance_score": 6,
+        "novelty_claim_score": 7,
+        "clarity_score": 8,
+        "potential_impact_score": 7,
+        "overall_priority_score": 6.5,
+        "summary_zh": "术前预测术后最佳矫正视力（BCVA）可支持白内障手术中的预后评估和个体化决策。多模态学习可整合术前光学相干断层扫描（OCT）图像、扫描激光检眼镜（SLO）图像及临床文本，以刻画患者状态。然而，在真实临床数据中，由于采集或数据管理问题，SLO图像常缺失，导致多模态输入不完整。为解决这一问题，本文提出一种基于条件扩散的SLO代理表征恢复与融合预测方法。该方法并非重建原始SLO图像，而是将SLO缺失问题表述为潜在特征空间中的代理表征恢复。具体而言，首先融合OCT图像特征与临床文本特征，构建OCT-文本条件表征，用以引导扩散模型的反向去噪过程，估计样本特定的SLO代理表征。随后，将恢复的SLO代理表征作为缺失SLO模态的替代，纳入下游多模态融合预测网络，实现术后BCVA预测。实验在2，141例术前多模态白内障样本上进行，SLO缺失率为58.80%。在绝对预测误差0.1 LogMAR以内的判定标准下，该方法达到0.9714的准确率，平均绝对误差为0.0423，优于具有代表性的术后视力预测方法及缺失模态学习方法。这些结果表明，表征级代理恢复可减轻SLO模态缺失对术后BCVA预测的影响。"
+    }
+]
